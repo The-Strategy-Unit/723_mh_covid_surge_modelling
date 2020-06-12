@@ -20,13 +20,7 @@ library(tidyverse, quietly = TRUE)
 ```r
 library(deSolve)
 library(patchwork)
-```
 
-```
-## Error in library(patchwork): there is no package called 'patchwork'
-```
-
-```r
 source("half_life_factor.R")
 source("run_model.R")
 
