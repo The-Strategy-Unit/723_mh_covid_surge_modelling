@@ -22,7 +22,7 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     - uses: r-lib/actions/setup-r@master
-      
+         
     - name: Cache R packages
       if: runner.os != 'Windows'
       uses: actions/cache@v1
@@ -33,6 +33,7 @@ jobs:
       
     - name: Install dependencies
       run: |
+        sudo apt-get install libxml2-utils
         Rscript -e 'install.packages(c("knitr", "tidyverse", "deSolve", "patchwork"))'
 
     - name: Generate Readme.md
