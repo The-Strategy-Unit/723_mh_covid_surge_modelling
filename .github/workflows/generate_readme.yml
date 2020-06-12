@@ -33,7 +33,7 @@ jobs:
       
     - name: Install dependencies
       run: |
-        sudo apt-get install libcurl
+        sudo apt-get install libcurl-openssl-dev
         Rscript -e 'install.packages(c("knitr", "tidyverse", "deSolve", "patchwork"))'
 
     - name: Generate Readme.md
