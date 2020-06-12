@@ -33,7 +33,7 @@ jobs:
       
     - name: Install dependencies
       run: |
-        Rscript -e 'install.packages(c("knitr", "tidyverse", "deSolve"))'
+        Rscript -e 'install.packages(c("knitr", "tidyverse", "deSolve", "patchwork"))'
 
     - name: Generate Readme.md
       run: |
