@@ -14,7 +14,20 @@ library(tidyverse, quietly = TRUE)
 ```
 
 ```
-## Error in library(tidyverse, quietly = TRUE): there is no package called 'tidyverse'
+## ── [1mAttaching packages[22m ─────────────────────────────────────── tidyverse 1.3.0 ──
+```
+
+```
+## [32m✔[39m [34mggplot2[39m 3.3.1     [32m✔[39m [34mpurrr  [39m 0.3.4
+## [32m✔[39m [34mtibble [39m 3.0.1     [32m✔[39m [34mdplyr  [39m 1.0.0
+## [32m✔[39m [34mtidyr  [39m 1.1.0     [32m✔[39m [34mstringr[39m 1.4.0
+## [32m✔[39m [34mreadr  [39m 1.3.1     [32m✔[39m [34mforcats[39m 0.5.0
+```
+
+```
+## ── [1mConflicts[22m ────────────────────────────────────────── tidyverse_conflicts() ──
+## [31m✖[39m [34mdplyr[39m::[32mfilter()[39m masks [34mstats[39m::filter()
+## [31m✖[39m [34mdplyr[39m::[32mlag()[39m    masks [34mstats[39m::lag()
 ```
 
 ```r
@@ -29,32 +42,13 @@ param_csv <- read_csv("sample_params.csv", col_types = "cccddddd") %>%
   unite(rowname, group:condition, sep = "_", na.rm = TRUE) %>%
   mutate_at("decay", ~half_life_factor(days, .x)) %>%
   select(-days)
-```
 
-```
-## Error in read_csv("sample_params.csv", col_types = "cccddddd") %>% unite(rowname, : could not find function "%>%"
-```
-
-```r
 params <- param_csv %>%
   select(pcnt:decay) %>%
   as.matrix() %>%
   t()
-```
-
-```
-## Error in param_csv %>% select(pcnt:decay) %>% as.matrix() %>% t(): could not find function "%>%"
-```
-
-```r
 colnames(params) <- param_csv$rowname
-```
 
-```
-## Error in eval(expr, envir, enclos): object 'param_csv' not found
-```
-
-```r
 # Simulated demand surges ----
 new_potential <- list(
   unemployed = approxfun(
@@ -71,18 +65,25 @@ new_potential <- list(
 
 # Run model ----
 o <- run_model(params, new_potential)
-```
 
-```
-## Error in run_model(params, new_potential): object 'params' not found
-```
-
-```r
 o
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'o' not found
+## [90m# A tibble: 4,869 x 6[39m
+##      time type        group      treatment    condition   value
+##     [3m[90m<dbl>[39m[23m [3m[90m<chr>[39m[23m       [3m[90m<chr>[39m[23m      [3m[90m<chr>[39m[23m        [3m[90m<chr>[39m[23m       [3m[90m<dbl>[39m[23m
+## [90m 1[39m 0      no-mh-needs [31mNA[39m         [31mNA[39m           [31mNA[39m              0
+## [90m 2[39m 0      at-risk     bereaved   [31mNA[39m           [31mNA[39m              0
+## [90m 3[39m 0      at-risk     unemployed [31mNA[39m           [31mNA[39m              0
+## [90m 4[39m 0      treatment   bereaved   cmht         bereavement     0
+## [90m 5[39m 0      treatment   unemployed cmht         insomnia        0
+## [90m 6[39m 0      treatment   unemployed cmht         stress          0
+## [90m 7[39m 0      treatment   unemployed iapt         anxiety         0
+## [90m 8[39m 0      treatment   unemployed iapt         depression      0
+## [90m 9[39m 0      treatment   unemployed psych-liason suicide         0
+## [90m10[39m 0.033[4m3[24m no-mh-needs [31mNA[39m         [31mNA[39m           [31mNA[39m              0
+## [90m# … with 4,859 more rows[39m
 ```
 
 
@@ -95,13 +96,7 @@ p1 <- o %>%
   labs(x = "Simulation Month",
        y = "# at Risk",
        colour = "")
-```
 
-```
-## Error in o %>% filter(type == "at-risk") %>% ggplot(aes(time, value, colour = group)): could not find function "%>%"
-```
-
-```r
 p2 <- o %>%
   filter(type == "treatment") %>%
   group_by(time, treatment) %>%
@@ -117,16 +112,8 @@ p2 <- o %>%
   labs(x = "Simulation Month",
        y = "# Appointments",
        colour = "")
-```
 
-```
-## Error in o %>% filter(type == "treatment") %>% group_by(time, treatment) %>% : could not find function "%>%"
-```
-
-```r
 p1 + p2 + plot_layout(ncol = 1)
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'p1' not found
-```
+![plot of chunk model_sample_output](figure/model_sample_output-1.png)
