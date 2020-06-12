@@ -38,3 +38,14 @@ jobs:
     - name: Generate Readme.md
       run: |
         Rscript -e 'knitr::knit("Readme.Rmd")'
+        
+    - name: Commit files
+      run: |
+        git config --local user.email "strategy.unit@nhs.net"
+        git config --local user.name "Strategy Unit"
+        git commit -m "update Readme.md" -a
+        
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GH_TOKEN }}
