@@ -17,26 +17,16 @@ source("half_life_factor.R")
 source("run_model.R")
 
 # Params ----
-params <- matrix(
-  # Unemployed
-  c(0.01, 0.10, 0.90, half_life_factor(4), # stress
-    0.02, 0.01, 0.80, half_life_factor(6), # insomnia
-    0.06, 0.04, 0.95, half_life_factor(3), # anxiety
-    0.03, 0.06, 0.80, half_life_factor(2), # depression
-    0.001, 0.9, 0.05, half_life_factor(1), # suicide
-    # Bereaved
-    0.01, 1.00, 1.00, half_life_factor(1, 0.9) # Bereavement
-  ),
-  nrow = 4,
-  dimnames = list(c("pcnt", "treat", "success", "decay"),
-                  # names should be of form group_treatment_condition
-                  c("unemployed_cmht_stress",
-                    "unemployed_cmht_insomnia",
-                    "unemployed_iapt_anxiety",
-                    "unemployed_iapt_depression",
-                    "unemployed_psych-liason_suicide",
-                    "bereaved_cmht_bereavement"))
-)
+param_csv <- read_csv("sample_params.csv", col_types = "cccddddd") %>%
+  unite(rowname, group:condition, sep = "_", na.rm = TRUE) %>%
+  mutate_at("decay", ~half_life_factor(days, .x)) %>%
+  select(-days)
+
+params <- param_csv %>%
+  select(pcnt:decay) %>%
+  as.matrix() %>%
+  t()
+colnames(params) <- param_csv$rowname
 
 # Simulated demand surges ----
 new_potential <- list(
