@@ -33,7 +33,7 @@ jobs:
       
     - name: Install dependencies
       run: |
-        sudo apt-get install libxml2-utils
+        sudo apt-get install libcurl
         Rscript -e 'install.packages(c("knitr", "tidyverse", "deSolve", "patchwork"))'
 
     - name: Generate Readme.md
