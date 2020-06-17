@@ -14,20 +14,22 @@ library(tidyverse, quietly = TRUE)
 ```
 
 ```
-## ── [1mAttaching packages[22m ─────────────────────────────────────── tidyverse 1.3.0 ──
+## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
 ```
 
 ```
-## [32m✔[39m [34mggplot2[39m 3.3.1     [32m✔[39m [34mpurrr  [39m 0.3.4
-## [32m✔[39m [34mtibble [39m 3.0.1     [32m✔[39m [34mdplyr  [39m 1.0.0
-## [32m✔[39m [34mtidyr  [39m 1.1.0     [32m✔[39m [34mstringr[39m 1.4.0
-## [32m✔[39m [34mreadr  [39m 1.3.1     [32m✔[39m [34mforcats[39m 0.5.0
+## v ggplot2 3.3.1     v purrr   0.3.4
+## v tibble  3.0.1     v dplyr   1.0.0
+## v tidyr   1.1.0     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.5.0
 ```
 
 ```
-## ── [1mConflicts[22m ────────────────────────────────────────── tidyverse_conflicts() ──
-## [31m✖[39m [34mdplyr[39m::[32mfilter()[39m masks [34mstats[39m::filter()
-## [31m✖[39m [34mdplyr[39m::[32mlag()[39m    masks [34mstats[39m::lag()
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter()  masks stats::filter()
+## x purrr::is_null() masks testthat::is_null()
+## x dplyr::lag()     masks stats::lag()
+## x dplyr::matches() masks tidyr::matches(), testthat::matches()
 ```
 
 ```r
@@ -70,20 +72,20 @@ o
 ```
 
 ```
-## [90m# A tibble: 4,869 x 6[39m
+## # A tibble: 4,869 x 6
 ##      time type        group      treatment    condition   value
-##     [3m[90m<dbl>[39m[23m [3m[90m<chr>[39m[23m       [3m[90m<chr>[39m[23m      [3m[90m<chr>[39m[23m        [3m[90m<chr>[39m[23m       [3m[90m<dbl>[39m[23m
-## [90m 1[39m 0      no-mh-needs [31mNA[39m         [31mNA[39m           [31mNA[39m              0
-## [90m 2[39m 0      at-risk     bereaved   [31mNA[39m           [31mNA[39m              0
-## [90m 3[39m 0      at-risk     unemployed [31mNA[39m           [31mNA[39m              0
-## [90m 4[39m 0      treatment   bereaved   cmht         bereavement     0
-## [90m 5[39m 0      treatment   unemployed cmht         insomnia        0
-## [90m 6[39m 0      treatment   unemployed cmht         stress          0
-## [90m 7[39m 0      treatment   unemployed iapt         anxiety         0
-## [90m 8[39m 0      treatment   unemployed iapt         depression      0
-## [90m 9[39m 0      treatment   unemployed psych-liason suicide         0
-## [90m10[39m 0.033[4m3[24m no-mh-needs [31mNA[39m         [31mNA[39m           [31mNA[39m              0
-## [90m# … with 4,859 more rows[39m
+##     <dbl> <chr>       <chr>      <chr>        <chr>       <dbl>
+##  1 0      no-mh-needs <NA>       <NA>         <NA>            0
+##  2 0      at-risk     bereaved   <NA>         <NA>            0
+##  3 0      at-risk     unemployed <NA>         <NA>            0
+##  4 0      treatment   bereaved   cmht         bereavement     0
+##  5 0      treatment   unemployed cmht         insomnia        0
+##  6 0      treatment   unemployed cmht         stress          0
+##  7 0      treatment   unemployed iapt         anxiety         0
+##  8 0      treatment   unemployed iapt         depression      0
+##  9 0      treatment   unemployed psych-liason suicide         0
+## 10 0.0333 no-mh-needs <NA>       <NA>         <NA>            0
+## # ... with 4,859 more rows
 ```
 
 
