@@ -15,6 +15,7 @@ shinyUI(
                      ),
                      tableOutput("contents"),
                      selectInput("sliders_select", label = "Group-Treatment-Cond. combination", choices = ""),
+                     "Idea here is to have the same sliders for each of the treatment groups, but the figures will change accordingly based on the selected group in the dropbox above and these will modify the parameters/graphs",
                      sliderInput("pcnt", "pcnt", min = 0, max = 1, value = 0.01),
                      sliderInput("cmht_appointments",
                                  "Average # CMHT appointments per person",
