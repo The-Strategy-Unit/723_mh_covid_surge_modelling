@@ -45,7 +45,11 @@ shinyServer(function(input, output) {
             geom_line() +
             labs(x = "Simulation Month",
                  y = "# at Risk",
-                 colour = "")
+                 colour = "") +
+            theme(axis.line = element_line(),
+                  axis.ticks = element_line(),
+                  panel.background = element_blank(),
+                  panel.grid = element_blank())
     })
 
     output$plot2 <- renderPlot({
@@ -63,7 +67,11 @@ shinyServer(function(input, output) {
             geom_line() +
             labs(x = "Simulation Month",
                  y = "# Appointments",
-                 colour = "")
+                 colour = "") +
+            theme(axis.line = element_line(),
+                  axis.ticks = element_line(),
+                  panel.background = element_blank(),
+                  panel.grid = element_blank())
     })
 
 })
