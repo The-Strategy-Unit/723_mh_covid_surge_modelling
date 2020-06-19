@@ -13,8 +13,7 @@ shinyServer(function(input, output, session) {
     })
 
   output$contents <- renderTable({
-    req(input$file1)
-    return(df())
+    if (isTruthy(input$file1)) return(df()) else return(read_csv("sample_params.csv", col_types = "cccddddd"))
   })
 
   ################################
@@ -45,7 +44,7 @@ shinyServer(function(input, output, session) {
   #############
 
   # Params ----
-  param_csv <- read_csv("./../sample_params.csv", col_types = "cccddddd") %>%
+  param_csv <- read_csv("sample_params.csv", col_types = "cccddddd") %>%
     unite(rowname, group:condition, sep = "_", na.rm = TRUE) %>%
     mutate_at("decay", ~half_life_factor(days, .x)) %>%
     select(-days)
