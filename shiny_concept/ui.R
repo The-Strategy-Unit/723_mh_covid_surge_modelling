@@ -14,9 +14,22 @@ shinyUI(
                                   ".csv")
                      ),
                      tableOutput("contents"),
-                     selectInput("sliders_select", label = "Group-Treatment-Cond. combination", choices = ""),
+                     selectInput(
+                       "sliders_select",
+                       label = "Group-Treatment-Cond. combination",
+                       choices = c(
+                         "unemployed_cmht_stress",
+                         "unemployed_cmht_insomnia",
+                         "unemployed_iapt_anxiety",
+                         "unemployed_iapt_depression",
+                         "unemployed_psych_liason_suicide",
+                         "bereaved_cmht_bereavement"
+                       )
+                     ),
                      "Idea here is to have the same sliders for each of the treatment groups, but the figures will change accordingly based on the selected group in the dropbox above and these will modify the parameters/graphs",
-                     sliderInput("pcnt", "pcnt", min = 0, max = 1, value = 0.01),
+                     sliderInput("slider_pcnt", "pcnt", min = 0, max = 1, value = 0.01),
+                     sliderInput("slider_treat", "treatment", min = 0, max = 1, value = 0.01),
+                     sliderInput("slider_success", "success", min = 0, max = 1, value = 0.01),
                      sliderInput("cmht_appointments",
                                  "Average # CMHT appointments per person",
                                  min = 0,
@@ -34,7 +47,8 @@ shinyUI(
                                  min = 0,
                                  max = 60,
                                  step = 1,
-                                 value = 30)),
+                                 value = 30),
+                     verbatimTextOutput("sampletext")),
                      mainPanel(plotlyOutput("myplot"),
                                plotlyOutput("myplot2"))
                    ))

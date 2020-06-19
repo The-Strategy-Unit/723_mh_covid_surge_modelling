@@ -22,14 +22,22 @@ shinyServer(function(input, output, session) {
   ################################
 
   variable_list <- reactive(df() %>% select(group, treatment, condition) %>% unique() %>% unite("group", sep = "-") %>% pull(group))
-
+  #
   observe(updateSelectInput(session, "sliders_select", choices = variable_list()))
 
   ###############
   ## Sliders ####
   ###############
 
+  observe(
+    {
+    mh_subgroup <- input[["sliders_select"]]
 
+    updateSliderInput(session, "slider_pcnt", value = param_csv %>% filter(rowname == mh_subgroup) %>% pull(pcnt))
+    updateSliderInput(session, "slider_treat", value = param_csv %>% filter(rowname == mh_subgroup) %>% pull(treat))
+    updateSliderInput(session, "slider_success", value = param_csv %>% filter(rowname == mh_subgroup) %>% pull(success))
+    }
+  )
 
 
   #############
@@ -42,12 +50,18 @@ shinyServer(function(input, output, session) {
     mutate_at("decay", ~half_life_factor(days, .x)) %>%
     select(-days)
 
-  params <- param_csv %>%
+  params <- reactive({
+    data <- param_csv %>%
     select(pcnt:decay) %>%
     as.matrix() %>%
     t()
-
-  colnames(params) <- param_csv$rowname
+  colnames(data) <- param_csv$rowname
+  data[which(rownames(data) == "pcnt"),1] <- input[["slider_pcnt"]]
+  data[which(rownames(data) == "treat"),1] <- input[["slider_treat"]]
+  data[which(rownames(data) == "success"),1] <- input[["slider_success"]]
+  return(data)
+  }
+  )
 
   # Simulated demand surges ----
   new_potential <- list(
@@ -64,26 +78,25 @@ shinyServer(function(input, output, session) {
   )
 
   # Run model ----
-  o <- run_model(params, new_potential)
-
-  o
-
-
+  o <- reactive(run_model(params(), new_potential))
 
   #############
   ## Plots ####
   #############
 
-  p1 <- o %>%
+  p1 <- reactive({
+    o() %>%
     filter(type == "at-risk") %>%
     ggplot(aes(time, value, colour = group)) +
     geom_line() +
     labs(x = "Simulation Month",
          y = "# at Risk",
          colour = "")
+  }
+  )
 
   p2 <- reactive({
-    o %>%
+    o() %>%
     filter(type == "treatment") %>%
     group_by(time, treatment) %>%
     summarise(across(value, sum), .groups = "drop") %>%
@@ -105,7 +118,7 @@ shinyServer(function(input, output, session) {
   )
 
   output$myplot <- renderPlotly(
-    p1
+    p1()
   )
 
   output$myplot2 <- renderPlotly(
