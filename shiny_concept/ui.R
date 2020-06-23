@@ -14,6 +14,11 @@ shinyUI(
                                   ".csv")
                      ),
                      tableOutput("contents"),
+                     numericInput("totalmonths", "Months in Model", value = 23, step = 1),
+                     fluidRow(column(6, numericInput("subpopulation_figure", "Subpopulation Figure", 10000, step = 100)),
+                              column(6, numericInput("pct_unemployed", "% in unemployed cat.", 80, step = 1))
+                              ),
+                     selectInput("scenario", "Choose scenario", choices = c("Sudden shock", "Follow the curve", "Shallow mid-term", "Sustained impact")),
                      selectInput(
                        "sliders_select",
                        label = "Group-Treatment-Cond. combination",
@@ -22,7 +27,7 @@ shinyUI(
                          "unemployed_cmht_insomnia",
                          "unemployed_iapt_anxiety",
                          "unemployed_iapt_depression",
-                         "unemployed_psych_liason_suicide",
+                         "unemployed_psych-liason_suicide",
                          "bereaved_cmht_bereavement"
                        )
                      ),
@@ -51,6 +56,8 @@ shinyUI(
                      verbatimTextOutput("sampletext")),
                      mainPanel(plotlyOutput("myplot"),
                                plotlyOutput("myplot2"))
-                   ))
+                   ),
+             tabPanel("Example Distribution",
+                      ))
 
   )

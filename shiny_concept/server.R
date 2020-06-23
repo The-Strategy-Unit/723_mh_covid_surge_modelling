@@ -63,21 +63,41 @@ shinyServer(function(input, output, session) {
   )
 
   # Simulated demand surges ----
-  new_potential <- list(
+
+  interp_months <- reactive(quantile(0:input$totalmonths, probs = seq(0,1,0.1)) %>% unname())
+
+  ## probably put this in a list later ####
+  unemployed <- reactive(input$subpopulation_figure*(input$pct_unemployed/100))
+  bereaved <- reactive(input$subpopulation_figure-unemployed())
+
+
+  new_potential <- reactive(
+    {
+      list(
     unemployed = approxfun(
-      c(0, 4, 6, 10, 16),
-      c(100, 2000, 8000, 6000, 0),
+      interp_months(),
+      switch (input[["scenario"]],
+        "Sudden shock" = sample(1:11, unemployed(), T, dgamma(1:11, 5, 1)) %>% tabulate(nbins = 11),
+        "Follow the curve" = sample(1:11, unemployed(), T, dgamma(1:11, 5, 0.5)) %>% tabulate(nbins = 11),
+        "Shallow mid-term" = sample(1:11, unemployed(), T, dnorm(1:11, 11/2, 8)) %>% tabulate(nbins = 11)
+      ),
       rule = 2
     ),
     bereaved = approxfun(
-      c(0, 4, 6, 10, 16),
-      c(0, 100, 500, 2000, 1500),
+      interp_months(),
+      switch (input[["scenario"]],
+              "Sudden shock" = sample(1:11, bereaved(), T, dgamma(1:11, 5, 1)) %>% tabulate(nbins = 11),
+              "Follow the curve" = sample(1:11, bereaved(), T, dgamma(1:11, 5, 0.5)) %>% tabulate(nbins = 11),
+              "Shallow mid-term" = sample(1:11, bereaved(), T, dnorm(1:11, 11/2, 8)) %>% tabulate(nbins = 11)
+      ),
       rule = 2
     )
   )
+    }
+  )
 
   # Run model ----
-  o <- reactive(run_model(params(), new_potential))
+  o <- reactive(run_model(params(), new_potential(), simtime = seq(0, input$totalmonths, by = 1/30)))
 
   #############
   ## Plots ####
