@@ -8,6 +8,24 @@
 #
 
 library(shiny)
+library(tidyverse, quietly = TRUE)
+library(deSolve)
+library(patchwork)
+
+source("half_life_factor.R")
+source("run_model.R")
+
+# Params ----
+param_csv <- read_csv("sample_params.csv", col_types = "cccddddd") %>%
+    unite(rowname, group:condition, sep = "_", na.rm = TRUE) %>%
+    mutate_at("decay", ~half_life_factor(days, .x)) %>%
+    select(-days)
+
+params <- param_csv %>%
+    select(pcnt:decay) %>%
+    as.matrix() %>%
+    t()
+colnames(params) <- param_csv$rowname
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
