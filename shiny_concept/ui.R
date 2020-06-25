@@ -32,9 +32,9 @@ shinyUI(
                        )
                      ),
                      "Idea here is to have the same sliders for each of the treatment groups, but the figures will change accordingly based on the selected group in the dropbox above and these will modify the parameters/graphs",
-                     sliderInput("slider_pcnt", "pcnt", min = 0, max = 1, value = 0.01),
-                     sliderInput("slider_treat", "treatment", min = 0, max = 1, value = 0.01),
-                     sliderInput("slider_success", "success", min = 0, max = 1, value = 0.01),
+                     sliderInput("slider_pcnt", "Prevalence in sub-population", min = 0, max = 1, value = 0.01),
+                     sliderInput("slider_treat", "% Requiring Treatment", min = 0, max = 1, value = 0.01),
+                     sliderInput("slider_success", "Success % of Treatment", min = 0, max = 1, value = 0.01),
                      sliderInput("cmht_appointments",
                                  "Average # CMHT appointments per person",
                                  min = 0,
@@ -58,6 +58,8 @@ shinyUI(
                                plotlyOutput("myplot2"))
                    ),
              tabPanel("Example Distribution",
-                      ))
+                      verbatimTextOutput("unemployed_y_vec"),
+                      verbatimTextOutput("bereaved_y_vec"))
+             )
 
   )
