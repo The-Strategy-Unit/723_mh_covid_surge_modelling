@@ -80,12 +80,12 @@ shinyServer(function(input, output, session) {
       list(
     unemployed = approxfun(
       seq_len(24),
-      curves[[input[["scenario"]]]]*0.8,
+      curves[[input[["scenario"]]]]*unemployed(),
       rule = 2
     ),
     bereaved = approxfun(
       seq_len(24),
-      curves[[input[["scenario"]]]]*0.2,
+      curves[[input[["scenario"]]]]*bereaved(),
       rule = 2
     )
   )
