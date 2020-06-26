@@ -1,6 +1,7 @@
 
 run_model <- function(params, new_potential, simtime = seq(0,18, by = 1/30), long_output_format = TRUE) {
-  # ensure params are ordered
+
+    # ensure params are ordered
   params <- params[,sort(colnames(params))]
 
   # get the names of the treatments from the params matrix column names
