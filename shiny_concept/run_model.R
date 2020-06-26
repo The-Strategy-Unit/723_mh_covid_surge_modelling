@@ -12,6 +12,9 @@ run_model <- function(params, new_potential, simtime = seq(0,18, by = 1/30), lon
     str_extract("^([^_]+)(?=_)") %>%
     unique()
 
+  # reorders the new_potential object to be same order as the initials
+  new_potential <- new_potential[initials]
+
   # set up the stocks for the no mh needs group, each of the initial groups, and each of the stocks
   stocks <- c("no-mh-needs", initials, treatments) %>%
     set_names() %>%
