@@ -29,6 +29,12 @@ shinyServer(function(input, output, session) {
   #
   observe(updateSelectInput(session, "sliders_select", choices = variable_list()))
 
+  ## Subpopulation scenario change ####
+
+  output$scenario_select <- renderUI({
+    selectInput("popn_subgroup", "Choose scenario", choices = c("Sudden shock", "Follow the curve", "Shallow mid-term", "Sustained impact"))
+  })
+
   ###############
   ## Sliders ####
   ###############
@@ -67,10 +73,10 @@ shinyServer(function(input, output, session) {
       as.matrix() %>%
       t()
     colnames(data) <- param_csv$rowname
-    data[which(rownames(data) == "pcnt"), 1] <- input[["slider_pcnt"]]
-    data[which(rownames(data) == "treat"), 1] <-
+    data[which(rownames(data) == "pcnt"), input[["sliders_select"]]] <- input[["slider_pcnt"]]
+    data[which(rownames(data) == "treat"), input[["sliders_select"]]] <-
       input[["slider_treat"]]
-    data[which(rownames(data) == "success"), 1] <-
+    data[which(rownames(data) == "success"), input[["sliders_select"]]] <-
       input[["slider_success"]]
     return(data)
   })
