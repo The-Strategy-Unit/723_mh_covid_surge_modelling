@@ -7,24 +7,11 @@ shinyUI(
                      "Plot",
                      tags$style(css_table),
                      sidebarPanel(
-                       panel(
-                       fileInput(
-                       "file1",
-                       "Upload CSV with parameters",
-                       accept = c("text/csv",
-                                  "text/comma-separated-values,text/plain",
-                                  ".csv")
-                     ),
-                     tableOutput("contents")),
-                     panel(
-                      selectInput("popn_subgroup", "Choose subgroup", choices = c("Unemployed", "Bereaved")),
-                     numericInput("totalmonths", "Months in Model", min = 1, max = 24, value = 23, step = 1),
-                     fluidRow(column(6, numericInput("subpopulation_figure", "Subpopulation Figure", value = NA, step = 100)),
-                              column(6, numericInput("pct_unemployed", "% in subgroup", value = 100, min = 0, max = 100, step = 1))
+                     numericInput("totalmonths", "Months in Model", value = 23, step = 1),
+                     fluidRow(column(6, numericInput("subpopulation_figure", "Subpopulation Figure", 10000, step = 100)),
+                              column(6, numericInput("pct_unemployed", "% in unemployed cat.", 80, step = 1))
                               ),
-                     selectInput("scenario", "Choose scenario", selected = NA, choices = c("Sudden shock", "Follow the curve", "Shallow mid-term", "Sustained impact")),
-                     heading = "Population Groups"),
-                     panel(
+                     selectInput("scenario", "Choose scenario", choices = c("Sudden shock", "Follow the curve", "Shallow mid-term", "Sustained impact")),
                      selectInput(
                        "sliders_select",
                        label = "Group-Treatment-Cond. combination",
@@ -59,7 +46,7 @@ shinyUI(
                                  max = 60,
                                  step = 1,
                                  value = 30),
-                     heading = "Treatments")),
+                     verbatimTextOutput("sampletext")),
                      mainPanel(plotlyOutput("myplot"),
                                plotlyOutput("myplot2"))
                    ),
