@@ -1,0 +1,40 @@
+on:
+  push:
+    branches:
+      - master
+
+name: shiny-deploy
+
+jobs:
+  shiny-deploy:
+    runs-on: ubuntu-latest
+    env:
+      SHINYAPPS_NAME:   ${{ secrets.SHINYAPPS_NAME }}
+      SHINYAPPS_TOKEN:  ${{ secrets.SHINYAPPS_TOKEN }}
+      SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@master
+
+      - name: Cache R packages
+        if: runner.os != 'Windows'
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-r-${{ matrix.config.r }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-1-
+
+      - name: Install dependencies
+        run: |
+          install.packages(c("rsconnect", "shiny")))
+        shell: Rscript {0}
+
+      - name: Deploy
+        run: |
+          library(rsconnect)
+          setAccountInfo(name = Sys.getenv("SHINYAPPS_NAME"),
+                         token = Sys.getenv("SHINYAPPS_TOKEN"),
+                         secret = Sys.getenv("SHINYAPPS_SECRET")
+          deployApp(appDir = "shiny_concept",
+                    appName = "MH_Surge_Modelling")
+        shell: Rscript {0}
