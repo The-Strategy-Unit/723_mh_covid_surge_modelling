@@ -170,12 +170,10 @@ shinyServer(function(input, output, session) {
         time,
         no_appointments,
         colour = treatment,
-        group = treatment
-      )) +
-      geom_line(aes(
+        group = treatment,
         text = paste0(
           "Time: ",
-          time,
+          scales::number(time, accuracy = 0.1),
           "\n",
           "# Appointments: ",
           round(no_appointments, 0),
@@ -184,6 +182,7 @@ shinyServer(function(input, output, session) {
           treatment
         )
       )) +
+      geom_line() +
       labs(x = "Simulation Month",
            y = "# Appointments",
            colour = "")
