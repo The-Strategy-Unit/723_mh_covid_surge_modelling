@@ -1,10 +1,26 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
 # Covid Surge Modelling to Mental Health Services
 
-| Item         | Value          |
-|--------------|----------------|
-| Project Code | 723            |
-| Project Lead | Andrew Hood    |
+<!-- badges: start -->
+<!-- badges: end -->
 
+| Item             | Value          |
+|------------------|----------------|
+| Project Code     | 723            |
+| Project Lead     | Andrew Hood    |
+| Project Director | Fraser Battye  |
 
 ## Running the model
 
