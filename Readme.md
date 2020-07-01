@@ -1,46 +1,30 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 # Covid Surge Modelling to Mental Health Services
 
-| Item         | Value          |
-|--------------|----------------|
-| Project Code | 723            |
-| Project Lead | Andrew Hood    |
+<!-- badges: start -->
 
+<!-- badges: end -->
+
+| Item             | Value         |
+| ---------------- | ------------- |
+| Project Code     | 723           |
+| Project Lead     | Andrew Hood   |
+| Project Director | Fraser Battye |
 
 ## Running the model
 
-
-```r
+``` r
 library(tidyverse, quietly = TRUE)
-```
-
-```
-## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
-```
-
-```
-## v ggplot2 3.3.1     v purrr   0.3.4
-## v tibble  3.0.1     v dplyr   1.0.0
-## v tidyr   1.1.0     v stringr 1.4.0
-## v readr   1.3.1     v forcats 0.5.0
-```
-
-```
-## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter()  masks stats::filter()
-## x purrr::is_null() masks testthat::is_null()
-## x dplyr::lag()     masks stats::lag()
-## x dplyr::matches() masks tidyr::matches(), testthat::matches()
-```
-
-```r
 library(deSolve)
 library(patchwork)
 
-source("half_life_factor.R")
-source("run_model.R")
+source("model/half_life_factor.R")
+source("model/run_model.R")
 
 # Params ----
-param_csv <- read_csv("sample_params.csv", col_types = "cccddddd") %>%
+param_csv <- read_csv("model/sample_params.csv", col_types = "cccddddd") %>%
   unite(rowname, group:condition, sep = "_", na.rm = TRUE) %>%
   mutate_at("decay", ~half_life_factor(days, .x)) %>%
   select(-days)
@@ -69,27 +53,23 @@ new_potential <- list(
 o <- run_model(params, new_potential)
 
 o
+#> # A tibble: 4,869 x 6
+#>      time type        group      treatment    condition   value
+#>     <dbl> <chr>       <chr>      <chr>        <chr>       <dbl>
+#>  1 0      no-mh-needs <NA>       <NA>         <NA>            0
+#>  2 0      at-risk     bereaved   <NA>         <NA>            0
+#>  3 0      at-risk     unemployed <NA>         <NA>            0
+#>  4 0      treatment   bereaved   cmht         bereavement     0
+#>  5 0      treatment   unemployed cmht         insomnia        0
+#>  6 0      treatment   unemployed cmht         stress          0
+#>  7 0      treatment   unemployed iapt         anxiety         0
+#>  8 0      treatment   unemployed iapt         depression      0
+#>  9 0      treatment   unemployed psych-liason suicide         0
+#> 10 0.0333 no-mh-needs <NA>       <NA>         <NA>            0
+#> # ... with 4,859 more rows
 ```
 
-```
-## # A tibble: 4,869 x 6
-##      time type        group      treatment    condition   value
-##     <dbl> <chr>       <chr>      <chr>        <chr>       <dbl>
-##  1 0      no-mh-needs <NA>       <NA>         <NA>            0
-##  2 0      at-risk     bereaved   <NA>         <NA>            0
-##  3 0      at-risk     unemployed <NA>         <NA>            0
-##  4 0      treatment   bereaved   cmht         bereavement     0
-##  5 0      treatment   unemployed cmht         insomnia        0
-##  6 0      treatment   unemployed cmht         stress          0
-##  7 0      treatment   unemployed iapt         anxiety         0
-##  8 0      treatment   unemployed iapt         depression      0
-##  9 0      treatment   unemployed psych-liason suicide         0
-## 10 0.0333 no-mh-needs <NA>       <NA>         <NA>            0
-## # ... with 4,859 more rows
-```
-
-
-```r
+``` r
 # Show plots ----
 p1 <- o %>%
   filter(type == "at-risk") %>%
@@ -118,4 +98,4 @@ p2 <- o %>%
 p1 + p2 + plot_layout(ncol = 1)
 ```
 
-![plot of chunk model_sample_output](figure/model_sample_output-1.png)
+![](Readme_files/figure-gfm/model_sample_output-1.png)<!-- -->
