@@ -29,6 +29,43 @@ shinyServer(function(input, output, session) {
   #
   observe(updateSelectInput(session, "sliders_select", choices = variable_list()))
 
+  ## Population values change ####
+
+  popn_subgroups <- reactiveValues()
+  popn_subgroups[["Unemployed_Total"]] <- NA
+  popn_subgroups[["Bereaved_Total"]] <- NA
+  popn_subgroups[["Unemployed_PCT"]] <- 100
+  popn_subgroups[["Bereaved_PCT"]] <- 100
+  popn_subgroups[["Unemployed_scenario"]] <- "Sudden shock"
+  popn_subgroups[["Bereaved_scenario"]] <- "Sudden shock"
+
+  observeEvent(input$subpopulation_figure, {
+    popn_subgroups[[paste0(input$popn_subgroup, "_Total")]] <- input$subpopulation_figure
+  })
+  observeEvent(input$pct_unemployed, {
+    popn_subgroups[[paste0(input$popn_subgroup, "_PCT")]] <- input$pct_unemployed
+  })
+  observeEvent(input$scenario, {
+    popn_subgroups[[paste0(input$popn_subgroup, "_scenario")]] <- input$scenario
+  })
+
+  observeEvent(input$popn_subgroup,{
+    updateNumericInput(session, 'subpopulation_figure',
+                       label = "Subpopulation Figure",
+                       value = popn_subgroups[[paste0(input$popn_subgroup, "_Total")]],
+                       step = 100)
+    updateNumericInput(session, 'pct_unemployed',
+                       label = "% in subgroup",
+                       value = popn_subgroups[[paste0(input$popn_subgroup, "_PCT")]],
+                       min = 0,
+                       max = 100,
+                       step = 1)
+    updateSelectInput(session,
+                      "scenario",
+                      label = "Choose scenario",
+                      choices = c("Sudden shock", "Follow the curve", "Shallow mid-term", "Sustained impact"))
+  })
+
   ## Subpopulation scenario change ####
 
   output$scenario_select <- renderUI({
@@ -86,21 +123,18 @@ shinyServer(function(input, output, session) {
   # interp_months <- reactive(quantile(0:input$totalmonths, probs = seq(0,1,0.1)) %>% unname())
 
   ## probably put this in a list later ####
-  unemployed <- reactive(input$pct_unemployed / 100)
-  bereaved <- reactive((100 - input$pct_unemployed) / 100)
-
-  output$unemployed_y_vec <- renderPrint(unemployed_y())
-  output$bereaved_y_vec <- renderPrint(bereaved_y())
+  # unemployed <- reactive(input$pct_unemployed / 100)
+  # bereaved <- reactive((100 - input$pct_unemployed) / 100)
 
   curves <- read_csv("curves.csv")
 
   new_potential <- reactive({
     list(
       unemployed = approxfun(seq_len(24) - 1,
-                             curves[[input[["scenario"]]]] * unemployed(),
+                             curves[[popn_subgroups$Unemployed_scenario]] * popn_subgroups[["Unemployed_PCT"]]/100,
                              rule = 2),
       bereaved = approxfun(seq_len(24) - 1,
-                           curves[[input[["scenario"]]]] * bereaved(),
+                           curves[[popn_subgroups$Bereaved_scenario]] * popn_subgroups[["Bereaved_PCT"]]/100,
                            rule = 2)
     )
   })
