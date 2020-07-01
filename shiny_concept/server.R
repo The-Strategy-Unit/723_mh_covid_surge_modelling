@@ -129,7 +129,7 @@ shinyServer(function(input, output, session) {
     run_model(
       m,
       new_potential(),
-      simtime = seq(0, input$totalmonths, by = 1 / 30)
+      simtime = seq(0, input$totalmonths-1, by = 1 / 30)
     )
   })
 
@@ -137,17 +137,19 @@ shinyServer(function(input, output, session) {
   ## Plots ####
   #############
 
-  p1 <- reactive({
+  pop_plot <- reactive({
     o() %>%
       filter(type == "at-risk") %>%
-      ggplot(aes(time, value, colour = group)) +
+      ggplot(aes(time,
+                 value,
+                 colour = group)) +
       geom_line() +
       labs(x = "Simulation Month",
            y = "# at Risk",
            colour = "")
   })
 
-  p2 <- reactive({
+  demand_plot <- reactive({
     o() %>%
       filter(type == "treatment") %>%
       group_by(time, treatment) %>%
@@ -188,8 +190,8 @@ shinyServer(function(input, output, session) {
            colour = "")
   })
 
-  output$myplot <- renderPlotly(p1())
+  output$pop_plot <- renderPlotly(ggplotly(pop_plot()))
 
-  output$myplot2 <- renderPlotly(ggplotly(p2(), tooltip = c("text")))
+  output$demand_plot <- renderPlotly(ggplotly(demand_plot(), tooltip = c("text")))
 
 })
