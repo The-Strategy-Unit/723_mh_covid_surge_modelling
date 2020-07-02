@@ -5,32 +5,9 @@ shinyServer(function(input, output, session) {
   ## CSV Outputs ####
   ###################
 
-  read_params_from_csv <- function(filename) {
-    params_raw <- read_csv(filename, col_types = "cccddddd") %>%
-      unite(rowname, group:condition, sep = "_", na.rm = TRUE) %>%
-      mutate_at("decay", ~ half_life_factor(days, .x)) %>%
-      select(-days)
-
-    data <- params_raw %>%
-      select(pcnt:decay) %>%
-      as.matrix() %>%
-      t()
-    colnames(data) <- params_raw$rowname
-
-    asplit(data, 2)
-  }
-
-  params_raw <- read_params_from_csv("sample_params.csv")
   params <- lift_dl(reactiveValues)(params_raw)
 
-  population_groups_raw <- read_csv("population_groups.csv", col_types = "ccdd") %>%
-    group_nest(group) %$%
-    set_names(data, group) %>%
-    map(as.list)
   population_groups <- lift_dl(reactiveValues)(population_groups_raw)
-
-  curves <- read_csv("curves.csv", col_types = "ddddd") %>%
-    modify_at(vars(-Month), ~.x / sum(.x))
 
   ################################
   ## Update Selectise Options ####
