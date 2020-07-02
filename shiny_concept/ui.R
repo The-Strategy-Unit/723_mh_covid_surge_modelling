@@ -11,7 +11,7 @@ shinyUI(navbarPage(
         selectInput(
           "popn_subgroup",
           "Choose subgroup",
-          choices = c("Unemployed", "Bereaved")
+          choices = NA
         ),
         numericInput(
           "totalmonths",
@@ -25,7 +25,7 @@ shinyUI(navbarPage(
         fluidRow(column(
           6,
           numericInput(
-            "subpopulation_figure",
+            "subpopulation_size",
             "Subpopulation Figure",
             value = NA,
             step = 100
@@ -34,7 +34,7 @@ shinyUI(navbarPage(
         column(
           6,
           numericInput(
-            "pct_unemployed",
+            "subpopulation_pcnt",
             "% in subgroup",
             value = 100,
             min = 0,
@@ -43,15 +43,10 @@ shinyUI(navbarPage(
           )
         )),
         selectInput(
-          "scenario",
+          "subpopulation_curve",
           "Choose scenario",
           selected = NA,
-          choices = c(
-            "Sudden shock",
-            "Follow the curve",
-            "Shallow mid-term",
-            "Sustained impact"
-          )
+          choices = NA
         )
       ),
       panel(
@@ -59,14 +54,7 @@ shinyUI(navbarPage(
         selectInput(
           "sliders_select",
           label = "Group-Treatment-Cond. combination",
-          choices = c(
-            "unemployed_cmht_stress",
-            "unemployed_cmht_insomnia",
-            "unemployed_iapt_anxiety",
-            "unemployed_iapt_depression",
-            "unemployed_psych-liason_suicide",
-            "bereaved_cmht_bereavement"
-          )
+          choices = NA
         ),
         paste0(
           "Idea here is to have the same sliders for each of the treatment ",
