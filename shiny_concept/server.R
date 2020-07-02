@@ -114,65 +114,19 @@ shinyServer(function(input, output, session) {
     run_model(m, g, s)
   })
 
+  appointments <- reactive({
+    c("cmht", "iapt", "psych-liason") %>%
+      map_dfr(~list(treatment = .x,
+                    average_monthly_appointments = input[[paste0(.x, "_appointments")]]))
+  })
+
   #############
   ## Plots ####
   #############
 
-  pop_plot <- reactive({
-    o() %>%
-      filter(type == "at-risk") %>%
-      ggplot(aes(time,
-                 value,
-                 colour = group)) +
-      geom_line() +
-      labs(x = "Simulation Month",
-           y = "# at Risk",
-           colour = "")
-  })
+  output$pop_plot <- renderPlotly(ggplotly(pop_plot(o())))
 
-  demand_plot <- reactive({
-    o() %>%
-      filter(type == "treatment") %>%
-      group_by(time, treatment) %>%
-      summarise(across(value, sum), .groups = "drop") %>%
-      inner_join(
-        tribble(
-          ~ treatment,
-          ~ average_monthly_appointments,
-          "cmht",
-          input[["cmht_appointments"]],
-          "iapt",
-          input[["iapt_appointments"]],
-          "psych-liason",
-          input[["psych-liason_appointments"]]
-        ),
-        by = "treatment"
-      ) %>%
-      mutate(no_appointments = value * average_monthly_appointments) %>%
-      ggplot(aes(
-        time,
-        no_appointments,
-        colour = treatment,
-        group = treatment,
-        text = paste0(
-          "Time: ",
-          scales::number(time, accuracy = 0.1),
-          "\n",
-          "# Appointments: ",
-          round(no_appointments, 0),
-          "\n",
-          "Treatment: ",
-          treatment
-        )
-      )) +
-      geom_line() +
-      labs(x = "Simulation Month",
-           y = "# Appointments",
-           colour = "")
-  })
-
-  output$pop_plot <- renderPlotly(ggplotly(pop_plot()))
-
-  output$demand_plot <- renderPlotly(ggplotly(demand_plot(), tooltip = c("text")))
+  output$demand_plot <- renderPlotly(ggplotly(demand_plot(o(), appointments()),
+                                              tooltip = c("text")))
 
 })
