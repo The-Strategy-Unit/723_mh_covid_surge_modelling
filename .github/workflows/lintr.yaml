@@ -4,17 +4,25 @@ name: lint
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.config.os }}
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: ubuntu-18.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@master
 
+      - name: Install system dependencies
+        run: sudo apt-get install libcurl4-openssl-dev
+
       - name: Install dependencies
         run: |
-          install.packages(c("remotes"))
-          remotes::install_cran("lintr")
+          install.packages(c("lintr"))
         shell: Rscript {0}
 
       - name: Lint
