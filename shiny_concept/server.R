@@ -82,21 +82,24 @@ shinyServer(function(input, output, session) {
   ## Sliders ####
   ###############
 
+  sliders <- c("pcnt", "treat", "success")
+
   # when the sliders_select drop down is changed, set the values of the sliders from params
   observeEvent(input$sliders_select, {
-    p <- params[[input$sliders_select]]
-    updateSliderInput(session, "slider_pcnt",    value = p[["pcnt"]])
-    updateSliderInput(session, "slider_treat",   value = p[["treat"]])
-    updateSliderInput(session, "slider_success", value = p[["success"]])
+    sliders %>%
+      map(~list(inputId = paste0("slider_", .x),
+                value = params[[input$sliders_select]][[.x]])) %>%
+      pwalk(updateSliderInput, session = session)
   })
 
   # when any of the sliders are changed, update the value in params
-  walk(c("pcnt", "treat", "success"), function(x) {
-    input_name <- paste0("slider_", x)
+  sliders %>%
+    walk(function(x) {
+      input_name <- paste0("slider_", x)
 
-    observeEvent(input[[input_name]], {
-      params[[input$sliders_select]][[x]] <- input[[input_name]]
-    })
+      observeEvent(input[[input_name]], {
+        params[[input$sliders_select]][[x]] <- input[[input_name]]
+      })
   })
 
   #############
