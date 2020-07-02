@@ -83,7 +83,7 @@ shinyServer(function(input, output, session) {
   ## Sliders ####
   ###############
 
-  sliders <- c("pcnt", "treat", "success")
+  sliders <- names(params_raw[[1]]) %>% .[. != "decay"]
 
   # when the sliders_select drop down is changed, set the values of the sliders from params
   observeEvent(input$sliders_select, {
