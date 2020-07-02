@@ -21,7 +21,7 @@ shinyServer(function(input, output, session) {
 
   ## Population values change ####
 
-  c("size", "pcnt", "curve") %>%
+  names(population_groups_raw[[1]]) %>%
     walk(function(x) {
       ix <- paste0("subpopulation_", x)
       observeEvent(input[[ix]], {
