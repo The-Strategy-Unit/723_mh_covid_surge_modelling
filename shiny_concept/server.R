@@ -25,8 +25,7 @@ shinyServer(function(input, output, session) {
     walk(function(x) {
       ix <- paste0("subpopulation_", x)
       observeEvent(input[[ix]], {
-        req(input$popn_subgroup)
-        if (input$popn_subgroup %in% names(population_groups)) {
+        if (req(input$popn_subgroup) %in% names(population_groups)) {
           population_groups[[input$popn_subgroup]][[x]] <- input[[ix]]
         }
       })
@@ -61,8 +60,7 @@ shinyServer(function(input, output, session) {
       input_name <- paste0("slider_", x)
 
       observeEvent(input[[input_name]], {
-        req(input$sliders_select)
-        if (input$sliders_select %in% names(params)) {
+        if (req(input$sliders_select) %in% names(params)) {
           params[[input$sliders_select]][[x]] <- input[[input_name]]
         }
       })
