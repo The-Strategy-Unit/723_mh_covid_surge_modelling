@@ -1,7 +1,6 @@
 
 run_model <- function(params, new_potential, simtime = seq(0,18, by = 1/30), long_output_format = TRUE) {
-
-    # ensure params are ordered
+  # ensure params are ordered
   params <- params[,sort(colnames(params))]
 
   # get the names of the treatments from the params matrix column names
@@ -17,7 +16,7 @@ run_model <- function(params, new_potential, simtime = seq(0,18, by = 1/30), lon
 
   # set up the stocks for the no mh needs group, each of the initial groups, and each of the stocks
   stocks <- c("no-mh-needs", initials, treatments) %>%
-    set_names() %>%
+    purrr::set_names() %>% # ensure we are using the purrr version of this function
     map_dbl(~0)
 
   # create a matrix that can take the initial group stocks and create a matrix that matches the treatment stocks.
