@@ -85,7 +85,7 @@ shinyUI(navbarPage(
         )
       ),
       panel(
-        headig = "Appointments",
+        heading = "Appointments",
         sliderInput(
           "cmht_appointments",
           "Average # CMHT appointments per person",
