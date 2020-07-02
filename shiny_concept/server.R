@@ -20,7 +20,8 @@ shinyServer(function(input, output, session) {
     asplit(data, 2)
   }
 
-  params <- lift_dl(reactiveValues)(read_params_from_csv("sample_params.csv"))
+  params_raw <- read_params_from_csv("sample_params.csv")
+  params <- lift_dl(reactiveValues)(params_raw)
 
   ################################
   ## Update Selectise Options ####
