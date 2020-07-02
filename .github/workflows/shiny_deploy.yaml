@@ -33,7 +33,7 @@ jobs:
           library(rsconnect)
           setAccountInfo(name = Sys.getenv("SHINYAPPS_NAME"),
                          token = Sys.getenv("SHINYAPPS_TOKEN"),
-                         secret = Sys.getenv("SHINYAPPS_SECRET")
+                         secret = Sys.getenv("SHINYAPPS_SECRET"))
           deployApp(appDir = "shiny_concept",
                     appName = "MH_Surge_Modelling")
         shell: Rscript {0}
