@@ -1,8 +1,9 @@
-library(tidyverse, quietly = TRUE)
-library(deSolve)
-library(patchwork)
-library(plotly)
-library(shinyWidgets)
+options(tidyverse.quiet = TRUE)
+library(tidyverse,    quietly = TRUE)
+library(deSolve,      quietly = TRUE)
+library(patchwork,    quietly = TRUE)
+library(plotly,       quietly = TRUE)
+library(shinyWidgets, quietly = TRUE)
 
 options(scipen = 999)
 
