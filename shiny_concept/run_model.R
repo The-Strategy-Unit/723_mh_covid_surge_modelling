@@ -33,7 +33,7 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
 
   model <- function(time, stocks, params) {
     # get each of the new potentials for each of the initial groups
-    f_new_potential <- map_dbl(new_potential, ~.x(time))
+    f_new_potential <- purrr::map_dbl(new_potential, ~.x(time))
 
     # expand the initials stocks for each of the treatments
     initials_matrix <- initial_treatment_map %*% matrix(stocks[initials], ncol = 1)
