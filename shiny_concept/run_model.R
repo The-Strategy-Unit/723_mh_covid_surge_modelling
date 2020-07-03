@@ -1,7 +1,7 @@
 
-run_model <- function(params, new_potential, simtime = seq(0,18, by = 1/30), long_output_format = TRUE) {
+run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), long_output_format = TRUE) {
   # ensure params are ordered
-  params <- params[,sort(colnames(params))]
+  params <- params[, sort(colnames(params))]
 
   # get the names of the treatments from the params matrix column names
   treatments <- colnames(params)
@@ -39,23 +39,23 @@ run_model <- function(params, new_potential, simtime = seq(0,18, by = 1/30), lon
     initials_matrix <- initial_treatment_map %*% matrix(stocks[initials], ncol = 1)
 
     # flow from initial groups to treatments
-    f_pot_treat <- initials_matrix[,1] * params["pcnt",] * params["treat",]
+    f_pot_treat <- initials_matrix[, 1] * params["pcnt", ] * params["treat", ]
     # flow from initial groups to no needs
-    f_no_needs  <- stocks[initials] * (1 - matrix(params["pcnt",], nrow = 1) %*% initial_treatment_map)[1,]
+    f_no_needs  <- stocks[initials] * (1 - matrix(params["pcnt", ], nrow = 1) %*% initial_treatment_map)[1, ]
 
     # flow from treatment groups back to initials
-    f_treat_pot      <- stocks[treatments] * (1-params["success",]) * exp(params["decay",])
+    f_treat_pot      <- stocks[treatments] * (1 - params["success", ]) * exp(params["decay", ])
     # flow from treatment groups to no further mh needs
-    f_treat_no_needs <- stocks[treatments] * (  params["success",]) * exp(params["decay",])
+    f_treat_no_needs <- stocks[treatments] * (0 + params["success", ]) * exp(params["decay", ])
 
     # convert the flows from treatment groups to be based on initial stocks, not treatment stocks
-    f_pot_treat_initials <- (matrix(f_pot_treat, nrow = 1) %*% initial_treatment_map)[1,]
-    f_treat_pot_initials <- (matrix(f_treat_pot, nrow = 1) %*% initial_treatment_map)[1,]
+    f_pot_treat_initials <- (matrix(f_pot_treat, nrow = 1) %*% initial_treatment_map)[1, ]
+    f_treat_pot_initials <- (matrix(f_treat_pot, nrow = 1) %*% initial_treatment_map)[1, ]
 
     # calculate the changes to each of the stocks
     list(c(sum(f_no_needs) + sum(f_treat_no_needs),
            f_new_potential + f_treat_pot_initials - f_pot_treat_initials - f_no_needs,
-           f_pot_treat-f_treat_pot-f_treat_no_needs))
+           f_pot_treat - f_treat_pot - f_treat_no_needs))
   }
 
   # run the model and return the results in a long tidy format

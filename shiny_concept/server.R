@@ -31,7 +31,7 @@ shinyServer(function(input, output, session) {
       })
     })
 
-  observeEvent(input$popn_subgroup,{
+  observeEvent(input$popn_subgroup, {
     updateNumericInput(session,
                        "subpopulation_size",
                        value = population_groups[[input$popn_subgroup]]$size)
@@ -84,7 +84,7 @@ shinyServer(function(input, output, session) {
       map(~curves[[.x$curve]] * .x$size * .x$pcnt / 100) %>%
       map(approxfun, x = seq_len(24) - 1, rule = 2)
 
-    s <- seq(0, input$totalmonths-1, by = 1 / 30)
+    s <- seq(0, input$totalmonths - 1, by = 1 / 30)
 
     run_model(m, g, s)
   })
