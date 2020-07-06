@@ -1,7 +1,7 @@
 
-run_model <- function(params, new_potential, simtime = seq(0,18, by = 1/30), long_output_format = TRUE) {
+run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), long_output_format = TRUE) {
   # ensure params are ordered
-  params <- params[,sort(colnames(params))]
+  params <- params[, sort(colnames(params))]
 
   # get the names of the treatments from the params matrix column names
   treatments <- colnames(params)
@@ -17,7 +17,7 @@ run_model <- function(params, new_potential, simtime = seq(0,18, by = 1/30), lon
   # set up the stocks for the no mh needs group, each of the initial groups, and each of the stocks
   stocks <- c("no-mh-needs", initials, treatments) %>%
     purrr::set_names() %>% # ensure we are using the purrr version of this function
-    map_dbl(~0)
+    purrr::map_dbl(~0)
 
   # create a matrix that can take the initial group stocks and create a matrix that matches the treatment stocks.
   # each initial group is a column in the matrix
@@ -31,31 +31,34 @@ run_model <- function(params, new_potential, simtime = seq(0,18, by = 1/30), lon
   stopifnot("new_potential length does not match initials length" =
               length(new_potential) == length(initials))
 
+  stopifnot("new_potential does not match initials" =
+              all(names(new_potential) == initials))
+
   model <- function(time, stocks, params) {
     # get each of the new potentials for each of the initial groups
-    f_new_potential <- map_dbl(new_potential, ~.x(time))
+    f_new_potential <- purrr::map_dbl(new_potential, ~.x(time))
 
     # expand the initials stocks for each of the treatments
     initials_matrix <- initial_treatment_map %*% matrix(stocks[initials], ncol = 1)
 
     # flow from initial groups to treatments
-    f_pot_treat <- initials_matrix[,1] * params["pcnt",] * params["treat",]
+    f_pot_treat <- initials_matrix[, 1] * params["pcnt", ] * params["treat", ]
     # flow from initial groups to no needs
-    f_no_needs  <- stocks[initials] * (1 - matrix(params["pcnt",], nrow = 1) %*% initial_treatment_map)[1,]
+    f_no_needs  <- stocks[initials] * (1 - matrix(params["pcnt", ], nrow = 1) %*% initial_treatment_map)[1, ]
 
     # flow from treatment groups back to initials
-    f_treat_pot      <- stocks[treatments] * (1-params["success",]) * exp(params["decay",])
+    f_treat_pot      <- stocks[treatments] * (1 - params["success", ]) * exp(params["decay", ])
     # flow from treatment groups to no further mh needs
-    f_treat_no_needs <- stocks[treatments] * (  params["success",]) * exp(params["decay",])
+    f_treat_no_needs <- stocks[treatments] * (0 + params["success", ]) * exp(params["decay", ])
 
     # convert the flows from treatment groups to be based on initial stocks, not treatment stocks
-    f_pot_treat_initials <- (matrix(f_pot_treat, nrow = 1) %*% initial_treatment_map)[1,]
-    f_treat_pot_initials <- (matrix(f_treat_pot, nrow = 1) %*% initial_treatment_map)[1,]
+    f_pot_treat_initials <- (matrix(f_pot_treat, nrow = 1) %*% initial_treatment_map)[1, ]
+    f_treat_pot_initials <- (matrix(f_treat_pot, nrow = 1) %*% initial_treatment_map)[1, ]
 
     # calculate the changes to each of the stocks
     list(c(sum(f_no_needs) + sum(f_treat_no_needs),
            f_new_potential + f_treat_pot_initials - f_pot_treat_initials - f_no_needs,
-           f_pot_treat-f_treat_pot-f_treat_no_needs))
+           f_pot_treat - f_treat_pot - f_treat_no_needs))
   }
 
   # run the model and return the results in a long tidy format
@@ -68,7 +71,7 @@ run_model <- function(params, new_potential, simtime = seq(0,18, by = 1/30), lon
   if (long_output_format) {
     o <- o %>%
       pivot_longer(-time) %>%
-      separate(name, c("type", "group", "treatment", "condition"), "\\_", fill = "right")
+      separate(name, c("type", "group", "condition", "treatment"), "\\_", fill = "right")
   }
   o
 }
