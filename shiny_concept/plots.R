@@ -6,7 +6,18 @@ pop_plot <- function(model_data) {
   df %>%
     ggplot(aes(time,
                value,
-               colour = group)) +
+               colour = group,
+               group = group,
+               text = paste0(
+                 "Time: ",
+                 scales::number(time, accuracy = 0.1),
+                 "\n",
+                 "# referrals: ",
+                 round(value, 0),
+                 "\n",
+                 "Group: ",
+                 group
+               ))) +
     geom_line() +
     labs(x = "Simulation Month",
          y = "# at Risk",

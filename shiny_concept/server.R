@@ -138,10 +138,13 @@ shinyServer(function(input, output, session) {
   ## Plots ####
   #############
 
-  output$pop_plot <- renderPlotly(ggplotly(pop_plot(o())))
+  output$pop_plot <- renderPlotly(
+    ggplotly(pop_plot(o()),
+             tooltip = c("text"))
+  )
 
-  output$demand_plot <- renderPlotly( {
+  output$demand_plot <- renderPlotly(
     ggplotly(demand_plot(o(), appointments()),
              tooltip = c("text"))
-    })
+  )
 })
