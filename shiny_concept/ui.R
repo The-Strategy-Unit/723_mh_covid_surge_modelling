@@ -86,34 +86,25 @@ shinyUI(navbarPage(
       ),
       panel(
         heading = "Appointments",
+        selectInput(
+          "treatment_type",
+          "Treatment type",
+          choices = NA
+        ),
         sliderInput(
-          "cmht_appointments",
-          "Average # CMHT appointments per person",
+          "treatment_appointments",
+          "Average # appointments per person",
           min = 0,
-          max = 10,
+          max = 600,
           step = 1,
           value = 3
-        ),
-        sliderInput(
-          "iapt_appointments",
-          "Average # IAPT appointments per person",
-          min = 0,
-          max = 10,
-          step = 1,
-          value = 6
-        ),
-        sliderInput(
-          "psych-liason_appointments",
-          "Average # Psych-Liason appointments per person",
-          min = 0,
-          max = 60,
-          step = 1,
-          value = 30
         )
       )
     ),
-    mainPanel(plotlyOutput("pop_plot"),
-              plotlyOutput("demand_plot"))
+    mainPanel(
+      plotlyOutput("pop_plot"),
+      plotlyOutput("demand_plot")
+    )
   ),
   tabPanel(
     "Example Distribution",

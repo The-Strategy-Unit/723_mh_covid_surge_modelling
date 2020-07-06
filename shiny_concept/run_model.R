@@ -31,6 +31,9 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
   stopifnot("new_potential length does not match initials length" =
               length(new_potential) == length(initials))
 
+  stopifnot("new_potential does not match initials" =
+              all(names(new_potential) == initials))
+
   model <- function(time, stocks, params) {
     # get each of the new potentials for each of the initial groups
     f_new_potential <- purrr::map_dbl(new_potential, ~.x(time))
@@ -68,7 +71,7 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
   if (long_output_format) {
     o <- o %>%
       pivot_longer(-time) %>%
-      separate(name, c("type", "group", "treatment", "condition"), "\\_", fill = "right")
+      separate(name, c("type", "group", "condition", "treatment"), "\\_", fill = "right")
   }
   o
 }
