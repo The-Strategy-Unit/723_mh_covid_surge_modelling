@@ -112,22 +112,6 @@ shinyServer(function(input, output, session) {
     run_model(m, g, s)
   })
 
-
-  run_model_fn <- function(params, population_groups, months) {
-    m <- matrix(unlist(params),
-                nrow  = length(params[[1]]),
-                dimnames = list(names(params[[1]]),
-                                names(params)))
-
-    g <- population_groups %>%
-      map(~curves[[.x$curve]] * .x$size * .x$pcnt / 100) %>%
-      map(approxfun, x = seq_len(24) - 1, rule = 2)
-
-    s <- seq(0, months - 1, by = 1 / 30)
-
-    run_model(m, g, s)
-  }
-
   appointments <- reactive({
     v <- reactiveValuesToList(treatment_appointments)
     tibble(treatment = names(v),
