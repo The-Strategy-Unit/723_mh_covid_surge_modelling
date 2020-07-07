@@ -5,6 +5,7 @@ library(patchwork,    quietly = TRUE)
 library(plotly,       quietly = TRUE)
 library(shinyWidgets, quietly = TRUE)
 library(magrittr,     quietly = TRUE, include.only = "%$%")
+library(shinycssloaders, quietly = TRUE)
 
 options(scipen = 999)
 
