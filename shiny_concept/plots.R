@@ -24,15 +24,8 @@ pop_plot <- function(model_data) {
          colour = "")
 }
 
-demand_plot <- function(model_data, appointments) {
-  df <- model_data %>%
-    filter(type == "treatment") %>%
-      group_by(time, treatment) %>%
-      summarise(across(value, sum), .groups = "drop") %>%
-      inner_join(appointments, by = "treatment") %>%
-      mutate(no_appointments = value * average_monthly_appointments)
-
-  df %>%
+demand_plot <- function(demand) {
+  demand %>%
       ggplot(aes(
         time,
         no_appointments,
