@@ -22,6 +22,7 @@ shinyServer(function(input, output, session) {
     updateSelectInput(session, "popn_subgroup", choices = names(population_groups_raw))
     updateSelectInput(session, "subpopulation_curve", choices = names(curves[, -1]))
     updateSelectInput(session, "treatment_type", choices = treatment_types)
+    updateSelectInput(session, "demand_treatment_type", choices = treatment_types)
   })
 
   ## Population values change ####
@@ -54,6 +55,20 @@ shinyServer(function(input, output, session) {
   observeEvent(input$treatment_appointments, {
     if (req(input$treatment_type) %in% treatment_types) {
       treatment_appointments[[input$treatment_type]] <- input$treatment_appointments
+    }
+  })
+
+
+
+  observeEvent(input$demand_treatment_type, {
+    updateSliderInput(session,
+                      "demand_treatment_demand",
+                      value = treatment_appointments[[input$demand_treatment_type]])
+  })
+
+  observeEvent(input$demand_treatment_demand, {
+    if (req(input$demand_treatment_type) %in% treatment_types) {
+      treatment_appointments[[input$demand_treatment_type]] <- input$demand_treatment_demand
     }
   })
 
@@ -118,6 +133,17 @@ shinyServer(function(input, output, session) {
            average_monthly_appointments = flatten_dbl(v))
   })
 
+  demand <- reactive({
+    model_data <- o()
+    appointments <- appointments()
+    df <- model_data %>%
+      filter(type == "treatment") %>%
+      group_by(time, treatment) %>%
+      summarise(across(value, sum), .groups = "drop") %>%
+      inner_join(appointments, by = "treatment") %>%
+      mutate(no_appointments = value * average_monthly_appointments)
+  })
+
   #############
   ## Plots ####
   #############
@@ -128,7 +154,28 @@ shinyServer(function(input, output, session) {
   )
 
   output$demand_plot <- renderPlotly(
-    ggplotly(demand_plot(o(), appointments()),
+    ggplotly(demand_plot(demand()),
              tooltip = c("text"))
   )
+
+
+  output$demand_demand_plot <- renderPlotly({
+    p <- demand() %>%
+      filter(treatment == input$demand_treatment_type) %>%
+      demand_plot() +
+      theme(legend.position = "none")
+
+    ggplotly(p, tooltip = c("text"))
+  })
+
+  output$demand_table <- renderTable(
+    demand() %>%
+      filter(treatment == input$demand_treatment_type,
+             dplyr::near(time, round(time))) %>%
+      select(month = time,
+             referrals = value,
+             demand = no_appointments),
+    digits = 1
+  )
+
 })

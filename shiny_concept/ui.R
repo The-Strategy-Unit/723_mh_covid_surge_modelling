@@ -110,5 +110,27 @@ shinyUI(navbarPage(
     "Example Distribution",
     verbatimTextOutput("unemployed_y_vec"),
     verbatimTextOutput("bereaved_y_vec")
+  ),
+  tabPanel(
+    "Demand",
+    sidebarPanel(
+      selectInput(
+        "demand_treatment_type",
+        "Treatment type",
+        choices = NA
+      ),
+      sliderInput(
+        "demand_treatment_demand",
+        "Average # appointments per person",
+        min = 0,
+        max = 600,
+        step = 1,
+        value = 3
+      )
+    ),
+    mainPanel(
+      plotlyOutput("demand_demand_plot"),
+      tableOutput("demand_table")
+    )
   )
 ))
