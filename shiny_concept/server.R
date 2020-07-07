@@ -1,6 +1,7 @@
 library(shiny)
 
 shinyServer(function(input, output, session) {
+
   ###################
   ## CSV Outputs ####
   ###################
@@ -17,11 +18,17 @@ shinyServer(function(input, output, session) {
   ## Update Selectise Options ####
   ################################
 
-  observe({
+  observeEvent(input$popn_subgroup, {
     updateSelectInput(session, "sliders_select", choices = names(params_raw)[names(params_raw) %>% str_which(input$popn_subgroup)])
+  })
+
+
+  observe({
     updateSelectInput(session, "popn_subgroup", choices = names(population_groups_raw))
     updateSelectInput(session, "subpopulation_curve", choices = names(curves[, -1]))
     updateSelectInput(session, "treatment_type", choices = treatment_types)
+
+    updateSelectInput(session, "popn_subgroup_plot", choices = names(population_groups_raw), selected = input$popn_subgroup)
   })
 
   ## Population values change ####
@@ -112,6 +119,12 @@ shinyServer(function(input, output, session) {
     run_model(m, g, s)
   })
 
+  o_filter <- reactive(
+    {
+      o() %>% filter(group %in% input$popn_subgroup_plot)
+    }
+  )
+
 
   run_model_fn <- function(params, population_groups, months) {
     m <- matrix(unlist(params),
@@ -139,7 +152,7 @@ shinyServer(function(input, output, session) {
   #############
 
   output$pop_plot <- renderPlotly(
-    ggplotly(pop_plot(o()),
+    ggplotly(pop_plot(o_filter()),
              tooltip = c("text"))
   )
 
@@ -155,9 +168,14 @@ shinyServer(function(input, output, session) {
   parameters_tibble <- reactive(
     {
       tibble(Type = c(rep("Population Group", 5),
-                  rep("Treatments", 4),
-                  rep("Appointments", 2)),
-         Variable = c("Subgroup", "Months in Model", "Subpopulation Figure", "% in subgroup", "Scenario", "Group-Treatment-Condition combination", "Prevalence", "% Requiring Treatment", "Success % of Treatment","Treatment Type", "Average # Appointments per Person"),
+                  rep("Treatments", 4)
+                  # ,
+                  # rep("Appointments", 17)
+                  ),
+         Variable = c("Subgroup", "Months in Model", "Subpopulation Figure", "% in subgroup", "Scenario", "Group-Treatment-Condition combination", "Prevalence", "% Requiring Treatment", "Success % of Treatment"
+                      # ,
+                      # treatment_types
+                      ),
          Value = c(
            input$popn_subgroup,
            input$totalmonths,
@@ -167,9 +185,7 @@ shinyServer(function(input, output, session) {
            input$sliders_select,
            input$slider_pcnt,
            input$slider_treat,
-           input$slider_success,
-           input$treatment_type,
-           input$treatment_appointments
+           input$slider_success
          )
   )
     }
@@ -182,5 +198,9 @@ shinyServer(function(input, output, session) {
           write.csv(parameters_tibble(), file)
         }
     )
+
+  ## Test ####
+
+  output$o_print_test <- renderPrint(o())
 
 })
