@@ -99,7 +99,8 @@ shinyUI(navbarPage(
           step = 1,
           value = 3
         )
-      )
+      ),
+      downloadButton("download_params", "Download current parameters")
     ),
     mainPanel(
       plotlyOutput("pop_plot"),

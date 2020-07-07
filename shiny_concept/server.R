@@ -18,7 +18,7 @@ shinyServer(function(input, output, session) {
   ################################
 
   observe({
-    updateSelectInput(session, "sliders_select", choices = names(params_raw))
+    updateSelectInput(session, "sliders_select", choices = names(params_raw)[names(params_raw) %>% str_which(input$popn_subgroup)])
     updateSelectInput(session, "popn_subgroup", choices = names(population_groups_raw))
     updateSelectInput(session, "subpopulation_curve", choices = names(curves[, -1]))
     updateSelectInput(session, "treatment_type", choices = treatment_types)
@@ -147,4 +147,40 @@ shinyServer(function(input, output, session) {
     ggplotly(demand_plot(o(), appointments()),
              tooltip = c("text"))
   )
+
+  #######################
+  ## Download Params ####
+  #######################
+
+  parameters_tibble <- reactive(
+    {
+      tibble(Type = c(rep("Population Group", 5),
+                  rep("Treatments", 4),
+                  rep("Appointments", 2)),
+         Variable = c("Subgroup", "Months in Model", "Subpopulation Figure", "% in subgroup", "Scenario", "Group-Treatment-Condition combination", "Prevalence", "% Requiring Treatment", "Success % of Treatment","Treatment Type", "Average # Appointments per Person"),
+         Value = c(
+           input$popn_subgroup,
+           input$totalmonths,
+           input$subpopulation_size,
+           input$subpopulation_pcnt,
+           input$subpopulation_curve,
+           input$sliders_select,
+           input$slider_pcnt,
+           input$slider_treat,
+           input$slider_success,
+           input$treatment_type,
+           input$treatment_appointments
+         )
+  )
+    }
+  )
+
+  output$download_params <-
+    downloadHandler(
+        filename = "parameters.csv",
+        content = function(file) {
+          write.csv(parameters_tibble(), file)
+        }
+    )
+
 })
