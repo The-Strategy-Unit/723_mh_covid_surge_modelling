@@ -34,7 +34,7 @@ conditions <- params$groups %>%
   # this produces a named list per group of the condition-treatment names
   map(~map2(names(.x), map(.x, names), paste, sep = "-") %>% flatten_chr())
 
-treatments <- names(params_raw$demand)
+treatments <- names(params$demand)
 
 # the sliders used in the model
 sliders <- c("pcnt", "treat", "success")
