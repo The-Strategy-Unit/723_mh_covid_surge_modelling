@@ -1,4 +1,30 @@
 
+
+get_model_params <- function(p) {
+  p <- p %>%
+    map(map_at, "conditions", ~ .x %>%
+          map_depth(2, bind_cols) %>%
+          map(bind_rows, .id = "treatment") %>%
+          bind_rows(.id = "condition")) %>%
+    map_dfr("conditions", .id = "group") %>%
+    unite("rowname", group:treatment, sep = "|") %>%
+    mutate_at("decay", ~half_life_factor(months, .x)) %>%
+    select(-months) %>%
+    as.data.frame()
+
+  rownames <- p$rowname
+  p <- p %>% select(-rowname)
+  rownames(p) <- rownames
+
+  p %>% as.matrix() %>% t()
+}
+
+get_model_potential_functions <- function(g) {
+  g %>%
+    map(~curves[[.x$curve]] * .x$size * .x$pcnt / 100) %>%
+    map(approxfun, x = seq_len(24) - 1, rule = 2)
+}
+
 run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), long_output_format = TRUE) {
   # ensure params are ordered
   params <- params[, sort(colnames(params))]
