@@ -8,7 +8,7 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
 
   # get the names of the initial groups from the start of the treatment names
   initials <- treatments %>%
-    str_extract("^([^_]+)(?=_)") %>%
+    str_extract("^([^|]+)(?=|)") %>%
     unique()
 
   # reorders the new_potential object to be same order as the initials
@@ -22,7 +22,7 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
   # create a matrix that can take the initial group stocks and create a matrix that matches the treatment stocks.
   # each initial group is a column in the matrix
   initial_treatment_map <- treatments %>%
-    str_extract("([^_]+)(?=_)") %>%
+    str_extract("([^|]+)(?=|)") %>%
     map(~as.numeric(.x == initials)) %>%
     flatten_dbl() %>%
     matrix(ncol = length(initials), byrow = TRUE)
@@ -65,13 +65,13 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
   o <- ode(stocks, simtime, model, params, "euler") %>%
     as.data.frame() %>%
     as_tibble() %>%
-    rename_with(~paste0("at-risk_", .x), .cols = all_of(initials)) %>%
-    rename_with(~paste0("treatment_", .x), .cols = all_of(treatments))
+    rename_with(~paste0("at-risk|", .x), .cols = all_of(initials)) %>%
+    rename_with(~paste0("treatment|", .x), .cols = all_of(treatments))
 
   if (long_output_format) {
     o <- o %>%
       pivot_longer(-time) %>%
-      separate(name, c("type", "group", "condition", "treatment"), "\\_", fill = "right")
+      separate(name, c("type", "group", "condition", "treatment"), "\\|", fill = "right")
   }
   o
 }
