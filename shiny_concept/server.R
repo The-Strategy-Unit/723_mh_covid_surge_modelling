@@ -6,6 +6,12 @@ shinyServer(function(input, output, session) {
   ## CSV Outputs ####
   ###################
 
+  models <- params$groups %>%
+    names() %>%
+    set_names() %>%
+    map(~run_single_model(params$groups[.x], 24, SIM_TIME)) %>%
+    (lift_dl(reactiveValues))
+
   params <- lift_dl(reactiveValues)(params)
 
   ################################
@@ -119,42 +125,19 @@ shinyServer(function(input, output, session) {
   ## Model ####
   #############
 
-  get_model_params <- function(p) {
-    p <- p %>%
-      map(map_at, "conditions", ~ .x %>%
-            map_depth(2, bind_cols) %>%
-            map(bind_rows, .id = "treatment") %>%
-            bind_rows(.id = "condition")) %>%
-      map_dfr("conditions", .id = "group") %>%
-      unite("rowname", group:treatment, sep = "|") %>%
-      mutate_at("decay", ~half_life_factor(months, .x)) %>%
-      select(-months) %>%
-      as.data.frame()
-
-    rownames <- p$rowname
-    p <- p %>% select(-rowname)
-    rownames(p) <- rownames
-
-    p %>% as.matrix() %>% t()
-  }
-
-  get_model_potential_functions <- function(g) {
-    g %>%
-      map(~curves[[.x$curve]] * .x$size * .x$pcnt / 100) %>%
-      map(approxfun, x = seq_len(24) - 1, rule = 2)
-  }
-
   # Run model ----
   o <- reactive({
-    px <- reactiveValuesToList(params)
-    # convert the reactive values params back to a matrix to use with the model
-    m <- px$groups %>% get_model_params()
+    # only run current selected population group
 
-    g <- px$groups %>% get_model_potential_functions()
+    if (req(input$popn_subgroup) %in% population_groups) {
+      px <- reactiveValuesToList(params)$groups
+      models[[input$popn_subgroup]] <- run_single_model(px[input$popn_subgroup],
+                                                        input$totalmonths,
+                                                        SIM_TIME)
+    }
 
-    s <- seq(0, input$totalmonths - 1, by = 1 / 30)
-
-    run_model(m, g, s)
+    # combine models
+    bind_rows(reactiveValuesToList(models))
   })
 
   o_filter <- reactive({
