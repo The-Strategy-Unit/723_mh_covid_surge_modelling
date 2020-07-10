@@ -13,7 +13,7 @@ get_model_params <- function(p) {
     as.data.frame()
 
   rownames <- p$rowname
-  p <- p %>% select(-rowname)
+  p <- p %>% select_at(vars(-"rowname"))
   rownames(p) <- rownames
 
   p %>% as.matrix() %>% t()
@@ -107,7 +107,7 @@ run_single_model <- function(p, month, sim_time) {
 
   m <- get_model_params(p)
   g <- get_model_potential_functions(p)
-  s <- seq(0, month-1, by = sim_time)
+  s <- seq(0, month - 1, by = sim_time)
 
   ret <- run_model(m, g, s)
 
