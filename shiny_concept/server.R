@@ -89,7 +89,7 @@ shinyServer(function(input, output, session) {
           treatment <- str_remove(iss, "^.*-")
 
           s <- paste0("slider_", .x)
-          v <- params$groups[[psg]]$conditions[[condition]][[treatment]][[.x]]
+          v <- params$groups[[psg]]$conditions[[condition]][[treatment]][[.x]] * 100
 
           updateSliderInput(session, s, value = v)
         }
@@ -111,7 +111,7 @@ shinyServer(function(input, output, session) {
 
           v <- input[[s]]
 
-          params$groups[[psg]]$conditions[[condition]][[treatment]][[.x]] <- v
+          params$groups[[psg]]$conditions[[condition]][[treatment]][[.x]] <- v / 100
         }
       })
     })
@@ -206,5 +206,11 @@ shinyServer(function(input, output, session) {
   ## Test ####
 
   output$o_print_test <- renderPrint(o())
+
+  output$download_output <- downloadHandler(
+    filename = paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv"),
+    content = function(file) {
+      write.csv(o(), file, row.names = FALSE)
+    })
 
 })

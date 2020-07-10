@@ -66,17 +66,19 @@ shinyUI(navbarPage(
           "slider_pcnt",
           "Prevalence in sub-population",
           min = 0,
-          max = .25,
+          max = 25,
           value = 0,
-          step = 0.0001
+          step = 0.01,
+          post = "%"
         ),
         sliderInput(
           "slider_treat",
           "% Requiring Treatment",
           min = 0,
-          max = .50,
+          max = 50,
           value = 0,
-          step = 0.0001
+          step = 0.01,
+          post = "%"
         ),
         sliderInput(
           "slider_success",
@@ -84,7 +86,8 @@ shinyUI(navbarPage(
           min = 0,
           max = 1,
           value = 0,
-          step = 0.0001
+          step = 0.01,
+          post = "%"
         )
       ),
       panel(
@@ -113,7 +116,8 @@ shinyUI(navbarPage(
         multiple = T
       ),
       withSpinner(plotlyOutput("pop_plot")),
-      withSpinner(plotlyOutput("demand_plot"))
+      withSpinner(plotlyOutput("demand_plot")),
+      downloadButton("download_output", "Download model output")
     )
   ),
   tabPanel(
