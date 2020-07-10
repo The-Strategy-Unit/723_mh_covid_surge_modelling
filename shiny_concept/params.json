@@ -1,7 +1,7 @@
 {
   "groups": {
     "Children & young people": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 116654,
       "pcnt": 100,
       "conditions": {
@@ -239,7 +239,7 @@
       }
     },
     "Domestic abuse victims": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 1956,
       "pcnt": 100,
       "conditions": {
@@ -415,7 +415,7 @@
       }
     },
     "Elderly alone": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 46105,
       "pcnt": 100,
       "conditions": {
@@ -584,7 +584,7 @@
       }
     },
     "Family of COVID-deceased": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 4030,
       "pcnt": 100,
       "conditions": {
@@ -623,7 +623,7 @@
       }
     },
     "Family of ICU survivors": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 425,
       "pcnt": 100,
       "conditions": {
@@ -815,7 +815,7 @@
       }
     },
     "General population": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 143087,
       "pcnt": 100,
       "conditions": {
@@ -1130,7 +1130,7 @@
       }
     },
     "Health and care workers": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 16749,
       "pcnt": 100,
       "conditions": {
@@ -1285,7 +1285,7 @@
       }
     },
     "ICU survivors": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 85,
       "pcnt": 100,
       "conditions": {
@@ -1477,7 +1477,7 @@
       }
     },
     "Learning disabilities & autism": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 1683,
       "pcnt": 100,
       "conditions": {
@@ -1507,7 +1507,7 @@
       }
     },
     "Newly unemployed": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 1097,
       "pcnt": 100,
       "conditions": {
@@ -1720,7 +1720,7 @@
       }
     },
     "Parents": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 141371,
       "pcnt": 100,
       "conditions": {
@@ -1838,7 +1838,7 @@
       }
     },
     "Pre-existing CMH illness": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 29902,
       "pcnt": 100,
       "conditions": {
@@ -1868,7 +1868,7 @@
       }
     },
     "Pre-existing LTC": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 176849,
       "pcnt": 100,
       "conditions": {
@@ -1956,7 +1956,7 @@
       }
     },
     "Pre-existing SMI": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 6408,
       "pcnt": 100,
       "conditions": {
@@ -1986,7 +1986,7 @@
       }
     },
     "Pregnant & New Mothers": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 5621,
       "pcnt": 100,
       "conditions": {
@@ -2104,7 +2104,7 @@
       }
     },
     "Students FE & HE": {
-      "curve": "Sudden shock",
+      "curve": "Follow the curve",
       "size": 80575,
       "pcnt": 100,
       "conditions": {
