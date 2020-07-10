@@ -99,17 +99,25 @@ shinyUI(navbarPage(
           step = 1,
           value = 3
         )
-      )
+      ),
+      downloadButton("download_params", "Download current parameters")
     ),
     mainPanel(
-      plotlyOutput("pop_plot"),
-      plotlyOutput("demand_plot")
+      selectInput(
+        "popn_subgroup_plot",
+        "Choose subgroups to plot",
+        choices = NA,
+        multiple = T
+      ),
+      withSpinner(plotlyOutput("pop_plot")),
+      withSpinner(plotlyOutput("demand_plot"))
     )
   ),
   tabPanel(
     "Example Distribution",
     verbatimTextOutput("unemployed_y_vec"),
-    verbatimTextOutput("bereaved_y_vec")
+    verbatimTextOutput("bereaved_y_vec"),
+    verbatimTextOutput("o_print_test")
   ),
   tabPanel(
     "Demand",
@@ -123,9 +131,9 @@ shinyUI(navbarPage(
         "demand_treatment_demand",
         "Average # appointments per person",
         min = 0,
-        max = 600,
-        step = 1,
-        value = 3
+        max = 10,
+        step = .01,
+        value = 0
       )
     ),
     mainPanel(
