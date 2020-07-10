@@ -216,7 +216,12 @@ shinyServer(function(input, output, session) {
           get_model_potential_functions() %>%
           map_dfr(~list(time = 0:23, value = .x(0:23)), .id = "group") %>%
           mutate(type = "referrals")
-      )
+      ) %>%
+        filter(near(time, round(time))) %>%
+        group_by_at(vars(time:treatment)) %>%
+        summarise_all(sum) %>%
+        mutate_at("value", round)
+
       write.csv(df, file, row.names = FALSE)
     },
     "text/csv")
