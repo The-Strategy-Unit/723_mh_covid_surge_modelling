@@ -42,3 +42,8 @@ treatments <- names(params$demand)
 sliders <- c("pcnt", "treat", "success")
 
 group_variables <- c("curve", "size", "pcnt")
+
+models <- params$groups %>%
+  names() %>%
+  set_names() %>%
+  map(~run_single_model(params$groups[.x], 24, SIM_TIME))

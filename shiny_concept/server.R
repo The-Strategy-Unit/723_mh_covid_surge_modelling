@@ -6,12 +6,7 @@ shinyServer(function(input, output, session) {
   ## CSV Outputs ####
   ###################
 
-  models <- params$groups %>%
-    names() %>%
-    set_names() %>%
-    map(~run_single_model(params$groups[.x], 24, SIM_TIME)) %>%
-    (lift_dl(reactiveValues))
-
+  models <- lift_dl(reactiveValues)(models)
   params <- lift_dl(reactiveValues)(params)
 
   ################################
