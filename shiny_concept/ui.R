@@ -129,7 +129,7 @@ shinyUI(navbarPage(
       ),
       sliderInput(
         "demand_treatment_demand",
-        "Average # appointments per person",
+        "Average demand per person",
         min = 0,
         max = 10,
         step = .01,
