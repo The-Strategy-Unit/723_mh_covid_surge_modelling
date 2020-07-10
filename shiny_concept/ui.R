@@ -85,7 +85,7 @@ shinyUI(navbarPage(
         )
       ),
       panel(
-        heading = "Appointments",
+        heading = "Demand",
         selectInput(
           "treatment_type",
           "Treatment type",
@@ -93,11 +93,11 @@ shinyUI(navbarPage(
         ),
         sliderInput(
           "treatment_appointments",
-          "Average # appointments per person",
+          "Average demand per person",
           min = 0,
-          max = 600,
-          step = 1,
-          value = 3
+          max = 10,
+          step = .01,
+          value = 0
         )
       ),
       downloadButton("download_params", "Download current parameters")
@@ -129,7 +129,7 @@ shinyUI(navbarPage(
       ),
       sliderInput(
         "demand_treatment_demand",
-        "Average # appointments per person",
+        "Average demand per person",
         min = 0,
         max = 10,
         step = .01,
