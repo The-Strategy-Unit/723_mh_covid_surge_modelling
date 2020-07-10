@@ -19,7 +19,7 @@ font-size: 9px
 }
 "
 
-SIM_TIME = Sys.getenv("SIM_TIME", 1/5)
+SIM_TIME = as.numeric(Sys.getenv("SIM_TIME", 1/5))
 
 curves <- read_csv("curves.csv", col_types = "ddddd") %>%
   modify_at(vars(-Month), ~.x / sum(.x))
