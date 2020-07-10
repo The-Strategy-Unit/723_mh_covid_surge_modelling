@@ -128,7 +128,7 @@ shinyServer(function(input, output, session) {
       px <- reactiveValuesToList(params)$groups
       models[[input$popn_subgroup]] <- run_single_model(px[input$popn_subgroup],
                                                         input$totalmonths,
-                                                        SIM_TIME)
+                                                        sim_time)
     }
 
     # combine models

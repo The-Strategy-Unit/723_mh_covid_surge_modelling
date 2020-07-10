@@ -19,7 +19,7 @@ font-size: 9px
 }
 "
 
-SIM_TIME = as.numeric(Sys.getenv("SIM_TIME", 1/5))
+sim_time <- as.numeric(Sys.getenv("SIM_TIME", 1/5))
 
 curves <- read_csv("curves.csv", col_types = "ddddd") %>%
   modify_at(vars(-Month), ~.x / sum(.x))
@@ -46,4 +46,4 @@ group_variables <- c("curve", "size", "pcnt")
 models <- params$groups %>%
   names() %>%
   set_names() %>%
-  map(~run_single_model(params$groups[.x], 24, SIM_TIME))
+  map(~run_single_model(params$groups[.x], 24, sim_time))
