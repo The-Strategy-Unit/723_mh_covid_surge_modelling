@@ -84,7 +84,7 @@ shinyUI(navbarPage(
           "slider_success",
           "Success % of Treatment",
           min = 0,
-          max = 1,
+          max = 100,
           value = 0,
           step = 0.01,
           post = "%"
