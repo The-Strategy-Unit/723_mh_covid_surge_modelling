@@ -67,8 +67,10 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
     # expand the initials stocks for each of the treatments
     initials_matrix <- initial_treatment_map %*% matrix(stocks[initials], ncol = 1)
 
+
     # flow from initial groups to treatments
-    f_pot_treat <- initials_matrix[, 1] * params["pcnt", ] * params["treat", ]
+    f_referrals <- initials_matrix[, 1] * params["pcnt", ]
+    f_pot_treat <- f_referrals * params["treat", ]
     # flow from initial groups to no needs
     f_no_needs  <- stocks[initials] * (1 - matrix(params["pcnt", ], nrow = 1) %*% initial_treatment_map)[1, ]
 
@@ -81,10 +83,17 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
     f_pot_treat_initials <- (matrix(f_pot_treat, nrow = 1) %*% initial_treatment_map)[1, ]
     f_treat_pot_initials <- (matrix(f_treat_pot, nrow = 1) %*% initial_treatment_map)[1, ]
 
+    # add the flow of new-at-risk to the output
+    names(f_new_potential) <- paste0("new-at-risk|", names(f_new_potential))
+    # add the flow of new-referral to the output
+    names(f_referrals) <- paste0("new-referral|", names(f_referrals))
+
     # calculate the changes to each of the stocks
-    list(c(sum(f_no_needs) + sum(f_treat_no_needs),
-           f_new_potential + f_treat_pot_initials - f_pot_treat_initials - f_no_needs,
-           f_pot_treat - f_treat_pot - f_treat_no_needs))
+    c(list(c(sum(f_no_needs) + sum(f_treat_no_needs),
+             f_new_potential + f_treat_pot_initials - f_pot_treat_initials - f_no_needs,
+             f_pot_treat - f_treat_pot - f_treat_no_needs)),
+      f_new_potential,
+      f_referrals)
   }
 
   # run the model and return the results in a long tidy format
