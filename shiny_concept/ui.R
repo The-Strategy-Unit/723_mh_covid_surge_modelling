@@ -131,9 +131,9 @@ shinyUI(navbarPage(
         "demand_treatment_demand",
         "Average # appointments per person",
         min = 0,
-        max = 600,
-        step = 1,
-        value = 3
+        max = 10,
+        step = .01,
+        value = 0
       )
     ),
     mainPanel(

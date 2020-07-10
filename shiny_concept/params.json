@@ -2316,18 +2316,18 @@
     }
   },
   "demand": {
-    "Acute Inpatients": 3,
-    "Addiction Services": 3,
-    "ADHD": 3,
-    "Adult CMHT": 3,
-    "Aspergers": 3,
-    "Complex Care Team": 3,
-    "CRHT": 3,
-    "EIP Team": 3,
-    "IAPT": 3,
-    "PD Hub": 3,
-    "Perinatal Services": 3,
-    "SPA/A&E": 3,
-    "Triage Cars": 3
+    "Acute Inpatients": 1.65,
+    "Addiction Services": 1.25,
+    "ADHD": 1.00,
+    "Adult CMHT": 1.57,
+    "Aspergers": 1.34,
+    "Complex Care Team": 1.67,
+    "CRHT": 2.03,
+    "EIP Team": 1.63,
+    "IAPT": 1.50,
+    "PD Hub": 2.99,
+    "Perinatal Services": 1.73,
+    "SPA/A&E": 1.04,
+    "Triage Cars": 1.11
   }
 }
