@@ -165,9 +165,7 @@ shinyServer(function(input, output, session) {
 
     if (nrow(o) < 1) return(NULL)
 
-    p <- pop_plot(o)
-
-    ggplotly(p, tooltip = c("text"))
+    pop_plot(o)
   })
 
   output$demand_plot <- renderPlotly({
@@ -175,10 +173,7 @@ shinyServer(function(input, output, session) {
 
     if (nrow(d) < 1) return(NULL)
 
-    p <- d %>%
-      demand_plot()
-
-    ggplotly(p, tooltip = c("text"))
+    demand_plot(d)
   })
 
   output$demand_demand_plot <- renderPlotly({
@@ -187,11 +182,7 @@ shinyServer(function(input, output, session) {
 
     if (nrow(d) < 1) return(NULL)
 
-    p <- d %>%
-      demand_plot() +
-      theme(legend.position = "none")
-
-    ggplotly(p, tooltip = c("text"))
+    demand_plot(d)
   })
 
   output$demand_table <- renderTable(
