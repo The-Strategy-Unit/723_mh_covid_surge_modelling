@@ -10,11 +10,11 @@ pop_plot <- function(model_data) {
           y = ~value,
           color = ~group,
           hovertemplate = paste("<b>Time</b>: %{x:.1f}",
-                                "<b>Referrals</b>: %{y:.0f}",
+                                "<b>Patients</b>: %{y:.0f}",
                                 sep = "<br>")) %>%
     plotly::layout(showlegend = FALSE,
                    xaxis = list(title = "Time"),
-                   yaxis = list(title = "Referrals"))
+                   yaxis = list(title = "# People at Risk of having MH Needs"))
 }
 
 demand_plot <- function(demand) {
