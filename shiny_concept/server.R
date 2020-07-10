@@ -208,17 +208,17 @@ shinyServer(function(input, output, session) {
   output$o_print_test <- renderPrint(o())
 
   output$download_output <- downloadHandler(
-    filename = paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv"),
-    content = function(file) {
-      bind_rows(
+    paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv"),
+    function(file) {
+      df <- bind_rows(
         o(),
         params$groups %>%
-          reactiveValuesToList() %>%
           get_model_potential_functions() %>%
           map_dfr(~list(time = 0:23, value = .x(0:23)), .id = "group") %>%
           mutate(type = "referrals")
-      ) %>%
-        write.csv(file, row.names = FALSE)
-    })
+      )
+      write.csv(df, file, row.names = FALSE)
+    },
+    "text/csv")
 
 })
