@@ -185,7 +185,7 @@
     },
     "Children & young people": {
       "curve": "Sudden shock",
-      "size": 249508,
+      "size": 116654,
       "pcnt": 100,
       "conditions": {
         "Adverse childhood experience": {
@@ -423,8 +423,8 @@
     },
     "Domestic abuse victims": {
       "curve": "Sudden shock",
-      "size": 19560,
-      "pcnt": 10,
+      "size": 1956,
+      "pcnt": 100,
       "conditions": {
         "Depression": {
           "Acute Inpatients": {
@@ -599,7 +599,7 @@
     },
     "Elderly alone": {
       "curve": "Sudden shock",
-      "size": 100029,
+      "size": 46105,
       "pcnt": 100,
       "conditions": {
         "Anxiety": {
@@ -807,7 +807,7 @@
     },
     "General population": {
       "curve": "Sudden shock",
-      "size": 325888,
+      "size": 143087,
       "pcnt": 100,
       "conditions": {
         "Anxiety": {
@@ -1469,7 +1469,7 @@
     },
     "Learning disabilities & autism": {
       "curve": "Sudden shock",
-      "size": 2550,
+      "size": 1683,
       "pcnt": 100,
       "conditions": {
         "Increased acuity": {
@@ -1830,7 +1830,7 @@
     },
     "Pre-existing CMH illness": {
       "curve": "Sudden shock",
-      "size": 71091,
+      "size": 29902,
       "pcnt": 100,
       "conditions": {
         "Increased acuity": {
@@ -1860,7 +1860,7 @@
     },
     "Pre-existing LTC": {
       "curve": "Sudden shock",
-      "size": 267953,
+      "size": 176849,
       "pcnt": 100,
       "conditions": {
         "Anxiety": {
@@ -1948,7 +1948,7 @@
     },
     "Pre-existing SMI": {
       "curve": "Sudden shock",
-      "size": 9709,
+      "size": 6408,
       "pcnt": 100,
       "conditions": {
         "Increased acuity": {
