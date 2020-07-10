@@ -207,4 +207,10 @@ shinyServer(function(input, output, session) {
 
   output$o_print_test <- renderPrint(o())
 
+  output$download_output <- downloadHandler(
+    filename = paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv"),
+    content = function(file) {
+      write.csv(o(), file, row.names = FALSE)
+    })
+
 })

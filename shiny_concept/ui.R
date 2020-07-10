@@ -116,7 +116,8 @@ shinyUI(navbarPage(
         multiple = T
       ),
       withSpinner(plotlyOutput("pop_plot")),
-      withSpinner(plotlyOutput("demand_plot"))
+      withSpinner(plotlyOutput("demand_plot")),
+      downloadButton("download_output", "Download model output")
     )
   ),
   tabPanel(
