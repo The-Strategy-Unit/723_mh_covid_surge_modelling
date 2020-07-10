@@ -66,22 +66,25 @@ shinyUI(navbarPage(
           "slider_pcnt",
           "Prevalence in sub-population",
           min = 0,
-          max = 1,
-          value = 0.01
+          max = .25,
+          value = 0,
+          step = 0.0001
         ),
         sliderInput(
           "slider_treat",
           "% Requiring Treatment",
           min = 0,
-          max = 1,
-          value = 0.01
+          max = .50,
+          value = 0,
+          step = 0.0001
         ),
         sliderInput(
           "slider_success",
           "Success % of Treatment",
           min = 0,
           max = 1,
-          value = 0.01
+          value = 0,
+          step = 0.0001
         )
       ),
       panel(
