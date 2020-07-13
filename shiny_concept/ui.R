@@ -15,7 +15,6 @@ shinyUI(navbarPage(
         ),
         numericInput(
           "totalmonths",
-
           "Months in Model",
           min = 1,
           max = 24,
@@ -66,7 +65,7 @@ shinyUI(navbarPage(
           "slider_pcnt",
           "Prevalence in sub-population",
           min = 0,
-          max = 25,
+          max = 100,
           value = 0,
           step = 0.01,
           post = "%"
@@ -75,7 +74,7 @@ shinyUI(navbarPage(
           "slider_treat",
           "% Requiring Treatment",
           min = 0,
-          max = 50,
+          max = 100,
           value = 0,
           step = 0.01,
           post = "%"
