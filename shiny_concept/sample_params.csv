@@ -1,7 +1,0 @@
-"group",      "treatment",    "condition",   "pcnt", "treat", "success", "days", "decay"
-"unemployed", "cmht",         "stress",      0.010,  0.10,    0.90,      4,      0.5
-"unemployed", "cmht",         "insomnia",    0.020,  0.01,    0.80,      6,      0.5
-"unemployed", "iapt",         "anxiety",     0.060,  0.04,    0.95,      3,      0.5
-"unemployed", "iapt",         "depression",  0.030,  0.06,    0.80,      2,      0.5
-"unemployed", "psych-liason", "suicide",     0.001,  0.90,    0.05,      1,      0.5
-"bereaved",   "cmht",         "bereavement", 0.010,  1.00,    1.00,      1,      0.9
