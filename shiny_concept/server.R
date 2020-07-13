@@ -15,7 +15,7 @@ shinyServer(function(input, output, session) {
 
   observe({
     updateSelectInput(session, "popn_subgroup", choices = population_groups)
-    updateSelectInput(session, "subpopulation_curve", choices = names(curves[, -1]))
+    updateSelectInput(session, "subpopulation_curve", choices = names(params$curves))
     updateSelectInput(session, "treatment_type", choices = treatments)
     updateSelectInput(session, "demand_treatment_type", choices = treatments)
     updateSelectInput(session,
@@ -164,6 +164,7 @@ shinyServer(function(input, output, session) {
     if (req(input$popn_subgroup) %in% population_groups) {
       px <- reactiveValuesToList(params)$groups
       models[[input$popn_subgroup]] <- run_single_model(px[input$popn_subgroup],
+                                                        params$curves,
                                                         input$totalmonths,
                                                         sim_time)
     }

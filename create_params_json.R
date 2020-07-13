@@ -1,6 +1,8 @@
+library(magrittr)
 library(tidyverse)
 library(readxl)
 library(glue)
+library(jsonlite)
 
 raw_data_path <- "params.xlsx"
 
@@ -29,6 +31,9 @@ list(
     inner_join(new_params, by = "group") %>%
     mutate(data = map2(data, conditions, ~c(.x, list(conditions = .y)))) %$%
     set_names(data, group),
-  demand = set_names(raw_data$treatments$demand, raw_data$treatments$treatment) %>% as.list()
+  demand = set_names(raw_data$treatments$demand, raw_data$treatments$treatment) %>% as.list(),
+  curves = raw_data$curves %>%
+    select(-month) %>%
+    as.list()
 ) %>%
   write_json("shiny_concept/params.json", pretty = TRUE, auto_unbox = TRUE)

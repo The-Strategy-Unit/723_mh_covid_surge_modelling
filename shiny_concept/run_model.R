@@ -1,5 +1,3 @@
-
-
 get_model_params <- function(p) {
   p <- p %>%
     map(map_at, "conditions", ~ .x %>%
@@ -19,7 +17,7 @@ get_model_params <- function(p) {
   p %>% as.matrix() %>% t()
 }
 
-get_model_potential_functions <- function(g) {
+get_model_potential_functions <- function(g, curves) {
   g %>%
     map(~curves[[.x$curve]] * .x$size * .x$pcnt / 100) %>%
     map(approxfun, x = seq_len(24) - 1, rule = 2)
@@ -114,12 +112,12 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
   o
 }
 
-run_single_model <- function(p, month, sim_time) {
+run_single_model <- function(p, curves, months, sim_time) {
   cat("running_single_model:", names(p))
 
   m <- get_model_params(p)
-  g <- get_model_potential_functions(p)
-  s <- seq(0, month - 1, by = sim_time)
+  g <- get_model_potential_functions(p, curves)
+  s <- seq(0, months - 1, by = sim_time)
 
   ret <- run_model(m, g, s)
 

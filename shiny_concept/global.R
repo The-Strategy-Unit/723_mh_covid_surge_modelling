@@ -21,10 +21,7 @@ font-size: 9px
 
 sim_time <- as.numeric(Sys.getenv("SIM_TIME", 1 / 5))
 
-curves <- read_csv("curves.csv", col_types = "ddddd") %>%
-  modify_at(vars(-Month), ~.x / sum(.x))
-
-params <- read_json("params.json")
+params <- read_json("params.json", simplifyVector = TRUE)
 
 population_groups <- names(params$groups)
 
@@ -48,4 +45,4 @@ group_variables <- c("curve", "size", "pcnt")
 models <- params$groups %>%
   names() %>%
   set_names() %>%
-  map(~run_single_model(params$groups[.x], 24, sim_time))
+  map(~run_single_model(params$groups[.x], params$curves, 24, sim_time))
