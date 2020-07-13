@@ -216,7 +216,18 @@ shinyServer(function(input, output, session) {
         summarise_all(sum) %>%
         mutate_at("value", round)
 
-      write.csv(df, file, row.names = FALSE)
+
+      bind_rows(
+        df,
+        # add the demand data
+        df %>%
+          filter(type == "treatment") %>%
+          inner_join(appointments(), by = "treatment") %>%
+          mutate(type = "demand",
+                 value = round(value * average_monthly_appointments),
+                 average_monthly_appointments = NULL)
+      ) %>%
+        write.csv(file, row.names = FALSE)
     },
     "text/csv")
 

@@ -87,13 +87,16 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
     names(f_new_potential) <- paste0("new-at-risk|", names(f_new_potential))
     # add the flow of new-referral to the output
     names(f_referrals) <- paste0("new-referral|", names(f_referrals))
+    # add the flow of new-treatments to the output
+    names(f_pot_treat) <- paste0("new-treatment|", names(f_pot_treat))
 
     # calculate the changes to each of the stocks
     c(list(c(sum(f_no_needs) + sum(f_treat_no_needs),
              f_new_potential + f_treat_pot_initials - f_pot_treat_initials - f_no_needs,
              f_pot_treat - f_treat_pot - f_treat_no_needs)),
       f_new_potential,
-      f_referrals)
+      f_referrals,
+      f_pot_treat)
   }
 
   # run the model and return the results in a long tidy format
