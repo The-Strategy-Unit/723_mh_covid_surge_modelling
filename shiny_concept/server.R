@@ -148,10 +148,6 @@ shinyServer(function(input, output, session) {
     bind_rows(reactiveValuesToList(models))
   })
 
-  o_filter <- reactive({
-    o() %>% filter(group %in% input$popn_subgroup_plot)
-  })
-
   appointments <- reactive({
     v <- reactiveValuesToList(params)$demand
     tibble(treatment = names(v),
@@ -174,11 +170,12 @@ shinyServer(function(input, output, session) {
   #############
 
   output$pop_plot <- renderPlotly({
-    o <- o_filter()
+    df <- o() %>%
+      filter(group %in% input$popn_subgroup_plot)
 
-    if (nrow(o) < 1) return(NULL)
+    if (nrow(df) < 1) return(NULL)
 
-    pop_plot(o)
+    pop_plot(df)
   })
 
   output$demand_plot <- renderPlotly({
@@ -188,37 +185,6 @@ shinyServer(function(input, output, session) {
 
     demand_plot(d)
   })
-
-  output$demand_demand_plot <- renderPlotly({
-    d <- demand() %>%
-      filter(treatment == input$demand_treatment_type)
-
-    if (nrow(d) < 1) return(NULL)
-
-    demand_plot(d)
-  })
-
-  output$demand_table <- renderTable(
-    demand() %>%
-      filter(treatment == input$demand_treatment_type,
-             dplyr::near(time, round(time))) %>%
-      select(month = time,
-             referrals = value,
-             demand = no_appointments),
-    digits = 1
-  )
-
-  #######################
-  ## Download Params ####
-  #######################
-
-  output$download_params <- downloadHandler(filename = "parameters.json", content = function(file) {
-    writeLines(toJSON(reactiveValuesToList(params), pretty = TRUE, auto_unbox = TRUE), file)
-  })
-
-  ## Test ####
-
-  output$o_print_test <- renderPrint(o())
 
   output$download_output <- downloadHandler(
     paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv"),
@@ -240,6 +206,6 @@ shinyServer(function(input, output, session) {
       ) %>%
         write.csv(file, row.names = FALSE)
     },
-    "text/csv")
-
+    "text/csv"
+  )
 })
