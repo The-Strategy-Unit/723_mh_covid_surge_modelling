@@ -72,7 +72,7 @@
             "decay": 0.5
           }
         },
-        "Neurological symptom disorder (ADHD / Aspergers)": {
+        "Neurological symptom disorder (ADHD/Aspergers)": {
           "ADHD": {
             "pcnt": 0.0051,
             "treat": 0.05,
@@ -125,7 +125,7 @@
             "decay": 0.5
           }
         },
-        "Self-harm": {
+        "Self harm": {
           "Acute Inpatients": {
             "pcnt": 0.0027,
             "treat": 1,
@@ -560,7 +560,7 @@
         }
       }
     },
-    "Family of COVID-deceased": {
+    "Family of COVID deceased": {
       "curve": "Follow the curve",
       "size": 4030,
       "pcnt": 100,
@@ -921,7 +921,7 @@
             "decay": 0.5
           }
         },
-        "Self-harm": {
+        "Self harm": {
           "Acute Inpatients": {
             "pcnt": 0.0023,
             "treat": 1,
@@ -1800,7 +1800,7 @@
         }
       }
     },
-    "Pre-existing CMH illness": {
+    "Pre existing CMH illness": {
       "curve": "Follow the curve",
       "size": 29902,
       "pcnt": 100,
@@ -1830,7 +1830,7 @@
         }
       }
     },
-    "Pre-existing LTC": {
+    "Pre existing LTC": {
       "curve": "Follow the curve",
       "size": 176849,
       "pcnt": 100,
@@ -1904,7 +1904,7 @@
         }
       }
     },
-    "Pre-existing SMI": {
+    "Pre existing SMI": {
       "curve": "Follow the curve",
       "size": 6408,
       "pcnt": 100,
@@ -2124,7 +2124,7 @@
             "decay": 0.5
           }
         },
-        "Self-harm": {
+        "Self harm": {
           "Acute Inpatients": {
             "pcnt": 0.0041,
             "treat": 1,
@@ -2247,5 +2247,11 @@
     "PICU": 1,
     "SPA/A&E": 1.04,
     "Triage Cars": 1.11
+  },
+  "curves": {
+    "Sudden shock": [0, 0.0612, 0.1224, 0.2449, 0.2041, 0.1633, 0.102, 0.051, 0.0306, 0.0153, 0.0052, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "Follow the curve": [0, 0.0119, 0.0238, 0.0475, 0.095, 0.1188, 0.1206, 0.1069, 0.0841, 0.0722, 0.0594, 0.0487, 0.0392, 0.0333, 0.0285, 0.0249, 0.0214, 0.0178, 0.0143, 0.0116, 0.009, 0.0062, 0.0034, 0.0015],
+    "Shallow mid term": [0, 0.0076, 0.0152, 0.0227, 0.0303, 0.0379, 0.0455, 0.053, 0.0606, 0.0682, 0.0758, 0.0832, 0.0832, 0.0758, 0.0682, 0.0606, 0.053, 0.0455, 0.0379, 0.0303, 0.0227, 0.0152, 0.0076, 0],
+    "Sustained impact": [0, 0.0118, 0.0234, 0.0374, 0.042, 0.0448, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467]
   }
 }

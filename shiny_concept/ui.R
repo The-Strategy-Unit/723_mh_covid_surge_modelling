@@ -50,24 +50,24 @@ shinyUI(navbarPage(
       ),
       panel(
         heading = "Treatments",
-        # selectInput(
-        #   "sliders_select",
-        #   label = "Group-Treatment-Cond. combination",
-        #   choices = NA
-        # ),
-        fluidRow(column(
-          6,
-        selectInput(
-          "sliders_select_cond",
-          label = "Condition",
-          choices = NA
-        )),
-        column(6,
-        selectInput(
-          "sliders_select_treat",
-          label = "Treatment Pathway",
-          choices = NA
-        ))),
+        fluidRow(
+          column(
+            6,
+            selectInput(
+              "sliders_select_cond",
+              label = "Condition",
+              choices = NA
+            )
+          ),
+          column(
+            6,
+            selectInput(
+              "sliders_select_treat",
+              label = "Treatment Pathway",
+              choices = NA
+            )
+          )
+        ),
         paste0(
           "Idea here is to have the same sliders for each of the treatment ",
           "groups, but the figures will change accordingly based on the ",
