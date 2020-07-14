@@ -1,20 +1,16 @@
 
-pop_plot <- function(model_data) {
-  df <- model_data %>%
-    filter(type == "at-risk")
-
+referrals_plot <- function(df) {
   plot_ly(df,
           type = "scatter",
           mode = "lines",
           x = ~time,
           y = ~value,
-          color = ~group,
           hovertemplate = paste("<b>Time</b>: %{x:.1f}",
-                                "<b>Patients</b>: %{y:.0f}",
+                                "<b>Referrals</b>: %{y:.0f}",
                                 sep = "<br>")) %>%
     plotly::layout(showlegend = FALSE,
                    xaxis = list(title = "Time"),
-                   yaxis = list(title = "# People at Risk of having MH Needs"))
+                   yaxis = list(title = "New Referrals"))
 }
 
 demand_plot <- function(demand) {

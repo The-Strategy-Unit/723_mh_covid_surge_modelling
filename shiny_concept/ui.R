@@ -71,6 +71,10 @@ params_demand <- box(
   downloadButton(
     "download_params",
     "Download current parameters"
+  ),
+  downloadButton(
+    "download_output",
+    "Download model output"
   )
 )
 
@@ -86,23 +90,11 @@ body_params <- tabItem(
 body_report <- tabItem(
   "results",
   fluidRow(
-    # box(
-    #   selectInput(
-    #     "popn_subgroup_plot",
-    #     "Choose subgroups to plot",
-    #     choices = NA,
-    #     multiple = T
-    #   )
-    # ),
-    box(
-      withSpinner(plotlyOutput("pop_plot"))
-    ),
-    box(
-      withSpinner(plotlyOutput("demand_plot"))
-    ),
-    box(
-      downloadButton("download_output", "Download model output")
-    )
+    box(selectInput("services", "Service", choices = NA)),
+  ),
+  fluidRow(
+    box(withSpinner(plotlyOutput("referrals_plot"))),
+    box(withSpinner(plotlyOutput("demand_plot")))
   )
 )
 

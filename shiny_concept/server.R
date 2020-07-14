@@ -18,6 +18,8 @@ shinyServer(function(input, output, session) {
     updateSelectInput(session, "subpopulation_curve", choices = names(params$curves))
     updateSelectInput(session, "treatment_type", choices = treatments)
     updateSelectInput(session, "demand_treatment_type", choices = treatments)
+
+    updateSelectInput(session, "services", choices = treatments)
   })
 
   ## Condition and treatment pathway split ####
@@ -160,12 +162,16 @@ shinyServer(function(input, output, session) {
   ## Plots ####
   #############
 
-  output$pop_plot <- renderPlotly({
-    df <- o()
+  output$referrals_plot <- renderPlotly({
+    df <- o() %>%
+      filter(type == "new-referral",
+             treatment == input$services) %>%
+      group_by(time) %>%
+      summarise_at("value", sum)
 
     if (nrow(df) < 1) return(NULL)
 
-    pop_plot(df)
+    referrals_plot(df)
   })
 
   output$demand_plot <- renderPlotly({
