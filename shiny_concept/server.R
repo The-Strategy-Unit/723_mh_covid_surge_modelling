@@ -226,9 +226,7 @@ shinyServer(function(input, output, session) {
       df <- o() %>%
         filter(near(time, round(time))) %>%
         group_by_at(vars(time:treatment)) %>%
-        summarise_all(sum) %>%
-        mutate_at("value", round)
-
+        summarise_all(sum)
 
       bind_rows(
         df,
@@ -237,7 +235,7 @@ shinyServer(function(input, output, session) {
           filter(type == "treatment") %>%
           inner_join(appointments(), by = "treatment") %>%
           mutate(type = "demand",
-                 value = round(value * average_monthly_appointments),
+                 value = value * average_monthly_appointments,
                  average_monthly_appointments = NULL)
       ) %>%
         write.csv(file, row.names = FALSE)
