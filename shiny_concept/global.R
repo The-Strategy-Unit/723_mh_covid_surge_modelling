@@ -6,6 +6,7 @@ library(patchwork,       quietly = TRUE)
 library(plotly,          quietly = TRUE, exclude = c("last_plot", "filter", "layout"))
 library(shinyWidgets,    quietly = TRUE)
 library(shinycssloaders, quietly = TRUE)
+library(shinydashboard,  quietly = TRUE)
 library(jsonlite,        quietly = TRUE, exclude = "flatten")
 
 options(scipen = 999)

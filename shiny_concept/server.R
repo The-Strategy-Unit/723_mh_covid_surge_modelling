@@ -18,15 +18,6 @@ shinyServer(function(input, output, session) {
     updateSelectInput(session, "subpopulation_curve", choices = names(params$curves))
     updateSelectInput(session, "treatment_type", choices = treatments)
     updateSelectInput(session, "demand_treatment_type", choices = treatments)
-    updateSelectInput(session,
-                      "popn_subgroup_plot",
-                      choices = population_groups)
-  })
-
-  observeEvent(input$popn_subgroup, {
-    if (req(input$popn_subgroup) %in% population_groups) {
-      updateSelectInput(session, "popn_subgroup_plot", selected = input$popn_subgroup)
-    }
   })
 
   ## Condition and treatment pathway split ####
@@ -140,7 +131,7 @@ shinyServer(function(input, output, session) {
       px <- reactiveValuesToList(params)$groups
       models[[input$popn_subgroup]] <- run_single_model(px[input$popn_subgroup],
                                                         params$curves,
-                                                        input$totalmonths,
+                                                        24,
                                                         sim_time)
     }
 
@@ -170,8 +161,7 @@ shinyServer(function(input, output, session) {
   #############
 
   output$pop_plot <- renderPlotly({
-    df <- o() %>%
-      filter(group %in% input$popn_subgroup_plot)
+    df <- o()
 
     if (nrow(df) < 1) return(NULL)
 
