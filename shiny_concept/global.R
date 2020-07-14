@@ -32,8 +32,6 @@ conditions <- params$groups %>%
   # get a combination of all of these, then we flatten the results.
   # this produces a named list per group of the condition-treatment names
   map(~map2(names(.x), map(.x, names), paste, sep = "-") %>% flatten_chr())
-conditions <- conditions %>% map(~ str_replace_all(.x, "Self-harm", "Self harm"))
-
 
 treatments <- names(params$demand)
 
