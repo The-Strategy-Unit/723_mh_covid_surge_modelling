@@ -30,6 +30,33 @@ shinyServer(function(input, output, session) {
     }
   })
 
+  ## Condition and treatment pathway split ####
+
+  test_conditions <- reactive({
+    df <- str_split(conditions[[input$popn_subgroup]], "-", 2) %>%
+      map_df( ~ tibble(condition = .x[1], treatment = .x[2]))
+    return(df)
+  })
+
+  values_conditions <- reactive({
+    unique(test_conditions()$condition)
+  })
+
+  values_treatmentpathway <- reactive(
+  {
+    x <- test_conditions()[which(test_conditions()$condition == input$sliders_select_cond),]
+    unique(x$treatment)
+  }
+  )
+
+  observeEvent(input$popn_subgroup, {
+    updateSelectInput(session, "sliders_select_cond", choices = values_conditions())
+    })
+
+  observeEvent(input$sliders_select_cond, {
+    updateSelectInput(session, "sliders_select_treat", choices = values_treatmentpathway())
+  })
+
   ## Population values change ####
 
   group_variables %>%
@@ -78,15 +105,21 @@ shinyServer(function(input, output, session) {
   ###############
 
   # when the sliders_select drop down is changed, set the values of the sliders from params
-  observeEvent(input$sliders_select, {
+  observeEvent(input$sliders_select_treat, {
     sliders %>%
       walk(function(.x) {
         psg <- req(input$popn_subgroup)
-        iss <- req(input$sliders_select)
+
+        condition <- req(input$sliders_select_cond)
+        treatment <- req(input$sliders_select_treat)
+
+        # iss <- req(input$sliders_select)
+        iss <- paste0(condition, "-", treatment)
+
 
         if (psg %in% population_groups & iss %in% conditions[[psg]]) {
-          condition <- str_remove(iss, "-.*$")
-          treatment <- str_remove(iss, "^.*-")
+          # condition <- str_remove(iss, "-.*$")
+          # treatment <- str_remove(iss, "^.*-")
 
           s <- paste0("slider_", .x)
           v <- params$groups[[psg]]$conditions[[condition]][[treatment]][[.x]] * 100
@@ -103,11 +136,15 @@ shinyServer(function(input, output, session) {
 
       observeEvent(input[[s]], {
         psg <- req(input$popn_subgroup)
-        iss <- req(input$sliders_select)
+        condition <- req(input$sliders_select_cond)
+        treatment <- req(input$sliders_select_treat)
+
+        # iss <- req(input$sliders_select)
+        iss <- paste0(condition, "-", treatment)
 
         if (psg %in% population_groups & iss %in% conditions[[psg]]) {
-          condition <- str_remove(iss, "-.*$")
-          treatment <- str_remove(iss, "^.*-")
+          # condition <- str_remove(iss, "-.*$")
+          # treatment <- str_remove(iss, "^.*-")
 
           v <- input[[s]]
 
