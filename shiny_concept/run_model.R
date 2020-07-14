@@ -1,3 +1,5 @@
+library(tidyverse)
+
 get_model_params <- function(p) {
   p <- p %>%
     map(map_at, "conditions", ~ .x %>%
