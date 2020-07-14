@@ -3,7 +3,7 @@
     "Children & young people": {
       "curve": "Follow the curve",
       "size": 116654,
-      "pcnt": 100,
+      "pcnt": 10,
       "conditions": {
         "Anxiety": {
           "Adult CMHT": {
@@ -401,7 +401,7 @@
     "Elderly alone": {
       "curve": "Follow the curve",
       "size": 46105,
-      "pcnt": 100,
+      "pcnt": 25,
       "conditions": {
         "Anxiety": {
           "Adult CMHT": {
@@ -563,7 +563,7 @@
     "Family of COVID deceased": {
       "curve": "Follow the curve",
       "size": 4030,
-      "pcnt": 100,
+      "pcnt": 75,
       "conditions": {
         "Complicated grief": {
           "Bereavement Services": {
@@ -616,7 +616,7 @@
     "Family of ICU survivors": {
       "curve": "Follow the curve",
       "size": 425,
-      "pcnt": 100,
+      "pcnt": 75,
       "conditions": {
         "Anxiety": {
           "Adult CMHT": {
@@ -815,7 +815,7 @@
     "General population": {
       "curve": "Follow the curve",
       "size": 143087,
-      "pcnt": 100,
+      "pcnt": 10,
       "conditions": {
         "Anxiety": {
           "Adult CMHT": {
@@ -1116,7 +1116,7 @@
     "Health and care workers": {
       "curve": "Follow the curve",
       "size": 16749,
-      "pcnt": 100,
+      "pcnt": 25,
       "conditions": {
         "Anxiety": {
           "Adult CMHT": {
@@ -1263,8 +1263,8 @@
     },
     "ICU survivors": {
       "curve": "Follow the curve",
-      "size": 85,
-      "pcnt": 100,
+      "size": 137,
+      "pcnt": 75,
       "conditions": {
         "Anxiety": {
           "Adult CMHT": {
@@ -1463,7 +1463,7 @@
     "Learning disabilities & autism": {
       "curve": "Follow the curve",
       "size": 1683,
-      "pcnt": 100,
+      "pcnt": 50,
       "conditions": {
         "Increased acuity": {
           "CRHT": {
@@ -1493,7 +1493,7 @@
     "Newly unemployed": {
       "curve": "Follow the curve",
       "size": 1097,
-      "pcnt": 100,
+      "pcnt": 25,
       "conditions": {
         "Anxiety": {
           "Adult CMHT": {
@@ -1692,7 +1692,7 @@
     "Parents": {
       "curve": "Follow the curve",
       "size": 141371,
-      "pcnt": 100,
+      "pcnt": 10,
       "conditions": {
         "Anxiety": {
           "Adult CMHT": {
@@ -1803,7 +1803,7 @@
     "Pre existing CMH illness": {
       "curve": "Follow the curve",
       "size": 29902,
-      "pcnt": 100,
+      "pcnt": 50,
       "conditions": {
         "Increased acuity": {
           "CRHT": {
@@ -1833,7 +1833,7 @@
     "Pre existing LTC": {
       "curve": "Follow the curve",
       "size": 176849,
-      "pcnt": 100,
+      "pcnt": 25,
       "conditions": {
         "Anxiety": {
           "Adult CMHT": {
@@ -1907,7 +1907,7 @@
     "Pre existing SMI": {
       "curve": "Follow the curve",
       "size": 6408,
-      "pcnt": 100,
+      "pcnt": 50,
       "conditions": {
         "Increased acuity": {
           "CRHT": {
@@ -1937,7 +1937,7 @@
     "Pregnant & New Mothers": {
       "curve": "Follow the curve",
       "size": 5621,
-      "pcnt": 100,
+      "pcnt": 25,
       "conditions": {
         "Anxiety": {
           "Adult CMHT": {
@@ -2055,7 +2055,7 @@
     "Students FE & HE": {
       "curve": "Follow the curve",
       "size": 80575,
-      "pcnt": 100,
+      "pcnt": 10,
       "conditions": {
         "Anxiety": {
           "Adult CMHT": {
