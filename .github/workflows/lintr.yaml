@@ -23,11 +23,12 @@ jobs:
       - name: Install dependencies
         run: |
           options(repos = c(CRAN = "https://packagemanager.rstudio.com/all/__linux__/bionic/latest"))
-          install.packages(c("lintr"))
+          install.packages(c("lintr", "dplyr"))
         shell: Rscript {0}
 
       - name: Lint
         run: |
           options(warn = 2)
+          library(dplyr)
           lintr::lint_dir()
         shell: Rscript {0}
