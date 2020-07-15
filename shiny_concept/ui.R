@@ -90,7 +90,15 @@ body_params <- tabItem(
 body_report <- tabItem(
   "results",
   fluidRow(
-    box(selectInput("services", "Service", choices = NA)),
+    box(selectInput("services", "Service", choices = NA))
+    ,
+    box(fluidRow(column(
+      width = 6,
+      valueBoxOutput("total_referrals"),
+      valueBoxOutput("total_demand"),
+      valueBoxOutput("total_newpatients")
+    )),
+    fluidRow(column(width = 6)))
   ),
   fluidRow(
     box(withSpinner(plotlyOutput("referrals_plot"))),
