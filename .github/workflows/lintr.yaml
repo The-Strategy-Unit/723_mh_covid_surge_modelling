@@ -29,6 +29,9 @@ jobs:
       - name: Lint
         run: |
           options(warn = 2)
-          library(dplyr)
+          # "no visible global function" warnings
+          `%>%` <- modify_at <- select <- function(...) NULL
+          
+          # run lint
           lintr::lint_dir()
         shell: Rscript {0}
