@@ -27,13 +27,21 @@ shinyServer(function(input, output, session) {
     if (req(input$popn_subgroup) %in% population_groups) {
       vals <- names(params$groups[[input$popn_subgroup]]$conditions)
       updateSelectInput(session, "sliders_select_cond", choices = vals)
+
+      px <- params$groups[[input$popn_subgroup]]
+      updateNumericInput(session, "subpopulation_size", value = px$size)
+      updateNumericInput(session, "subpopulation_pcnt", value = px$pcnt)
+      updateSliderInput(session, "subpopulation_curve", value = px$curve)
     }
   })
 
   observeEvent(input$sliders_select_cond, {
     if (req(input$popn_subgroup) %in% population_groups) {
-      vals <- names(params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments)
-      updateSelectInput(session, "sliders_select_treat", choices = vals)
+      p <- params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]
+
+      updateSelectInput(session, "sliders_select_treat", choices = names(p$treatments))
+
+      updateSliderInput(session, "slider_pcnt", value = p$pcnt * 100)
     }
   })
 
@@ -83,13 +91,6 @@ shinyServer(function(input, output, session) {
       })
     })
 
-  observeEvent(input$popn_subgroup, {
-    px <- params$groups[[input$popn_subgroup]]
-    updateNumericInput(session, "subpopulation_size", value = px$size)
-    updateNumericInput(session, "subpopulation_pcnt", value = px$pcnt)
-    updateSliderInput(session, "subpopulation_curve", value = px$curve)
-  })
-
   observeEvent(input$treatment_type, {
     if (req(input$treatment_type) %in% treatments) {
       updateSliderInput(session, "treatment_appointments", value = params$treatments[[input$treatment_type]]$demand)
@@ -106,41 +107,38 @@ shinyServer(function(input, output, session) {
   ## Sliders ####
   ###############
 
-  # when the sliders_select drop down is changed, set the values of the sliders from params
   observeEvent(input$sliders_select_treat, {
-    sliders %>%
-      walk(function(.x) {
-        psg <- req(input$popn_subgroup)
+    psg <- req(input$popn_subgroup)
+    condition <- req(input$sliders_select_cond)
+    treatment <- req(input$sliders_select_treat)
 
-        condition <- req(input$sliders_select_cond)
-        treatment <- req(input$sliders_select_treat)
+    if (psg %in% population_groups) {
+      v <- params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]]$treat * 100
 
-        if (psg %in% population_groups) {
-          s <- paste0("slider_", .x)
-          v <- params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]][[.x]] * 100
-
-          updateSliderInput(session, s, value = v)
-        }
-      })
+      updateSliderInput(session, "slider_treat", value = v)
+    }
   })
 
-  # when any of the sliders are changed, update the value in params
-  sliders %>%
-    walk(function(.x) {
-      s <- paste0("slider_", .x)
+  observeEvent(input$slider_pcnt, {
+    psg <- req(input$popn_subgroup)
+    condition <- req(input$sliders_select_cond)
 
-      observeEvent(input[[s]], {
-        psg <- req(input$popn_subgroup)
-        condition <- req(input$sliders_select_cond)
-        treatment <- req(input$sliders_select_treat)
+    if (psg %in% population_groups) {
+      v <- input$slider_pcnt / 100
+      params$groups[[psg]]$conditions[[condition]]$pcnt <- v
+    }
+  })
 
-        if (psg %in% population_groups) {
-          v <- input[[s]]
+  observeEvent(input$slider_treat, {
+    psg <- req(input$popn_subgroup)
+    condition <- req(input$sliders_select_cond)
+    treatment <- req(input$sliders_select_treat)
 
-          params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]][[.x]] <- v / 100
-        }
-      })
-    })
+    if (psg %in% population_groups) {
+      v <- input$slider_treat / 100
+      params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]]$treat <- v
+    }
+  })
 
   #############
   ## Model ####

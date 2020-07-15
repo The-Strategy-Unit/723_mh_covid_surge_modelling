@@ -23,9 +23,6 @@ population_groups <- names(params$groups)
 
 treatments <- names(params$treatments)
 
-# the sliders used in the model
-sliders <- c("pcnt", "treat")
-
 group_variables <- c("curve", "size", "pcnt")
 
 models <- params$groups %>%
