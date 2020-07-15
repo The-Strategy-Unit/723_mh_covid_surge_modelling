@@ -37,6 +37,40 @@ shinyServer(function(input, output, session) {
     }
   })
 
+  observeEvent(input$treatment_type, {
+    if (req(input$treatment_type) %in% treatments) {
+      tx <- params$treatments[[input$treatment_type]]
+      updateSliderInput(session, "treatment_appointments", value = tx$demand)
+      updateSliderInput(session, "slider_success", value = tx$success * 100)
+      updateSliderInput(session, "slider_tx_months", value = tx$months)
+      updateSliderInput(session, "slider_decay", value = tx$decay * 100)
+    }
+  })
+
+  observeEvent(input$treatment_appointments, {
+    if (req(input$treatment_type) %in% treatments) {
+      params$treatments[[input$treatment_type]]$demand <- input$treatment_appointments
+    }
+  })
+
+  observeEvent(input$slider_success, {
+    if (req(input$treatment_type) %in% treatments) {
+      params$treatments[[input$treatment_type]]$success <- input$slider_success / 100
+    }
+  })
+
+  observeEvent(input$slider_tx_months, {
+    if (req(input$treatment_type) %in% treatments) {
+      params$treatments[[input$treatment_type]]$months <- input$slider_tx_months
+    }
+  })
+
+  observeEvent(input$slider_decay, {
+    if (req(input$treatment_type) %in% treatments) {
+      params$treatments[[input$treatment_type]]$decay <- input$slider_decay / 100
+    }
+  })
+
   ## Population values change ####
 
   group_variables %>%

@@ -50,28 +50,27 @@ params_treatments <- box(
   )
 )
 
-params_groupToCond <-
-  box(
-    title = "Condition group of sub-group population",
-    width = 12,
-    selectInput(
-      "sliders_select_cond",
-      "Condition",
-      choices = NA
-    ),
-    sliderInput(
-      "slider_pcnt",
-      "Prevalence in sub-population",
-      min = 0,
-      max = 100,
-      value = 0,
-      step = 0.01,
-      post = "%"
-    ),
-    "Total current prevalence of subpopulation is:",
-  )
+params_group_to_cond <- box(
+  title = "Condition group of sub-group population",
+  width = 12,
+  selectInput(
+    "sliders_select_cond",
+    "Condition",
+    choices = NA
+  ),
+  sliderInput(
+    "slider_pcnt",
+    "Prevalence in sub-population",
+    min = 0,
+    max = 100,
+    value = 0,
+    step = 0.01,
+    post = "%"
+  ),
+  "Total current prevalence of subpopulation is:",
+)
 
-params_condToTreat <-
+params_cond_to_treat <-
   box(
     title = "People being treated of condition group",
     width = 12,
@@ -110,6 +109,11 @@ params_demand <- box(
     min = 0, max = 100, value = 0, step = 0.01, post = "%"
   ),
   sliderInput(
+    "slider_tx_months",
+    "Decay Months",
+    min = 0, max = 24, value = 1, step = 0.1
+  ),
+  sliderInput(
     "slider_decay",
     "Decay Percentage",
     min = 0, max = 100, value = 0, step = 0.01, post = "%"
@@ -128,7 +132,7 @@ body_params <- tabItem(
   "params",
   fluidRow(
     column(4, params_population_groups),
-    column(4, params_groupToCond, params_condToTreat),
+    column(4, params_group_to_cond, params_cond_to_treat),
     column(4, params_demand)
   )
 )
