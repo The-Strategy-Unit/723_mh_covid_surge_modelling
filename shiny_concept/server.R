@@ -32,8 +32,42 @@ shinyServer(function(input, output, session) {
 
   observeEvent(input$sliders_select_cond, {
     if (req(input$popn_subgroup) %in% population_groups) {
-      vals <- names(params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]])
+      vals <- names(params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments)
       updateSelectInput(session, "sliders_select_treat", choices = vals)
+    }
+  })
+
+  observeEvent(input$treatment_type, {
+    if (req(input$treatment_type) %in% treatments) {
+      tx <- params$treatments[[input$treatment_type]]
+      updateSliderInput(session, "treatment_appointments", value = tx$demand)
+      updateSliderInput(session, "slider_success", value = tx$success * 100)
+      updateSliderInput(session, "slider_tx_months", value = tx$months)
+      updateSliderInput(session, "slider_decay", value = tx$decay * 100)
+    }
+  })
+
+  observeEvent(input$treatment_appointments, {
+    if (req(input$treatment_type) %in% treatments) {
+      params$treatments[[input$treatment_type]]$demand <- input$treatment_appointments
+    }
+  })
+
+  observeEvent(input$slider_success, {
+    if (req(input$treatment_type) %in% treatments) {
+      params$treatments[[input$treatment_type]]$success <- input$slider_success / 100
+    }
+  })
+
+  observeEvent(input$slider_tx_months, {
+    if (req(input$treatment_type) %in% treatments) {
+      params$treatments[[input$treatment_type]]$months <- input$slider_tx_months
+    }
+  })
+
+  observeEvent(input$slider_decay, {
+    if (req(input$treatment_type) %in% treatments) {
+      params$treatments[[input$treatment_type]]$decay <- input$slider_decay / 100
     }
   })
 
@@ -58,25 +92,13 @@ shinyServer(function(input, output, session) {
 
   observeEvent(input$treatment_type, {
     if (req(input$treatment_type) %in% treatments) {
-      updateSliderInput(session, "treatment_appointments", value = params$demand[[input$treatment_type]])
+      updateSliderInput(session, "treatment_appointments", value = params$treatments[[input$treatment_type]]$demand)
     }
   })
 
   observeEvent(input$treatment_appointments, {
     if (req(input$treatment_type) %in% treatments) {
-      params$demand[[input$treatment_type]] <- input$treatment_appointments
-    }
-  })
-
-  observeEvent(input$demand_treatment_type, {
-    if (req(input$demand_treatment_type) %in% treatments) {
-      updateSliderInput(session, "demand_treatment_demand", value = params$demand[[input$demand_treatment_type]])
-    }
-  })
-
-  observeEvent(input$demand_treatment_demand, {
-    if (req(input$demand_treatment_type) %in% treatments) {
-      params$demand[[input$demand_treatment_type]] <- input$demand_treatment_demand
+      params$treatments[[input$treatment_type]]$demand <- input$treatment_appointments
     }
   })
 
@@ -95,7 +117,7 @@ shinyServer(function(input, output, session) {
 
         if (psg %in% population_groups) {
           s <- paste0("slider_", .x)
-          v <- params$groups[[psg]]$conditions[[condition]][[treatment]][[.x]] * 100
+          v <- params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]][[.x]] * 100
 
           updateSliderInput(session, s, value = v)
         }
@@ -115,7 +137,7 @@ shinyServer(function(input, output, session) {
         if (psg %in% population_groups) {
           v <- input[[s]]
 
-          params$groups[[psg]]$conditions[[condition]][[treatment]][[.x]] <- v / 100
+          params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]][[.x]] <- v / 100
         }
       })
     })
@@ -129,11 +151,8 @@ shinyServer(function(input, output, session) {
     # only run current selected population group
 
     if (req(input$popn_subgroup) %in% population_groups) {
-      px <- reactiveValuesToList(params)$groups
-      models[[input$popn_subgroup]] <- run_single_model(px[input$popn_subgroup],
-                                                        params$curves,
-                                                        24,
-                                                        sim_time)
+      px <- reactiveValuesToList(params)
+      models[[input$popn_subgroup]] <- run_single_model(px, input$popn_subgroup, 24, sim_time)
     }
 
     # combine models
@@ -141,9 +160,9 @@ shinyServer(function(input, output, session) {
   })
 
   appointments <- reactive({
-    v <- reactiveValuesToList(params)$demand
-    tibble(treatment = names(v),
-           average_monthly_appointments = unlist(v))
+    reactiveValuesToList(params)$treatments %>%
+      map_dfr(bind_cols, .id = "treatment") %>%
+      transmute(treatment, average_monthly_appointments = demand)
   })
 
   demand <- reactive({

@@ -19,7 +19,6 @@ demand_plot <- function(demand) {
           mode = "lines",
           x = ~time,
           y = ~no_appointments,
-          color = ~treatment,
           hovertemplate = paste("<b>Time</b>: %{x:.1f}",
                                 "<b>Demand</b>: %{y:.0f}",
                                 sep = "<br>")) %>%

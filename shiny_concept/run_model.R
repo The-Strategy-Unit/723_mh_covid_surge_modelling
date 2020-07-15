@@ -1,27 +1,28 @@
 library(tidyverse)
 
-get_model_params <- function(p) {
-  p <- p %>%
-    map(map_at, "conditions", ~ .x %>%
-          map_depth(2, bind_cols) %>%
-          map(bind_rows, .id = "treatment") %>%
-          bind_rows(.id = "condition")) %>%
-    map_dfr("conditions", .id = "group") %>%
-    unite("rowname", group:treatment, sep = "|") %>%
-    mutate_at("decay", ~half_life_factor(months, .x)) %>%
-    select(-months) %>%
+get_model_params <- function(params) {
+  p <- params$groups %>%
+    map_dfr(~.x$conditions %>%
+              map(modify_at, "treatments", map_dfr, bind_cols, .id = "treatment") %>%
+              map_dfr(~mutate(.x$treatments, pcnt = pcnt * .x$pcnt), .id = "condition") %>%
+              inner_join(params$treatments %>%
+                           map_dfr(bind_cols, .id = "treatment"),
+                         by = "treatment") %>%
+              mutate_at("decay", ~half_life_factor(months, .x)) %>%
+              select(-months, -demand),
+            .id = "group") %>%
     as.data.frame()
 
-  rownames <- p$rowname
-  p <- p %>% select_at(vars(-"rowname"))
+  rownames <- paste(p$group, p$condition, p$treatment, sep = "|")
+  p <- select(p, is.numeric)
   rownames(p) <- rownames
 
   p %>% as.matrix() %>% t()
 }
 
-get_model_potential_functions <- function(g, curves) {
-  g %>%
-    map(~curves[[.x$curve]] * .x$size * .x$pcnt / 100) %>%
+get_model_potential_functions <- function(params) {
+  params$groups %>%
+    map(~params$curves[[.x$curve]] * .x$size * .x$pcnt / 100) %>%
     map(approxfun, x = seq_len(24) - 1, rule = 2)
 }
 
@@ -114,11 +115,13 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
   o
 }
 
-run_single_model <- function(p, curves, months, sim_time) {
-  cat("running_single_model:", names(p))
+run_single_model <- function(params, groups, months, sim_time) {
+  cat("running_single_model:", groups)
+
+  p <- modify_at(params, "groups", ~.x[groups])
 
   m <- get_model_params(p)
-  g <- get_model_potential_functions(p, curves)
+  g <- get_model_potential_functions(p)
   s <- seq(0, months - 1, by = sim_time)
 
   ret <- run_model(m, g, s)

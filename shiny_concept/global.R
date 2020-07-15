@@ -15,25 +15,20 @@ source("half_life_factor.R")
 source("run_model.R")
 source("plots.R")
 
-css_table <- "#contents {
-font-size: 9px
-}
-"
-
 sim_time <- as.numeric(Sys.getenv("SIM_TIME", 1 / 5))
 
 params <- read_json("params.json", simplifyVector = TRUE)
 
 population_groups <- names(params$groups)
 
-treatments <- names(params$demand)
+treatments <- names(params$treatments)
 
 # the sliders used in the model
-sliders <- c("pcnt", "treat", "success", "decay")
+sliders <- c("pcnt", "treat")
 
 group_variables <- c("curve", "size", "pcnt")
 
 models <- params$groups %>%
   names() %>%
   set_names() %>%
-  map(~run_single_model(params$groups[.x], params$curves, 24, sim_time))
+  map(~run_single_model(params, .x, 24, sim_time))
