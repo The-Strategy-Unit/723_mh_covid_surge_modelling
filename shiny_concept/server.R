@@ -18,7 +18,6 @@ shinyServer(function(input, output, session) {
     updateSelectInput(session, "subpopulation_curve", choices = names(params$curves))
     updateSelectInput(session, "treatment_type", choices = treatments)
     updateSelectInput(session, "demand_treatment_type", choices = treatments)
-
     updateSelectInput(session, "services", choices = treatments)
   })
 
@@ -209,16 +208,14 @@ shinyServer(function(input, output, session) {
   ## Testing ####
 
   extract_total_value <- function(what_total) {
-  o() %>%
-    filter(type == what_total,
-           treatment == input$services) %>%
-    group_by(time) %>%
-    summarise_at("value", sum) %>%
-    mutate_at("time", as.character) %>%
-    filter(str_length(time) == 1L) %>%
-    summarise(total = round(sum(value), 0)) %>%
-    pull(total)
-}
+    o() %>%
+      filter(type == what_total,
+             treatment == input$services,
+             near(time, round(time))) %>%
+      pull(value) %>%
+      sum() %>%
+      scales::comma()
+  }
 
   output$total_referrals <- renderValueBox({
     valueBox(extract_total_value("new-referral"),
@@ -237,19 +234,5 @@ shinyServer(function(input, output, session) {
              "Total new patients in service"
     )
   })
-
-  # output$o_test <- renderPrint(
-  #   o() %>%
-  #     filter(treatment == input$services)
-  #   %>%
-  #     group_by(time, treatment) %>%
-  #     summarise(across(value, sum), .groups = "drop") %>%
-  #     inner_join(appointments(), by = "treatment") %>%
-  #     mutate(no_appointments = value * average_monthly_appointments) %>%
-  #     mutate_at("time", as.character) %>%
-  #     filter(str_length(time) == 1L)
-  #
-  #
-  # )
 
 })
