@@ -47,4 +47,4 @@ params <- list(
 )
 
 params %>%
-  write_json("shiny_concept/params.json", pretty = TRUE, auto_unbox = TRUE)
+  write_json("shiny_app/params.json", pretty = TRUE, auto_unbox = TRUE)
