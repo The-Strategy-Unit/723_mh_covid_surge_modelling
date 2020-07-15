@@ -151,7 +151,8 @@ shinyServer(function(input, output, session) {
     model_data <- o()
     appointments <- appointments()
     df <- model_data %>%
-      filter(type == "treatment") %>%
+      filter(type == "treatment",
+             treatment == input$services) %>%
       group_by(time, treatment) %>%
       summarise(across(value, sum), .groups = "drop") %>%
       inner_join(appointments, by = "treatment") %>%
@@ -204,4 +205,51 @@ shinyServer(function(input, output, session) {
     },
     "text/csv"
   )
+
+  ## Testing ####
+
+  extract_total_value <- function(what_total) {
+  o() %>%
+    filter(type == what_total,
+           treatment == input$services) %>%
+    group_by(time) %>%
+    summarise_at("value", sum) %>%
+    mutate_at("time", as.character) %>%
+    filter(str_length(time) == 1L) %>%
+    summarise(total = round(sum(value), 0)) %>%
+    pull(total)
+}
+
+  output$total_referrals <- renderValueBox({
+    valueBox(extract_total_value("new-referral"),
+      "Total 'surge' referrals"
+    )
+  })
+
+  output$total_demand <- renderValueBox({
+    valueBox(extract_total_value("treatment"),
+    "Total additional demand per contact type"
+    )
+  })
+
+  output$total_newpatients <- renderValueBox({
+    valueBox(extract_total_value("new-treatment"),
+             "Total new patients in service"
+    )
+  })
+
+  # output$o_test <- renderPrint(
+  #   o() %>%
+  #     filter(treatment == input$services)
+  #   %>%
+  #     group_by(time, treatment) %>%
+  #     summarise(across(value, sum), .groups = "drop") %>%
+  #     inner_join(appointments(), by = "treatment") %>%
+  #     mutate(no_appointments = value * average_monthly_appointments) %>%
+  #     mutate_at("time", as.character) %>%
+  #     filter(str_length(time) == 1L)
+  #
+  #
+  # )
+
 })
