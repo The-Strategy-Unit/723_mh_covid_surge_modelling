@@ -68,18 +68,6 @@ shinyServer(function(input, output, session) {
     }
   })
 
-  # observeEvent(input$demand_treatment_type, {
-  #   if (req(input$demand_treatment_type) %in% treatments) {
-  #     updateSliderInput(session, "demand_treatment_demand", value = params$demand[[input$demand_treatment_type]])
-  #   }
-  # })
-
-  # observeEvent(input$demand_treatment_demand, {
-  #   if (req(input$demand_treatment_type) %in% treatments) {
-  #     params$demand[[input$demand_treatment_type]] <- input$demand_treatment_demand
-  #   }
-  # })
-
   ###############
   ## Sliders ####
   ###############

@@ -15,11 +15,6 @@ source("half_life_factor.R")
 source("run_model.R")
 source("plots.R")
 
-css_table <- "#contents {
-font-size: 9px
-}
-"
-
 sim_time <- as.numeric(Sys.getenv("SIM_TIME", 1 / 5))
 
 params <- read_json("params.json", simplifyVector = TRUE)
