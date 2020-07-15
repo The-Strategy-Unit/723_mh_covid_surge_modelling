@@ -1,0 +1,39 @@
+options(tidyverse.quiet = TRUE)
+library(magrittr,        quietly = TRUE, include.only = "%$%")
+library(tidyverse,       quietly = TRUE)
+library(deSolve,         quietly = TRUE)
+library(patchwork,       quietly = TRUE)
+library(plotly,          quietly = TRUE, exclude = c("last_plot", "filter", "layout"))
+library(shinyWidgets,    quietly = TRUE)
+library(shinycssloaders, quietly = TRUE)
+library(shinydashboard,  quietly = TRUE)
+library(jsonlite,        quietly = TRUE, exclude = "flatten")
+
+options(scipen = 999)
+
+source("half_life_factor.R")
+source("run_model.R")
+source("plots.R")
+
+css_table <- "#contents {
+font-size: 9px
+}
+"
+
+sim_time <- as.numeric(Sys.getenv("SIM_TIME", 1 / 5))
+
+params <- read_json("params.json", simplifyVector = TRUE)
+
+population_groups <- names(params$groups)
+
+treatments <- names(params$demand)
+
+# the sliders used in the model
+sliders <- c("pcnt", "treat", "success", "decay")
+
+group_variables <- c("curve", "size", "pcnt")
+
+models <- params$groups %>%
+  names() %>%
+  set_names() %>%
+  map(~run_single_model(params$groups[.x], params$curves, 24, sim_time))
