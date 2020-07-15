@@ -18,15 +18,7 @@ shinyServer(function(input, output, session) {
     updateSelectInput(session, "subpopulation_curve", choices = names(params$curves))
     updateSelectInput(session, "treatment_type", choices = treatments)
     updateSelectInput(session, "demand_treatment_type", choices = treatments)
-    updateSelectInput(session,
-                      "popn_subgroup_plot",
-                      choices = population_groups)
-  })
-
-  observeEvent(input$popn_subgroup, {
-    if (req(input$popn_subgroup) %in% population_groups) {
-      updateSelectInput(session, "popn_subgroup_plot", selected = input$popn_subgroup)
-    }
+    updateSelectInput(session, "services", choices = treatments)
   })
 
   ## Condition and treatment pathway split ####
@@ -140,7 +132,7 @@ shinyServer(function(input, output, session) {
       px <- reactiveValuesToList(params)$groups
       models[[input$popn_subgroup]] <- run_single_model(px[input$popn_subgroup],
                                                         params$curves,
-                                                        input$totalmonths,
+                                                        24,
                                                         sim_time)
     }
 
@@ -158,7 +150,8 @@ shinyServer(function(input, output, session) {
     model_data <- o()
     appointments <- appointments()
     df <- model_data %>%
-      filter(type == "treatment") %>%
+      filter(type == "treatment",
+             treatment == input$services) %>%
       group_by(time, treatment) %>%
       summarise(across(value, sum), .groups = "drop") %>%
       inner_join(appointments, by = "treatment") %>%
@@ -169,13 +162,16 @@ shinyServer(function(input, output, session) {
   ## Plots ####
   #############
 
-  output$pop_plot <- renderPlotly({
+  output$referrals_plot <- renderPlotly({
     df <- o() %>%
-      filter(group %in% input$popn_subgroup_plot)
+      filter(type == "new-referral",
+             treatment == input$services) %>%
+      group_by(time) %>%
+      summarise_at("value", sum)
 
     if (nrow(df) < 1) return(NULL)
 
-    pop_plot(df)
+    referrals_plot(df)
   })
 
   output$demand_plot <- renderPlotly({
@@ -208,4 +204,35 @@ shinyServer(function(input, output, session) {
     },
     "text/csv"
   )
+
+  ## Testing ####
+
+  extract_total_value <- function(what_total) {
+    o() %>%
+      filter(type == what_total,
+             treatment == input$services,
+             near(time, round(time))) %>%
+      pull(value) %>%
+      sum() %>%
+      scales::comma()
+  }
+
+  output$total_referrals <- renderValueBox({
+    valueBox(extract_total_value("new-referral"),
+      "Total 'surge' referrals"
+    )
+  })
+
+  output$total_demand <- renderValueBox({
+    valueBox(extract_total_value("treatment"),
+    "Total additional demand per contact type"
+    )
+  })
+
+  output$total_newpatients <- renderValueBox({
+    valueBox(extract_total_value("new-treatment"),
+             "Total new patients in service"
+    )
+  })
+
 })
