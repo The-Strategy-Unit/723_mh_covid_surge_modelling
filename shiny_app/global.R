@@ -20,13 +20,7 @@ sim_time <- as.numeric(Sys.getenv("SIM_TIME", 1 / 5))
 params <- read_json("params.json", simplifyVector = TRUE)
 
 population_groups <- names(params$groups)
-
 treatments <- names(params$treatments)
-
-# the sliders used in the model
-sliders <- c("pcnt", "treat")
-
-group_variables <- c("curve", "size", "pcnt")
 
 models <- params$groups %>%
   names() %>%

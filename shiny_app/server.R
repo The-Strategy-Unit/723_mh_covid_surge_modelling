@@ -2,41 +2,109 @@ library(shiny)
 
 shinyServer(function(input, output, session) {
 
-  ###################
-  ## CSV Outputs ####
-  ###################
-
   models <- lift_dl(reactiveValues)(models)
   params <- lift_dl(reactiveValues)(params)
 
-  ################################
-  ## Update Selectise Options ####
-  ################################
+
+  # Update main select options ====
 
   observe({
     updateSelectInput(session, "popn_subgroup", choices = population_groups)
     updateSelectInput(session, "subpopulation_curve", choices = names(params$curves))
     updateSelectInput(session, "treatment_type", choices = treatments)
-    updateSelectInput(session, "demand_treatment_type", choices = treatments)
     updateSelectInput(session, "services", choices = treatments)
   })
 
-  ## Condition and treatment pathway split ####
+  # params_population_groups ====
 
+  # popn_subgroup (selectInput)
   observeEvent(input$popn_subgroup, {
     if (req(input$popn_subgroup) %in% population_groups) {
       vals <- names(params$groups[[input$popn_subgroup]]$conditions)
       updateSelectInput(session, "sliders_select_cond", choices = vals)
+
+      px <- params$groups[[input$popn_subgroup]]
+      updateNumericInput(session, "subpopulation_size", value = px$size)
+      updateNumericInput(session, "subpopulation_pcnt", value = px$pcnt)
+      updateSliderInput(session, "subpopulation_curve", value = px$curve)
     }
   })
 
+  # subpopulation_size (numericInput)
+  observeEvent(input$subpopulation_size, {
+    if (req(input$popn_subgroup) %in% population_groups) {
+      params$groups[[input$popn_subgroup]]$size <- input$subpopulation_size
+    }
+  })
+
+  # subpopulation_pcnt (numericInput)
+  observeEvent(input$subpopulation_pcnt, {
+    if (req(input$popn_subgroup) %in% population_groups) {
+      params$groups[[input$popn_subgroup]]$pcnt <- input$subpopulation_pcnt
+    }
+  })
+
+  # subpopulation_curve (selectInput)
+  observeEvent(input$subpopulation_curve, {
+    if (req(input$popn_subgroup) %in% population_groups) {
+      params$groups[[input$popn_subgroup]]$curve <- input$subpopulation_curve
+    }
+  })
+
+  # params_group_to_cond ====
+
+  # sliders_select_cond (selectInput)
   observeEvent(input$sliders_select_cond, {
     if (req(input$popn_subgroup) %in% population_groups) {
-      vals <- names(params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments)
-      updateSelectInput(session, "sliders_select_treat", choices = vals)
+      p <- params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]
+
+      updateSelectInput(session, "sliders_select_treat", choices = names(p$treatments))
+
+      updateSliderInput(session, "slider_pcnt", value = p$pcnt * 100)
     }
   })
 
+  # slider_pcnt (sliderInput)
+  observeEvent(input$slider_pcnt, {
+    psg <- req(input$popn_subgroup)
+    condition <- req(input$sliders_select_cond)
+
+    if (psg %in% population_groups) {
+      v <- input$slider_pcnt / 100
+      params$groups[[psg]]$conditions[[condition]]$pcnt <- v
+    }
+  })
+
+  # params_cond_to_treat ====
+
+  # sliders_select_treat (selectInput)
+  observeEvent(input$sliders_select_treat, {
+    psg <- req(input$popn_subgroup)
+    condition <- req(input$sliders_select_cond)
+    treatment <- req(input$sliders_select_treat)
+
+    if (psg %in% population_groups) {
+      v <- params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]]$treat * 100
+
+      updateSliderInput(session, "slider_treat", value = v)
+    }
+  })
+
+  # slider_treat (sliderInput)
+  observeEvent(input$slider_treat, {
+    psg <- req(input$popn_subgroup)
+    condition <- req(input$sliders_select_cond)
+    treatment <- req(input$sliders_select_treat)
+
+    if (psg %in% population_groups) {
+      v <- input$slider_treat / 100
+      params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]]$treat <- v
+    }
+  })
+
+  # params_demand ====
+
+  # treatment_type (selectInput)
   observeEvent(input$treatment_type, {
     if (req(input$treatment_type) %in% treatments) {
       tx <- params$treatments[[input$treatment_type]]
@@ -47,160 +115,47 @@ shinyServer(function(input, output, session) {
     }
   })
 
+  # treatment_appointments (sliderInput)
   observeEvent(input$treatment_appointments, {
     if (req(input$treatment_type) %in% treatments) {
       params$treatments[[input$treatment_type]]$demand <- input$treatment_appointments
     }
   })
 
+  # slider_success (sliderInput)
   observeEvent(input$slider_success, {
     if (req(input$treatment_type) %in% treatments) {
       params$treatments[[input$treatment_type]]$success <- input$slider_success / 100
     }
   })
 
+  # slider_tx_months (sliderInput)
   observeEvent(input$slider_tx_months, {
     if (req(input$treatment_type) %in% treatments) {
       params$treatments[[input$treatment_type]]$months <- input$slider_tx_months
     }
   })
 
+  # slider_decay (sliderInput)
   observeEvent(input$slider_decay, {
     if (req(input$treatment_type) %in% treatments) {
       params$treatments[[input$treatment_type]]$decay <- input$slider_decay / 100
     }
   })
 
-  ## Population values change ####
+  # download_params (downloadButton)
+  output$downnload_params <- downloadHandler(
+    "params.json",
+    function(file) {
+      js <- reactiveValuesToList(params) %>%
+        toJSON(pretty = TRUE, auto_unbox = TRUE)
 
-  group_variables %>%
-    walk(function(x) {
-      ix <- paste0("subpopulation_", x)
-      observeEvent(input[[ix]], {
-        if (req(input$popn_subgroup) %in% population_groups) {
-          params$groups[[input$popn_subgroup]][[x]] <- input[[ix]]
-        }
-      })
-    })
+      writeLines(js, file)
+    },
+    "application/json"
+  )
 
-  observeEvent(input$popn_subgroup, {
-    px <- params$groups[[input$popn_subgroup]]
-    updateNumericInput(session, "subpopulation_size", value = px$size)
-    updateNumericInput(session, "subpopulation_pcnt", value = px$pcnt)
-    updateSliderInput(session, "subpopulation_curve", value = px$curve)
-  })
-
-  observeEvent(input$treatment_type, {
-    if (req(input$treatment_type) %in% treatments) {
-      updateSliderInput(session, "treatment_appointments", value = params$treatments[[input$treatment_type]]$demand)
-    }
-  })
-
-  observeEvent(input$treatment_appointments, {
-    if (req(input$treatment_type) %in% treatments) {
-      params$treatments[[input$treatment_type]]$demand <- input$treatment_appointments
-    }
-  })
-
-  ###############
-  ## Sliders ####
-  ###############
-
-  # when the sliders_select drop down is changed, set the values of the sliders from params
-  observeEvent(input$sliders_select_treat, {
-    sliders %>%
-      walk(function(.x) {
-        psg <- req(input$popn_subgroup)
-
-        condition <- req(input$sliders_select_cond)
-        treatment <- req(input$sliders_select_treat)
-
-        if (psg %in% population_groups) {
-          s <- paste0("slider_", .x)
-          v <- params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]][[.x]] * 100
-
-          updateSliderInput(session, s, value = v)
-        }
-      })
-  })
-
-  # when any of the sliders are changed, update the value in params
-  sliders %>%
-    walk(function(.x) {
-      s <- paste0("slider_", .x)
-
-      observeEvent(input[[s]], {
-        psg <- req(input$popn_subgroup)
-        condition <- req(input$sliders_select_cond)
-        treatment <- req(input$sliders_select_treat)
-
-        if (psg %in% population_groups) {
-          v <- input[[s]]
-
-          params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]][[.x]] <- v / 100
-        }
-      })
-    })
-
-  #############
-  ## Model ####
-  #############
-
-  # Run model ----
-  o <- reactive({
-    # only run current selected population group
-
-    if (req(input$popn_subgroup) %in% population_groups) {
-      px <- reactiveValuesToList(params)
-      models[[input$popn_subgroup]] <- run_single_model(px, input$popn_subgroup, 24, sim_time)
-    }
-
-    # combine models
-    bind_rows(reactiveValuesToList(models))
-  })
-
-  appointments <- reactive({
-    reactiveValuesToList(params)$treatments %>%
-      map_dfr(bind_cols, .id = "treatment") %>%
-      transmute(treatment, average_monthly_appointments = demand)
-  })
-
-  demand <- reactive({
-    model_data <- o()
-    appointments <- appointments()
-    df <- model_data %>%
-      filter(type == "treatment",
-             treatment == input$services) %>%
-      group_by(time, treatment) %>%
-      summarise(across(value, sum), .groups = "drop") %>%
-      inner_join(appointments, by = "treatment") %>%
-      mutate(no_appointments = value * average_monthly_appointments)
-  })
-
-  #############
-  ## Plots ####
-  #############
-
-  output$referrals_plot <- renderPlotly({
-    df <- o() %>%
-      filter(type == "new-referral",
-             treatment == input$services) %>%
-      group_by(time) %>%
-      summarise_at("value", sum)
-
-    if (nrow(df) < 1) return(NULL)
-
-    referrals_plot(df)
-  })
-
-  output$demand_plot <- renderPlotly({
-    d <- demand()
-
-    if (nrow(d) < 1) return(NULL)
-
-    demand_plot(d)
-  })
-
+  # download_output (downloadButton)
   output$download_output <- downloadHandler(
     paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv"),
     function(file) {
@@ -224,10 +179,64 @@ shinyServer(function(input, output, session) {
     "text/csv"
   )
 
-  ## Testing ####
+  # Model ====
+
+  model_output <- reactive({
+    # only run current selected population group
+
+    if (req(input$popn_subgroup) %in% population_groups) {
+      px <- reactiveValuesToList(params)
+      models[[input$popn_subgroup]] <- run_single_model(px, input$popn_subgroup, 24, sim_time)
+    }
+
+    # combine models
+    bind_rows(reactiveValuesToList(models))
+  })
+
+  appointments <- reactive({
+    reactiveValuesToList(params)$treatments %>%
+      map_dfr(bind_cols, .id = "treatment") %>%
+      transmute(treatment, average_monthly_appointments = demand)
+  })
+
+  demand <- reactive({
+    model_data <- model_output()
+    appointments <- appointments()
+    df <- model_data %>%
+      filter(type == "treatment",
+             treatment == input$services) %>%
+      group_by(time, treatment) %>%
+      summarise(across(value, sum), .groups = "drop") %>%
+      inner_join(appointments, by = "treatment") %>%
+      mutate(no_appointments = value * average_monthly_appointments)
+  })
+
+  # Plots ====
+
+  output$referrals_plot <- renderPlotly({
+    df <- model_output() %>%
+      filter(type == "new-referral",
+             treatment == input$services) %>%
+      group_by(time) %>%
+      summarise_at("value", sum)
+
+    if (nrow(df) < 1) return(NULL)
+
+    referrals_plot(df)
+  })
+
+  output$demand_plot <- renderPlotly({
+    d <- demand()
+
+    if (nrow(d) < 1) return(NULL)
+
+    demand_plot(d)
+  })
+
+  # Output boxes ====
 
   extract_total_value <- function(what_total) {
-    o() %>%
+    model_output() %>%
       filter(type == what_total,
              treatment == input$services,
              near(time, round(time))) %>%
