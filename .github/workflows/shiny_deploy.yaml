@@ -34,7 +34,7 @@ jobs:
                              "plotly",
                              "shinyWidgets",
                              "shinycssloaders",
-                             "shinydashboards",
+                             "shinydashboard",
                              "jsonlite"))
         shell: Rscript {0}
 
