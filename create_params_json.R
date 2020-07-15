@@ -10,30 +10,41 @@ raw_data <- excel_sheets(raw_data_path) %>%
   set_names() %>%
   map(read_excel, path = raw_data_path)
 
-new_params <- raw_data$g2c %>%
-  full_join(raw_data$c2t, by = "condition") %>%
-  full_join(raw_data$treatments, by = "treatment") %>%
-  transmute(group, condition, treatment, pcnt = pcnt.x * pcnt.y, treat, success, months, decay) %>%
-  drop_na() %>%
-  pivot_longer(pcnt:decay) %>%
-  group_by(group, condition, treatment) %>%
+c2t <- raw_data$c2t %>%
+  pivot_longer(is.numeric) %>%
+  group_by(condition, treatment) %>%
   summarise(data = map2(list(value), list(name), compose(as.list, set_names)), .groups = "drop_last") %>%
-  summarise(data = map2(list(data), list(treatment), set_names), .groups = "drop_last") %>%
-  summarise(conditions = map2(list(data), list(condition), set_names), .groups = "drop_last")
+  summarise(treatments = map2(list(data), list(treatment), set_names), .groups = "drop")
 
-list(
-  groups = raw_data$groups %>%
-    group_by(group) %>%
-    summarise_all(as.list) %>%
-    pivot_longer(-group) %>%
-    group_by(group) %>%
-    summarise(data = map2(list(value), list(name), compose(as.list, set_names)), .groups = "drop_last") %>%
-    inner_join(new_params, by = "group") %>%
-    mutate(data = map2(data, conditions, ~c(.x, list(conditions = .y)))) %$%
-    set_names(data, group),
-  demand = set_names(raw_data$treatments$demand, raw_data$treatments$treatment) %>% as.list(),
+g2c <- raw_data$g2c %>%
+  mutate_at("pcnt", as.list) %>%
+  inner_join(c2t, by = "condition") %>%
+  pivot_longer(pcnt:treatments) %>%
+  group_by(group, condition) %>%
+  summarise(data = map2(list(value), list(name), set_names), .groups = "drop_last") %>%
+  summarise(conditions = map2(list(data), list(condition), set_names), .groups = "drop") %>%
+  inner_join(raw_data$groups, by = "group") %>%
+  select(group, size, pcnt, curve, conditions) %>%
+  mutate_at(vars(-group), as.list) %>%
+  pivot_longer(-group) %>%
+  group_by(group) %>%
+  summarise(data = map2(list(value), list(name), set_names), .groups = "drop") %$%
+  set_names(data, group)
+
+params <- list(
+  groups = g2c,
+  treatments = raw_data$treatments %>%
+    pivot_longer(is.numeric) %>%
+    group_by(treatment) %>%
+    summarise(data = map2(list(value), list(name), compose(as.list, set_names)), .groups = "drop_last") %$%
+    set_names(data, treatment),
   curves = raw_data$curves %>%
     select(-month) %>%
-    as.list()
-) %>%
+    pivot_longer(everything()) %>%
+    group_by(name) %>%
+    summarise_at("value", list) %$%
+    set_names(value, name)
+)
+
+params %>%
   write_json("shiny_concept/params.json", pretty = TRUE, auto_unbox = TRUE)

@@ -1,2257 +1,1687 @@
 {
   "groups": {
     "Children & young people": {
-      "curve": "Follow the curve",
       "size": 116654,
       "pcnt": 10,
+      "curve": "Follow the curve",
       "conditions": {
         "Anxiety": {
-          "Adult CMHT": {
-            "pcnt": 0.024,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.006,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.072,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.018,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.12,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
           }
         },
         "Depression": {
-          "Acute Inpatients": {
-            "pcnt": 0.005,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0099,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0099,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.004,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0079,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.0367,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
           }
         },
         "Neurological symptom disorder (ADHD/Aspergers)": {
-          "ADHD": {
-            "pcnt": 0.0051,
-            "treat": 0.05,
-            "success": 0.4857,
-            "months": 5,
-            "decay": 0.5
-          },
-          "Aspergers": {
-            "pcnt": 0.0013,
-            "treat": 0.05,
-            "success": 0.4857,
-            "months": 9,
-            "decay": 0.5
+          "pcnt": 0.0064,
+          "treatments": {
+            "ADHD": {
+              "pcnt": 0.8,
+              "treat": 0.05
+            },
+            "Aspergers": {
+              "pcnt": 0.2,
+              "treat": 0.05
+            }
           }
         },
         "PTSD": {
-          "999/111": {
-            "pcnt": 0.0154,
-            "treat": 1,
-            "success": 1,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Acute Inpatients": {
-            "pcnt": 0.0115,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Addiction Services": {
-            "pcnt": 0.0308,
-            "treat": 0.47,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0115,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0308,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.1,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.1538,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "pcnt": 0.1154,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "pcnt": 0.3077,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1154,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "pcnt": 0.3077,
+              "treat": 0.91
+            }
           }
         },
         "Self harm": {
-          "Acute Inpatients": {
-            "pcnt": 0.0027,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0027,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0009,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "EIP Team": {
-            "pcnt": 0.0027,
-            "treat": 0.57,
-            "success": 0.3107,
-            "months": 1,
-            "decay": 0.5
-          },
-          "PD Hub": {
-            "pcnt": 0.0073,
-            "treat": 0.93,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0018,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0018,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.02,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1364,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1364,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.0455,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.1364,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.3636,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.0909,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.0909,
+              "treat": 0.29
+            }
           }
         },
         "Stress and Distress": {
-          "999/111": {
-            "pcnt": 0.0162,
-            "treat": 1,
-            "success": 1,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0141,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0081,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0141,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0141,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0667,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
           }
         }
       }
     },
     "Domestic abuse victims": {
-      "curve": "Follow the curve",
       "size": 1956,
       "pcnt": 100,
+      "curve": "Follow the curve",
       "conditions": {
         "Depression": {
-          "Acute Inpatients": {
-            "pcnt": 0.0214,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0429,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0429,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0172,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0343,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.1587,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
           }
         },
         "PTSD": {
-          "999/111": {
-            "pcnt": 0.0327,
-            "treat": 1,
-            "success": 1,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Acute Inpatients": {
-            "pcnt": 0.0245,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Addiction Services": {
-            "pcnt": 0.0654,
-            "treat": 0.47,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0245,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0654,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.2127,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.1538,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "pcnt": 0.1154,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "pcnt": 0.3077,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1154,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "pcnt": 0.3077,
+              "treat": 0.91
+            }
           }
         },
         "Substance misuse": {
-          "Addiction Services": {
-            "pcnt": 0.0145,
-            "treat": 0.47,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0043,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CJ Liason": {
-            "pcnt": 0.0101,
-            "treat": 0.89,
-            "success": 0.1576,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0007,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0043,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "EIP Team": {
-            "pcnt": 0.0072,
-            "treat": 0.57,
-            "success": 0.3107,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0043,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0457,
+          "treatments": {
+            "Addiction Services": {
+              "pcnt": 0.3175,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.0952,
+              "treat": 0.71
+            },
+            "CJ Liason": {
+              "pcnt": 0.2222,
+              "treat": 0.89
+            },
+            "Complex Care Team": {
+              "pcnt": 0.0159,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.0952,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.1587,
+              "treat": 0.57
+            },
+            "Triage Cars": {
+              "pcnt": 0.0952,
+              "treat": 0.29
+            }
           }
         },
         "Suicide/ideation": {
-          "Acute Inpatients": {
-            "pcnt": 0.006,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.006,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0075,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "EIP Team": {
-            "pcnt": 0.0075,
-            "treat": 0.57,
-            "success": 0.3107,
-            "months": 1,
-            "decay": 0.5
-          },
-          "PD Hub": {
-            "pcnt": 0.0119,
-            "treat": 0.93,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0104,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0104,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0597,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.125,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.125,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.2,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.175,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.175,
+              "treat": 0.29
+            }
           }
         }
       }
     },
     "Elderly alone": {
-      "curve": "Follow the curve",
       "size": 46105,
       "pcnt": 25,
+      "curve": "Follow the curve",
       "conditions": {
         "Anxiety": {
-          "Adult CMHT": {
-            "pcnt": 0.008,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.002,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.024,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.006,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.04,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
           }
         },
         "Loneliness": {
-          "Acute Inpatients": {
-            "pcnt": 0.0028,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0114,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0114,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0057,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0227,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.054,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.0526,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2105,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2105,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1053,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.4211,
+              "treat": 0.91
+            }
           }
         },
         "Stress and Distress": {
-          "999/111": {
-            "pcnt": 0,
-            "treat": 1,
-            "success": 1,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
           }
         },
         "Suicide/ideation": {
-          "Acute Inpatients": {
-            "pcnt": 0.01,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.01,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0125,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "EIP Team": {
-            "pcnt": 0.0125,
-            "treat": 0.57,
-            "success": 0.3107,
-            "months": 1,
-            "decay": 0.5
-          },
-          "PD Hub": {
-            "pcnt": 0.02,
-            "treat": 0.93,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0175,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0175,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.1,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.125,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.125,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.2,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.175,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.175,
+              "treat": 0.29
+            }
           }
         }
       }
     },
     "Family of COVID deceased": {
-      "curve": "Follow the curve",
       "size": 4030,
       "pcnt": 75,
+      "curve": "Follow the curve",
       "conditions": {
         "Complicated grief": {
-          "Bereavement Services": {
-            "pcnt": 0.0233,
-            "treat": 0.53,
-            "success": 0.2105,
-            "months": 4,
-            "decay": 0.5
+          "pcnt": 0.0233,
+          "treatments": {
+            "Bereavement Services": {
+              "pcnt": 1,
+              "treat": 0.53
+            }
           }
         },
         "PTSD": {
-          "999/111": {
-            "pcnt": 0,
-            "treat": 1,
-            "success": 1,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Acute Inpatients": {
-            "pcnt": 0,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Addiction Services": {
-            "pcnt": 0,
-            "treat": 0.47,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.1538,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "pcnt": 0.1154,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "pcnt": 0.3077,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1154,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "pcnt": 0.3077,
+              "treat": 0.91
+            }
           }
         }
       }
     },
     "Family of ICU survivors": {
-      "curve": "Follow the curve",
       "size": 425,
       "pcnt": 75,
+      "curve": "Follow the curve",
       "conditions": {
         "Anxiety": {
-          "Adult CMHT": {
-            "pcnt": 0.0333,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0083,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.1,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.025,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.1667,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
           }
         },
         "Depression": {
-          "Acute Inpatients": {
-            "pcnt": 0.0176,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0351,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0351,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0141,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0281,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.13,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
           }
         },
         "PTSD": {
-          "999/111": {
-            "pcnt": 0.0103,
-            "treat": 1,
-            "success": 1,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Acute Inpatients": {
-            "pcnt": 0.0077,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Addiction Services": {
-            "pcnt": 0.0205,
-            "treat": 0.47,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0077,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0205,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.0667,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.1538,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "pcnt": 0.1154,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "pcnt": 0.3077,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1154,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "pcnt": 0.3077,
+              "treat": 0.91
+            }
           }
         },
         "Stress and Distress": {
-          "999/111": {
-            "pcnt": 0.0493,
-            "treat": 1,
-            "success": 1,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0431,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0246,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0431,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0431,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.2033,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
           }
         },
         "Suicide/ideation": {
-          "Acute Inpatients": {
-            "pcnt": 0.0004,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0004,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0005,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "EIP Team": {
-            "pcnt": 0.0005,
-            "treat": 0.57,
-            "success": 0.3107,
-            "months": 1,
-            "decay": 0.5
-          },
-          "PD Hub": {
-            "pcnt": 0.0007,
-            "treat": 0.93,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0006,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0006,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0037,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.125,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.125,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.2,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.175,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.175,
+              "treat": 0.29
+            }
           }
         }
       }
     },
     "General population": {
-      "curve": "Follow the curve",
       "size": 143087,
       "pcnt": 10,
+      "curve": "Follow the curve",
       "conditions": {
         "Anxiety": {
-          "Adult CMHT": {
-            "pcnt": 0.0187,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0047,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.056,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.014,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0933,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
           }
         },
         "Depression": {
-          "Acute Inpatients": {
-            "pcnt": 0.0074,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0149,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0149,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0059,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0119,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.055,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
           }
         },
         "Loneliness": {
-          "Acute Inpatients": {
-            "pcnt": 0.0009,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0038,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0038,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0019,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0076,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.018,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.0526,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2105,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2105,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1053,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.4211,
+              "treat": 0.91
+            }
           }
         },
         "Self harm": {
-          "Acute Inpatients": {
-            "pcnt": 0.0023,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0023,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0008,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "EIP Team": {
-            "pcnt": 0.0023,
-            "treat": 0.57,
-            "success": 0.3107,
-            "months": 1,
-            "decay": 0.5
-          },
-          "PD Hub": {
-            "pcnt": 0.0061,
-            "treat": 0.93,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0015,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0015,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0167,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1364,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1364,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.0455,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.1364,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.3636,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.0909,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.0909,
+              "treat": 0.29
+            }
           }
         },
         "Stress and Distress": {
-          "999/111": {
-            "pcnt": 0.0065,
-            "treat": 1,
-            "success": 1,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0057,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0033,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0057,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0057,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.027,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
           }
         },
         "Substance misuse": {
-          "Addiction Services": {
-            "pcnt": 0.0081,
-            "treat": 0.47,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0024,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CJ Liason": {
-            "pcnt": 0.0057,
-            "treat": 0.89,
-            "success": 0.1576,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0004,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0024,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "EIP Team": {
-            "pcnt": 0.0041,
-            "treat": 0.57,
-            "success": 0.3107,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0024,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0257,
+          "treatments": {
+            "Addiction Services": {
+              "pcnt": 0.3175,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.0952,
+              "treat": 0.71
+            },
+            "CJ Liason": {
+              "pcnt": 0.2222,
+              "treat": 0.89
+            },
+            "Complex Care Team": {
+              "pcnt": 0.0159,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.0952,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.1587,
+              "treat": 0.57
+            },
+            "Triage Cars": {
+              "pcnt": 0.0952,
+              "treat": 0.29
+            }
           }
         },
         "Suicide/ideation": {
-          "Acute Inpatients": {
-            "pcnt": 0.0003,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0003,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0004,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "EIP Team": {
-            "pcnt": 0.0004,
-            "treat": 0.57,
-            "success": 0.3107,
-            "months": 1,
-            "decay": 0.5
-          },
-          "PD Hub": {
-            "pcnt": 0.0007,
-            "treat": 0.93,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0006,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0006,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0033,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.125,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.125,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.2,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.175,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.175,
+              "treat": 0.29
+            }
           }
         }
       }
     },
     "Health and care workers": {
-      "curve": "Follow the curve",
       "size": 16749,
       "pcnt": 25,
+      "curve": "Follow the curve",
       "conditions": {
         "Anxiety": {
-          "Adult CMHT": {
-            "pcnt": 0.0297,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0074,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0892,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0223,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.1487,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
           }
         },
         "Depression": {
-          "Acute Inpatients": {
-            "pcnt": 0.0227,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0454,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0454,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0182,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0363,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.168,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
           }
         },
         "Insomnia": {
-          "Acute Inpatients": {
-            "pcnt": 0.0097,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0259,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0259,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0259,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0259,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.1133,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.0857,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2286,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2286,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.2286,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2286,
+              "treat": 0.91
+            }
           }
         },
         "PTSD": {
-          "999/111": {
-            "pcnt": 0.0051,
-            "treat": 1,
-            "success": 1,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Acute Inpatients": {
-            "pcnt": 0.0038,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Addiction Services": {
-            "pcnt": 0.0103,
-            "treat": 0.47,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0038,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0103,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.0333,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.1538,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "pcnt": 0.1154,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "pcnt": 0.3077,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1154,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "pcnt": 0.3077,
+              "treat": 0.91
+            }
           }
         }
       }
     },
     "ICU survivors": {
-      "curve": "Follow the curve",
       "size": 137,
       "pcnt": 75,
+      "curve": "Follow the curve",
       "conditions": {
         "Anxiety": {
-          "Adult CMHT": {
-            "pcnt": 0.0333,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0083,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.1,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.025,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.1667,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
           }
         },
         "Depression": {
-          "Acute Inpatients": {
-            "pcnt": 0.0176,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0351,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0351,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0141,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0281,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.13,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
           }
         },
         "PTSD": {
-          "999/111": {
-            "pcnt": 0.0103,
-            "treat": 1,
-            "success": 1,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Acute Inpatients": {
-            "pcnt": 0.0077,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Addiction Services": {
-            "pcnt": 0.0205,
-            "treat": 0.47,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0077,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0205,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.0667,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.1538,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "pcnt": 0.1154,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "pcnt": 0.3077,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1154,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "pcnt": 0.3077,
+              "treat": 0.91
+            }
           }
         },
         "Stress and Distress": {
-          "999/111": {
-            "pcnt": 0.0493,
-            "treat": 1,
-            "success": 1,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0431,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0246,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0431,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0431,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.2033,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
           }
         },
         "Suicide/ideation": {
-          "Acute Inpatients": {
-            "pcnt": 0.0004,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0004,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0005,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "EIP Team": {
-            "pcnt": 0.0005,
-            "treat": 0.57,
-            "success": 0.3107,
-            "months": 1,
-            "decay": 0.5
-          },
-          "PD Hub": {
-            "pcnt": 0.0007,
-            "treat": 0.93,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0006,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0006,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0037,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.125,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.125,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.2,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.175,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.175,
+              "treat": 0.29
+            }
           }
         }
       }
     },
     "Learning disabilities & autism": {
-      "curve": "Follow the curve",
       "size": 1683,
       "pcnt": 50,
+      "curve": "Follow the curve",
       "conditions": {
         "Increased acuity": {
-          "CRHT": {
-            "pcnt": 0.0292,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "EIP Team": {
-            "pcnt": 0.0167,
-            "treat": 0.57,
-            "success": 0.3107,
-            "months": 1,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0208,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0667,
+          "treatments": {
+            "CRHT": {
+              "pcnt": 0.4375,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.25,
+              "treat": 0.57
+            },
+            "SPA/A&E": {
+              "pcnt": 0.3125,
+              "treat": 0.05
+            }
           }
         }
       }
     },
     "Newly unemployed": {
-      "curve": "Follow the curve",
       "size": 1097,
       "pcnt": 25,
+      "curve": "Follow the curve",
       "conditions": {
         "Anxiety": {
-          "Adult CMHT": {
-            "pcnt": 0.0058,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0014,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0173,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0043,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0289,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
           }
         },
         "Depression": {
-          "Acute Inpatients": {
-            "pcnt": 0.0039,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0078,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0078,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0031,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0062,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.0289,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
           }
         },
         "Insomnia": {
-          "Acute Inpatients": {
-            "pcnt": 0,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.0857,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2286,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2286,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.2286,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2286,
+              "treat": 0.91
+            }
           }
         },
         "Stress and Distress": {
-          "999/111": {
-            "pcnt": 0.007,
-            "treat": 1,
-            "success": 1,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0061,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0035,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0061,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0061,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0289,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
           }
         },
         "Suicide/ideation": {
-          "Acute Inpatients": {
-            "pcnt": 0.0037,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0037,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0046,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "EIP Team": {
-            "pcnt": 0.0046,
-            "treat": 0.57,
-            "success": 0.3107,
-            "months": 1,
-            "decay": 0.5
-          },
-          "PD Hub": {
-            "pcnt": 0.0073,
-            "treat": 0.93,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0064,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0064,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0367,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.125,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.125,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.2,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.175,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.175,
+              "treat": 0.29
+            }
           }
         }
       }
     },
     "Parents": {
-      "curve": "Follow the curve",
       "size": 141371,
       "pcnt": 10,
+      "curve": "Follow the curve",
       "conditions": {
         "Anxiety": {
-          "Adult CMHT": {
-            "pcnt": 0.0073,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0018,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.022,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0055,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0367,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
           }
         },
         "Depression": {
-          "Acute Inpatients": {
-            "pcnt": 0.005,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0099,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0099,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.004,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0079,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.0367,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
           }
         },
         "Stress and Distress": {
-          "999/111": {
-            "pcnt": 0.017,
-            "treat": 1,
-            "success": 1,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0148,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0085,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0148,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0148,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.07,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
           }
         }
       }
     },
     "Pre existing CMH illness": {
-      "curve": "Follow the curve",
       "size": 29902,
       "pcnt": 50,
+      "curve": "Follow the curve",
       "conditions": {
         "Increased acuity": {
-          "CRHT": {
-            "pcnt": 0.0146,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "EIP Team": {
-            "pcnt": 0.0083,
-            "treat": 0.57,
-            "success": 0.3107,
-            "months": 1,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0104,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0333,
+          "treatments": {
+            "CRHT": {
+              "pcnt": 0.4375,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.25,
+              "treat": 0.57
+            },
+            "SPA/A&E": {
+              "pcnt": 0.3125,
+              "treat": 0.05
+            }
           }
         }
       }
     },
     "Pre existing LTC": {
-      "curve": "Follow the curve",
       "size": 176849,
       "pcnt": 25,
+      "curve": "Follow the curve",
       "conditions": {
         "Anxiety": {
-          "Adult CMHT": {
-            "pcnt": 0.0353,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0088,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.106,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0265,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.1767,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
           }
         },
         "Depression": {
-          "Acute Inpatients": {
-            "pcnt": 0.0119,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0239,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0239,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0095,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0191,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.0883,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
           }
         }
       }
     },
     "Pre existing SMI": {
-      "curve": "Follow the curve",
       "size": 6408,
       "pcnt": 50,
+      "curve": "Follow the curve",
       "conditions": {
         "Increased acuity": {
-          "CRHT": {
-            "pcnt": 0.0219,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "EIP Team": {
-            "pcnt": 0.0125,
-            "treat": 0.57,
-            "success": 0.3107,
-            "months": 1,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0156,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.05,
+          "treatments": {
+            "CRHT": {
+              "pcnt": 0.4375,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.25,
+              "treat": 0.57
+            },
+            "SPA/A&E": {
+              "pcnt": 0.3125,
+              "treat": 0.05
+            }
           }
         }
       }
     },
     "Pregnant & New Mothers": {
-      "curve": "Follow the curve",
       "size": 5621,
       "pcnt": 25,
+      "curve": "Follow the curve",
       "conditions": {
         "Anxiety": {
-          "Adult CMHT": {
-            "pcnt": 0.0167,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0042,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.05,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0125,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0833,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
           }
         },
         "Postnatal Depression": {
-          "Acute Inpatients": {
-            "pcnt": 0.0008,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0083,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0041,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0248,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "Perinatal Services": {
-            "pcnt": 0.0579,
-            "treat": 0.23,
-            "success": 0.4688,
-            "months": 1,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0041,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.1,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.0083,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.0826,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.0413,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2479,
+              "treat": 0.91
+            },
+            "Perinatal Services": {
+              "pcnt": 0.5785,
+              "treat": 0.23
+            },
+            "SPA/A&E": {
+              "pcnt": 0.0413,
+              "treat": 0.05
+            }
           }
         },
         "Stress and Distress": {
-          "999/111": {
-            "pcnt": 0.0202,
-            "treat": 1,
-            "success": 1,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0177,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0101,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0177,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0177,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0833,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
           }
         }
       }
     },
     "Students FE & HE": {
-      "curve": "Follow the curve",
       "size": 80575,
       "pcnt": 10,
+      "curve": "Follow the curve",
       "conditions": {
         "Anxiety": {
-          "Adult CMHT": {
-            "pcnt": 0.0167,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0042,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.05,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0125,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.0833,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
           }
         },
         "Depression": {
-          "Acute Inpatients": {
-            "pcnt": 0.0041,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0081,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0.0081,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0032,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "IAPT": {
-            "pcnt": 0.0065,
-            "treat": 0.91,
-            "success": 0.4489,
-            "months": 2,
-            "decay": 0.5
+          "pcnt": 0.03,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
           }
         },
         "Self harm": {
-          "Acute Inpatients": {
-            "pcnt": 0.0041,
-            "treat": 1,
-            "success": 0.2105,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0.0041,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0.0014,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "EIP Team": {
-            "pcnt": 0.0041,
-            "treat": 0.57,
-            "success": 0.3107,
-            "months": 1,
-            "decay": 0.5
-          },
-          "PD Hub": {
-            "pcnt": 0.0109,
-            "treat": 0.93,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "SPA/A&E": {
-            "pcnt": 0.0027,
-            "treat": 0.05,
-            "success": 0.3636,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0.0027,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0.03,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1364,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1364,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.0455,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.1364,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.3636,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.0909,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.0909,
+              "treat": 0.29
+            }
           }
         },
         "Substance misuse": {
-          "Addiction Services": {
-            "pcnt": 0,
-            "treat": 0.47,
-            "success": 0.4167,
-            "months": 5,
-            "decay": 0.5
-          },
-          "Adult CMHT": {
-            "pcnt": 0,
-            "treat": 0.71,
-            "success": 0.2242,
-            "months": 1,
-            "decay": 0.5
-          },
-          "CJ Liason": {
-            "pcnt": 0,
-            "treat": 0.89,
-            "success": 0.1576,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Complex Care Team": {
-            "pcnt": 0,
-            "treat": 0.99,
-            "success": 0.2727,
-            "months": 12,
-            "decay": 0.5
-          },
-          "CRHT": {
-            "pcnt": 0,
-            "treat": 0.84,
-            "success": 0.2667,
-            "months": 11,
-            "decay": 0.5
-          },
-          "EIP Team": {
-            "pcnt": 0,
-            "treat": 0.57,
-            "success": 0.3107,
-            "months": 1,
-            "decay": 0.5
-          },
-          "Triage Cars": {
-            "pcnt": 0,
-            "treat": 0.29,
-            "success": 0.4,
-            "months": 1,
-            "decay": 0.5
+          "pcnt": 0,
+          "treatments": {
+            "Addiction Services": {
+              "pcnt": 0.3175,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.0952,
+              "treat": 0.71
+            },
+            "CJ Liason": {
+              "pcnt": 0.2222,
+              "treat": 0.89
+            },
+            "Complex Care Team": {
+              "pcnt": 0.0159,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.0952,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.1587,
+              "treat": 0.57
+            },
+            "Triage Cars": {
+              "pcnt": 0.0952,
+              "treat": 0.29
+            }
           }
         }
       }
     }
   },
-  "demand": {
-    "999/111": 1,
-    "Acute Inpatients": 1.65,
-    "Addiction Services": 1.25,
-    "ADHD": 1,
-    "Adult CMHT": 1.57,
-    "Aspergers": 1.34,
-    "Bereavement Services": 1,
-    "CJ Liason": 1,
-    "Complex Care Team": 1.67,
-    "CRHT": 2.03,
-    "EIP Team": 1.63,
-    "IAPT": 1.5,
-    "PD Hub": 2.99,
-    "Perinatal Services": 1.73,
-    "PICU": 1,
-    "SPA/A&E": 1.04,
-    "Triage Cars": 1.11
+  "treatments": {
+    "999/111": {
+      "success": 1,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1
+    },
+    "Acute Inpatients": {
+      "success": 0.2105,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.65
+    },
+    "Addiction Services": {
+      "success": 0.4167,
+      "months": 5,
+      "decay": 0.5,
+      "demand": 1.25
+    },
+    "ADHD": {
+      "success": 0.4857,
+      "months": 5,
+      "decay": 0.5,
+      "demand": 1
+    },
+    "Adult CMHT": {
+      "success": 0.2242,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.57
+    },
+    "Aspergers": {
+      "success": 0.4857,
+      "months": 9,
+      "decay": 0.5,
+      "demand": 1.34
+    },
+    "Bereavement Services": {
+      "success": 0.2105,
+      "months": 4,
+      "decay": 0.5,
+      "demand": 1
+    },
+    "CJ Liason": {
+      "success": 0.1576,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1
+    },
+    "Complex Care Team": {
+      "success": 0.2727,
+      "months": 12,
+      "decay": 0.5,
+      "demand": 1.67
+    },
+    "CRHT": {
+      "success": 0.2667,
+      "months": 11,
+      "decay": 0.5,
+      "demand": 2.03
+    },
+    "EIP Team": {
+      "success": 0.3107,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.63
+    },
+    "IAPT": {
+      "success": 0.4489,
+      "months": 2,
+      "decay": 0.5,
+      "demand": 1.5
+    },
+    "PD Hub": {
+      "success": 0.4167,
+      "months": 5,
+      "decay": 0.5,
+      "demand": 2.99
+    },
+    "Perinatal Services": {
+      "success": 0.4688,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.73
+    },
+    "PICU": {
+      "success": 0.2105,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1
+    },
+    "SPA/A&E": {
+      "success": 0.3636,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.04
+    },
+    "Triage Cars": {
+      "success": 0.4,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.11
+    }
   },
   "curves": {
-    "Sudden shock": [0, 0.0612, 0.1224, 0.2449, 0.2041, 0.1633, 0.102, 0.051, 0.0306, 0.0153, 0.0052, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     "Follow the curve": [0, 0.0119, 0.0238, 0.0475, 0.095, 0.1188, 0.1206, 0.1069, 0.0841, 0.0722, 0.0594, 0.0487, 0.0392, 0.0333, 0.0285, 0.0249, 0.0214, 0.0178, 0.0143, 0.0116, 0.009, 0.0062, 0.0034, 0.0015],
     "Shallow mid term": [0, 0.0076, 0.0152, 0.0227, 0.0303, 0.0379, 0.0455, 0.053, 0.0606, 0.0682, 0.0758, 0.0832, 0.0832, 0.0758, 0.0682, 0.0606, 0.053, 0.0455, 0.0379, 0.0303, 0.0227, 0.0152, 0.0076, 0],
+    "Sudden shock": [0, 0.0612, 0.1224, 0.2449, 0.2041, 0.1633, 0.102, 0.051, 0.0306, 0.0153, 0.0052, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     "Sustained impact": [0, 0.0118, 0.0234, 0.0374, 0.042, 0.0448, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467]
   }
 }
