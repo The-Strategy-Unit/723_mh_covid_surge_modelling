@@ -33,10 +33,11 @@ shinyServer(function(input, output, session) {
       removeUI("#div_slider_cond_pcnt > *", TRUE, TRUE)
       # now, add the new sliders
 
-      # get initial max values
+      # get initial max values for the sliders
       mv <- map_dbl(px$conditions, "pcnt") %>% { . + 1 - sum(.) } * 100
-
+      # loop over the conditions (and the corresponding max values)
       walk2(conditions, mv, function(i, mv) {
+        # slider names can't have spaces, replace with _
         slider_name <- paste0("slider_cond_pcnt_", i) %>% str_replace_all(" ", "_")
         slider <- sliderInput(
           slider_name, label = i,
@@ -49,7 +50,7 @@ shinyServer(function(input, output, session) {
           # can't use the px element here: must use full params
           params$groups[[input$popn_subgroup]]$conditions[[i]]$pcnt <- input[[slider_name]] / 100
 
-          # update other sliders
+          # update other sliders max values
           m <- 1 - params$groups[[input$popn_subgroup]]$conditions %>% map_dbl("pcnt") %>% sum()
           walk(conditions, function(j) {
             v <- params$groups[[input$popn_subgroup]]$conditions[[j]]$pcnt + m
