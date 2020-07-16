@@ -176,7 +176,7 @@ shinyServer(function(input, output, session) {
   })
 
   # download_params (downloadButton)
-  output$downnload_params <- downloadHandler(
+  output$download_params <- downloadHandler(
     "params.json",
     function(file) {
       js <- reactiveValuesToList(params) %>%
