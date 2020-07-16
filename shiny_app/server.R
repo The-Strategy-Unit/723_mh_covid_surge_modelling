@@ -20,8 +20,8 @@ shinyServer(function(input, output, session) {
   # popn_subgroup (selectInput)
   observeEvent(input$popn_subgroup, {
     if (req(input$popn_subgroup) %in% population_groups) {
-      vals <- names(params$groups[[input$popn_subgroup]]$conditions)
-      updateSelectInput(session, "sliders_select_cond", choices = vals)
+      conditions <- names(params$groups[[input$popn_subgroup]]$conditions)
+      updateSelectInput(session, "sliders_select_cond", choices = conditions)
 
       px <- params$groups[[input$popn_subgroup]]
       updateNumericInput(session, "subpopulation_size", value = px$size)
@@ -32,18 +32,30 @@ shinyServer(function(input, output, session) {
       # first, remove the previous elements
       removeUI("#div_slider_cond_pcnt > *", TRUE, TRUE)
       # now, add the new sliders
-      walk(vals, function(i) {
-        slider_name <- paste0("slider_cond_pcnt_", str_replace_all(i, " ", "_"))
+
+      # get initial max values
+      mv <- map_dbl(px$conditions, "pcnt") %>% { . + 1 - sum(.) } * 100
+
+      walk2(conditions, mv, function(i, mv) {
+        slider_name <- paste0("slider_cond_pcnt_", i) %>% str_replace_all(" ", "_")
         slider <- sliderInput(
           slider_name, label = i,
           value = px$conditions[[i]]$pcnt * 100,
-          min = 0, max = 100, step = 0.01, post = "%"
+          min = 0, max = mv, step = 0.01, post = "%"
         )
         insertUI("#div_slider_cond_pcnt", "beforeEnd", slider)
 
         observeEvent(input[[slider_name]], {
           # can't use the px element here: must use full params
           params$groups[[input$popn_subgroup]]$conditions[[i]]$pcnt <- input[[slider_name]] / 100
+
+          # update other sliders
+          m <- 1 - params$groups[[input$popn_subgroup]]$conditions %>% map_dbl("pcnt") %>% sum()
+          walk(conditions, function(j) {
+            v <- params$groups[[input$popn_subgroup]]$conditions[[j]]$pcnt + m
+            sn <- paste0("slider_cond_pcnt_", j) %>% str_replace_all(" ", "_")
+            updateSliderInput(session, sn, max = v * 100)
+          })
         })
       })
     }
