@@ -235,35 +235,24 @@ shinyServer(function(input, output, session) {
 
   # Output boxes ====
 
-  extract_total_value <- function(what_total) {
-    model_output() %>%
-      filter(type == what_total,
-             treatment == input$services,
-             near(time, round(time))) %>%
-      pull(value) %>%
-      sum() %>%
-      scales::comma()
-  }
+  tribble(
+    ~output_id,          ~value_type,     ~text,
+    "total_referrals",   "new-referral",  "Total 'surge' referrals",
+    "total_demand",      "treatment",     "Total additional demand per contact type",
+    "total_newpatients", "new-treatment", "Total new patients in service"
+  ) %>%
+    pmap(function(output_id, value_type, text) {
+      output[[output_id]] <- renderValueBox({
+        value <- model_output() %>%
+          filter(type == value_type,
+                 treatment == input$services,
+                 near(time, round(time))) %>%
+          pull(value) %>%
+          sum() %>%
+          scales::comma()
 
-  output$total_referrals <- renderValueBox({
-    valueBox(
-      extract_total_value("new-referral"),
-      "Total 'surge' referrals"
-    )
-  })
-
-  output$total_demand <- renderValueBox({
-    valueBox(
-      extract_total_value("treatment"),
-      "Total additional demand per contact type"
-    )
-  })
-
-  output$total_newpatients <- renderValueBox({
-    valueBox(
-      extract_total_value("new-treatment"),
-      "Total new patients in service"
-    )
-  })
+        valueBox(value, text)
+      })
+    })
 
 })
