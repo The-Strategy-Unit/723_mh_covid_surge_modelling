@@ -199,18 +199,6 @@ shinyServer(function(input, output, session) {
       transmute(treatment, average_monthly_appointments = demand)
   })
 
-  demand <- reactive({
-    model_data <- model_output()
-    appointments <- appointments()
-    df <- model_data %>%
-      filter(type == "treatment",
-             treatment == input$services) %>%
-      group_by(time, treatment) %>%
-      summarise(across(value, sum), .groups = "drop") %>%
-      inner_join(appointments, by = "treatment") %>%
-      mutate(no_appointments = value * average_monthly_appointments)
-  })
-
   # Plots ====
 
   output$referrals_plot <- renderPlotly({
@@ -221,16 +209,20 @@ shinyServer(function(input, output, session) {
       summarise_at("value", sum)
 
     if (nrow(df) < 1) return(NULL)
-
     referrals_plot(df)
   })
 
   output$demand_plot <- renderPlotly({
-    d <- demand()
+    df <- model_output() %>%
+      filter(type == "treatment",
+             treatment == input$services) %>%
+      group_by(time, treatment) %>%
+      summarise(across(value, sum), .groups = "drop") %>%
+      inner_join(appointments(), by = "treatment") %>%
+      mutate(no_appointments = value * average_monthly_appointments)
 
-    if (nrow(d) < 1) return(NULL)
-
-    demand_plot(d)
+    if (nrow(df) < 1) return(NULL)
+    demand_plot(df)
   })
 
   # Output boxes ====
