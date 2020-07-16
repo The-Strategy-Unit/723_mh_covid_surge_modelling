@@ -30,18 +30,19 @@ shinyServer(function(input, output, session) {
 
       removeUI("#div_slider_cond_pcnt > *", TRUE, TRUE)
 
-      for (i in vals) {
+      walk(vals, function(i) {
         slider_name <- paste0("slider_cond_pcnt_", str_replace_all(i, " ", "_"))
-        insertUI(
-          "#div_slider_cond_pcnt",
-          "beforeEnd",
-          sliderInput(
-            slider_name, label = i,
-            value = px$conditions[[i]]$pcnt * 100,
-            min = 0, max = 100, step = 0.01, post = "%"
-          )
+        slider <- sliderInput(
+          slider_name, label = i,
+          value = px$conditions[[i]]$pcnt * 100,
+          min = 0, max = 100, step = 0.01, post = "%"
         )
-      }
+        insertUI("#div_slider_cond_pcnt", "beforeEnd", slider)
+
+        observeEvent(input[[slider_name]], {
+          params$groups[[input$popn_subgroup]]$conditions[[i]]$pcnt <- input[[slider_name]] / 100
+        })
+      })
     }
   })
 
