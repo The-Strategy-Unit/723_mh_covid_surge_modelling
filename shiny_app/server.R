@@ -246,20 +246,23 @@ shinyServer(function(input, output, session) {
   }
 
   output$total_referrals <- renderValueBox({
-    valueBox(extract_total_value("new-referral"),
+    valueBox(
+      extract_total_value("new-referral"),
       "Total 'surge' referrals"
     )
   })
 
   output$total_demand <- renderValueBox({
-    valueBox(extract_total_value("treatment"),
-    "Total additional demand per contact type"
+    valueBox(
+      extract_total_value("treatment"),
+      "Total additional demand per contact type"
     )
   })
 
   output$total_newpatients <- renderValueBox({
-    valueBox(extract_total_value("new-treatment"),
-             "Total new patients in service"
+    valueBox(
+      extract_total_value("new-treatment"),
+      "Total new patients in service"
     )
   })
 
