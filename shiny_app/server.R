@@ -28,8 +28,10 @@ shinyServer(function(input, output, session) {
       updateNumericInput(session, "subpopulation_pcnt", value = px$pcnt)
       updateSliderInput(session, "subpopulation_curve", value = px$curve)
 
+      # update the condition percentage sliders
+      # first, remove the previous elements
       removeUI("#div_slider_cond_pcnt > *", TRUE, TRUE)
-
+      # now, add the new sliders
       walk(vals, function(i) {
         slider_name <- paste0("slider_cond_pcnt_", str_replace_all(i, " ", "_"))
         slider <- sliderInput(
@@ -40,6 +42,7 @@ shinyServer(function(input, output, session) {
         insertUI("#div_slider_cond_pcnt", "beforeEnd", slider)
 
         observeEvent(input[[slider_name]], {
+          # can't use the px element here: must use full params
           params$groups[[input$popn_subgroup]]$conditions[[i]]$pcnt <- input[[slider_name]] / 100
         })
       })
