@@ -27,6 +27,21 @@ shinyServer(function(input, output, session) {
       updateNumericInput(session, "subpopulation_size", value = px$size)
       updateNumericInput(session, "subpopulation_pcnt", value = px$pcnt)
       updateSliderInput(session, "subpopulation_curve", value = px$curve)
+
+      removeUI("#div_slider_cond_pcnt > *", TRUE, TRUE)
+
+      for (i in vals) {
+        slider_name <- paste0("slider_cond_pcnt_", str_replace_all(i, " ", "_"))
+        insertUI(
+          "#div_slider_cond_pcnt",
+          "beforeEnd",
+          sliderInput(
+            slider_name, label = i,
+            value = px$conditions[[i]]$pcnt * 100,
+            min = 0, max = 100, step = 0.01, post = "%"
+          )
+        )
+      }
     }
   })
 

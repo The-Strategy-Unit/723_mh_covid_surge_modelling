@@ -28,6 +28,7 @@ params_population_groups <- box(
 params_group_to_cond <- box(
   title = "Condition group of sub-group population",
   width = 12,
+  div(id = "div_slider_cond_pcnt"),
   selectInput(
     "sliders_select_cond",
     "Condition",
