@@ -125,11 +125,11 @@ shinyServer(function(input, output, session) {
 
           # update other sliders max values
           m <- 1 - params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments %>% map_dbl("treat") %>% sum()
-          # walk(treatments_pathways, function(j) {
-          #   v <- params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments[[treatments_pathways]]$treat + m
-          #   sn <- paste0("slider_treatpath_pcnt_", j) %>% str_replace_all(" ", "_")
-          #   updateSliderInput(session, sn, max = v * 100)
-          # })
+          walk(treatments_pathways, function(j) {
+            v <- params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments[[j]]$treat + m
+            sn <- paste0("slider_treatpath_pcnt_", j) %>% str_replace_all(" ", "_")
+            updateSliderInput(session, sn, max = v * 100)
+          })
         })
       })
 
