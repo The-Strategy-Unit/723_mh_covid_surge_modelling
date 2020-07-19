@@ -2,9 +2,10 @@ library(shiny)
 
 shinyServer(function(input, output, session) {
 
+  ## needs to be after upload function
+
   models <- lift_dl(reactiveValues)(models)
   params <- lift_dl(reactiveValues)(params)
-
 
   # Update main select options ====
 
@@ -92,20 +93,60 @@ shinyServer(function(input, output, session) {
 
       updateSelectInput(session, "sliders_select_treat", choices = names(p$treatments))
 
-      updateSliderInput(session, "slider_pcnt", value = p$pcnt * 100)
+      # updateSliderInput(session, "slider_pcnt", value = p$pcnt * 100)
+
+      ## Try to implement Tom's code here
+
+      # update the condition percentage sliders
+      # first, remove the previous elements
+      px <- params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]
+
+      treatments_pathways <- names(params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments)
+
+      removeUI("#div_slider_treatmentpathway_pcnt > *", TRUE, TRUE)
+      # now, add the new sliders
+
+      # get initial max values for the sliders
+      mv <- map_dbl(px$treatments, "treat") %>% { . + 1 - sum(.) } * 100
+      # loop over the conditions (and the corresponding max values)
+      walk2(treatments_pathways, mv, function(i, mv) {
+        # slider names can't have spaces, replace with _
+        slider_name <- paste0("slider_treatpath_pcnt_", i) %>% str_replace_all(" ", "_")
+        slider <- sliderInput(
+          slider_name, label = i,
+          value = px$treatments[[i]]$pcnt * 100,
+          min = 0, max = mv, step = 0.01, post = "%"
+        )
+        insertUI("#div_slider_treatmentpathway_pcnt", "beforeEnd", slider)
+
+        observeEvent(input[[slider_name]], {
+          # can't use the px element here: must use full params
+          params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments[[i]]$treat <- input[[slider_name]] / 100
+
+          # update other sliders max values
+          m <- 1 - params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments %>% map_dbl("treat") %>% sum()
+          # walk(treatments_pathways, function(j) {
+          #   v <- params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments[[treatments_pathways]]$treat + m
+          #   sn <- paste0("slider_treatpath_pcnt_", j) %>% str_replace_all(" ", "_")
+          #   updateSliderInput(session, sn, max = v * 100)
+          # })
+        })
+      })
+
+
     }
   })
 
-  # slider_pcnt (sliderInput)
-  observeEvent(input$slider_pcnt, {
-    psg <- req(input$popn_subgroup)
-    condition <- req(input$sliders_select_cond)
-
-    if (psg %in% population_groups) {
-      v <- input$slider_pcnt / 100
-      params$groups[[psg]]$conditions[[condition]]$pcnt <- v
-    }
-  })
+  # # slider_pcnt (sliderInput)
+  # observeEvent(input$slider_pcnt, {
+  #   psg <- req(input$popn_subgroup)
+  #   condition <- req(input$sliders_select_cond)
+  #
+  #   if (psg %in% population_groups) {
+  #     v <- input$slider_pcnt / 100
+  #     params$groups[[psg]]$conditions[[condition]]$pcnt <- v
+  #   }
+  # })
 
   # params_cond_to_treat ====
 
