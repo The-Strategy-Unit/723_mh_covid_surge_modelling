@@ -5,35 +5,52 @@ shinyServer(function(input, output, session) {
 
   ## needs to be after upload function
 
+  population_groups <- reactiveVal(population_groups)
+  curves <- reactiveVal(names(params$curves))
+  treatments <- reactiveVal(treatments)
+
   models <- lift_dl(reactiveValues)(models)
   params <- lift_dl(reactiveValues)(params)
 
   ## New params
 
-    if (req(input$user_upload_json)) {
+  observeEvent(input$user_upload_json, {
+    req(input$user_upload_json)
 
-    new_params <-
-      read_json(input$user_upload_json$datapath, simplifyVector = TRUE)
+    if (file.exists(input$user_upload_json$datapath)) {
+      new_params <- read_json(input$user_upload_json$datapath, simplifyVector = TRUE)
 
-    params$groups <- new_params$groups
-    params$treatments <- new_params$treatments
-    params$curves <- new_params$curves
-}
+      params$groups <- new_params$groups
+      params$treatments <- new_params$treatments
+      params$curves <- new_params$curves
+
+      population_groups("")
+      treatments("")
+      curves("")
+
+      population_groups(names(params$groups))
+      treatments(names(params$treatments))
+      curves(names(params$curves))
+
+      input$subpopulation_pcnt("")
+      input$subpopulation_pcnt(names(params$groups)[[1]])
+    }
+  })
 
   # Update main select options ====
 
   observe({
-    updateSelectInput(session, "popn_subgroup", choices = population_groups)
-    updateSelectInput(session, "subpopulation_curve", choices = names(params$curves))
-    updateSelectInput(session, "treatment_type", choices = treatments)
-    updateSelectInput(session, "services", choices = treatments)
+    updateSelectInput(session, "popn_subgroup", choices = population_groups())
+    updateSelectInput(session, "subpopulation_curve", choices = curves())
+    updateSelectInput(session, "treatment_type", choices = treatments())
+    updateSelectInput(session, "services", choices = treatments())
   })
 
   # params_population_groups ====
 
   # popn_subgroup (selectInput)
   observeEvent(input$popn_subgroup, {
-    if (req(input$popn_subgroup) %in% population_groups) {
+    if (req(input$popn_subgroup) %in% population_groups()) {
       conditions <- names(params$groups[[input$popn_subgroup]]$conditions)
       updateSelectInput(session, "sliders_select_cond", choices = conditions)
 
@@ -78,21 +95,21 @@ shinyServer(function(input, output, session) {
 
   # subpopulation_size (numericInput)
   observeEvent(input$subpopulation_size, {
-    if (req(input$popn_subgroup) %in% population_groups) {
+    if (req(input$popn_subgroup) %in% population_groups()) {
       params$groups[[input$popn_subgroup]]$size <- input$subpopulation_size
     }
   })
 
   # subpopulation_pcnt (numericInput)
   observeEvent(input$subpopulation_pcnt, {
-    if (req(input$popn_subgroup) %in% population_groups) {
+    if (req(input$popn_subgroup) %in% population_groups()) {
       params$groups[[input$popn_subgroup]]$pcnt <- input$subpopulation_pcnt
     }
   })
 
   # subpopulation_curve (selectInput)
   observeEvent(input$subpopulation_curve, {
-    if (req(input$popn_subgroup) %in% population_groups) {
+    if (req(input$popn_subgroup) %in% population_groups()) {
       params$groups[[input$popn_subgroup]]$curve <- input$subpopulation_curve
     }
   })
@@ -101,7 +118,7 @@ shinyServer(function(input, output, session) {
 
   # sliders_select_cond (selectInput)
   observeEvent(input$sliders_select_cond, {
-    if (req(input$popn_subgroup) %in% population_groups) {
+    if (req(input$popn_subgroup) %in% population_groups()) {
       p <- params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]
 
       updateSelectInput(session, "sliders_select_treat", choices = names(p$treatments))
@@ -169,7 +186,7 @@ shinyServer(function(input, output, session) {
     condition <- req(input$sliders_select_cond)
     treatment <- req(input$sliders_select_treat)
 
-    if (psg %in% population_groups) {
+    if (psg %in% population_groups()) {
       v <- params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]]$treat * 100
 
       updateSliderInput(session, "slider_treat", value = v)
@@ -182,7 +199,7 @@ shinyServer(function(input, output, session) {
     condition <- req(input$sliders_select_cond)
     treatment <- req(input$sliders_select_treat)
 
-    if (psg %in% population_groups) {
+    if (psg %in% population_groups()) {
       v <- input$slider_treat / 100
       params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]]$treat <- v
     }
@@ -192,7 +209,7 @@ shinyServer(function(input, output, session) {
 
   # treatment_type (selectInput)
   observeEvent(input$treatment_type, {
-    if (req(input$treatment_type) %in% treatments) {
+    if (req(input$treatment_type) %in% treatments()) {
       tx <- params$treatments[[input$treatment_type]]
       updateSliderInput(session, "treatment_appointments", value = tx$demand)
       updateSliderInput(session, "slider_success", value = tx$success * 100)
@@ -203,28 +220,28 @@ shinyServer(function(input, output, session) {
 
   # treatment_appointments (sliderInput)
   observeEvent(input$treatment_appointments, {
-    if (req(input$treatment_type) %in% treatments) {
+    if (req(input$treatment_type) %in% treatments()) {
       params$treatments[[input$treatment_type]]$demand <- input$treatment_appointments
     }
   })
 
   # slider_success (sliderInput)
   observeEvent(input$slider_success, {
-    if (req(input$treatment_type) %in% treatments) {
+    if (req(input$treatment_type) %in% treatments()) {
       params$treatments[[input$treatment_type]]$success <- input$slider_success / 100
     }
   })
 
   # slider_tx_months (sliderInput)
   observeEvent(input$slider_tx_months, {
-    if (req(input$treatment_type) %in% treatments) {
+    if (req(input$treatment_type) %in% treatments()) {
       params$treatments[[input$treatment_type]]$months <- input$slider_tx_months
     }
   })
 
   # slider_decay (sliderInput)
   observeEvent(input$slider_decay, {
-    if (req(input$treatment_type) %in% treatments) {
+    if (req(input$treatment_type) %in% treatments()) {
       params$treatments[[input$treatment_type]]$decay <- input$slider_decay / 100
     }
   })
@@ -270,7 +287,7 @@ shinyServer(function(input, output, session) {
   model_output <- reactive({
     # only run current selected population group
 
-    if (req(input$popn_subgroup) %in% population_groups) {
+    if (req(input$popn_subgroup) %in% population_groups()) {
       px <- reactiveValuesToList(params)
       models[[input$popn_subgroup]] <- run_single_model(px, input$popn_subgroup, 24, sim_time)
     }
