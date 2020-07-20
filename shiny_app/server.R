@@ -65,7 +65,7 @@ shinyServer(function(input, output, session) {
       # now, add the new sliders
 
       # get initial max values for the sliders
-      mv <- map_dbl(px$conditions, "pcnt") %>% { . + 1 - sum(.) } * 100
+      mv <- map_dbl(px$conditions, "pcnt") %>% (function(x) x + 1 - sum(x)) * 100
       # loop over the conditions (and the corresponding max values)
       walk2(conditions, mv, function(i, mv) {
         # slider names can't have spaces, replace with _
