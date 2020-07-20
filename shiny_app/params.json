@@ -10,7 +10,7 @@
           "treatments": {
             "CAMHS": {
               "pcnt": 1,
-              "treat": 0.71
+              "treat": 0.522
             }
           }
         },
@@ -23,7 +23,7 @@
             },
             "CAMHS": {
               "pcnt": 0.8649,
-              "treat": 0.46
+              "treat": 0.522
             }
           }
         },
@@ -53,7 +53,7 @@
             },
             "CAMHS": {
               "pcnt": 0.7308,
-              "treat": 0.71
+              "treat": 0.522
             }
           }
         },
@@ -1432,7 +1432,7 @@
       "demand": 1
     },
     "CAMHS": {
-      "success": 0.2242,
+      "success": 0.623,
       "months": 1,
       "decay": 0.5,
       "demand": 1.57
