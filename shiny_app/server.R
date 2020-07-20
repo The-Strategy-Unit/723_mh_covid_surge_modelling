@@ -167,20 +167,8 @@ shinyServer(function(input, output, session) {
     }
   })
 
-  # # slider_pcnt (sliderInput)
-  # observeEvent(input$slider_pcnt, {
-  #   psg <- req(input$popn_subgroup)
-  #   condition <- req(input$sliders_select_cond)
-  #
-  #   if (psg %in% population_groups) {
-  #     v <- input$slider_pcnt / 100
-  #     params$groups[[psg]]$conditions[[condition]]$pcnt <- v
-  #   }
-  # })
-
   # params_cond_to_treat ====
 
-  # sliders_select_treat (selectInput)
   observeEvent(input$sliders_select_treat, {
     psg <- req(input$popn_subgroup)
     condition <- req(input$sliders_select_cond)

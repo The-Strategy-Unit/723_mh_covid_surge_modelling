@@ -40,20 +40,6 @@ params_cond_to_treat <- box(
     choices = NA
   ),
   div(id = "div_slider_treatmentpathway_pcnt"),
-  # selectInput(
-  #   "sliders_select_treat",
-  #   "Treatment Pathway",
-  #   choices = NA
-  # ),
-  # sliderInput(
-  #   "slider_treat",
-  #   "% Requiring Treatment",
-  #   min = 0,
-  #   max = 100,
-  #   value = 0,
-  #   step = 0.01,
-  #   post = "%"
-  # )
 )
 
 params_demand <- box(
