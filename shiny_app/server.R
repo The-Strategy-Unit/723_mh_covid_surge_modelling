@@ -2,10 +2,23 @@ library(shiny)
 
 shinyServer(function(input, output, session) {
 
+
   ## needs to be after upload function
 
   models <- lift_dl(reactiveValues)(models)
   params <- lift_dl(reactiveValues)(params)
+
+  ## New params
+
+    if (req(input$user_upload_json)) {
+
+    new_params <-
+      read_json(input$user_upload_json$datapath, simplifyVector = TRUE)
+
+    params$groups <- new_params$groups
+    params$treatments <- new_params$treatments
+    params$curves <- new_params$curves
+}
 
   # Update main select options ====
 

@@ -1,0 +1,1687 @@
+{
+  "groups": {
+    "Children & young people": {
+      "size": 999999,
+      "pcnt": 10,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.12,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.0367,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
+          }
+        },
+        "Neurological symptom disorder (ADHD/Aspergers)": {
+          "pcnt": 0.0064,
+          "treatments": {
+            "ADHD": {
+              "pcnt": 0.8,
+              "treat": 0.05
+            },
+            "Aspergers": {
+              "pcnt": 0.2,
+              "treat": 0.05
+            }
+          }
+        },
+        "PTSD": {
+          "pcnt": 0.1,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.1538,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "pcnt": 0.1154,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "pcnt": 0.3077,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1154,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "pcnt": 0.3077,
+              "treat": 0.91
+            }
+          }
+        },
+        "Self harm": {
+          "pcnt": 0.02,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1364,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1364,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.0455,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.1364,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.3636,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.0909,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.0909,
+              "treat": 0.29
+            }
+          }
+        },
+        "Stress and Distress": {
+          "pcnt": 0.0667,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    },
+    "Domestic abuse victims": {
+      "size": 1956,
+      "pcnt": 100,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Depression": {
+          "pcnt": 0.1587,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
+          }
+        },
+        "PTSD": {
+          "pcnt": 0.2127,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.1538,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "pcnt": 0.1154,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "pcnt": 0.3077,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1154,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "pcnt": 0.3077,
+              "treat": 0.91
+            }
+          }
+        },
+        "Substance misuse": {
+          "pcnt": 0.0457,
+          "treatments": {
+            "Addiction Services": {
+              "pcnt": 0.3175,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.0952,
+              "treat": 0.71
+            },
+            "CJ Liason": {
+              "pcnt": 0.2222,
+              "treat": 0.89
+            },
+            "Complex Care Team": {
+              "pcnt": 0.0159,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.0952,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.1587,
+              "treat": 0.57
+            },
+            "Triage Cars": {
+              "pcnt": 0.0952,
+              "treat": 0.29
+            }
+          }
+        },
+        "Suicide/ideation": {
+          "pcnt": 0.0597,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.125,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.125,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.2,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.175,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.175,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    },
+    "Elderly alone": {
+      "size": 46105,
+      "pcnt": 25,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.04,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
+          }
+        },
+        "Loneliness": {
+          "pcnt": 0.054,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.0526,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2105,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2105,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1053,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.4211,
+              "treat": 0.91
+            }
+          }
+        },
+        "Stress and Distress": {
+          "pcnt": 0,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
+          }
+        },
+        "Suicide/ideation": {
+          "pcnt": 0.1,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.125,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.125,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.2,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.175,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.175,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    },
+    "Family of COVID deceased": {
+      "size": 4030,
+      "pcnt": 75,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Complicated grief": {
+          "pcnt": 0.0233,
+          "treatments": {
+            "Bereavement Services": {
+              "pcnt": 1,
+              "treat": 0.53
+            }
+          }
+        },
+        "PTSD": {
+          "pcnt": 0,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.1538,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "pcnt": 0.1154,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "pcnt": 0.3077,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1154,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "pcnt": 0.3077,
+              "treat": 0.91
+            }
+          }
+        }
+      }
+    },
+    "Family of ICU survivors": {
+      "size": 425,
+      "pcnt": 75,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.1667,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.13,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
+          }
+        },
+        "PTSD": {
+          "pcnt": 0.0667,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.1538,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "pcnt": 0.1154,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "pcnt": 0.3077,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1154,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "pcnt": 0.3077,
+              "treat": 0.91
+            }
+          }
+        },
+        "Stress and Distress": {
+          "pcnt": 0.2033,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
+          }
+        },
+        "Suicide/ideation": {
+          "pcnt": 0.0037,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.125,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.125,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.2,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.175,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.175,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    },
+    "General population": {
+      "size": 143087,
+      "pcnt": 10,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.0933,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.055,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
+          }
+        },
+        "Loneliness": {
+          "pcnt": 0.018,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.0526,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2105,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2105,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1053,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.4211,
+              "treat": 0.91
+            }
+          }
+        },
+        "Self harm": {
+          "pcnt": 0.0167,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1364,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1364,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.0455,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.1364,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.3636,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.0909,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.0909,
+              "treat": 0.29
+            }
+          }
+        },
+        "Stress and Distress": {
+          "pcnt": 0.027,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
+          }
+        },
+        "Substance misuse": {
+          "pcnt": 0.0257,
+          "treatments": {
+            "Addiction Services": {
+              "pcnt": 0.3175,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.0952,
+              "treat": 0.71
+            },
+            "CJ Liason": {
+              "pcnt": 0.2222,
+              "treat": 0.89
+            },
+            "Complex Care Team": {
+              "pcnt": 0.0159,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.0952,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.1587,
+              "treat": 0.57
+            },
+            "Triage Cars": {
+              "pcnt": 0.0952,
+              "treat": 0.29
+            }
+          }
+        },
+        "Suicide/ideation": {
+          "pcnt": 0.0033,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.125,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.125,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.2,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.175,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.175,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    },
+    "Health and care workers": {
+      "size": 16749,
+      "pcnt": 25,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.1487,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.168,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
+          }
+        },
+        "Insomnia": {
+          "pcnt": 0.1133,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.0857,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2286,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2286,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.2286,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2286,
+              "treat": 0.91
+            }
+          }
+        },
+        "PTSD": {
+          "pcnt": 0.0333,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.1538,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "pcnt": 0.1154,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "pcnt": 0.3077,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1154,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "pcnt": 0.3077,
+              "treat": 0.91
+            }
+          }
+        }
+      }
+    },
+    "ICU survivors": {
+      "size": 137,
+      "pcnt": 75,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.1667,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.13,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
+          }
+        },
+        "PTSD": {
+          "pcnt": 0.0667,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.1538,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "pcnt": 0.1154,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "pcnt": 0.3077,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1154,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "pcnt": 0.3077,
+              "treat": 0.91
+            }
+          }
+        },
+        "Stress and Distress": {
+          "pcnt": 0.2033,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
+          }
+        },
+        "Suicide/ideation": {
+          "pcnt": 0.0037,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.125,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.125,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.2,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.175,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.175,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    },
+    "Learning disabilities & autism": {
+      "size": 1683,
+      "pcnt": 50,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Increased acuity": {
+          "pcnt": 0.0667,
+          "treatments": {
+            "CRHT": {
+              "pcnt": 0.4375,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.25,
+              "treat": 0.57
+            },
+            "SPA/A&E": {
+              "pcnt": 0.3125,
+              "treat": 0.05
+            }
+          }
+        }
+      }
+    },
+    "Newly unemployed": {
+      "size": 1097,
+      "pcnt": 25,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.0289,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.0289,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
+          }
+        },
+        "Insomnia": {
+          "pcnt": 0,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.0857,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2286,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2286,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.2286,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2286,
+              "treat": 0.91
+            }
+          }
+        },
+        "Stress and Distress": {
+          "pcnt": 0.0289,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
+          }
+        },
+        "Suicide/ideation": {
+          "pcnt": 0.0367,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.125,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.125,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.2,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.175,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.175,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    },
+    "Parents": {
+      "size": 141371,
+      "pcnt": 10,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.0367,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.0367,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
+          }
+        },
+        "Stress and Distress": {
+          "pcnt": 0.07,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    },
+    "Pre existing CMH illness": {
+      "size": 29902,
+      "pcnt": 50,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Increased acuity": {
+          "pcnt": 0.0333,
+          "treatments": {
+            "CRHT": {
+              "pcnt": 0.4375,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.25,
+              "treat": 0.57
+            },
+            "SPA/A&E": {
+              "pcnt": 0.3125,
+              "treat": 0.05
+            }
+          }
+        }
+      }
+    },
+    "Pre existing LTC": {
+      "size": 176849,
+      "pcnt": 25,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.1767,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.0883,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
+          }
+        }
+      }
+    },
+    "Pre existing SMI": {
+      "size": 6408,
+      "pcnt": 50,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Increased acuity": {
+          "pcnt": 0.05,
+          "treatments": {
+            "CRHT": {
+              "pcnt": 0.4375,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.25,
+              "treat": 0.57
+            },
+            "SPA/A&E": {
+              "pcnt": 0.3125,
+              "treat": 0.05
+            }
+          }
+        }
+      }
+    },
+    "Pregnant & New Mothers": {
+      "size": 5621,
+      "pcnt": 25,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.0833,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
+          }
+        },
+        "Postnatal Depression": {
+          "pcnt": 0.1,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.0083,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.0826,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.0413,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2479,
+              "treat": 0.91
+            },
+            "Perinatal Services": {
+              "pcnt": 0.5785,
+              "treat": 0.23
+            },
+            "SPA/A&E": {
+              "pcnt": 0.0413,
+              "treat": 0.05
+            }
+          }
+        },
+        "Stress and Distress": {
+          "pcnt": 0.0833,
+          "treatments": {
+            "999/111": {
+              "pcnt": 0.2424,
+              "treat": 1
+            },
+            "CRHT": {
+              "pcnt": 0.2121,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.1212,
+              "treat": 0.91
+            },
+            "Primary Care": {
+              "pcnt": 0,
+              "treat": 0.67
+            },
+            "SPA/A&E": {
+              "pcnt": 0.2121,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.2121,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    },
+    "Students FE & HE": {
+      "size": 80575,
+      "pcnt": 10,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.0833,
+          "treatments": {
+            "Adult CMHT": {
+              "pcnt": 0.2,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.05,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "pcnt": 0.6,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "pcnt": 0.15,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.03,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1351,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.2703,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "pcnt": 0.2703,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.1081,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "pcnt": 0.2162,
+              "treat": 0.91
+            }
+          }
+        },
+        "Self harm": {
+          "pcnt": 0.03,
+          "treatments": {
+            "Acute Inpatients": {
+              "pcnt": 0.1364,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "pcnt": 0.1364,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "pcnt": 0.0455,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.1364,
+              "treat": 0.57
+            },
+            "PD Hub": {
+              "pcnt": 0.3636,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "pcnt": 0.0909,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "pcnt": 0.0909,
+              "treat": 0.29
+            }
+          }
+        },
+        "Substance misuse": {
+          "pcnt": 0,
+          "treatments": {
+            "Addiction Services": {
+              "pcnt": 0.3175,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "pcnt": 0.0952,
+              "treat": 0.71
+            },
+            "CJ Liason": {
+              "pcnt": 0.2222,
+              "treat": 0.89
+            },
+            "Complex Care Team": {
+              "pcnt": 0.0159,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "pcnt": 0.0952,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "pcnt": 0.1587,
+              "treat": 0.57
+            },
+            "Triage Cars": {
+              "pcnt": 0.0952,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    }
+  },
+  "treatments": {
+    "999/111": {
+      "success": 1,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1
+    },
+    "Acute Inpatients": {
+      "success": 0.2105,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.65
+    },
+    "Addiction Services": {
+      "success": 0.4167,
+      "months": 5,
+      "decay": 0.5,
+      "demand": 1.25
+    },
+    "ADHD": {
+      "success": 0.4857,
+      "months": 5,
+      "decay": 0.5,
+      "demand": 1
+    },
+    "Adult CMHT": {
+      "success": 0.2242,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.57
+    },
+    "Aspergers": {
+      "success": 0.4857,
+      "months": 9,
+      "decay": 0.5,
+      "demand": 1.34
+    },
+    "Bereavement Services": {
+      "success": 0.2105,
+      "months": 4,
+      "decay": 0.5,
+      "demand": 1
+    },
+    "CJ Liason": {
+      "success": 0.1576,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1
+    },
+    "Complex Care Team": {
+      "success": 0.2727,
+      "months": 12,
+      "decay": 0.5,
+      "demand": 1.67
+    },
+    "CRHT": {
+      "success": 0.2667,
+      "months": 11,
+      "decay": 0.5,
+      "demand": 2.03
+    },
+    "EIP Team": {
+      "success": 0.3107,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.63
+    },
+    "IAPT": {
+      "success": 0.4489,
+      "months": 2,
+      "decay": 0.5,
+      "demand": 1.5
+    },
+    "PD Hub": {
+      "success": 0.4167,
+      "months": 5,
+      "decay": 0.5,
+      "demand": 2.99
+    },
+    "Perinatal Services": {
+      "success": 0.4688,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.73
+    },
+    "PICU": {
+      "success": 0.2105,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1
+    },
+    "SPA/A&E": {
+      "success": 0.3636,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.04
+    },
+    "Triage Cars": {
+      "success": 0.4,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.11
+    }
+  },
+  "curves": {
+    "Follow the curve": [0, 0.0119, 0.0238, 0.0475, 0.095, 0.1188, 0.1206, 0.1069, 0.0841, 0.0722, 0.0594, 0.0487, 0.0392, 0.0333, 0.0285, 0.0249, 0.0214, 0.0178, 0.0143, 0.0116, 0.009, 0.0062, 0.0034, 0.0015],
+    "Shallow mid term": [0, 0.0076, 0.0152, 0.0227, 0.0303, 0.0379, 0.0455, 0.053, 0.0606, 0.0682, 0.0758, 0.0832, 0.0832, 0.0758, 0.0682, 0.0606, 0.053, 0.0455, 0.0379, 0.0303, 0.0227, 0.0152, 0.0076, 0],
+    "Sudden shock": [0, 0.0612, 0.1224, 0.2449, 0.2041, 0.1633, 0.102, 0.051, 0.0306, 0.0153, 0.0052, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "Sustained impact": [0, 0.0118, 0.0234, 0.0374, 0.042, 0.0448, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467]
+  }
+}
