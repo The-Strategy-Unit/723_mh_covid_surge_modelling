@@ -119,51 +119,50 @@ shinyServer(function(input, output, session) {
   # sliders_select_cond (selectInput)
   observeEvent(input$sliders_select_cond, {
     if (req(input$popn_subgroup) %in% population_groups()) {
-      p <- params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]
-
-      updateSelectInput(session, "sliders_select_treat", choices = names(p$treatments))
-
-      # updateSliderInput(session, "slider_pcnt", value = p$pcnt * 100)
-
-      ## Try to implement Tom's code here
-
-      # update the condition percentage sliders
-      # first, remove the previous elements
+            # first, remove the previous elements
       px <- params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]
 
-      treatments_pathways <- names(params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments)
+      treatments_pathways <- names(px$treatments)
 
-      removeUI("#div_slider_treatmentpathway_pcnt > *", TRUE, TRUE)
+      updateSelectInput(session, "sliders_select_treat", choices = treatments_pathways)
+
+      removeUI("#div_slider_treatmentpathway > *", TRUE, TRUE)
       # now, add the new sliders
 
-      # get initial max values for the sliders
-      mv <- map_dbl(px$treatments, "treat") %>% { . + 1 - sum(.) } * 100
-      # loop over the conditions (and the corresponding max values)
-      walk2(treatments_pathways, mv, function(i, mv) {
+      # loop over the treatments
+      walk(treatments_pathways, function(i) {
         # slider names can't have spaces, replace with _
-        slider_name <- paste0("slider_treatpath_pcnt_", i) %>% str_replace_all(" ", "_")
-        slider <- sliderInput(
-          slider_name, label = i,
-          value = px$treatments[[i]]$pcnt * 100,
-          min = 0, max = mv, step = 0.01, post = "%"
+        ix <- str_replace(i, " ", "_")
+        split_name <- paste0("numeric_treatpath_split_", ix)
+        treat_name <- paste0("slider_treatpath_treat_", ix)
+
+        split <- numericInput(
+          split_name,
+          label = paste("split", i),
+          value = px$treatments[[i]]$split
         )
-        insertUI("#div_slider_treatmentpathway_pcnt", "beforeEnd", slider)
 
-        observeEvent(input[[slider_name]], {
-          # can't use the px element here: must use full params
-          params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments[[i]]$treat <- input[[slider_name]] / 100
+        treat <- sliderInput(
+          treat_name,
+          label = paste("treat %", i),
+          value = px$treatments[[i]]$treat * 100,
+          min = 0, max = 100, step = 0.01, post = "%"
+        )
 
-          # update other sliders max values
-          m <- 1 - params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments %>% map_dbl("treat") %>% sum()
-          walk(treatments_pathways, function(j) {
-            v <- params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments[[j]]$treat + m
-            sn <- paste0("slider_treatpath_pcnt_", j) %>% str_replace_all(" ", "_")
-            updateSliderInput(session, sn, max = v * 100)
-          })
+        insertUI("#div_slider_treatmentpathway", "beforeEnd", split)
+        insertUI("#div_slider_treatmentpathway", "beforeEnd", treat)
+
+        observeEvent(input[[split_name]], {
+          v <- input[[split_name]]
+          params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments[[i]]$split <- v
+        })
+
+        observeEvent(input[[treat_name]], {
+          v <- input[[treat_name]]
+
+          params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments[[i]]$treat <- v
         })
       })
-
-
     }
   })
 

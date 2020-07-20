@@ -24,15 +24,9 @@ stopifnot(
     group_by(group) %>%
     summarise_at("pcnt", sum) %>%
     verify_fn(pcnt > 1),
-  "condition percentages don't sum to 1" = raw_data$c2t %>%
-    group_by(condition) %>%
-    summarise_at("pcnt", sum) %>%
-    verify_fn(pcnt != 1),
   "group percentages not between 0 and 100" = raw_data$groups %>%
     verify_fn(pcnt < 0 | pcnt > 100),
   "g2c pcnt not between 0 and 1" = raw_data$g2c %>%
-    verify_fn(pcnt < 0 | pcnt > 1),
-  "c2t pcnt not between 0 and 1" = raw_data$c2t %>%
     verify_fn(pcnt < 0 | pcnt > 1),
   "c2t treat not between 0 and 1" = raw_data$c2t %>%
     verify_fn(treat < 0 | treat > 1),

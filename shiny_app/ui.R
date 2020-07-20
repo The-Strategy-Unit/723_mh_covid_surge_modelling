@@ -39,7 +39,7 @@ params_cond_to_treat <- box(
     "Condition",
     choices = NA
   ),
-  div(id = "div_slider_treatmentpathway_pcnt"),
+  div(id = "div_slider_treatmentpathway"),
 )
 
 params_demand <- box(
