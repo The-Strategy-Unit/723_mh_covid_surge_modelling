@@ -158,8 +158,7 @@ shinyServer(function(input, output, session) {
         })
 
         observeEvent(input[[treat_name]], {
-          v <- input[[treat_name]]
-
+          v <- input[[treat_name]] / 100
           params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments[[i]]$treat <- v
         })
       })
@@ -271,14 +270,16 @@ shinyServer(function(input, output, session) {
 
   # Model ====
 
-  model_output <- reactive({
+  observe({
     # only run current selected population group
 
     if (req(input$popn_subgroup) %in% population_groups()) {
       px <- reactiveValuesToList(params)
       models[[input$popn_subgroup]] <- run_single_model(px, input$popn_subgroup, 24, sim_time)
     }
+  })
 
+  model_output <- reactive({
     # combine models
     bind_rows(reactiveValuesToList(models))
   })
