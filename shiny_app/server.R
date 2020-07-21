@@ -2,51 +2,114 @@ library(shiny)
 
 shinyServer(function(input, output, session) {
 
+
+  ## needs to be after upload function
+
+  population_groups <- reactiveVal(population_groups)
+  curves <- reactiveVal(names(params$curves))
+  treatments <- reactiveVal(treatments)
+
   models <- lift_dl(reactiveValues)(models)
   params <- lift_dl(reactiveValues)(params)
 
+  ## New params
+
+  observeEvent(input$user_upload_json, {
+    req(input$user_upload_json)
+
+    if (file.exists(input$user_upload_json$datapath)) {
+      new_params <- read_json(input$user_upload_json$datapath, simplifyVector = TRUE)
+
+      params$groups <- new_params$groups
+      params$treatments <- new_params$treatments
+      params$curves <- new_params$curves
+
+      population_groups("")
+      treatments("")
+      curves("")
+
+      population_groups(names(params$groups))
+      treatments(names(params$treatments))
+      curves(names(params$curves))
+
+      input$subpopulation_pcnt("")
+      input$subpopulation_pcnt(names(params$groups)[[1]])
+    }
+  })
 
   # Update main select options ====
 
   observe({
-    updateSelectInput(session, "popn_subgroup", choices = population_groups)
-    updateSelectInput(session, "subpopulation_curve", choices = names(params$curves))
-    updateSelectInput(session, "treatment_type", choices = treatments)
-    updateSelectInput(session, "services", choices = treatments)
+    updateSelectInput(session, "popn_subgroup", choices = population_groups())
+    updateSelectInput(session, "subpopulation_curve", choices = curves())
+    updateSelectInput(session, "treatment_type", choices = treatments())
+    updateSelectInput(session, "services", choices = treatments())
   })
 
   # params_population_groups ====
 
   # popn_subgroup (selectInput)
   observeEvent(input$popn_subgroup, {
-    if (req(input$popn_subgroup) %in% population_groups) {
-      vals <- names(params$groups[[input$popn_subgroup]]$conditions)
-      updateSelectInput(session, "sliders_select_cond", choices = vals)
+    if (req(input$popn_subgroup) %in% population_groups()) {
+      conditions <- names(params$groups[[input$popn_subgroup]]$conditions)
+      updateSelectInput(session, "sliders_select_cond", choices = conditions)
 
       px <- params$groups[[input$popn_subgroup]]
       updateNumericInput(session, "subpopulation_size", value = px$size)
       updateNumericInput(session, "subpopulation_pcnt", value = px$pcnt)
       updateSliderInput(session, "subpopulation_curve", value = px$curve)
+
+      # update the condition percentage sliders
+      # first, remove the previous elements
+      removeUI("#div_slider_cond_pcnt > *", TRUE, TRUE)
+      # now, add the new sliders
+
+      # get initial max values for the sliders
+      mv <- map_dbl(px$conditions, "pcnt") %>% (function(x) x + 1 - sum(x)) * 100
+      # loop over the conditions (and the corresponding max values)
+      walk2(conditions, mv, function(i, mv) {
+        # slider names can't have spaces, replace with _
+        slider_name <- paste0("slider_cond_pcnt_", i) %>% str_replace_all(" ", "_")
+        slider <- sliderInput(
+          slider_name, label = i,
+          value = px$conditions[[i]]$pcnt * 100,
+          min = 0, max = mv, step = 0.01, post = "%"
+        )
+        insertUI("#div_slider_cond_pcnt", "beforeEnd", slider)
+
+        observeEvent(input[[slider_name]], {
+          # can't use the px element here: must use full params
+          params$groups[[input$popn_subgroup]]$conditions[[i]]$pcnt <- input[[slider_name]] / 100
+
+          # update other sliders max values
+          m <- 1 - params$groups[[input$popn_subgroup]]$conditions %>% map_dbl("pcnt") %>% sum()
+          walk(conditions, function(j) {
+            v <- params$groups[[input$popn_subgroup]]$conditions[[j]]$pcnt + m
+            sn <- paste0("slider_cond_pcnt_", j) %>% str_replace_all(" ", "_")
+            updateSliderInput(session, sn, max = v * 100)
+          })
+        })
+      })
     }
   })
 
   # subpopulation_size (numericInput)
   observeEvent(input$subpopulation_size, {
-    if (req(input$popn_subgroup) %in% population_groups) {
+    if (req(input$popn_subgroup) %in% population_groups()) {
       params$groups[[input$popn_subgroup]]$size <- input$subpopulation_size
     }
   })
 
   # subpopulation_pcnt (numericInput)
   observeEvent(input$subpopulation_pcnt, {
-    if (req(input$popn_subgroup) %in% population_groups) {
+    if (req(input$popn_subgroup) %in% population_groups()) {
       params$groups[[input$popn_subgroup]]$pcnt <- input$subpopulation_pcnt
     }
   })
 
   # subpopulation_curve (selectInput)
   observeEvent(input$subpopulation_curve, {
-    if (req(input$popn_subgroup) %in% population_groups) {
+    if (req(input$popn_subgroup) %in% population_groups()) {
       params$groups[[input$popn_subgroup]]$curve <- input$subpopulation_curve
     }
   })
@@ -55,35 +118,62 @@ shinyServer(function(input, output, session) {
 
   # sliders_select_cond (selectInput)
   observeEvent(input$sliders_select_cond, {
-    if (req(input$popn_subgroup) %in% population_groups) {
-      p <- params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]
+    if (req(input$popn_subgroup) %in% population_groups()) {
+            # first, remove the previous elements
+      px <- params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]
 
-      updateSelectInput(session, "sliders_select_treat", choices = names(p$treatments))
+      treatments_pathways <- names(px$treatments)
 
-      updateSliderInput(session, "slider_pcnt", value = p$pcnt * 100)
-    }
-  })
+      updateSelectInput(session, "sliders_select_treat", choices = treatments_pathways)
 
-  # slider_pcnt (sliderInput)
-  observeEvent(input$slider_pcnt, {
-    psg <- req(input$popn_subgroup)
-    condition <- req(input$sliders_select_cond)
+      removeUI("#div_slider_treatmentpathway > *", TRUE, TRUE)
+      # now, add the new sliders
 
-    if (psg %in% population_groups) {
-      v <- input$slider_pcnt / 100
-      params$groups[[psg]]$conditions[[condition]]$pcnt <- v
+      # loop over the treatments
+      walk(treatments_pathways, function(i) {
+        # slider names can't have spaces, replace with _
+        ix <- str_replace(i, " ", "_")
+        split_name <- paste0("numeric_treatpath_split_", ix)
+        treat_name <- paste0("slider_treatpath_treat_", ix)
+
+        split <- numericInput(
+          split_name,
+          label = paste("split", i),
+          value = px$treatments[[i]]$split
+        )
+
+        treat <- sliderInput(
+          treat_name,
+          label = paste("treat %", i),
+          value = px$treatments[[i]]$treat * 100,
+          min = 0, max = 100, step = 0.01, post = "%"
+        )
+
+        insertUI("#div_slider_treatmentpathway", "beforeEnd", split)
+        insertUI("#div_slider_treatmentpathway", "beforeEnd", treat)
+
+        observeEvent(input[[split_name]], {
+          v <- input[[split_name]]
+          params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments[[i]]$split <- v
+        })
+
+        observeEvent(input[[treat_name]], {
+          v <- input[[treat_name]]
+
+          params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments[[i]]$treat <- v
+        })
+      })
     }
   })
 
   # params_cond_to_treat ====
 
-  # sliders_select_treat (selectInput)
   observeEvent(input$sliders_select_treat, {
     psg <- req(input$popn_subgroup)
     condition <- req(input$sliders_select_cond)
     treatment <- req(input$sliders_select_treat)
 
-    if (psg %in% population_groups) {
+    if (psg %in% population_groups()) {
       v <- params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]]$treat * 100
 
       updateSliderInput(session, "slider_treat", value = v)
@@ -96,7 +186,7 @@ shinyServer(function(input, output, session) {
     condition <- req(input$sliders_select_cond)
     treatment <- req(input$sliders_select_treat)
 
-    if (psg %in% population_groups) {
+    if (psg %in% population_groups()) {
       v <- input$slider_treat / 100
       params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]]$treat <- v
     }
@@ -106,7 +196,7 @@ shinyServer(function(input, output, session) {
 
   # treatment_type (selectInput)
   observeEvent(input$treatment_type, {
-    if (req(input$treatment_type) %in% treatments) {
+    if (req(input$treatment_type) %in% treatments()) {
       tx <- params$treatments[[input$treatment_type]]
       updateSliderInput(session, "treatment_appointments", value = tx$demand)
       updateSliderInput(session, "slider_success", value = tx$success * 100)
@@ -117,34 +207,34 @@ shinyServer(function(input, output, session) {
 
   # treatment_appointments (sliderInput)
   observeEvent(input$treatment_appointments, {
-    if (req(input$treatment_type) %in% treatments) {
+    if (req(input$treatment_type) %in% treatments()) {
       params$treatments[[input$treatment_type]]$demand <- input$treatment_appointments
     }
   })
 
   # slider_success (sliderInput)
   observeEvent(input$slider_success, {
-    if (req(input$treatment_type) %in% treatments) {
+    if (req(input$treatment_type) %in% treatments()) {
       params$treatments[[input$treatment_type]]$success <- input$slider_success / 100
     }
   })
 
   # slider_tx_months (sliderInput)
   observeEvent(input$slider_tx_months, {
-    if (req(input$treatment_type) %in% treatments) {
+    if (req(input$treatment_type) %in% treatments()) {
       params$treatments[[input$treatment_type]]$months <- input$slider_tx_months
     }
   })
 
   # slider_decay (sliderInput)
   observeEvent(input$slider_decay, {
-    if (req(input$treatment_type) %in% treatments) {
+    if (req(input$treatment_type) %in% treatments()) {
       params$treatments[[input$treatment_type]]$decay <- input$slider_decay / 100
     }
   })
 
   # download_params (downloadButton)
-  output$downnload_params <- downloadHandler(
+  output$download_params <- downloadHandler(
     "params.json",
     function(file) {
       js <- reactiveValuesToList(params) %>%
@@ -184,7 +274,7 @@ shinyServer(function(input, output, session) {
   model_output <- reactive({
     # only run current selected population group
 
-    if (req(input$popn_subgroup) %in% population_groups) {
+    if (req(input$popn_subgroup) %in% population_groups()) {
       px <- reactiveValuesToList(params)
       models[[input$popn_subgroup]] <- run_single_model(px, input$popn_subgroup, 24, sim_time)
     }

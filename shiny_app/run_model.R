@@ -4,7 +4,10 @@ get_model_params <- function(params) {
   p <- params$groups %>%
     map_dfr(~.x$conditions %>%
               map(modify_at, "treatments", map_dfr, bind_cols, .id = "treatment") %>%
-              map_dfr(~mutate(.x$treatments, pcnt = pcnt * .x$pcnt), .id = "condition") %>%
+              map_dfr(bind_cols, .id = "condition") %>%
+              group_by(condition) %>%
+              mutate_at("pcnt", ~.x * split / sum(split)) %>%
+              select(condition, treatment, pcnt, treat) %>%
               inner_join(params$treatments %>%
                            map_dfr(bind_cols, .id = "treatment"),
                          by = "treatment") %>%
