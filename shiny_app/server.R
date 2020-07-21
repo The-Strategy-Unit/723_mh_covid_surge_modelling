@@ -1,7 +1,7 @@
 library(shiny)
+library(uuid)
 
 shinyServer(function(input, output, session) {
-
 
   ## needs to be after upload function
 
@@ -12,31 +12,30 @@ shinyServer(function(input, output, session) {
   models <- lift_dl(reactiveValues)(models)
   params <- lift_dl(reactiveValues)(params)
 
+  param_uuid <- reactiveVal()
+
   ## New params
 
   observeEvent(input$user_upload_json, {
-    req(input$user_upload_json)
+    new_params <- read_json(input$user_upload_json$datapath, simplifyVector = TRUE)
 
-    if (file.exists(input$user_upload_json$datapath)) {
-      new_params <- read_json(input$user_upload_json$datapath, simplifyVector = TRUE)
+    params$groups <- new_params$groups
+    params$treatments <- new_params$treatments
+    params$curves <- new_params$curves
 
-      params$groups <- new_params$groups
-      params$treatments <- new_params$treatments
-      params$curves <- new_params$curves
+    population_groups(names(new_params$groups))
+    treatments(names(new_params$treatments))
+    curves(names(new_params$curves))
 
-      population_groups("")
-      treatments("")
-      curves("")
-
-      population_groups(names(params$groups))
-      treatments(names(params$treatments))
-      curves(names(params$curves))
-    }
+    param_uuid(UUIDgenerate())
   })
 
   # Update main select options ====
 
   observe({
+    # trigger update of selects, even if the choices haven't changed
+    force(param_uuid())
+
     updateSelectInput(session, "popn_subgroup", choices = population_groups())
     updateSelectInput(session, "subpopulation_curve", choices = curves())
     updateSelectInput(session, "treatment_type", choices = treatments())
@@ -46,48 +45,52 @@ shinyServer(function(input, output, session) {
   # params_population_groups ====
 
   # popn_subgroup (selectInput)
-  observeEvent(input$popn_subgroup, {
-    if (req(input$popn_subgroup) %in% population_groups()) {
-      conditions <- names(params$groups[[input$popn_subgroup]]$conditions)
-      updateSelectInput(session, "sliders_select_cond", choices = conditions)
+  observe({
+    # this is an observe rather than observeEvent on input$popn_subgroup in order to handle the case of a file being
+    # uploaded, but the first value of population_groups() not changing and popn_subgroup having selected this first
+    # value
+    sg <- req(input$popn_subgroup)
+    force(UUIDgenerate())
 
-      px <- params$groups[[input$popn_subgroup]]
-      updateNumericInput(session, "subpopulation_size", value = px$size)
-      updateNumericInput(session, "subpopulation_pcnt", value = px$pcnt)
-      updateSliderInput(session, "subpopulation_curve", value = px$curve)
+    conditions <- names(params$groups[[sg]]$conditions)
+    updateSelectInput(session, "sliders_select_cond", choices = conditions)
 
-      # update the condition percentage sliders
-      # first, remove the previous elements
-      removeUI("#div_slider_cond_pcnt > *", TRUE, TRUE)
-      # now, add the new sliders
+    px <- params$groups[[sg]]
+    updateNumericInput(session, "subpopulation_size", value = px$size)
+    updateNumericInput(session, "subpopulation_pcnt", value = px$pcnt)
+    updateSliderInput(session, "subpopulation_curve", value = px$curve)
 
-      # get initial max values for the sliders
-      mv <- map_dbl(px$conditions, "pcnt") %>% (function(x) x + 1 - sum(x)) * 100
-      # loop over the conditions (and the corresponding max values)
-      walk2(conditions, mv, function(i, mv) {
-        # slider names can't have spaces, replace with _
-        slider_name <- paste0("slider_cond_pcnt_", i) %>% str_replace_all(" ", "_")
-        slider <- sliderInput(
-          slider_name, label = i,
-          value = px$conditions[[i]]$pcnt * 100,
-          min = 0, max = mv, step = 0.01, post = "%"
-        )
-        insertUI("#div_slider_cond_pcnt", "beforeEnd", slider)
+    # update the condition percentage sliders
+    # first, remove the previous elements
+    removeUI("#div_slider_cond_pcnt > *", TRUE, TRUE)
+    # now, add the new sliders
 
-        observeEvent(input[[slider_name]], {
-          # can't use the px element here: must use full params
-          params$groups[[input$popn_subgroup]]$conditions[[i]]$pcnt <- input[[slider_name]] / 100
+    # get initial max values for the sliders
+    mv <- map_dbl(px$conditions, "pcnt") %>% (function(x) x + 1 - sum(x)) * 100
+    # loop over the conditions (and the corresponding max values)
+    walk2(conditions, mv, function(i, mv) {
+      # slider names can't have spaces, replace with _
+      slider_name <- paste0("slider_cond_pcnt_", i) %>% str_replace_all(" ", "_")
+      slider <- sliderInput(
+        slider_name, label = i,
+        value = px$conditions[[i]]$pcnt * 100,
+        min = 0, max = mv, step = 0.01, post = "%"
+      )
+      insertUI("#div_slider_cond_pcnt", "beforeEnd", slider)
 
-          # update other sliders max values
-          m <- 1 - params$groups[[input$popn_subgroup]]$conditions %>% map_dbl("pcnt") %>% sum()
-          walk(conditions, function(j) {
-            v <- params$groups[[input$popn_subgroup]]$conditions[[j]]$pcnt + m
-            sn <- paste0("slider_cond_pcnt_", j) %>% str_replace_all(" ", "_")
-            updateSliderInput(session, sn, max = v * 100)
-          })
+      observeEvent(input[[slider_name]], {
+        # can't use the px element here: must use full params
+        params$groups[[sg]]$conditions[[i]]$pcnt <- input[[slider_name]] / 100
+
+        # update other sliders max values
+        m <- 1 - params$groups[[sg]]$conditions %>% map_dbl("pcnt") %>% sum()
+        walk(conditions, function(j) {
+          v <- params$groups[[sg]]$conditions[[j]]$pcnt + m
+          sn <- paste0("slider_cond_pcnt_", j) %>% str_replace_all(" ", "_")
+          updateSliderInput(session, sn, max = v * 100)
         })
       })
-    }
+    })
   })
 
   # subpopulation_size (numericInput)
