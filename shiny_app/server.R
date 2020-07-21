@@ -249,7 +249,7 @@ shinyServer(function(input, output, session) {
   output$download_output <- downloadHandler(
     paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv"),
     function(file) {
-      df <- model_ouput() %>%
+      df <- model_output() %>%
         filter(near(time, round(time))) %>%
         group_by_at(vars(time:treatment)) %>%
         summarise_all(sum)
