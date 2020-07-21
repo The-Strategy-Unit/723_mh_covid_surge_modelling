@@ -31,9 +31,6 @@ shinyServer(function(input, output, session) {
       population_groups(names(params$groups))
       treatments(names(params$treatments))
       curves(names(params$curves))
-
-      input$subpopulation_pcnt("")
-      input$subpopulation_pcnt(names(params$groups)[[1]])
     }
   })
 
