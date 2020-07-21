@@ -35,7 +35,7 @@ stopifnot(
   "treatments decay not between 0 and 1" = raw_data$treatments %>%
     verify_fn(decay < 0 | decay > 1),
   "unrecognised curve in groups" = raw_data$groups %>%
-    anti_join(raw_data$curves %>% pivot_longer(-month, names_to = "curve"), by = "curve") %>%
+    anti_join(pivot_longer(raw_data$curves, -month, names_to = "curve"), by = "curve") %>%
     verify_fn(TRUE),
   "unrecongised group in g2c" = raw_data$g2c %>%
     anti_join(raw_data$groups, by = "group") %>%
