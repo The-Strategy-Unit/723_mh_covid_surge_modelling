@@ -12,7 +12,8 @@ shinyServer(function(input, output, session) {
   models <- lift_dl(reactiveValues)(models)
   params <- lift_dl(reactiveValues)(params)
 
-  param_uuid <- reactiveVal()
+  redraw_dropdowns <- reactiveVal()
+  redraw_treatments <- reactiveVal()
   redraw_g2c <- reactiveVal()
   redraw_c2t <- reactiveVal()
 
@@ -33,16 +34,18 @@ shinyServer(function(input, output, session) {
     treatments(names(new_params$treatments))
     curves(names(new_params$curves))
 
-    param_uuid(UUIDgenerate())
-    redraw_g2c(UUIDgenerate())
-    redraw_c2t(UUIDgenerate())
+    u <- UUIDgenerate()
+    redraw_dropdowns(u)
+    redraw_treatments(u)
+    redraw_g2c(u)
+    redraw_c2t(u)
   })
 
   # Update main select options ====
 
   observe({
     # trigger update of selects, even if the choices haven't changed
-    force(param_uuid())
+    force(redraw_dropdowns())
 
     updateSelectInput(session, "popn_subgroup", choices = population_groups())
     updateSelectInput(session, "subpopulation_curve", choices = curves())
@@ -209,7 +212,11 @@ shinyServer(function(input, output, session) {
 
   # treatment_type (selectInput)
   observeEvent(input$treatment_type, {
-    tx <- params$treatments[[input$treatment_type]]
+    redraw_treatments(UUIDgenerate())
+  })
+
+  observeEvent(redraw_treatments(), {
+    tx <- params$treatments[[req(input$treatment_type)]]
     updateSliderInput(session, "treatment_appointments", value = tx$demand)
     updateSliderInput(session, "slider_success", value = tx$success * 100)
     updateSliderInput(session, "slider_tx_months", value = tx$months)
