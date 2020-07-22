@@ -127,9 +127,7 @@ shinyServer(function(input, output, session) {
     redraw_c2t(UUIDgenerate())
   })
 
-  observe({
-    force(redraw_c2t)
-
+  observeEvent(redraw_c2t(), {
     sg <- req(input$popn_subgroup)
     ssc <- input$sliders_select_cond
 
