@@ -13,6 +13,7 @@ shinyServer(function(input, output, session) {
   params <- lift_dl(reactiveValues)(params)
 
   param_uuid <- reactiveVal()
+  redraw_g2c <- reactiveVal()
   redraw_c2t <- reactiveVal()
 
   # store observers so we can destroy them
@@ -33,6 +34,7 @@ shinyServer(function(input, output, session) {
     curves(names(new_params$curves))
 
     param_uuid(UUIDgenerate())
+    redraw_g2c(UUIDgenerate())
     redraw_c2t(UUIDgenerate())
   })
 
@@ -52,7 +54,11 @@ shinyServer(function(input, output, session) {
 
   # popn_subgroup (selectInput)
   observeEvent(input$popn_subgroup, {
-    sg <- input$popn_subgroup
+    redraw_g2c(UUIDgenerate())
+  })
+
+  observeEvent(redraw_g2c(), {
+    sg <- req(isolate(input$popn_subgroup))
 
     px <- isolate(params)$groups[[sg]]
 
