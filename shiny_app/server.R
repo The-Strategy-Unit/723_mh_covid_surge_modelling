@@ -13,6 +13,11 @@ shinyServer(function(input, output, session) {
   params <- lift_dl(reactiveValues)(params)
 
   param_uuid <- reactiveVal()
+  redraw_c2t <- reactiveVal()
+
+  # store observers so we can destroy them
+  div_slider_cond_pcnt_observers <- list()
+  div_slider_treatmentpathway_observers <- list()
 
   ## New params
 
@@ -28,6 +33,7 @@ shinyServer(function(input, output, session) {
     curves(names(new_params$curves))
 
     param_uuid(UUIDgenerate())
+    redraw_c2t(UUIDgenerate())
   })
 
   # Update main select options ====
@@ -45,23 +51,26 @@ shinyServer(function(input, output, session) {
   # params_population_groups ====
 
   # popn_subgroup (selectInput)
-  observe({
-    # this is an observe rather than observeEvent on input$popn_subgroup in order to handle the case of a file being
-    # uploaded, but the first value of population_groups() not changing and popn_subgroup having selected this first
-    # value
-    sg <- req(input$popn_subgroup)
-    force(UUIDgenerate())
+  observeEvent(input$popn_subgroup, {
+    sg <- input$popn_subgroup
 
-    conditions <- names(params$groups[[sg]]$conditions)
+    px <- isolate(params)$groups[[sg]]
+
+    conditions <- names(px$conditions)
     updateSelectInput(session, "sliders_select_cond", choices = conditions)
+    redraw_c2t(UUIDgenerate())
 
-    px <- params$groups[[sg]]
     updateNumericInput(session, "subpopulation_size", value = px$size)
     updateNumericInput(session, "subpopulation_pcnt", value = px$pcnt)
     updateSliderInput(session, "subpopulation_curve", value = px$curve)
 
     # update the condition percentage sliders
     # first, remove the previous elements
+    walk(div_slider_treatmentpathway_observers, ~.x$destroy())
+    div_slider_treatmentpathway_observers <<- list()
+
+    walk(div_slider_cond_pcnt_observers, ~.x$destroy())
+    div_slider_cond_pcnt_observers <<- list()
     removeUI("#div_slider_cond_pcnt > *", TRUE, TRUE)
     # now, add the new sliders
 
@@ -78,7 +87,7 @@ shinyServer(function(input, output, session) {
       )
       insertUI("#div_slider_cond_pcnt", "beforeEnd", slider)
 
-      observeEvent(input[[slider_name]], {
+      div_slider_cond_pcnt_observers[[slider_name]] <<- observeEvent(input[[slider_name]], {
         # can't use the px element here: must use full params
         params$groups[[sg]]$conditions[[i]]$pcnt <- input[[slider_name]] / 100
 
@@ -95,141 +104,136 @@ shinyServer(function(input, output, session) {
 
   # subpopulation_size (numericInput)
   observeEvent(input$subpopulation_size, {
-    if (req(input$popn_subgroup) %in% population_groups()) {
-      params$groups[[input$popn_subgroup]]$size <- input$subpopulation_size
-    }
+    sg <- req(input$popn_subgroup)
+    params$groups[[sg]]$size <- input$subpopulation_size
   })
 
   # subpopulation_pcnt (numericInput)
   observeEvent(input$subpopulation_pcnt, {
-    if (req(input$popn_subgroup) %in% population_groups()) {
-      params$groups[[input$popn_subgroup]]$pcnt <- input$subpopulation_pcnt
-    }
+    sg <- req(input$popn_subgroup)
+    params$groups[[sg]]$pcnt <- input$subpopulation_pcnt
   })
 
   # subpopulation_curve (selectInput)
   observeEvent(input$subpopulation_curve, {
-    if (req(input$popn_subgroup) %in% population_groups()) {
-      params$groups[[input$popn_subgroup]]$curve <- input$subpopulation_curve
-    }
+    sg <- req(input$popn_subgroup)
+    params$groups[[sg]]$curve <- input$subpopulation_curve
   })
 
   # params_group_to_cond ====
 
   # sliders_select_cond (selectInput)
   observeEvent(input$sliders_select_cond, {
-    if (req(input$popn_subgroup) %in% population_groups()) {
-            # first, remove the previous elements
-      px <- params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]
+    redraw_c2t(UUIDgenerate())
+  })
 
-      treatments_pathways <- names(px$treatments)
+  observe({
+    force(redraw_c2t)
 
-      updateSelectInput(session, "sliders_select_treat", choices = treatments_pathways)
+    sg <- req(input$popn_subgroup)
+    ssc <- input$sliders_select_cond
 
-      removeUI("#div_slider_treatmentpathway > *", TRUE, TRUE)
-      # now, add the new sliders
+    # first, remove the previous elements
+    walk(div_slider_treatmentpathway_observers, ~.x$destroy())
+    div_slider_treatmentpathway_observers <<- list()
+    removeUI("#div_slider_treatmentpathway > *", TRUE, TRUE)
 
-      # loop over the treatments
-      walk(treatments_pathways, function(i) {
-        # slider names can't have spaces, replace with _
-        ix <- str_replace(i, " ", "_")
-        split_name <- paste0("numeric_treatpath_split_", ix)
-        treat_name <- paste0("slider_treatpath_treat_", ix)
+    # now, add the new sliders
+    px <- params$groups[[sg]]$conditions[[ssc]]
 
-        split <- numericInput(
-          split_name,
-          label = paste("split", i),
-          value = px$treatments[[i]]$split
-        )
+    treatments_pathways <- names(px$treatments)
 
-        treat <- sliderInput(
-          treat_name,
-          label = paste("treat %", i),
-          value = px$treatments[[i]]$treat * 100,
-          min = 0, max = 100, step = 0.01, post = "%"
-        )
+    updateSelectInput(session, "sliders_select_treat", choices = treatments_pathways)
 
-        insertUI("#div_slider_treatmentpathway", "beforeEnd", split)
-        insertUI("#div_slider_treatmentpathway", "beforeEnd", treat)
+    # loop over the treatments
+    walk(treatments_pathways, function(i) {
+      # slider names can't have spaces, replace with _
+      ix <- str_replace(i, " ", "_")
+      split_name <- paste0("numeric_treatpath_split_", ix)
+      treat_name <- paste0("slider_treatpath_treat_", ix)
 
-        observeEvent(input[[split_name]], {
-          v <- input[[split_name]]
-          params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments[[i]]$split <- v
-        })
+      split <- numericInput(
+        split_name,
+        label = paste("split", i),
+        value = px$treatments[[i]]$split
+      )
 
-        observeEvent(input[[treat_name]], {
-          v <- input[[treat_name]] / 100
-          params$groups[[input$popn_subgroup]]$conditions[[input$sliders_select_cond]]$treatments[[i]]$treat <- v
-        })
+      treat <- sliderInput(
+        treat_name,
+        label = paste("treat %", i),
+        value = px$treatments[[i]]$treat * 100,
+        min = 0, max = 100, step = 0.01, post = "%"
+      )
+
+      insertUI("#div_slider_treatmentpathway", "beforeEnd", split)
+      insertUI("#div_slider_treatmentpathway", "beforeEnd", treat)
+
+      div_slider_treatmentpathway_observers[[split_name]] <<- observeEvent(input[[split_name]], {
+        v <- input[[split_name]]
+        params$groups[[sg]]$conditions[[ssc]]$treatments[[i]]$split <- v
       })
-    }
+
+      div_slider_treatmentpathway_observers[[treat_name]] <<- observeEvent(input[[treat_name]], {
+        v <- input[[treat_name]] / 100
+        params$groups[[sg]]$conditions[[ssc]]$treatments[[i]]$treat <- v
+      })
+    })
   })
 
   # params_cond_to_treat ====
 
   observeEvent(input$sliders_select_treat, {
-    psg <- req(input$popn_subgroup)
+    sg <- req(input$popn_subgroup)
     condition <- req(input$sliders_select_cond)
     treatment <- req(input$sliders_select_treat)
 
-    if (psg %in% population_groups()) {
-      v <- params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]]$treat * 100
-
-      updateSliderInput(session, "slider_treat", value = v)
-    }
+    v <- params$groups[[sg]]$conditions[[condition]]$treatments[[treatment]]$treat * 100
+    updateSliderInput(session, "slider_treat", value = v)
   })
 
   # slider_treat (sliderInput)
   observeEvent(input$slider_treat, {
-    psg <- req(input$popn_subgroup)
+    sg <- req(input$popn_subgroup)
     condition <- req(input$sliders_select_cond)
     treatment <- req(input$sliders_select_treat)
 
-    if (psg %in% population_groups()) {
-      v <- input$slider_treat / 100
-      params$groups[[psg]]$conditions[[condition]]$treatments[[treatment]]$treat <- v
-    }
+    v <- input$slider_treat / 100
+    params$groups[[sg]]$conditions[[condition]]$treatments[[treatment]]$treat <- v
   })
 
   # params_demand ====
 
   # treatment_type (selectInput)
   observeEvent(input$treatment_type, {
-    if (req(input$treatment_type) %in% treatments()) {
-      tx <- params$treatments[[input$treatment_type]]
-      updateSliderInput(session, "treatment_appointments", value = tx$demand)
-      updateSliderInput(session, "slider_success", value = tx$success * 100)
-      updateSliderInput(session, "slider_tx_months", value = tx$months)
-      updateSliderInput(session, "slider_decay", value = tx$decay * 100)
-    }
+    tx <- params$treatments[[input$treatment_type]]
+    updateSliderInput(session, "treatment_appointments", value = tx$demand)
+    updateSliderInput(session, "slider_success", value = tx$success * 100)
+    updateSliderInput(session, "slider_tx_months", value = tx$months)
+    updateSliderInput(session, "slider_decay", value = tx$decay * 100)
   })
 
   # treatment_appointments (sliderInput)
   observeEvent(input$treatment_appointments, {
-    if (req(input$treatment_type) %in% treatments()) {
-      params$treatments[[input$treatment_type]]$demand <- input$treatment_appointments
-    }
+    ttype <- req(input$treatment_type)
+    params$treatments[[ttype]]$demand <- input$treatment_appointments
   })
 
   # slider_success (sliderInput)
   observeEvent(input$slider_success, {
-    if (req(input$treatment_type) %in% treatments()) {
-      params$treatments[[input$treatment_type]]$success <- input$slider_success / 100
-    }
+    ttype <- req(input$treatment_type)
+    params$treatments[[ttype]]$success <- input$slider_success / 100
   })
 
   # slider_tx_months (sliderInput)
   observeEvent(input$slider_tx_months, {
-    if (req(input$treatment_type) %in% treatments()) {
-      params$treatments[[input$treatment_type]]$months <- input$slider_tx_months
-    }
+    ttype <- req(input$treatment_type)
+    params$treatments[[ttype]]$months <- input$slider_tx_months
   })
 
   # slider_decay (sliderInput)
   observeEvent(input$slider_decay, {
-    if (req(input$treatment_type) %in% treatments()) {
-      params$treatments[[input$treatment_type]]$decay <- input$slider_decay / 100
-    }
+    ttype <- req(input$treatment_type)
+    params$treatments[[ttype]]$decay <- input$slider_decay / 100
   })
 
   # download_params (downloadButton)
@@ -272,11 +276,9 @@ shinyServer(function(input, output, session) {
 
   observe({
     # only run current selected population group
-
-    if (req(input$popn_subgroup) %in% population_groups()) {
-      px <- reactiveValuesToList(params)
-      models[[input$popn_subgroup]] <- run_single_model(px, input$popn_subgroup, 24, sim_time)
-    }
+    ps <- req(input$popn_subgroup)
+    px <- reactiveValuesToList(params)
+    models[[ps]] <- run_single_model(px, ps, 24, sim_time)
   })
 
   model_output <- reactive({
