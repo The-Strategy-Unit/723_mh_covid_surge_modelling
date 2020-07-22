@@ -35,7 +35,8 @@ jobs:
                              "shinyWidgets",
                              "shinycssloaders",
                              "shinydashboard",
-                             "jsonlite"))
+                             "jsonlite",
+                             "uuid"))
         shell: Rscript {0}
 
       - name: Deploy

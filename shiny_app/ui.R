@@ -6,12 +6,12 @@ params_population_groups <- box(
   selectInput(
     "popn_subgroup",
     "Choose subgroup",
-    choices = NA
+    choices = NULL
   ),
   numericInput(
     "subpopulation_size",
     "Subpopulation Figure",
-    value = NA, step = 100
+    value = NULL, step = 100
   ),
   numericInput(
     "subpopulation_pcnt",
@@ -21,7 +21,7 @@ params_population_groups <- box(
   selectInput(
     "subpopulation_curve",
     "Choose scenario",
-    selected = NA, choices = NA
+    choices = NULL
   )
 )
 
@@ -37,7 +37,7 @@ params_cond_to_treat <- box(
   selectInput(
     "sliders_select_cond",
     "Condition",
-    choices = NA
+    choices = NULL
   ),
   div(id = "div_slider_treatmentpathway"),
 )
@@ -48,7 +48,7 @@ params_demand <- box(
   selectInput(
     "treatment_type",
     "Treatment type",
-    choices = NA
+    choices = NULL
   ),
   sliderInput(
     "treatment_appointments",
@@ -85,14 +85,17 @@ body_params <- tabItem(
   fluidRow(
     column(
       4,
-      box(title = "Upload JSON parameters", width = 12,
-          fileInput(
-        "user_upload_json",
-        label = NULL,
-        multiple = FALSE,
-        accept = c(".json"),
-        placeholder = "Previously downloaded parameters"
-      )),
+      box(
+        title = "Upload JSON parameters",
+        width = 12,
+        fileInput(
+          "user_upload_json",
+          label = NULL,
+          multiple = FALSE,
+          accept = ".json",
+          placeholder = "Previously downloaded parameters"
+        )
+      ),
       params_population_groups
     ),
     column(4, params_group_to_cond, params_cond_to_treat),
@@ -107,7 +110,7 @@ body_report <- tabItem(
       selectInput(
         "services",
         "Service",
-        choices = NA
+        choices = NULL
       )
     ),
     box(
