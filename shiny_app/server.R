@@ -17,8 +17,8 @@ shinyServer(function(input, output, session) {
   redraw_c2t <- reactiveVal()
 
   # store observers so we can destroy them
-  div_slider_cond_pcnt_observers <- list()
-  div_slider_treatmentpathway_observers <- list()
+  div_slider_cond_pcnt_obs <- list()
+  div_slider_treatpath_obs <- list()
 
   ## New params
 
@@ -72,11 +72,11 @@ shinyServer(function(input, output, session) {
 
     # update the condition percentage sliders
     # first, remove the previous elements
-    walk(div_slider_treatmentpathway_observers, ~.x$destroy())
-    div_slider_treatmentpathway_observers <<- list()
+    walk(div_slider_treatpath_obs, ~.x$destroy())
+    div_slider_treatpath_obs <<- list()
 
-    walk(div_slider_cond_pcnt_observers, ~.x$destroy())
-    div_slider_cond_pcnt_observers <<- list()
+    walk(div_slider_cond_pcnt_obs, ~.x$destroy())
+    div_slider_cond_pcnt_obs <<- list()
     removeUI("#div_slider_cond_pcnt > *", TRUE, TRUE)
     # now, add the new sliders
 
@@ -93,7 +93,7 @@ shinyServer(function(input, output, session) {
       )
       insertUI("#div_slider_cond_pcnt", "beforeEnd", slider)
 
-      div_slider_cond_pcnt_observers[[slider_name]] <<- observeEvent(input[[slider_name]], {
+      div_slider_cond_pcnt_obs[[slider_name]] <<- observeEvent(input[[slider_name]], {
         # can't use the px element here: must use full params
         params$groups[[sg]]$conditions[[i]]$pcnt <- input[[slider_name]] / 100
 
@@ -138,8 +138,8 @@ shinyServer(function(input, output, session) {
     ssc <- input$sliders_select_cond
 
     # first, remove the previous elements
-    walk(div_slider_treatmentpathway_observers, ~.x$destroy())
-    div_slider_treatmentpathway_observers <<- list()
+    walk(div_slider_treatpath_obs, ~.x$destroy())
+    div_slider_treatpath_obs <<- list()
     removeUI("#div_slider_treatmentpathway > *", TRUE, TRUE)
 
     # now, add the new sliders
@@ -172,12 +172,12 @@ shinyServer(function(input, output, session) {
       insertUI("#div_slider_treatmentpathway", "beforeEnd", split)
       insertUI("#div_slider_treatmentpathway", "beforeEnd", treat)
 
-      div_slider_treatmentpathway_observers[[split_name]] <<- observeEvent(input[[split_name]], {
+      div_slider_treatpath_obs[[split_name]] <<- observeEvent(input[[split_name]], {
         v <- input[[split_name]]
         params$groups[[sg]]$conditions[[ssc]]$treatments[[i]]$split <- v
       })
 
-      div_slider_treatmentpathway_observers[[treat_name]] <<- observeEvent(input[[treat_name]], {
+      div_slider_treatpath_obs[[treat_name]] <<- observeEvent(input[[treat_name]], {
         v <- input[[treat_name]] / 100
         params$groups[[sg]]$conditions[[ssc]]$treatments[[i]]$treat <- v
       })
