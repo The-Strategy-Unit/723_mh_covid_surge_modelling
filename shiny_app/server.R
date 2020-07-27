@@ -470,8 +470,9 @@ shinyServer(function(input, output, session) {
     theme_bw() +
     geom_col(fill = "#00c0ef") +
     geom_text(aes(label = `# Referrals`), hjust = -0.1, size = 80/length(surge_components$group)) +
-    coord_flip(clip = ) +
+    coord_flip() +
     scale_x_discrete(labels = function(x) str_wrap(x, 13)) +
+    scale_y_continuous(expand = expansion(mult = c(0, .1))) +
     theme(text = element_text(size = 20),
           axis.text.y = element_text(size = case_when(length(surge_components$group) <= 6 ~ 20,
                                                       between(length(surge_components$group), 7, 9) ~ 16,
