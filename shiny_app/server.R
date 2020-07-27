@@ -293,8 +293,16 @@ shinyServer(function(input, output, session) {
   })
 
   model_output <- reactive({
-    # combine models
-    bind_rows(reactiveValuesToList(models))
+    models %>%
+      reactiveValuesToList() %>%
+      # combine models
+      bind_rows() %>%
+      # add in a date column relating to the time value
+      # we need to add in separately the month's and days
+      mutate(date = ymd(20200501) %m+%
+               months(as.integer(floor(time))) %m+%
+               days(as.integer((time-floor(time)) * 30))) %>%
+      select(time, date, everything())
   })
 
   appointments <- reactive({
@@ -309,8 +317,9 @@ shinyServer(function(input, output, session) {
     df <- model_output() %>%
       filter(type == "new-referral",
              treatment == input$services) %>%
-      group_by(time) %>%
-      summarise_at("value", sum)
+      group_by(time, date) %>%
+      summarise_at("value", sum) %>%
+      ungroup()
 
     if (nrow(df) < 1) return(NULL)
     referrals_plot(df)
@@ -320,7 +329,7 @@ shinyServer(function(input, output, session) {
     df <- model_output() %>%
       filter(type == "treatment",
              treatment == input$services) %>%
-      group_by(time, treatment) %>%
+      group_by(time, date, treatment) %>%
       summarise(across(value, sum), .groups = "drop") %>%
       inner_join(appointments(), by = "treatment") %>%
       mutate(no_appointments = value * average_monthly_appointments)
@@ -342,7 +351,7 @@ shinyServer(function(input, output, session) {
         value <- model_output() %>%
           filter(type == value_type,
                  treatment == input$services,
-                 near(time, round(time))) %>%
+                 day(date) == 1) %>%
           pull(value) %>%
           sum() %>%
           scales::comma()
@@ -356,7 +365,7 @@ shinyServer(function(input, output, session) {
 
   summary_outputs <- reactive({
     model_output() %>%
-      filter(near(time, round(time))) %>%
+      filter(day(date) == 1) %>%
       group_by_at(vars(time:treatment)) %>%
       summarise_all(sum) %>%
       rename(treatment_pathway = treatment)
@@ -534,7 +543,7 @@ shinyServer(function(input, output, session) {
   surge_components <- model_output() %>%
     filter(type == "new-referral",
            treatment == input$services,
-           near(time, round(time))) %>%
+           day(date) == 1) %>%
     group_by(group) %>%
     summarise(`# Referrals` = round(sum(value), 0)) %>%
   filter(`# Referrals` != 0)
@@ -571,7 +580,7 @@ shinyServer(function(input, output, session) {
     surge_components <- model_output() %>%
       filter(type == "new-referral",
              treatment == input$services,
-             near(time, round(time))) %>%
+             day(date) == 1) %>%
       group_by(group) %>%
       summarise(`# Referrals` = round(sum(value), 0)) %>%
       filter(`# Referrals` != 0)
