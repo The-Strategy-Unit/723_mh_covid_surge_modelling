@@ -25,17 +25,18 @@ jobs:
       - name: Install dependencies
         run: |
           options(repos = c(CRAN = "https://packagemanager.rstudio.com/all/__linux__/bionic/latest"))
-          install.packages(c("rsconnect",
-                             "shiny",
+          install.packages(c("deSolve",
+                             "jsonlite",
                              "magrittr",
-                             "tidyverse",
-                             "deSolve",
+                             "packcircles",
                              "patchwork",
                              "plotly",
-                             "shinyWidgets",
+                             "rsconnect",
+                             "shiny",
                              "shinycssloaders",
                              "shinydashboard",
-                             "jsonlite",
+                             "shinyWidgets",
+                             "tidyverse",
                              "uuid"))
         shell: Rscript {0}
 

@@ -106,20 +106,27 @@ body_params <- tabItem(
 body_report <- tabItem(
   "results",
   fluidRow(
-    box(width = 2,
+    box(
+      width = 2,
       selectInput(
         "services",
         "Service",
         choices = NULL
       )
     ),
-    box(width = 5,
+    box(
+      width = 5,
       valueBoxOutput("total_referrals"),
       valueBoxOutput("total_demand"),
       valueBoxOutput("total_newpatients")
     ),
-  box(width = 5, plotOutput("test"), title = "Population group source of 'surge'",
-      solidHeader = TRUE, status = "primary")
+    box(
+      width = 5,
+      plotOutput("test"),
+      title = "Population group source of 'surge'",
+      solidHeader = TRUE,
+      status = "primary"
+    )
   ),
   fluidRow(
     box(withSpinner(plotlyOutput("referrals_plot"))),
@@ -127,22 +134,41 @@ body_report <- tabItem(
   )
 )
 
-body_surgesubpopn <- tabItem("surgetab_subpopn",
-                               tableOutput("surge_subpopn"))
-
-body_surgecondition <- tabItem("surgetab_condition",
-                              tableOutput("surge_condition"))
-
-body_surgetreatment <- tabItem("surgetab_service",
-                               fluidRow(
-                                 column(6, tableOutput("surge_treatmentpathway")),
-                                 column(6, plotOutput("surge_treatmentpathwayplot", height = "600px"),
-                                        verbatimTextOutput("testvalue"))
-                               )
+body_surgesubpopn <- tabItem(
+  "surgetab_subpopn",
+  tableOutput("surge_subpopn")
 )
 
-body_bubbleplot <- tabItem("bubbleplot",
-                           plotlyOutput("bubble_plot_baselinepopn", height = "900px"))
+body_surgecondition <- tabItem(
+  "surgetab_condition",
+  tableOutput("surge_condition")
+)
+
+body_surgetreatment <- tabItem(
+  "surgetab_service",
+  fluidRow(
+    column(
+      6,
+      tableOutput("surge_treatmentpathway")
+    ),
+    column(
+      6,
+      plotOutput(
+        "surge_treatmentpathwayplot",
+        height = "600px"
+      ),
+      verbatimTextOutput("testvalue")
+    )
+  )
+)
+
+body_bubbleplot <- tabItem(
+  "bubbleplot",
+  plotlyOutput(
+    "bubble_plot_baselinepopn",
+    height = "900px"
+  )
+)
 
 dashboardPage(
   dashboardHeader(title = "Mersey Care MH Surge Modelling"),
@@ -155,8 +181,7 @@ dashboardPage(
       menuItem("Surge Demand - Service", tabName = "surgetab_service"),
       menuItem("Bubble Plot Test", tabName = "bubbleplot")
     )
-  )
-  ,
+  ),
   dashboardBody(
     tabItems(
       body_params,
