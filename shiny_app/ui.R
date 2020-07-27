@@ -141,7 +141,19 @@ body_surgesubpopn <- tabItem(
 
 body_surgecondition <- tabItem(
   "surgetab_condition",
-  tableOutput("surge_condition")
+  fluidRow(
+    column(
+      6,
+      tableOutput("surge_condition")
+    ),
+    column(
+      6,
+      plotOutput(
+        "surge_conditionplot",
+        height = "600px"
+      )
+    )
+  )
 )
 
 body_surgetreatment <- tabItem(

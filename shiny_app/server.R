@@ -378,16 +378,40 @@ shinyServer(function(input, output, session) {
 
   ## Tab - Conditions ####
 
-  output$surge_condition <- renderTable({
+  surge_condition <- reactive({
     summary_outputs() %>%
       pivot_wider(names_from = type, values_from = value) %>%
       dplyr::group_by(condition) %>%
       filter(!is.na(condition)) %>%
-      summarise(`Adjusted exposed / at risk @ baseline` = as.integer(round(sum(`new-at-risk`, na.rm = T), 0)),
-                `Total symptomatic over period referrals` = as.integer(round(sum(`new-referral`, na.rm = T), 0)),
-                `Total receiving services over period` = as.integer(round(sum(`new-treatment`, na.rm = T), 0))) %>%
+      summarise( `Total symptomatic over period referrals` = as.integer(round(sum(`new-referral`, na.rm = T), 0)),
+                 `Total receiving services over period` = as.integer(round(sum(`new-treatment`, na.rm = T), 0))) %>%
       arrange(-`Total symptomatic over period referrals`) %>%
       rename(Condition = condition)
+  })
+
+  output$surge_condition <- renderTable({
+    surge_condition()
+  })
+
+  output$surge_conditionplot <- renderPlot({
+
+    surge_condition() %>%
+    arrange(`Total symptomatic over period referrals`) %>%
+    mutate_at(vars(Condition), as_factor) %>%
+    ggplot(aes(x = Condition)) +
+      geom_col(aes(y = `Total symptomatic over period referrals`, fill = "Total symptomatic over period referrals"), alpha = 0.6) +
+      geom_errorbar(aes(ymin = `Total receiving services over period`, ymax = `Total receiving services over period`, colour = "Total receiving services over period"), size = 0.75) +
+      scale_y_continuous(name = "Number") +
+      scale_x_discrete(labels = function(x) str_wrap(x, 8)) +
+      scale_fill_manual(name = NULL, values = c("Total symptomatic over period referrals" = "#00c0ef")) +
+      scale_colour_manual(name = NULL, values = c("Total receiving services over period" = "red")) +
+      theme(legend.position = "bottom",
+            axis.ticks.y = element_blank(),
+            axis.title.y = element_blank()) +
+      labs(caption = "The total receiving services offered for each condition will never exceed the total symptomatic over period referrals") +
+      coord_flip()
+
+
   })
 
 
@@ -401,7 +425,8 @@ shinyServer(function(input, output, session) {
     summarise(`Total new referrals/presentations over period` = as.integer(round(sum(`new-referral`, na.rm = T), 0)),
               `Total services offered over period` = as.integer(round(sum(`new-treatment`, na.rm = T), 0))) %>%
     arrange(-`Total new referrals/presentations over period`) %>%
-    rename(`Treatment Pathway` = treatment_pathway)
+    rename(`Treatment Pathway` = treatment_pathway) %>%
+    mutate_at(vars(`Treatment Pathway`), as_factor)
   })
 
   output$surge_treatmentpathway <- renderTable({
@@ -410,8 +435,7 @@ shinyServer(function(input, output, session) {
 
   output$surge_treatmentpathwayplot <- renderPlot({
     summary_treatment_pathway() %>%
-      dplyr::arrange(`Total new referrals/presentations over period`) %>%
-      mutate_at(vars(`Treatment Pathway`), as_factor) %>%
+      mutate_at(vars(`Treatment Pathway`), fct_rev) %>%
       pivot_longer(-`Treatment Pathway`) %>%
       ggplot(aes(`Treatment Pathway`, value, fill = name)) +
       geom_col(position = "dodge") +
@@ -428,23 +452,37 @@ shinyServer(function(input, output, session) {
 
   output$bubble_plot_baselinepopn <- renderPlotly({
 
-    circle_pack_plot <- map_dbl(params$groups, "size") %>%
+    circle_pack_plot <- params$groups %>%
+      map_dbl("size") %>%
       enframe(name = "subpopn") %>%
-      mutate(level_2 = case_when(subpopn %in% c("Children & young people", "Students FE & HE") ~ "Children & young people",
-                                 subpopn %in% c("Elderly alone") ~ "Elderly alone",
-                                 subpopn %in% c("General population") ~ "General population",
-                                 subpopn %in% c("Domestic abuse victims", "Family of COVID deceased", "Family of ICU survivors", "Newly unemployed", "Pregnant & New Mothers", "Parents") ~ "Other Adults and Specific Groups",
-                                 subpopn %in% c("Health and care workers", "ICU survivors") ~ "Directly affected individuals",
-                                 subpopn %in% c("Learning disabilities & autism", "Pre existing CMH illness", "Pre existing LTC", "Pre existing SMI") ~ "Existing Conditions",
-                                 TRUE ~ NA_character_))
+      left_join(
+        tribble(
+          ~subpopn,                         ~level_2,
+          "Children & young people",        "Children & young people",
+          "Students FE & HE",               NA,
+          "Elderly alone",                  "Elderly alone",
+          "General population",             "General population",
+          "Domestic abuse victims",         "Other Adults and Specific Groups",
+          "Family of COVID deceased",       NA,
+          "Family of ICU survivors",        NA,
+          "Newly unemployed",               NA,
+          "Pregnant & New Mothers",         NA,
+          "Parents",                        NA,
+          "Health and care workers",        "Directly affected individuals",
+          "ICU survivors",                  NA,
+          "Learning disabilities & autism", "Existing Conditions",
+          "Pre existing CMH illness",       NA,
+          "Pre existing LTC",               NA,
+          "Pre existing SMI",               NA
+        ) %>% fill(level_2),
+        by = "subpopn"
+      )
 
 
 
     packing <- circleProgressiveLayout(circle_pack_plot$value, sizetype='area')
     circle_pack_plot <- cbind(circle_pack_plot, packing)
-    dat.gg <- circleLayoutVertices(packing, npoints=50)
-
-    dat.gg <- dat.gg %>% left_join(tibble(level_2 = circle_pack_plot$level_2, id = 1:16),
+    dat.gg <- circleLayoutVertices(packing, npoints=50) %>% left_join(tibble(level_2 = circle_pack_plot$level_2, id = 1:16),
                                    by = "id")
 
     my_plot <- ggplot() +
