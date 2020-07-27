@@ -8,6 +8,8 @@ library(shinyWidgets,    quietly = TRUE)
 library(shinycssloaders, quietly = TRUE)
 library(shinydashboard,  quietly = TRUE)
 library(jsonlite,        quietly = TRUE, exclude = "flatten")
+library(packcircles,     quietly = TRUE)
+library(rlang,           quietly = TRUE)
 
 options(scipen = 999)
 

@@ -351,4 +351,234 @@ shinyServer(function(input, output, session) {
       })
     })
 
+
+  ## Surge Tabs ####
+
+  summary_outputs <- reactive({
+    model_output() %>%
+      filter(near(time, round(time))) %>%
+      group_by_at(vars(time:treatment)) %>%
+      summarise_all(sum) %>%
+      rename(treatment_pathway = treatment)
+  })
+
+  summary_plot_function <- function(reactive_df, id_column, caption_text, max_var, test) {
+
+    id_column <- enquo(id_column)
+    max_var_delay <- enquo(max_var)
+
+    test <- enquo(test)
+
+
+
+    reactive_df %>%
+      arrange(!!max_var_delay) %>%
+      mutate_at(vars(!!id_column), as_factor) %>%
+      ggplot(aes(x = !!id_column)) +
+      geom_col(aes(y = !!max_var_delay, fill = as_name(max_var_delay)), alpha = 0.6) +
+      geom_errorbar(aes(ymin = `Total receiving services over period`, ymax = `Total receiving services over period`, colour = "Total receiving services over period"), size = 0.75) +
+      scale_y_continuous(name = "Number") +
+      scale_x_discrete(labels = function(x) str_wrap(x, 8)) +
+      scale_fill_manual(name = NULL, values = c(as_label(max_var_delay) = "#00c0ef")) +
+      scale_colour_manual(name = NULL, values = c("Total receiving services over period" = "red")) +
+      theme(legend.position = "bottom",
+            axis.ticks.y = element_blank(),
+            axis.title.y = element_blank()) +
+      labs(caption = caption_text) +
+      coord_flip()
+  }
+
+  ## Tab - Subpopn ####
+
+  surge_subpopn <- reactive(
+    {
+    summary_outputs() %>%
+    pivot_wider(names_from = type, values_from = value) %>%
+    dplyr::group_by(group) %>%
+    filter(!is.na(group)) %>%
+    summarise(`Adjusted exposed / at risk @ baseline` = as.integer(round(sum(`new-at-risk`, na.rm = T), 0)),
+              `Total symptomatic over period referrals` = as.integer(round(sum(`new-referral`, na.rm = T), 0)),
+              `Total receiving services over period` = as.integer(round(sum(`new-treatment`, na.rm = T), 0))) %>%
+    arrange(-`Total symptomatic over period referrals`) %>%
+    rename(`Subpopulation Group` = group)
+}
+)
+
+  output$surge_subpopn <- renderTable({
+    surge_subpopn()
+  })
+
+  output$surge_subpopnplot <- renderPlot({
+
+    summary_plot_function(surge_subpopn(),
+                          `Subpopulation Group`,
+                          "The total receiving services offered for each condition will never exceed the total symptomatic over period referrals",
+                          `Total symptomatic over period referrals`,
+                          "Total symptomatic over period referrals")
+
+  })
+
+  ## Tab - Conditions ####
+
+  surge_condition <- reactive({
+    summary_outputs() %>%
+      pivot_wider(names_from = type, values_from = value) %>%
+      dplyr::group_by(condition) %>%
+      filter(!is.na(condition)) %>%
+      summarise( `Total symptomatic over period referrals` = as.integer(round(sum(`new-referral`, na.rm = T), 0)),
+                 `Total receiving services over period` = as.integer(round(sum(`new-treatment`, na.rm = T), 0))) %>%
+      arrange(-`Total symptomatic over period referrals`) %>%
+      rename(Condition = condition)
+  })
+
+  output$surge_condition <- renderTable({
+    surge_condition()
+  })
+
+  output$surge_conditionplot <- renderPlot({
+
+    summary_plot_function(surge_condition(),
+                          `Condition`,
+                          "The total receiving services offered for each condition will never exceed the total symptomatic over period referrals")
+
+
+  })
+
+
+  ## Tab - Treatment Pathway ####
+
+  summary_treatment_pathway <- reactive({
+    summary_outputs() %>%
+    pivot_wider(names_from = type, values_from = value) %>%
+    dplyr::group_by(treatment_pathway) %>%
+    filter(!is.na(treatment_pathway)) %>%
+    summarise(`Total new referrals/presentations over period` = as.integer(round(sum(`new-referral`, na.rm = T), 0)),
+              `Total services offered over period` = as.integer(round(sum(`new-treatment`, na.rm = T), 0))) %>%
+    arrange(-`Total new referrals/presentations over period`) %>%
+    rename(`Treatment Pathway` = treatment_pathway) %>%
+    mutate_at(vars(`Treatment Pathway`), as_factor)
+  })
+
+  output$surge_treatmentpathway <- renderTable({
+    summary_treatment_pathway()
+  })
+
+  output$surge_treatmentpathwayplot <- renderPlot({
+    summary_treatment_pathway() %>%
+      mutate_at(vars(`Treatment Pathway`), fct_rev) %>%
+      pivot_longer(-`Treatment Pathway`) %>%
+      ggplot(aes(`Treatment Pathway`, value, fill = name)) +
+      geom_col(position = "dodge") +
+      labs(y = "Number") +
+      scale_x_discrete(labels = function(x) str_wrap(x, 8)) +
+      theme(legend.position = "bottom",
+            axis.ticks.y = element_blank(),
+            axis.title.y = element_blank()) +
+      coord_flip()
+
+  })
+
+  ## Bubble Pack testing ####
+
+  output$bubble_plot_baselinepopn <- renderPlotly({
+
+    circle_pack_plot <- params$groups %>%
+      map_dbl("size") %>%
+      enframe(name = "subpopn") %>%
+      left_join(
+        tribble(
+          ~subpopn,                         ~level_2,
+          "Children & young people",        "Children & young people",
+          "Students FE & HE",               NA,
+          "Elderly alone",                  "Elderly alone",
+          "General population",             "General population",
+          "Domestic abuse victims",         "Other Adults and Specific Groups",
+          "Family of COVID deceased",       NA,
+          "Family of ICU survivors",        NA,
+          "Newly unemployed",               NA,
+          "Pregnant & New Mothers",         NA,
+          "Parents",                        NA,
+          "Health and care workers",        "Directly affected individuals",
+          "ICU survivors",                  NA,
+          "Learning disabilities & autism", "Existing Conditions",
+          "Pre existing CMH illness",       NA,
+          "Pre existing LTC",               NA,
+          "Pre existing SMI",               NA
+        ) %>% fill(level_2),
+        by = "subpopn"
+      )
+
+
+
+    packing <- circleProgressiveLayout(circle_pack_plot$value, sizetype='area')
+    circle_pack_plot <- cbind(circle_pack_plot, packing)
+    dat.gg <- circleLayoutVertices(packing, npoints=50) %>% left_join(tibble(level_2 = circle_pack_plot$level_2, id = 1:16),
+                                   by = "id")
+
+    my_plot <- ggplot() +
+      geom_polygon(data = dat.gg, aes(x, y, group = id, fill=as.factor(level_2)), colour = "black", alpha = 0.6) +
+      geom_text(data = circle_pack_plot, aes(x, y, size=20, label = subpopn)) +
+      scale_size_continuous(range = c(1,4)) +
+      theme_void() +
+      theme(legend.position="none") +
+      scale_fill_brewer(palette = "Set1") +
+      coord_equal()
+      ggplotly(my_plot)
+
+  })
+
+  ## Box testing ####
+
+  output$test <- renderPlot(
+    {
+  surge_components <- model_output() %>%
+    filter(type == "new-referral",
+           treatment == input$services,
+           near(time, round(time))) %>%
+    group_by(group) %>%
+    summarise(`# Referrals` = round(sum(value), 0)) %>%
+  filter(`# Referrals` != 0)
+
+  my_plot <- surge_components %>%
+    ggplot(aes(reorder(group, `# Referrals`), `# Referrals`)) +
+    theme_minimal() +
+    geom_col(fill = "#00c0ef") +
+    geom_text(aes(label = `# Referrals`), hjust = -0.1, size = case_when(length(surge_components$group) <= 6 ~ 17,
+                                                                         between(length(surge_components$group), 7, 9) ~ 13,
+                                                                         between(length(surge_components$group), 10, 12) ~ 9,
+                                                                         length(surge_components$group) >= 13 ~ 7), family = "Segoe UI") +
+    coord_flip(clip = "off") +
+    scale_x_discrete(labels = function(x) str_wrap(x, 13)) +
+    scale_y_continuous(expand = expansion(mult = c(0, .15))) +
+    theme(text = element_text(size = 20),
+          axis.text.y = element_text(size = case_when(length(surge_components$group) <= 6 ~ 20,
+                                                      between(length(surge_components$group), 7, 9) ~ 16,
+                                                      between(length(surge_components$group), 10, 12) ~ 12,
+                                                      length(surge_components$group) >= 13 ~ 10)
+                                     ),
+          axis.title.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          plot.margin = margin(t = 0, r = 25, b = 0, l = 0, unit = "pt")
+    )
+
+  my_plot
+
+    }
+  )
+
+  output$testvalue <- renderText({
+
+    surge_components <- model_output() %>%
+      filter(type == "new-referral",
+             treatment == input$services,
+             near(time, round(time))) %>%
+      group_by(group) %>%
+      summarise(`# Referrals` = round(sum(value), 0)) %>%
+      filter(`# Referrals` != 0)
+
+    length(surge_components$group)
+
+  })
+
+
 })
