@@ -301,7 +301,7 @@ shinyServer(function(input, output, session) {
       # we need to add in separately the month's and days
       mutate(date = ymd(20200501) %m+%
                months(as.integer(floor(time))) %m+%
-               days(as.integer((time-floor(time)) * 30))) %>%
+               days(as.integer((time - floor(time)) * 30))) %>%
       select(time, date, everything())
   })
 
@@ -385,7 +385,10 @@ shinyServer(function(input, output, session) {
       mutate_at(vars(!!id_column), as_factor) %>%
       ggplot(aes(x = !!id_column)) +
       geom_col(aes(y = !!max_var_delay, fill = as_name(max_var_delay)), alpha = 0.6) +
-      geom_errorbar(aes(ymin = `Total receiving services over period`, ymax = `Total receiving services over period`, colour = "Total receiving services over period"), size = 0.75) +
+      geom_errorbar(aes(ymin = `Total receiving services over period`,
+                        ymax = `Total receiving services over period`,
+                        colour = "Total receiving services over period"),
+                    size = 0.75) +
       scale_y_continuous(name = "Number") +
       scale_x_discrete(labels = function(x) str_wrap(x, 8)) +
       #scale_fill_manual(name = NULL, values = c(as_label(max_var_delay) = "#00c0ef")) +
@@ -399,8 +402,7 @@ shinyServer(function(input, output, session) {
 
   ## Tab - Subpopn ####
 
-  surge_subpopn <- reactive(
-    {
+  surge_subpopn <- reactive({
     summary_outputs() %>%
     pivot_wider(names_from = type, values_from = value) %>%
     dplyr::group_by(group) %>%
@@ -410,8 +412,7 @@ shinyServer(function(input, output, session) {
               `Total receiving services over period` = as.integer(round(sum(`new-treatment`, na.rm = T), 0))) %>%
     arrange(-`Total symptomatic over period referrals`) %>%
     rename(`Subpopulation Group` = group)
-}
-)
+  })
 
   output$surge_subpopn <- renderTable({
     surge_subpopn()
@@ -421,7 +422,8 @@ shinyServer(function(input, output, session) {
 
     summary_plot_function(surge_subpopn(),
                           `Subpopulation Group`,
-                          "The total receiving services offered for each condition will never exceed the total symptomatic over period referrals",
+                          paste0("The total receiving services offered for each condition will never exceed the total",
+                                 "symptomatic over period referrals"),
                           `Total symptomatic over period referrals`,
                           "Total symptomatic over period referrals")
 
@@ -434,8 +436,8 @@ shinyServer(function(input, output, session) {
       pivot_wider(names_from = type, values_from = value) %>%
       dplyr::group_by(condition) %>%
       filter(!is.na(condition)) %>%
-      summarise( `Total symptomatic over period referrals` = as.integer(round(sum(`new-referral`, na.rm = T), 0)),
-                 `Total receiving services over period` = as.integer(round(sum(`new-treatment`, na.rm = T), 0))) %>%
+      summarise(`Total symptomatic over period referrals` = as.integer(round(sum(`new-referral`, na.rm = T), 0)),
+                `Total receiving services over period` = as.integer(round(sum(`new-treatment`, na.rm = T), 0))) %>%
       arrange(-`Total symptomatic over period referrals`) %>%
       rename(Condition = condition)
   })
@@ -448,7 +450,8 @@ shinyServer(function(input, output, session) {
 
     summary_plot_function(surge_condition(),
                           `Condition`,
-                          "The total receiving services offered for each condition will never exceed the total symptomatic over period referrals")
+                          paste("The total receiving services offered for each condition will never exceed the total",
+                                "symptomatic over period referrals"))
 
 
   })
@@ -517,63 +520,62 @@ shinyServer(function(input, output, session) {
         by = "subpopn"
       )
 
-
-
-    packing <- circleProgressiveLayout(circle_pack_plot$value, sizetype='area')
+    packing <- circleProgressiveLayout(circle_pack_plot$value, sizetype = "area")
     circle_pack_plot <- cbind(circle_pack_plot, packing)
-    dat.gg <- circleLayoutVertices(packing, npoints=50) %>% left_join(tibble(level_2 = circle_pack_plot$level_2, id = 1:16),
-                                   by = "id")
+
+    dat_gg <- circleLayoutVertices(packing, npoints = 50) %>%
+      left_join(tibble(level_2 = circle_pack_plot$level_2, id = 1:16), by = "id")
 
     my_plot <- ggplot() +
-      geom_polygon(data = dat.gg, aes(x, y, group = id, fill=as.factor(level_2)), colour = "black", alpha = 0.6) +
-      geom_text(data = circle_pack_plot, aes(x, y, size=20, label = subpopn)) +
-      scale_size_continuous(range = c(1,4)) +
+      geom_polygon(data = dat_gg, aes(x, y, group = id, fill = as.factor(level_2)), colour = "black", alpha = 0.6) +
+      geom_text(data = circle_pack_plot, aes(x, y, size = 20, label = subpopn)) +
+      scale_size_continuous(range = c(1, 4)) +
       theme_void() +
-      theme(legend.position="none") +
+      theme(legend.position = "none") +
       scale_fill_brewer(palette = "Set1") +
       coord_equal()
-      ggplotly(my_plot)
 
+    ggplotly(my_plot)
   })
 
   ## Box testing ####
 
-  output$test <- renderPlot(
-    {
-  surge_components <- model_output() %>%
-    filter(type == "new-referral",
-           treatment == input$services,
-           day(date) == 1) %>%
-    group_by(group) %>%
-    summarise(`# Referrals` = round(sum(value), 0)) %>%
-  filter(`# Referrals` != 0)
+  output$test <- renderPlot({
+    surge_components <- model_output() %>%
+      filter(type == "new-referral",
+             treatment == input$services,
+             day(date) == 1) %>%
+      group_by(group) %>%
+      summarise(`# Referrals` = round(sum(value), 0)) %>%
+    filter(`# Referrals` != 0)
 
-  my_plot <- surge_components %>%
-    ggplot(aes(reorder(group, `# Referrals`), `# Referrals`)) +
-    theme_minimal() +
-    geom_col(fill = "#00c0ef") +
-    geom_text(aes(label = `# Referrals`), hjust = -0.1, size = case_when(length(surge_components$group) <= 6 ~ 17,
-                                                                         between(length(surge_components$group), 7, 9) ~ 13,
-                                                                         between(length(surge_components$group), 10, 12) ~ 9,
-                                                                         length(surge_components$group) >= 13 ~ 7), family = "Segoe UI") +
-    coord_flip(clip = "off") +
-    scale_x_discrete(labels = function(x) str_wrap(x, 13)) +
-    scale_y_continuous(expand = expansion(mult = c(0, .15))) +
-    theme(text = element_text(size = 20),
-          axis.text.y = element_text(size = case_when(length(surge_components$group) <= 6 ~ 20,
-                                                      between(length(surge_components$group), 7, 9) ~ 16,
-                                                      between(length(surge_components$group), 10, 12) ~ 12,
-                                                      length(surge_components$group) >= 13 ~ 10)
-                                     ),
-          axis.title.y = element_blank(),
-          axis.ticks.y = element_blank(),
-          plot.margin = margin(t = 0, r = 25, b = 0, l = 0, unit = "pt")
-    )
+    my_plot <- surge_components %>%
+      ggplot(aes(reorder(group, `# Referrals`), `# Referrals`)) +
+      theme_minimal() +
+      geom_col(fill = "#00c0ef") +
+      geom_text(aes(label = `# Referrals`),
+                hjust = -0.1,
+                size = case_when(length(surge_components$group) <=  6 ~ 17,
+                                 length(surge_components$group) <=  9 ~ 13,
+                                 length(surge_components$group) <= 12 ~  9,
+                                 TRUE                                 ~  7),
+                family = "Segoe UI") +
+      coord_flip(clip = "off") +
+      scale_x_discrete(labels = function(x) str_wrap(x, 13)) +
+      scale_y_continuous(expand = expansion(mult = c(0, .15))) +
+      theme(text = element_text(size = 20),
+            axis.text.y = element_text(size = case_when(length(surge_components$group) <= 6 ~ 20,
+                                                        between(length(surge_components$group), 7, 9) ~ 16,
+                                                        between(length(surge_components$group), 10, 12) ~ 12,
+                                                        length(surge_components$group) >= 13 ~ 10)
+                                       ),
+            axis.title.y = element_blank(),
+            axis.ticks.y = element_blank(),
+            plot.margin = margin(t = 0, r = 25, b = 0, l = 0, unit = "pt")
+      )
 
-  my_plot
-
-    }
-  )
+    my_plot
+  })
 
   output$testvalue <- renderText({
 
