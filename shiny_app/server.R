@@ -379,7 +379,7 @@ shinyServer(function(input, output, session) {
       geom_errorbar(aes(ymin = `Total receiving services over period`, ymax = `Total receiving services over period`, colour = "Total receiving services over period"), size = 0.75) +
       scale_y_continuous(name = "Number") +
       scale_x_discrete(labels = function(x) str_wrap(x, 8)) +
-      scale_fill_manual(name = NULL, values = c(as_label(max_var_delay) = "#00c0ef")) +
+      #scale_fill_manual(name = NULL, values = c(as_label(max_var_delay) = "#00c0ef")) +
       scale_colour_manual(name = NULL, values = c("Total receiving services over period" = "red")) +
       theme(legend.position = "bottom",
             axis.ticks.y = element_blank(),
