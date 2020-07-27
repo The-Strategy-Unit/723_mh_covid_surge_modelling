@@ -30,8 +30,8 @@ jobs:
         run: |
           options(warn = 2)
           # "no visible global function" warnings
-          `%>%` <- modify_at <- select <- function(...) NULL
-          
+          `%>%` <- modify_at <- select <- where <- function(...) NULL
+
           # run lint
           lintr::lint_dir()
         shell: Rscript {0}
