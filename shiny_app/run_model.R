@@ -17,7 +17,7 @@ get_model_params <- function(params) {
     as.data.frame()
 
   rownames <- paste(p$group, p$condition, p$treatment, sep = "|")
-  p <- select(p, is.numeric)
+  p <- select(p, tidyselect::where(is.numeric))
   rownames(p) <- rownames
 
   p %>% as.matrix() %>% t()
