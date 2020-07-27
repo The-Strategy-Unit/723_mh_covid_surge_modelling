@@ -362,18 +362,60 @@ shinyServer(function(input, output, session) {
       rename(treatment_pathway = treatment)
   })
 
+  summary_plot_function <- function(reactive_df, id_column, caption_text, max_var, test) {
+
+    id_column <- enquo(id_column)
+    max_var_delay <- enquo(max_var)
+
+    test <- enquo(test)
+
+
+
+    reactive_df %>%
+      arrange(!!max_var_delay) %>%
+      mutate_at(vars(!!id_column), as_factor) %>%
+      ggplot(aes(x = !!id_column)) +
+      geom_col(aes(y = !!max_var_delay, fill = as_name(max_var_delay)), alpha = 0.6) +
+      geom_errorbar(aes(ymin = `Total receiving services over period`, ymax = `Total receiving services over period`, colour = "Total receiving services over period"), size = 0.75) +
+      scale_y_continuous(name = "Number") +
+      scale_x_discrete(labels = function(x) str_wrap(x, 8)) +
+      scale_fill_manual(name = NULL, values = c(as_label(max_var_delay) = "#00c0ef")) +
+      scale_colour_manual(name = NULL, values = c("Total receiving services over period" = "red")) +
+      theme(legend.position = "bottom",
+            axis.ticks.y = element_blank(),
+            axis.title.y = element_blank()) +
+      labs(caption = caption_text) +
+      coord_flip()
+  }
+
   ## Tab - Subpopn ####
 
-  output$surge_subpopn <- renderTable({
+  surge_subpopn <- reactive(
+    {
     summary_outputs() %>%
-      pivot_wider(names_from = type, values_from = value) %>%
-      dplyr::group_by(group) %>%
-      filter(!is.na(group)) %>%
-      summarise(`Adjusted exposed / at risk @ baseline` = as.integer(round(sum(`new-at-risk`, na.rm = T), 0)),
-                `Total symptomatic over period referrals` = as.integer(round(sum(`new-referral`, na.rm = T), 0)),
-                `Total receiving services over period` = as.integer(round(sum(`new-treatment`, na.rm = T), 0))) %>%
-      arrange(-`Total symptomatic over period referrals`) %>%
-      rename(`Subpopulation Group` = group)
+    pivot_wider(names_from = type, values_from = value) %>%
+    dplyr::group_by(group) %>%
+    filter(!is.na(group)) %>%
+    summarise(`Adjusted exposed / at risk @ baseline` = as.integer(round(sum(`new-at-risk`, na.rm = T), 0)),
+              `Total symptomatic over period referrals` = as.integer(round(sum(`new-referral`, na.rm = T), 0)),
+              `Total receiving services over period` = as.integer(round(sum(`new-treatment`, na.rm = T), 0))) %>%
+    arrange(-`Total symptomatic over period referrals`) %>%
+    rename(`Subpopulation Group` = group)
+}
+)
+
+  output$surge_subpopn <- renderTable({
+    surge_subpopn()
+  })
+
+  output$surge_subpopnplot <- renderPlot({
+
+    summary_plot_function(surge_subpopn(),
+                          `Subpopulation Group`,
+                          "The total receiving services offered for each condition will never exceed the total symptomatic over period referrals",
+                          `Total symptomatic over period referrals`,
+                          "Total symptomatic over period referrals")
+
   })
 
   ## Tab - Conditions ####
@@ -395,21 +437,9 @@ shinyServer(function(input, output, session) {
 
   output$surge_conditionplot <- renderPlot({
 
-    surge_condition() %>%
-    arrange(`Total symptomatic over period referrals`) %>%
-    mutate_at(vars(Condition), as_factor) %>%
-    ggplot(aes(x = Condition)) +
-      geom_col(aes(y = `Total symptomatic over period referrals`, fill = "Total symptomatic over period referrals"), alpha = 0.6) +
-      geom_errorbar(aes(ymin = `Total receiving services over period`, ymax = `Total receiving services over period`, colour = "Total receiving services over period"), size = 0.75) +
-      scale_y_continuous(name = "Number") +
-      scale_x_discrete(labels = function(x) str_wrap(x, 8)) +
-      scale_fill_manual(name = NULL, values = c("Total symptomatic over period referrals" = "#00c0ef")) +
-      scale_colour_manual(name = NULL, values = c("Total receiving services over period" = "red")) +
-      theme(legend.position = "bottom",
-            axis.ticks.y = element_blank(),
-            axis.title.y = element_blank()) +
-      labs(caption = "The total receiving services offered for each condition will never exceed the total symptomatic over period referrals") +
-      coord_flip()
+    summary_plot_function(surge_condition(),
+                          `Condition`,
+                          "The total receiving services offered for each condition will never exceed the total symptomatic over period referrals")
 
 
   })

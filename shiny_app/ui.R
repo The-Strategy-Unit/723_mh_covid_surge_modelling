@@ -136,7 +136,21 @@ body_report <- tabItem(
 
 body_surgesubpopn <- tabItem(
   "surgetab_subpopn",
-  tableOutput("surge_subpopn")
+  fluidRow(
+    column(
+      6,
+      tableOutput("surge_subpopn")
+    )
+    ,
+    column(
+      6,
+      plotOutput(
+        "surge_subpopnplot",
+        height = "600px"
+      )
+    )
+  )
+
 )
 
 body_surgecondition <- tabItem(
