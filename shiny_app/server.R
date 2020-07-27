@@ -467,18 +467,19 @@ shinyServer(function(input, output, session) {
 
   surge_components %>%
     ggplot(aes(reorder(group, `# Referrals`), `# Referrals`)) +
-    theme_bw() +
+    theme_minimal() +
     geom_col(fill = "#00c0ef") +
-    geom_text(aes(label = `# Referrals`), hjust = -0.1, size = 80/length(surge_components$group)) +
-    coord_flip() +
+    geom_text(aes(label = `# Referrals`), hjust = -0.1, size = 80/length(surge_components$group), family = "Segoe UI") +
+    coord_flip(clip = "off") +
     scale_x_discrete(labels = function(x) str_wrap(x, 13)) +
-    scale_y_continuous(expand = expansion(mult = c(0, .1))) +
+    scale_y_continuous(expand = expansion(mult = c(0, .15))) +
     theme(text = element_text(size = 20),
           axis.text.y = element_text(size = case_when(length(surge_components$group) <= 6 ~ 20,
                                                       between(length(surge_components$group), 7, 9) ~ 16,
                                                       between(length(surge_components$group), 10, 12) ~ 12,
                                                       length(surge_components$group) >= 13 ~ 10)),
           axis.title.y = element_blank(),
+          axis.ticks.y = element_blank(),
           plot.margin = margin(t = 0, r = 25, b = 0, l = 0, unit = "pt")
     )
     }
