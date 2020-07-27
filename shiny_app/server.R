@@ -372,7 +372,8 @@ shinyServer(function(input, output, session) {
       summarise(`Adjusted exposed / at risk @ baseline` = as.integer(round(sum(`new-at-risk`, na.rm = T), 0)),
                 `Total symptomatic over period referrals` = as.integer(round(sum(`new-referral`, na.rm = T), 0)),
                 `Total receiving services over period` = as.integer(round(sum(`new-treatment`, na.rm = T), 0))) %>%
-      arrange(-`Total symptomatic over period referrals`)
+      arrange(-`Total symptomatic over period referrals`) %>%
+      rename(`Subpopulation Group` = group)
   })
 
   ## Tab - Conditions ####
@@ -385,7 +386,8 @@ shinyServer(function(input, output, session) {
       summarise(`Adjusted exposed / at risk @ baseline` = as.integer(round(sum(`new-at-risk`, na.rm = T), 0)),
                 `Total symptomatic over period referrals` = as.integer(round(sum(`new-referral`, na.rm = T), 0)),
                 `Total receiving services over period` = as.integer(round(sum(`new-treatment`, na.rm = T), 0))) %>%
-      arrange(-`Total symptomatic over period referrals`)
+      arrange(-`Total symptomatic over period referrals`) %>%
+      rename(Condition = condition)
   })
 
 
@@ -398,7 +400,8 @@ shinyServer(function(input, output, session) {
     filter(!is.na(treatment_pathway)) %>%
     summarise(`Total new referrals/presentations over period` = as.integer(round(sum(`new-referral`, na.rm = T), 0)),
               `Total services offered over period` = as.integer(round(sum(`new-treatment`, na.rm = T), 0))) %>%
-    arrange(-`Total new referrals/presentations over period`)
+    arrange(-`Total new referrals/presentations over period`) %>%
+    rename(`Treatment Pathway` = treatment_pathway)
   })
 
   output$surge_treatmentpathway <- renderTable({
@@ -407,14 +410,17 @@ shinyServer(function(input, output, session) {
 
   output$surge_treatmentpathwayplot <- renderPlot({
     summary_treatment_pathway() %>%
-      pivot_longer(!contains("treatment_pathway")) %>%
-      ggplot(aes(treatment_pathway, value)) +
+      dplyr::arrange(`Total new referrals/presentations over period`) %>%
+      mutate_at(vars(`Treatment Pathway`), as_factor) %>%
+      pivot_longer(-`Treatment Pathway`) %>%
+      ggplot(aes(`Treatment Pathway`, value, fill = name)) +
       geom_col(position = "dodge") +
-      labs(y = "Number",
-             x = "Treatment Pathway") +
-      scale_x_discrete(labels = function(x) str_wrap(x, 8),
-                       guide = guide_axis(n.dodge = 2)) +
-      facet_wrap(~ name, ncol=1)
+      labs(y = "Number") +
+      scale_x_discrete(labels = function(x) str_wrap(x, 8)) +
+      theme(legend.position = "bottom",
+            axis.ticks.y = element_blank(),
+            axis.title.y = element_blank()) +
+      coord_flip()
 
   })
 
@@ -443,7 +449,7 @@ shinyServer(function(input, output, session) {
 
     my_plot <- ggplot() +
       geom_polygon(data = dat.gg, aes(x, y, group = id, fill=as.factor(level_2)), colour = "black", alpha = 0.6) +
-      geom_text(data = circle_pack_plot, aes(x, y, size=value, label = subpopn)) +
+      geom_text(data = circle_pack_plot, aes(x, y, size=20, label = subpopn)) +
       scale_size_continuous(range = c(1,4)) +
       theme_void() +
       theme(legend.position="none") +
@@ -465,11 +471,14 @@ shinyServer(function(input, output, session) {
     summarise(`# Referrals` = round(sum(value), 0)) %>%
   filter(`# Referrals` != 0)
 
-  surge_components %>%
+  my_plot <- surge_components %>%
     ggplot(aes(reorder(group, `# Referrals`), `# Referrals`)) +
     theme_minimal() +
     geom_col(fill = "#00c0ef") +
-    geom_text(aes(label = `# Referrals`), hjust = -0.1, size = 80/length(surge_components$group), family = "Segoe UI") +
+    geom_text(aes(label = `# Referrals`), hjust = -0.1, size = case_when(length(surge_components$group) <= 6 ~ 17,
+                                                                         between(length(surge_components$group), 7, 9) ~ 13,
+                                                                         between(length(surge_components$group), 10, 12) ~ 9,
+                                                                         length(surge_components$group) >= 13 ~ 7), family = "Segoe UI") +
     coord_flip(clip = "off") +
     scale_x_discrete(labels = function(x) str_wrap(x, 13)) +
     scale_y_continuous(expand = expansion(mult = c(0, .15))) +
@@ -477,11 +486,15 @@ shinyServer(function(input, output, session) {
           axis.text.y = element_text(size = case_when(length(surge_components$group) <= 6 ~ 20,
                                                       between(length(surge_components$group), 7, 9) ~ 16,
                                                       between(length(surge_components$group), 10, 12) ~ 12,
-                                                      length(surge_components$group) >= 13 ~ 10)),
+                                                      length(surge_components$group) >= 13 ~ 10)
+                                     ),
           axis.title.y = element_blank(),
           axis.ticks.y = element_blank(),
           plot.margin = margin(t = 0, r = 25, b = 0, l = 0, unit = "pt")
     )
+
+  my_plot
+
     }
   )
 
