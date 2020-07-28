@@ -23,7 +23,8 @@ source("plots.R")
 
 sim_time <- as.numeric(Sys.getenv("SIM_TIME", 1 / 5))
 
-params <- read_json("params.json", simplifyVector = TRUE)
+params <- read_json("params.json", simplifyVector = TRUE) %>%
+  modify_at("demand", as.list)
 
 population_groups <- names(params$groups)
 treatments <- names(params$treatments)
