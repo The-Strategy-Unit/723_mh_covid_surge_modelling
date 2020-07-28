@@ -27,6 +27,28 @@ demand_plot <- function(demand) {
                    yaxis = list(title = "Demand"))
 }
 
+popgroups_plot <- function(data, service) {
+  data %>%
+    filter(type == "new-referral",
+           treatment == service,
+           day(date) == 1) %>%
+    group_by(group) %>%
+    summarise(`# Referrals` = round(sum(value), 0), .groups = "drop") %>%
+    filter(`# Referrals` != 0) %>%
+    mutate_at("group", fct_reorder, quo(`# Referrals`)) %>%
+    ggplot(aes(group, `# Referrals`)) +
+    theme_minimal() +
+    geom_col(fill = "#00c0ef") +
+    geom_text(aes(label = `# Referrals`),
+              hjust = -0.1) +
+    coord_flip(clip = "off") +
+    scale_x_discrete(labels = function(x) str_wrap(x, 13)) +
+    scale_y_continuous(expand = expansion(mult = c(0, .15))) +
+    theme(axis.title.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          plot.margin = margin(t = 0, r = 25, b = 0, l = 0, unit = "pt")
+    )
+}
 
 surge_plot <- function(data) {
   data %>%
