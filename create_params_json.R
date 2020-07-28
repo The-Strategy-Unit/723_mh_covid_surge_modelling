@@ -92,7 +92,10 @@ params <- list(
     pivot_longer(everything()) %>%
     group_by(name) %>%
     summarise_at("value", list) %$%
-    set_names(value, name)
+    set_names(value, name),
+  demand = raw_data$demand %>%
+    group_nest(service) %$%
+    set_names(data, service)
 )
 
 params %>%

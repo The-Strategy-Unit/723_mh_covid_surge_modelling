@@ -1503,5 +1503,2203 @@
     "Shallow mid term": [0, 0.0076, 0.0152, 0.0227, 0.0303, 0.0379, 0.0455, 0.053, 0.0606, 0.0682, 0.0758, 0.0832, 0.0832, 0.0758, 0.0682, 0.0606, 0.053, 0.0455, 0.0379, 0.0303, 0.0227, 0.0152, 0.0076, 0],
     "Sudden shock": [0, 0.0612, 0.1224, 0.2449, 0.2041, 0.1633, 0.102, 0.051, 0.0306, 0.0153, 0.0052, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     "Sustained impact": [0, 0.0118, 0.0234, 0.0374, 0.042, 0.0448, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467]
+  },
+  "demand": {
+    "999/111": [
+      {
+        "month": "2020-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      }
+    ],
+    "Acute Inpatients": [
+      {
+        "month": "2020-05-01",
+        "underlying": 170,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 177,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 168,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 174,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 166,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 160,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 186,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 185,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 177,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 161,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 173,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 182,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 170,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 177,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 168,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 174,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 166,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 160,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 186,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 185,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 177,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 161,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 173,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 182,
+        "suppressed": 0
+      }
+    ],
+    "Addiction Services": [
+      {
+        "month": "2020-05-01",
+        "underlying": 434,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 472,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 481,
+        "suppressed": 36
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 426,
+        "suppressed": 36
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 420,
+        "suppressed": 36
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 414,
+        "suppressed": 36
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 396,
+        "suppressed": 36
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 310,
+        "suppressed": 36
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 453,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 409,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 423,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 439,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 434,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 472,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 481,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 426,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 420,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 414,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 396,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 310,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 453,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 409,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 423,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 439,
+        "suppressed": 0
+      }
+    ],
+    "ADHD": [
+      {
+        "month": "2020-05-01",
+        "underlying": 25,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 12,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 23,
+        "suppressed": 2
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 21,
+        "suppressed": 2
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 26,
+        "suppressed": 2
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 22,
+        "suppressed": 2
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 21,
+        "suppressed": 2
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 24,
+        "suppressed": 2
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 87,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 20,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 27,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 16,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 25,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 12,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 23,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 21,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 26,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 22,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 21,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 24,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 87,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 20,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 27,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 16,
+        "suppressed": 0
+      }
+    ],
+    "Adult CMHT": [
+      {
+        "month": "2020-05-01",
+        "underlying": 1169,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 1014,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 1183,
+        "suppressed": 71
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 1012,
+        "suppressed": 71
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 1091,
+        "suppressed": 71
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 1243,
+        "suppressed": 71
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 1199,
+        "suppressed": 71
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 879,
+        "suppressed": 71
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 1160,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 1086,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 1093,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 984,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 1169,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 1014,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 1183,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 1012,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 1091,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 1243,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 1199,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 879,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 1160,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 1086,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 1093,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 984,
+        "suppressed": 0
+      }
+    ],
+    "Aspergers": [
+      {
+        "month": "2020-05-01",
+        "underlying": 28,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 52,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 80,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 84,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 85,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 70,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 85,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 86,
+        "suppressed": 4
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 80,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 75,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 63,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 72,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 28,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 52,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 80,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 84,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 85,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 70,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 85,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 86,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 80,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 75,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 63,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 72,
+        "suppressed": 0
+      }
+    ],
+    "Bereavement Services": [
+      {
+        "month": "2020-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      }
+    ],
+    "CAMHS": [
+      {
+        "month": "2020-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      }
+    ],
+    "CJ Liason": [
+      {
+        "month": "2020-05-01",
+        "underlying": 609,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 599,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 621,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 548,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 594,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 594,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 550,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 560,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 644,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 617,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 601,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 670,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 609,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 599,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 621,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 548,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 594,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 594,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 550,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 560,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 644,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 617,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 601,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 670,
+        "suppressed": 0
+      }
+    ],
+    "Complex Care Team": [
+      {
+        "month": "2020-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      }
+    ],
+    "CRHT": [
+      {
+        "month": "2020-05-01",
+        "underlying": 381,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 316,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 323,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 332,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 362,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 313,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 330,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 319,
+        "suppressed": 4
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 390,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 348,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 332,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 237,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 381,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 316,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 323,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 332,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 362,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 313,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 330,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 319,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 390,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 348,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 332,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 237,
+        "suppressed": 0
+      }
+    ],
+    "EIP Team": [
+      {
+        "month": "2020-05-01",
+        "underlying": 112,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 127,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 132,
+        "suppressed": 7
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 137,
+        "suppressed": 7
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 128,
+        "suppressed": 7
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 162,
+        "suppressed": 7
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 138,
+        "suppressed": 7
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 107,
+        "suppressed": 7
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 145,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 124,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 130,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 117,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 112,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 127,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 132,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 137,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 128,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 162,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 138,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 107,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 145,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 124,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 130,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 117,
+        "suppressed": 0
+      }
+    ],
+    "IAPT": [
+      {
+        "month": "2020-05-01",
+        "underlying": 1973,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 1825,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 1938,
+        "suppressed": 366
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 1870,
+        "suppressed": 366
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 2089,
+        "suppressed": 366
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 2137,
+        "suppressed": 366
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 2063,
+        "suppressed": 366
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 1463,
+        "suppressed": 366
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 2313,
+        "suppressed": 366
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 1960,
+        "suppressed": 366
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 1485,
+        "suppressed": 366
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 1620,
+        "suppressed": 366
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 1973,
+        "suppressed": 366
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 1825,
+        "suppressed": 366
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 1938,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 1870,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 2089,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 2137,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 2063,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 1463,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 2313,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 1960,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 1485,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 1620,
+        "suppressed": 0
+      }
+    ],
+    "PD Hub": [
+      {
+        "month": "2020-05-01",
+        "underlying": 11,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 8,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 1,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 4,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 1,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 4,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 4,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 11,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 8,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 1,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 4,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 1,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 4,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 4,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 7,
+        "suppressed": 0
+      }
+    ],
+    "Perinatal Services": [
+      {
+        "month": "2020-05-01",
+        "underlying": 107,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 86,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 71,
+        "suppressed": 5
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 53,
+        "suppressed": 5
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 62,
+        "suppressed": 5
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 79,
+        "suppressed": 5
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 56,
+        "suppressed": 5
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 66,
+        "suppressed": 5
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 44,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 71,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 70,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 73,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 107,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 86,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 71,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 53,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 62,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 79,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 56,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 66,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 44,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 71,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 70,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 73,
+        "suppressed": 0
+      }
+    ],
+    "SPA/A&E": [
+      {
+        "month": "2020-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      }
+    ],
+    "Student Health Psychology": [
+      {
+        "month": "2020-05-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 1,
+        "suppressed": 1
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 7,
+        "suppressed": 1
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 9,
+        "suppressed": 1
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 9,
+        "suppressed": 1
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 6,
+        "suppressed": 1
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 16,
+        "suppressed": 1
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 6,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 2,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 11,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 1,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 9,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 9,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 6,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 16,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 6,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 2,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 11,
+        "suppressed": 0
+      }
+    ],
+    "Triage Cars": [
+      {
+        "month": "2020-05-01",
+        "underlying": 144,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 169,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 197,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 166,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 142,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 160,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 163,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 197,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 180,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 182,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 167,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 138,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 144,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 169,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 197,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 166,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 142,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 160,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 163,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 197,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 180,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 182,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 167,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 138,
+        "suppressed": 0
+      }
+    ]
   }
 }
