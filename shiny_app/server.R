@@ -382,6 +382,7 @@ shinyServer(function(input, output, session) {
       summarise_at("value", sum) %>%
       pivot_wider(names_from = type, values_from = value) %>%
       mutate_at(vars({{column}}), fct_reorder, quo(`new-referral`)) %>%
+      mutate_at(vars(any_of(c("new-at-risk", "new-referral", "new-treatment"))), function(x) as.integer(round(x))) %>%
       arrange(desc(`new-referral`)) %>%
       rename(group = {{column}})
   }
