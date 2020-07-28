@@ -122,7 +122,7 @@ body_report <- tabItem(
     ),
     box(
       width = 5,
-      plotOutput("test"),
+      plotOutput("results_popgroups"),
       title = "Population group source of 'surge'",
       solidHeader = TRUE,
       status = "primary"
@@ -139,13 +139,13 @@ body_surgesubpopn <- tabItem(
   fluidRow(
     column(
       6,
-      tableOutput("surge_subpopn")
+      tableOutput("surge_subpopn_table")
     )
     ,
     column(
       6,
       plotOutput(
-        "surge_subpopnplot",
+        "surge_subpopn_plot",
         height = "600px"
       )
     )
@@ -158,12 +158,12 @@ body_surgecondition <- tabItem(
   fluidRow(
     column(
       6,
-      tableOutput("surge_condition")
+      tableOutput("surge_condition_table")
     ),
     column(
       6,
       plotOutput(
-        "surge_conditionplot",
+        "surge_condition_plot",
         height = "600px"
       )
     )
@@ -175,15 +175,14 @@ body_surgetreatment <- tabItem(
   fluidRow(
     column(
       6,
-      tableOutput("surge_treatmentpathway")
+      tableOutput("surge_service_table")
     ),
     column(
       6,
       plotOutput(
-        "surge_treatmentpathwayplot",
+        "surge_service_plot",
         height = "600px"
-      ),
-      verbatimTextOutput("testvalue")
+      )
     )
   )
 )
