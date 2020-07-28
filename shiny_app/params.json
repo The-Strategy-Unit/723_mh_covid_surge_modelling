@@ -5,7 +5,7 @@
       "pcnt": 10,
       "curve": "Follow the curve",
       "conditions": {
-        "Anxiety (CYP)": {
+        "Anxiety": {
           "pcnt": 0.12,
           "treatments": {
             "CAMHS": {
@@ -14,7 +14,7 @@
             }
           }
         },
-        "Depression (CYP)": {
+        "Depression": {
           "pcnt": 0.0367,
           "treatments": {
             "Acute Inpatients": {
@@ -40,7 +40,7 @@
             }
           }
         },
-        "PTSD (CYP)": {
+        "PTSD": {
           "pcnt": 0.1,
           "treatments": {
             "999/111": {
@@ -57,7 +57,7 @@
             }
           }
         },
-        "Self harm (CYP)": {
+        "Self harm": {
           "pcnt": 0.02,
           "treatments": {
             "Acute Inpatients": {
@@ -74,7 +74,7 @@
             }
           }
         },
-        "Stress and Distress (CYP)": {
+        "Stress and Distress": {
           "pcnt": 0.0667,
           "treatments": {
             "999/111": {
@@ -1205,7 +1205,7 @@
       "pcnt": 50,
       "curve": "Follow the curve",
       "conditions": {
-        "Increased acuity (SMI)": {
+        "Increased acuity": {
           "pcnt": 0.05,
           "treatments": {
             "Adult CMHT": {
@@ -1273,7 +1273,7 @@
       "pcnt": 10,
       "curve": "Follow the curve",
       "conditions": {
-        "Anxiety (Students)": {
+        "Anxiety": {
           "pcnt": 0.0833,
           "treatments": {
             "Complex Care Team": {
@@ -1294,7 +1294,7 @@
             }
           }
         },
-        "Depression (Students)": {
+        "Depression": {
           "pcnt": 0.03,
           "treatments": {
             "Acute Inpatients": {

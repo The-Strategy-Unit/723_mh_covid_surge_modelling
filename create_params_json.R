@@ -61,13 +61,13 @@ stopifnot(
 
 c2t <- raw_data$c2t %>%
   pivot_longer(is.numeric) %>%
-  group_by(condition, treatment) %>%
+  group_by(group, condition, treatment) %>%
   summarise(data = map2(list(value), list(name), compose(as.list, set_names)), .groups = "drop_last") %>%
   summarise(treatments = map2(list(data), list(treatment), set_names), .groups = "drop")
 
 g2c <- raw_data$g2c %>%
   mutate_at("pcnt", as.list) %>%
-  inner_join(c2t, by = "condition") %>%
+  inner_join(c2t, by = c("group", "condition")) %>%
   pivot_longer(pcnt:treatments) %>%
   group_by(group, condition) %>%
   summarise(data = map2(list(value), list(name), set_names), .groups = "drop_last") %>%
