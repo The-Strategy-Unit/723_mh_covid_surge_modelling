@@ -5,7 +5,7 @@ referrals_plot <- function(df) {
           mode = "lines",
           x = ~date,
           y = ~value,
-          hovertemplate = paste("<b>Month</b>: %{x:.1f}",
+          hovertemplate = paste("<b>Month</b>: %{x}",
                                 "<b>Referrals</b>: %{y:.0f}",
                                 sep = "<br>")) %>%
     plotly::layout(showlegend = FALSE,
@@ -19,7 +19,7 @@ demand_plot <- function(demand) {
           mode = "lines",
           x = ~date,
           y = ~no_appointments,
-          hovertemplate = paste("<b>Month</b>: %{x:.1f}",
+          hovertemplate = paste("<b>Month</b>: %{x}",
                                 "<b>Demand</b>: %{y:.0f}",
                                 sep = "<br>")) %>%
     plotly::layout(showlegend = FALSE,
