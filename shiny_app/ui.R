@@ -130,7 +130,8 @@ body_report <- tabItem(
   ),
   fluidRow(
     box(withSpinner(plotlyOutput("referrals_plot"))),
-    box(withSpinner(plotlyOutput("demand_plot")))
+    box(withSpinner(plotlyOutput("demand_plot"))),
+    box(withSpinner(plotlyOutput("graph")), width = 12)
   )
 )
 

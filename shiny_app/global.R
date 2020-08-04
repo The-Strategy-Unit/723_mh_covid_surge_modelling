@@ -17,6 +17,7 @@ suppressPackageStartupMessages({
   library(readxl)
   library(writexl)
   library(glue, exclude = "collapse")
+  library(igraph)
 })
 options(scipen = 999)
 

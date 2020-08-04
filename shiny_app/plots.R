@@ -101,3 +101,74 @@ surge_plot <- function(data) {
                                  y = 0.01)) %>%
     plotly::config(displayModeBar = FALSE)
 }
+
+create_graph <- function(df, treatment) {
+  g <- bind_rows(
+    df %>%
+      select(from = condition, to = group, weight = value),
+    df %>%
+      group_by(from = treatment, to = condition) %>%
+      summarise(weight = sum(value), .groups = "drop")
+  ) %>%
+    graph_from_data_frame()
+
+  vertex.attributes(g)$type <- vertex.attributes(g)$name %in% unique(df$condition)
+
+  vertex_weights <- bind_rows(
+    select(df, type = group, value),
+    select(df, type = condition, value)
+  ) %>%
+    group_by(type) %>%
+    summarise(across(value, sum), .groups = "drop") %$%
+    set_names(value, type) %>%
+    c(IAPT = sum(df$value))
+
+  vertex.attributes(g)$weight <- vertex_weights[vertex.attributes(g)$name]
+
+  vs <- V(g)
+  es <- as.data.frame(get.edgelist(g))
+
+  Nv <- length(vs)
+  Ne <- length(es[1]$V1)
+
+  L <- layout.sugiyama(g)$layout
+
+  Xn <- L[,2]
+  Yn <- L[,1]
+
+  p <- plot_ly(x = ~ Xn,
+               y = ~ Yn,
+               size = 1,
+               mode = "markers",
+               type = "scatter",
+               text = paste0("<b>", vs$name, "</b>: ", round(vs$weight)),
+               marker = list(
+                 opacity = 1,
+                 size = unname(vs$weight) / sum(df$value) * 500
+               ),
+               color = I("#005EB8"),
+               hoverinfo = "text")
+
+  edge_shapes <- map(array_tree(es), function(e) {
+    v0 <- which(vs$name == e$V1)
+    v1 <- which(vs$name == e$V2)
+
+    list(
+      type = "line",
+      line = list(color = "#030303", width = 1),
+      layer = "below",
+      x0 = Xn[v0],
+      y0 = Yn[v0],
+      x1 = Xn[v1],
+      y1 = Yn[v1]
+    )
+  })
+
+  plotly::layout(p,
+                 shapes = edge_shapes,
+                 xaxis = list(visible = FALSE),
+                 yaxis = list(visible = FALSE)) %>%
+    plotly::config(displayModeBar = FALSE)
+}
+
+
