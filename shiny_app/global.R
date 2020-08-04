@@ -14,6 +14,9 @@ suppressPackageStartupMessages({
   library(jsonlite, exclude = c("flatten", "validate"))
   library(packcircles)
   library(lubridate, exclude = c("intersect", "setdiff", "union"))
+  library(readxl)
+  library(writexl)
+  library(glue, exclude = "collapse")
 })
 options(scipen = 999)
 

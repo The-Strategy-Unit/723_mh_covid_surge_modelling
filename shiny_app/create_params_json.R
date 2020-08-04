@@ -1,9 +1,3 @@
-library(magrittr)
-library(tidyverse)
-library(readxl)
-library(glue)
-library(jsonlite)
-
 extract_params_from_excel <- function(raw_data_path) {
   raw_data <- excel_sheets(raw_data_path) %>%
     set_names() %>%

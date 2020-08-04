@@ -26,12 +26,14 @@ jobs:
         run: |
           options(repos = c(CRAN = "https://packagemanager.rstudio.com/all/__linux__/bionic/latest"))
           install.packages(c("deSolve",
+                             "glue",
                              "jsonlite",
                              "lubridate",
                              "magrittr",
                              "packcircles",
                              "patchwork",
                              "plotly",
+                             "readxl",
                              "rlang",
                              "rsconnect",
                              "shiny",
@@ -39,7 +41,8 @@ jobs:
                              "shinydashboard",
                              "shinyWidgets",
                              "tidyverse",
-                             "uuid"))
+                             "uuid",
+                             "writexl"))
         shell: Rscript {0}
 
       - name: Deploy
