@@ -23,6 +23,8 @@ options(scipen = 999)
 source("half_life_factor.R")
 source("run_model.R")
 source("plots.R")
+source("extract_params_from_excel.R")
+source("params_to_xlsx.R")
 
 sim_time <- as.numeric(Sys.getenv("SIM_TIME", 1 / 5))
 
