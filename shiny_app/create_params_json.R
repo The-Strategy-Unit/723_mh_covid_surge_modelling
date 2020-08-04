@@ -99,3 +99,4 @@ extract_params_from_excel <- function(raw_data_path) {
 }
 
 extract_params_from_excel("params.xlsx") %>%
+  write_json("params.json", pretty = TRUE, auto_unbox = TRUE)
