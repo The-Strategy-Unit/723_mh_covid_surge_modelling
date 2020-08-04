@@ -59,7 +59,7 @@ extract_params_from_excel <- function(raw_data_path) {
   # produce json ====
 
   c2t <- raw_data$c2t %>%
-    pivot_longer(is.numeric) %>%
+    pivot_longer(where(is.numeric)) %>%
     group_by(group, condition, treatment) %>%
     summarise(data = map2(list(value), list(name), compose(as.list, set_names)), .groups = "drop_last") %>%
     summarise(treatments = map2(list(data), list(treatment), set_names), .groups = "drop")
@@ -82,7 +82,7 @@ extract_params_from_excel <- function(raw_data_path) {
   list(
     groups = g2c,
     treatments = raw_data$treatments %>%
-      pivot_longer(is.numeric) %>%
+      pivot_longer(where(is.numeric)) %>%
       group_by(treatment) %>%
       summarise(data = map2(list(value), list(name), compose(as.list, set_names)), .groups = "drop_last") %$%
       set_names(data, treatment),
@@ -99,4 +99,3 @@ extract_params_from_excel <- function(raw_data_path) {
 }
 
 extract_params_from_excel("params.xlsx") %>%
-  write_json("shiny_app/params.json", pretty = TRUE, auto_unbox = TRUE)
