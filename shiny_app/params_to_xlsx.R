@@ -3,7 +3,7 @@ params_to_xlsx <- function(params) {
 
   xl$curves <- params$curves %>%
     bind_cols() %>%
-    mutate(month = row_number()-1, .before = everything())
+    mutate(month = row_number() - 1, .before = everything())
 
   xl$groups <- params$groups %>%
     map_dfr(modify_at, "conditions", ~NULL, .id = "group") %>%
@@ -31,4 +31,3 @@ params_to_xlsx <- function(params) {
 
   write_xlsx(xl, "params.xlsx")
 }
-
