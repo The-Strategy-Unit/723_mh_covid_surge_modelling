@@ -25,6 +25,7 @@ source("run_model.R")
 source("plots.R")
 source("extract_params_from_excel.R")
 source("params_to_xlsx.R")
+source("helper_functions.R")
 
 sim_time <- as.numeric(Sys.getenv("SIM_TIME", 1 / 5))
 

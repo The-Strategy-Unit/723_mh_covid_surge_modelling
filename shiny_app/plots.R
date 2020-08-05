@@ -1,26 +1,45 @@
 
-referrals_plot <- function(df) {
+referrals_plot <- function(model_output, treatment) {
+  df <- model_output %>%
+    filter(type == "new-referral", treatment == {{treatment}}) %>%
+    group_by(date) %>%
+    summarise(across(value, sum), .groups = "drop")
+
+  if (nrow(df) < 1) return(NULL)
+
   plot_ly(df,
           type = "scatter",
           mode = "lines",
           x = ~date,
           y = ~value,
+          hovertext = NULL,
           hovertemplate = paste("<b>Month</b>: %{x}",
                                 "<b>Referrals</b>: %{y:.0f}",
+                                "<extra></extra>",
                                 sep = "<br>")) %>%
     plotly::layout(showlegend = FALSE,
                    xaxis = list(title = "Month"),
                    yaxis = list(title = "New Referrals"))
 }
 
-demand_plot <- function(demand) {
-  plot_ly(demand,
+demand_plot <- function(model_output, appointments, treatment) {
+  df <- model_output %>%
+    filter(type == "treatment", treatment == {{treatment}}) %>%
+    group_by(date, treatment) %>%
+    summarise(across(value, sum), .groups = "drop") %>%
+    inner_join(appointments, by = "treatment") %>%
+    mutate(no_appointments = value * average_monthly_appointments)
+
+  if (nrow(df) < 1) return(NULL)
+
+  plot_ly(df,
           type = "scatter",
           mode = "lines",
           x = ~date,
           y = ~no_appointments,
           hovertemplate = paste("<b>Month</b>: %{x}",
                                 "<b>Demand</b>: %{y:.0f}",
+                                "<extra></extra>",
                                 sep = "<br>")) %>%
     plotly::layout(showlegend = FALSE,
                    xaxis = list(title = "Month"),

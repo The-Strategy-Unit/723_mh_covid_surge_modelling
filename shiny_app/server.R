@@ -295,47 +295,23 @@ shinyServer(function(input, output, session) {
   model_output <- reactive({
     models %>%
       reactiveValuesToList() %>%
-      # combine models
-      bind_rows() %>%
-      # add in a date column relating to the time value
-      # we need to add in separately the month's and days
-      mutate(date = ymd(20200501) %m+%
-               months(as.integer(floor(time))) %m+%
-               days(as.integer((time - floor(time)) * 30))) %>%
-      select(time, date, everything())
+      get_model_output()
   })
 
   appointments <- reactive({
-    reactiveValuesToList(params)$treatments %>%
-      map_dfr(bind_cols, .id = "treatment") %>%
-      transmute(treatment, average_monthly_appointments = demand)
+    params %>%
+      reactiveValuesToList() %>%
+      get_appointments()
   })
 
   # Results tab ====
 
   output$referrals_plot <- renderPlotly({
-    df <- model_output() %>%
-      filter(type == "new-referral",
-             treatment == input$services) %>%
-      group_by(time, date) %>%
-      summarise_at("value", sum) %>%
-      ungroup()
-
-    if (nrow(df) < 1) return(NULL)
-    referrals_plot(df)
+    referrals_plot(model_output(), input$services)
   })
 
   output$demand_plot <- renderPlotly({
-    df <- model_output() %>%
-      filter(type == "treatment",
-             treatment == input$services) %>%
-      group_by(time, date, treatment) %>%
-      summarise(across(value, sum), .groups = "drop") %>%
-      inner_join(appointments(), by = "treatment") %>%
-      mutate(no_appointments = value * average_monthly_appointments)
-
-    if (nrow(df) < 1) return(NULL)
-    demand_plot(df)
+    demand_plot(model_output(), appointments(), input$services)
   })
 
   # Output boxes
