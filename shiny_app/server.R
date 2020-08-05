@@ -325,12 +325,7 @@ shinyServer(function(input, output, session) {
     pmap(function(output_id, value_type, text) {
       output[[output_id]] <- renderValueBox({
         value <- model_output() %>%
-          filter(type == value_type,
-                 treatment == input$services,
-                 day(date) == 1) %>%
-          pull(value) %>%
-          sum() %>%
-          scales::comma()
+          model_totals(value_type, input$services)
 
         valueBox(value, text)
       })
@@ -340,41 +335,17 @@ shinyServer(function(input, output, session) {
     popgroups_plot(model_output(), input$services)
   })
 
-  # Surge Tabs ====
-
-  summary_outputs <- function(model_data) {
-    model_data %>%
-      filter(day(date) == 1) %>%
-      group_by_at(vars(time:treatment)) %>%
-      summarise_all(sum) %>%
-      rename(treatment_pathway = treatment)
-  }
-
-
-  surge_summary <- function(model_data, column) {
-    model_data %>%
-      filter(day(date) == 1, !is.na({{column}}), str_starts(type, "new-")) %>%
-      group_by(type, {{column}}) %>%
-      summarise_at("value", sum) %>%
-      pivot_wider(names_from = type, values_from = value) %>%
-      mutate_at(vars({{column}}), fct_reorder, quo(`new-referral`)) %>%
-      mutate_at(vars(any_of(c("new-at-risk", "new-referral", "new-treatment"))), function(x) as.integer(round(x))) %>%
-      arrange(desc(`new-referral`)) %>%
-      rename(group = {{column}})
-  }
+  # Surge Tabs ----
 
   # Surge subpopn tab ====
 
   output$surge_subpopn_table <- renderTable({
     model_output() %>%
       surge_summary(group) %>%
-      rename("Subpopulation group" = `group`,
-             "Adjusted exposed / at risk @ baseline" = `new-at-risk`,
-             "Total symptomatic over period referrals" = `new-referral`,
-             "Total receiving services over period" = `new-treatment`)
+      surge_table("Subpopulation group")
   })
 
-  output$surge_subpopn_plot <- renderPlot({
+  output$surge_subpopn_plot <- renderPlotly({
     model_output() %>%
       surge_summary(group) %>%
       select(-`new-at-risk`) %>%
@@ -386,16 +357,13 @@ shinyServer(function(input, output, session) {
   output$surge_condition_table <- renderTable({
     model_output() %>%
       surge_summary(condition) %>%
-      rename("Condition" = group,
-             "Total symptomatic over period referrals" = `new-referral`,
-             "Total receiving services over period" = `new-treatment`)
+      surge_table("Condition")
   })
 
-  output$surge_condition_plot <- renderPlot({
+  output$surge_condition_plot <- renderPlotly({
     model_output() %>%
       surge_summary(condition) %>%
       surge_plot()
-
   })
 
   # Surge service tab ====
@@ -403,12 +371,10 @@ shinyServer(function(input, output, session) {
   output$surge_service_table <- renderTable({
     model_output() %>%
       surge_summary(treatment) %>%
-      rename("Treatment" = group,
-             "Total symptomatic over period referrals" = `new-referral`,
-             "Total receiving services over period" = `new-treatment`)
+      surge_table("Treatment")
   })
 
-  output$surge_service_plot <- renderPlot({
+  output$surge_service_plot <- renderPlotly({
     model_output() %>%
       surge_summary(treatment) %>%
       surge_plot()
