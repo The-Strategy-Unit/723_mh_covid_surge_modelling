@@ -14,12 +14,18 @@ suppressPackageStartupMessages({
   library(jsonlite, exclude = c("flatten", "validate"))
   library(packcircles)
   library(lubridate, exclude = c("intersect", "setdiff", "union"))
+  library(readxl)
+  library(writexl)
+  library(glue, exclude = "collapse")
 })
 options(scipen = 999)
 
 source("half_life_factor.R")
 source("run_model.R")
 source("plots.R")
+source("extract_params_from_excel.R")
+source("params_to_xlsx.R")
+source("helper_functions.R")
 
 sim_time <- as.numeric(Sys.getenv("SIM_TIME", 1 / 5))
 

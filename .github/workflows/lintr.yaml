@@ -30,7 +30,11 @@ jobs:
         run: |
           options(warn = 2)
           # "no visible global function" warnings
-          `%>%` <- modify_at <- select <- where <- function(...) NULL
+          utils::globalVariables(c("%>%",
+                                   "modify_at",
+                                   "select",
+                                   "where",
+                                   "write_xlsx"))
 
           # run lint
           lintr::lint_dir()

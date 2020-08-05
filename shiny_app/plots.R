@@ -1,36 +1,57 @@
 
-referrals_plot <- function(df) {
+referrals_plot <- function(model_output, treatment) {
+  df <- model_output %>%
+    filter(type == "new-referral", treatment == {{treatment}}) %>%
+    group_by(date) %>%
+    summarise(across(value, sum), .groups = "drop")
+
+  if (nrow(df) < 1) return(NULL)
+
   plot_ly(df,
           type = "scatter",
           mode = "lines",
           x = ~date,
           y = ~value,
+          hovertext = NULL,
           hovertemplate = paste("<b>Month</b>: %{x}",
                                 "<b>Referrals</b>: %{y:.0f}",
+                                "<extra></extra>",
                                 sep = "<br>")) %>%
     plotly::layout(showlegend = FALSE,
                    xaxis = list(title = "Month"),
-                   yaxis = list(title = "New Referrals"))
+                   yaxis = list(title = "New Referrals")) %>%
+    plotly::config(displayModeBar = FALSE)
 }
 
-demand_plot <- function(demand) {
-  plot_ly(demand,
+demand_plot <- function(model_output, appointments, treatment) {
+  df <- model_output %>%
+    filter(type == "treatment", treatment == {{treatment}}) %>%
+    group_by(date, treatment) %>%
+    summarise(across(value, sum), .groups = "drop") %>%
+    inner_join(appointments, by = "treatment") %>%
+    mutate(no_appointments = value * average_monthly_appointments)
+
+  if (nrow(df) < 1) return(NULL)
+
+  plot_ly(df,
           type = "scatter",
           mode = "lines",
           x = ~date,
           y = ~no_appointments,
           hovertemplate = paste("<b>Month</b>: %{x}",
                                 "<b>Demand</b>: %{y:.0f}",
+                                "<extra></extra>",
                                 sep = "<br>")) %>%
     plotly::layout(showlegend = FALSE,
                    xaxis = list(title = "Month"),
-                   yaxis = list(title = "Demand"))
+                   yaxis = list(title = "Demand")) %>%
+    plotly::config(displayModeBar = FALSE)
 }
 
-popgroups_plot <- function(data, service) {
-  data %>%
+popgroups_plot <- function(model_output, treatment) {
+  model_output %>%
     filter(type == "new-referral",
-           treatment == service,
+           treatment == {{treatment}},
            day(date) == 1) %>%
     group_by(group) %>%
     summarise(`# Referrals` = round(sum(value), 0), .groups = "drop") %>%
@@ -51,13 +72,14 @@ popgroups_plot <- function(data, service) {
 }
 
 surge_plot <- function(data) {
-  data %>%
-    mutate_at("new-referral", `-`, quo(`new-treatment`)) %>%
+  p <- data %>%
+    mutate(across(`new-referral`, `-`, `new-treatment`)) %>%
     rename("Received treatment" = `new-treatment`,
            "Referred, but not treated" = `new-referral`) %>%
     pivot_longer(-group) %>%
-    mutate_at("name", fct_rev) %>%
-    ggplot(aes(value, group, fill = name)) +
+    mutate(across(name, fct_rev),
+           text = glue("<b>{name}</b><br>{value}")) %>%
+    ggplot(aes(value, group, fill = name, text = text)) +
     geom_col() +
     scale_x_continuous(expand = expansion(c(0, 0.05))) +
     scale_fill_discrete(guide = guide_legend(reverse = TRUE)) +
@@ -65,11 +87,17 @@ surge_plot <- function(data) {
           panel.grid = element_blank(),
           axis.ticks.y = element_blank(),
           axis.line.x = element_line(),
-          legend.position = c(1, 0),
-          legend.justification = c(1, 0),
-          legend.title = element_blank()) +
+          legend.title = element_blank(),
+          legend.background = element_blank()) +
     labs(y = "",
          x = "Total Referrals / Treatments",
          caption = paste0("The total receiving services offered for each condition will never exceed the total",
                           "symptomatic over period referrals"))
+
+  ggplotly(p, tooltip = "text") %>%
+    plotly::layout(legend = list(xanchor = "right",
+                                 yanchor = "bottom",
+                                 x = 0.99,
+                                 y = 0.01)) %>%
+    plotly::config(displayModeBar = FALSE)
 }

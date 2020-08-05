@@ -137,16 +137,15 @@ body_report <- tabItem(
 body_surgesubpopn <- tabItem(
   "surgetab_subpopn",
   fluidRow(
-    column(
-      6,
+    box(
       tableOutput("surge_subpopn_table")
-    )
-    ,
-    column(
-      6,
-      plotOutput(
-        "surge_subpopn_plot",
-        height = "600px"
+    ),
+    box(
+      withSpinner(
+        plotlyOutput(
+          "surge_subpopn_plot",
+          height = "600px"
+        )
       )
     )
   )
@@ -156,15 +155,15 @@ body_surgesubpopn <- tabItem(
 body_surgecondition <- tabItem(
   "surgetab_condition",
   fluidRow(
-    column(
-      6,
+    box(
       tableOutput("surge_condition_table")
     ),
-    column(
-      6,
-      plotOutput(
-        "surge_condition_plot",
-        height = "600px"
+    box(
+      withSpinner(
+        plotlyOutput(
+          "surge_condition_plot",
+          height = "600px"
+        )
       )
     )
   )
@@ -173,15 +172,15 @@ body_surgecondition <- tabItem(
 body_surgetreatment <- tabItem(
   "surgetab_service",
   fluidRow(
-    column(
-      6,
+    box(
       tableOutput("surge_service_table")
     ),
-    column(
-      6,
-      plotOutput(
-        "surge_service_plot",
-        height = "600px"
+    box(
+      withSpinner(
+        plotlyOutput(
+          "surge_service_plot",
+          height = "600px"
+        )
       )
     )
   )
