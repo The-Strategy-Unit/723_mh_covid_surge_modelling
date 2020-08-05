@@ -19,7 +19,8 @@ referrals_plot <- function(model_output, treatment) {
                                 sep = "<br>")) %>%
     plotly::layout(showlegend = FALSE,
                    xaxis = list(title = "Month"),
-                   yaxis = list(title = "New Referrals"))
+                   yaxis = list(title = "New Referrals")) %>%
+    plotly::config(displayModeBar = FALSE)
 }
 
 demand_plot <- function(model_output, appointments, treatment) {
@@ -43,7 +44,8 @@ demand_plot <- function(model_output, appointments, treatment) {
                                 sep = "<br>")) %>%
     plotly::layout(showlegend = FALSE,
                    xaxis = list(title = "Month"),
-                   yaxis = list(title = "Demand"))
+                   yaxis = list(title = "Demand")) %>%
+    plotly::config(displayModeBar = FALSE)
 }
 
 popgroups_plot <- function(data, service) {
