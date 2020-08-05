@@ -48,10 +48,10 @@ demand_plot <- function(model_output, appointments, treatment) {
     plotly::config(displayModeBar = FALSE)
 }
 
-popgroups_plot <- function(data, service) {
-  data %>%
+popgroups_plot <- function(model_output, treatment) {
+  model_output %>%
     filter(type == "new-referral",
-           treatment == service,
+           treatment == {{treatment}},
            day(date) == 1) %>%
     group_by(group) %>%
     summarise(`# Referrals` = round(sum(value), 0), .groups = "drop") %>%
