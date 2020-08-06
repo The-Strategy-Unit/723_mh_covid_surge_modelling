@@ -20,6 +20,7 @@ Imports:
     lubridate,
     magrittr,
     packcircles,
+    pkgload,
     plotly,
     processx,
     purrr,
