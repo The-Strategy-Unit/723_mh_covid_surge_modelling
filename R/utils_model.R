@@ -89,8 +89,8 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
 
   if (long_output_format) {
     o <- o %>%
-      pivot_longer(-time) %>%
-      separate(name, c("type", "group", "condition", "treatment"), "\\|", fill = "right")
+      pivot_longer(-.data$time) %>%
+      separate(.data$name, c("type", "group", "condition", "treatment"), "\\|", fill = "right")
   }
   o
 }
