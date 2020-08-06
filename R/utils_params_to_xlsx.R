@@ -1,3 +1,9 @@
+#' @importFrom magrittr %>%
+#' @importFrom dplyr bind_cols mutate row_number select bind_rows bind_cols
+#' @import tidyselect
+#' @importFrom purrr map_dfr modify_at map map_dbl map_depth
+#' @importFrom tibble enframe
+#' @importFrom writexl write_xlsx
 params_to_xlsx <- function(params) {
   xl <- list()
 
@@ -7,7 +13,7 @@ params_to_xlsx <- function(params) {
 
   xl$groups <- params$groups %>%
     map_dfr(modify_at, "conditions", ~NULL, .id = "group") %>%
-    select(group, curve, size, pcnt)
+    select(.data$group, .data$curve, .data$size, .data$pcnt)
 
   xl$g2c <- params$groups %>%
     map("conditions") %>%

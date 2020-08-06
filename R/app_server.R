@@ -1,9 +1,43 @@
-library(shiny)
-library(uuid)
+#' The application server-side
+#'
+#' @param input,output,session Internal parameters for {shiny}.
+#'     DO NOT REMOVE.
+#' @import shiny
+#' @import shinydashboard
+#' @importFrom magrittr %>%
+#' @importFrom uuid UUIDgenerate
+#' @importFrom dplyr select
+#' @importFrom purrr map walk walk2 pmap map_dbl lift_dl modify_at set_names
+#' @importFrom stringr str_replace_all
+#' @importFrom jsonlite toJSON read_json
+#' @importFrom tibble tribble
+#' @importFrom plotly renderPlotly
+#' @importFrom utils write.csv
+#' @noRd
+app_server <- function(input, output, session) {
+  # app init ----
+  sim_time <- as.numeric(Sys.getenv("SIM_TIME", 1 / 5))
 
-shinyServer(function(input, output, session) {
+  params <- app_sys("app/data/params.json") %>%
+    read_json(simplifyVector = TRUE) %>%
+    modify_at("demand", as.list)
 
-  ## needs to be after upload function
+  population_groups <- names(params$groups)
+
+  treatments <- names(params$treatments)
+
+  models <- local({
+    models_file <- app_sys("app/data/models.Rds")
+    if (!file.exists(models_file)) {
+      params$groups %>%
+        names() %>%
+        set_names() %>%
+        map(~run_single_model(params, .x, 24, sim_time)) %>%
+        saveRDS(models_file)
+    }
+    readRDS(models_file)
+  })
+  # done initialising ----
 
   population_groups <- reactiveVal(population_groups)
   all_conditions <- reactiveVal(get_all_conditions(params))
@@ -157,7 +191,7 @@ shinyServer(function(input, output, session) {
     # loop over the treatments
     walk(treatments_pathways, function(i) {
       # slider names can't have spaces, replace with _
-      ix <- str_replace(i, " ", "_")
+      ix <- str_replace_all(i, " ", "_")
       split_name <- paste0("numeric_treatpath_split_", ix)
       treat_name <- paste0("slider_treatpath_treat_", ix)
 
@@ -264,24 +298,7 @@ shinyServer(function(input, output, session) {
   # download_output (downloadButton)
   output$download_output <- downloadHandler(
     paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv"),
-    function(file) {
-      df <- model_output() %>%
-        filter(near(time, round(time))) %>%
-        group_by_at(vars(time:treatment)) %>%
-        summarise_all(sum)
-
-      bind_rows(
-        df,
-        # add the demand data
-        df %>%
-          filter(type == "treatment") %>%
-          inner_join(appointments(), by = "treatment") %>%
-          mutate(type = "demand",
-                 value = value * average_monthly_appointments,
-                 average_monthly_appointments = NULL)
-      ) %>%
-        write.csv(file, row.names = FALSE)
-    },
+    download_output(model_output(), appointments()),
     "text/csv"
   )
 
@@ -354,7 +371,7 @@ shinyServer(function(input, output, session) {
   output$surge_subpopn_plot <- renderPlotly({
     model_output() %>%
       surge_summary(group) %>%
-      select(-`new-at-risk`) %>%
+      select(-.data$`new-at-risk`) %>%
       surge_plot()
   })
 
@@ -389,53 +406,9 @@ shinyServer(function(input, output, session) {
   # Bubble plot tab ====
 
   output$bubble_plot_baselinepopn <- renderPlotly({
-
-    circle_pack_plot <- params$groups %>%
-      map_dbl("size") %>%
-      enframe(name = "subpopn") %>%
-      left_join(
-        tribble(
-          ~subpopn,                         ~level_2,
-          "Children & young people",        "Children & young people",
-          "Students FE & HE",               NA,
-          "Elderly alone",                  "Elderly alone",
-          "General population",             "General population",
-          "Domestic abuse victims",         "Other Adults and Specific Groups",
-          "Family of COVID deceased",       NA,
-          "Family of ICU survivors",        NA,
-          "Newly unemployed",               NA,
-          "Pregnant & New Mothers",         NA,
-          "Parents",                        NA,
-          "Health and care workers",        "Directly affected individuals",
-          "ICU survivors",                  NA,
-          "Learning disabilities & autism", "Existing Conditions",
-          "Pre existing CMH illness",       NA,
-          "Pre existing LTC",               NA,
-          "Pre existing SMI",               NA
-        ) %>% fill(level_2),
-        by = "subpopn"
-      )
-
-    packing <- circleProgressiveLayout(circle_pack_plot$value, sizetype = "area")
-    circle_pack_plot <- cbind(circle_pack_plot, packing)
-
-    dat_gg <- circleLayoutVertices(packing, npoints = 50) %>%
-      left_join(tibble(level_2 = circle_pack_plot$level_2, id = 1:16), by = "id")
-
-    my_plot <- ggplot() +
-      geom_polygon(data = dat_gg,
-                   aes(x, y, group = id, fill = as.factor(level_2)),
-                   colour = "black",
-                   alpha = 0.6) +
-      geom_text(data = circle_pack_plot,
-                aes(x, y, size = 20, label = subpopn)) +
-      scale_size_continuous(range = c(1, 4)) +
-      theme_void() +
-      theme(legend.position = "none") +
-      scale_fill_brewer(palette = "Set1") +
-      coord_equal()
-
-    ggplotly(my_plot)
+    params %>%
+      reactiveValuesToList() %>%
+      bubble_plot()
   })
 
   # graphpage ====
@@ -464,4 +437,4 @@ shinyServer(function(input, output, session) {
                  input$graphpage_select_treatments)
   })
 
-})
+}

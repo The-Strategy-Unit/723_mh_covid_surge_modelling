@@ -1,2 +1,4 @@
 linters: with_defaults(line_length_linter(120),
                        cyclocomp_linter(25))
+exclusions: c("R/golem_utils_server.R",
+              "R/golem_utils_ui.R")

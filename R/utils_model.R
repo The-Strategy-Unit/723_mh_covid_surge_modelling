@@ -1,34 +1,11 @@
-library(tidyverse)
-
-get_model_params <- function(params) {
-  p <- params$groups %>%
-    map_dfr(~.x$conditions %>%
-              map(modify_at, "treatments", map_dfr, bind_cols, .id = "treatment") %>%
-              map_dfr(bind_cols, .id = "condition") %>%
-              group_by(condition) %>%
-              mutate_at("pcnt", ~.x * split / sum(split)) %>%
-              select(condition, treatment, pcnt, treat) %>%
-              inner_join(params$treatments %>%
-                           map_dfr(bind_cols, .id = "treatment"),
-                         by = "treatment") %>%
-              mutate_at("decay", ~half_life_factor(months, .x)) %>%
-              select(-months, -demand),
-            .id = "group") %>%
-    as.data.frame()
-
-  rownames <- paste(p$group, p$condition, p$treatment, sep = "|")
-  p <- select(p, where(is.numeric))
-  rownames(p) <- rownames
-
-  p %>% as.matrix() %>% t()
-}
-
-get_model_potential_functions <- function(params) {
-  params$groups %>%
-    map(~params$curves[[.x$curve]] * .x$size * .x$pcnt / 100) %>%
-    map(approxfun, x = seq_len(24) - 1, rule = 2)
-}
-
+#' @importFrom magrittr %>%
+#' @importFrom purrr set_names map_dbl map
+#' @importFrom stringr str_extract
+#' @importFrom deSolve ode
+#' @importFrom tibble as_tibble
+#' @importFrom dplyr rename_with
+#' @importFrom tidyr pivot_longer separate
+#' @import tidyselect
 run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), long_output_format = TRUE) {
   # ensure params are ordered
   params <- params[, sort(colnames(params))]
@@ -46,8 +23,8 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
 
   # set up the stocks for the no mh needs group, each of the initial groups, and each of the stocks
   stocks <- c("no-mh-needs", initials, treatments) %>%
-    purrr::set_names() %>% # ensure we are using the purrr version of this function
-    purrr::map_dbl(~0)
+    set_names() %>%
+    map_dbl(~0)
 
   # create a matrix that can take the initial group stocks and create a matrix that matches the treatment stocks.
   # each initial group is a column in the matrix
@@ -66,7 +43,7 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
 
   model <- function(time, stocks, params) {
     # get each of the new potentials for each of the initial groups
-    f_new_potential <- purrr::map_dbl(new_potential, ~.x(time))
+    f_new_potential <- map_dbl(new_potential, ~.x(time))
 
     # expand the initials stocks for each of the treatments
     initials_matrix <- initial_treatment_map %*% matrix(stocks[initials], ncol = 1)
@@ -112,24 +89,8 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
 
   if (long_output_format) {
     o <- o %>%
-      pivot_longer(-time) %>%
-      separate(name, c("type", "group", "condition", "treatment"), "\\|", fill = "right")
+      pivot_longer(-.data$time) %>%
+      separate(.data$name, c("type", "group", "condition", "treatment"), "\\|", fill = "right")
   }
   o
-}
-
-run_single_model <- function(params, groups, months, sim_time) {
-  cat("running_single_model:", groups)
-
-  p <- modify_at(params, "groups", ~.x[groups])
-
-  m <- get_model_params(p)
-  g <- get_model_potential_functions(p)
-  s <- seq(0, months - 1, by = sim_time)
-
-  ret <- run_model(m, g, s)
-
-  cat(" done\n")
-
-  ret
 }
