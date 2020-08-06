@@ -102,12 +102,17 @@ surge_plot <- function(data) {
     plotly::config(displayModeBar = FALSE)
 }
 
-create_graph <- function(model_output, treatment) {
+create_graph <- function(model_output,
+                         groups = unique(model_output$group),
+                         conditions = unique(model_output$condition),
+                         treatments = unique(model_output$treatment)) {
   df <- model_output %>%
     filter(type == "treatment",
-           treatment == {{treatment}},
+           group %in% groups,
+           condition %in% conditions,
+           treatment %in% treatments,
            day(date) == 1) %>%
-    group_by(group, condition) %>%
+    group_by(group, condition, treatment) %>%
     summarise(across(value, compose(round, sum)), .groups = "drop")
 
   if (nrow(df) < 1) return(NULL)
@@ -116,12 +121,10 @@ create_graph <- function(model_output, treatment) {
   # note however, this graph is "reversed", e.g. treatment points to conditions
   # the layout didn't work otherwise.
   g <- bind_rows(
-    df %>%
-      select(from = condition, to = group, weight = value),
-    df %>%
-      group_by(from = treatment, to = condition) %>%
-      summarise(weight = sum(value), .groups = "drop")
+    df %>% group_by(from = condition, to = group),
+    df %>% group_by(from = treatment, to = condition)
   ) %>%
+    summarise(weight = sum(value), .groups = "drop") %>%
     # remove any lines that after rounding sum to 0
     filter(weight > 0) %>%
     graph_from_data_frame()
@@ -130,17 +133,12 @@ create_graph <- function(model_output, treatment) {
   vertex.attributes(g)$type <- vertex.attributes(g)$name %in% unique(df$condition)
 
   # calculate the "weight" of each vertex
-  vertex_weights <- bind_rows(
-    # calculate for the groups
-    select(df, type = group, value),
-    # and for the conditions
-    select(df, type = condition, value)
-  ) %>%
-    group_by(type) %>%
+  vertex_weights <- df %>%
+    pivot_longer(-value, names_to = "type", values_to = "name") %>%
+    group_by(type, name) %>%
     summarise(across(value, sum), .groups = "drop") %$%
     # convert to a named list: add in the current treatment as an option also
-    set_names(c(value, sum(df$value)),
-              c(type, treatment))
+    set_names(value, name)
 
   # set the "weight" attribute of this vertex
   vertex.attributes(g)$weight <- vertex_weights[vertex.attributes(g)$name]
@@ -153,8 +151,8 @@ create_graph <- function(model_output, treatment) {
   ly <- layout.sugiyama(g)$layout
 
   # extract the x- and y-coordinates from the layout
-  xs <- ly[,2]
-  ys <- ly[,1]
+  xs <- ly[, 2]
+  ys <- ly[, 1]
 
   p <- plot_ly(x = ~ xs,
                y = ~ ys,

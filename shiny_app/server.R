@@ -315,7 +315,7 @@ shinyServer(function(input, output, session) {
   })
 
   output$graph <- renderPlotly({
-    create_graph(model_output(), input$services)
+    create_graph(model_output(), treatments = input$services)
   })
 
   # Output boxes
