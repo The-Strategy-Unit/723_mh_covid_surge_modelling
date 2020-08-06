@@ -7,7 +7,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom uuid UUIDgenerate
 #' @importFrom dplyr filter near group_by_at vars summarise_all bind_rows inner_join mutate select left_join
-#' @importFrom purrr walk walk2 pmap map_dbl lift_dl
+#' @importFrom purrr map walk walk2 pmap map_dbl lift_dl modify_at set_names
 #' @importFrom stringr str_replace_all
 #' @importFrom jsonlite toJSON read_json write_json
 #' @importFrom tibble tribble enframe tibble
@@ -18,6 +18,22 @@
 #' @importFrom utils write.csv
 #' @noRd
 app_server <- function( input, output, session ) {
+  # app init ----
+  sim_time <- as.numeric(Sys.getenv("SIM_TIME", 1 / 5))
+
+  params <- app_sys("app/data/params.json") %>%
+    read_json(simplifyVector = TRUE) %>%
+    modify_at("demand", as.list)
+
+  population_groups <- names(params$groups)
+
+  treatments <- names(params$treatments)
+
+  models <- params$groups %>%
+    names() %>%
+    set_names() %>%
+    map(~run_single_model(params, .x, 24, sim_time))
+  # done initialising ----
 
   population_groups <- reactiveVal(population_groups)
   all_conditions <- reactiveVal(get_all_conditions(params))

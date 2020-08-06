@@ -2,6 +2,19 @@ half_life_factor <- function(t, p = 0.5) {
   log(p) / t
 }
 
+#' @importFrom magrittr %>%
+#' @importFrom purrr map
+#' @import rlang
+get_all_conditions <- function(params) {
+  params$groups %>%
+    map("conditions") %>%
+    map(names) %>%
+    unname() %>%
+    flatten_chr() %>%
+    unique() %>%
+    sort()
+}
+
 # data conversion helpers ====
 
 #' @importFrom magrittr %>%
@@ -20,7 +33,7 @@ get_all_conditions <- function(params) {
 #' @importFrom magrittr %>%
 #' @importFrom dplyr bind_rows mutate select
 #' @import tidyselect
-#' @importFrom lubridate %m+% ymd
+#' @importFrom lubridate %m+% ymd days
 get_model_output <- function(models) {
   models %>%
     # combine models

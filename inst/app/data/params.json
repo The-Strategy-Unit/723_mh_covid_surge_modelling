@@ -1,0 +1,3625 @@
+{
+  "groups": {
+    "Children & young people": {
+      "size": 116654,
+      "pcnt": 10,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.12,
+          "treatments": {
+            "CAMHS": {
+              "split": 1,
+              "treat": 0.522
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.0367,
+          "treatments": {
+            "CAMHS": {
+              "split": 1,
+              "treat": 0.522
+            }
+          }
+        },
+        "Neurological symptom disorder (ADHD/Aspergers)": {
+          "pcnt": 0.0064,
+          "treatments": {
+            "ADHD": {
+              "split": 4,
+              "treat": 0.05
+            },
+            "Aspergers": {
+              "split": 1,
+              "treat": 0.05
+            }
+          }
+        },
+        "PTSD": {
+          "pcnt": 0.1,
+          "treatments": {
+            "999/111": {
+              "split": 1,
+              "treat": 1
+            },
+            "CAMHS": {
+              "split": 4,
+              "treat": 0.522
+            }
+          }
+        },
+        "Self harm": {
+          "pcnt": 0.02,
+          "treatments": {
+            "CAMHS": {
+              "split": 1,
+              "treat": 0.46
+            }
+          }
+        },
+        "Stress and Distress": {
+          "pcnt": 0.0667,
+          "treatments": {
+            "999/111": {
+              "split": 308,
+              "treat": 1
+            },
+            "CAMHS": {
+              "split": 692,
+              "treat": 0.46
+            }
+          }
+        }
+      }
+    },
+    "Domestic abuse victims": {
+      "size": 1956,
+      "pcnt": 100,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Depression": {
+          "pcnt": 0.1587,
+          "treatments": {
+            "Acute Inpatients": {
+              "split": 135,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "split": 277,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 304,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 142,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 277,
+              "treat": 0.91
+            }
+          }
+        },
+        "PTSD": {
+          "pcnt": 0.2127,
+          "treatments": {
+            "999/111": {
+              "split": 153,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "split": 115,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "split": 308,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "split": 115,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "split": 308,
+              "treat": 0.91
+            }
+          }
+        },
+        "Substance misuse": {
+          "pcnt": 0.0457,
+          "treatments": {
+            "Addiction Services": {
+              "split": 317,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "split": 95,
+              "treat": 0.71
+            },
+            "CJ Liason": {
+              "split": 222,
+              "treat": 0.89
+            },
+            "Complex Care Team": {
+              "split": 16,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 95,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "split": 159,
+              "treat": 0.57
+            },
+            "Triage Cars": {
+              "split": 95,
+              "treat": 0.29
+            }
+          }
+        },
+        "Suicide/ideation": {
+          "pcnt": 0.0597,
+          "treatments": {
+            "Acute Inpatients": {
+              "split": 4,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "split": 9,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "split": 7,
+              "treat": 0.84
+            },
+            "PD Hub": {
+              "split": 8,
+              "treat": 0.93
+            },
+            "SPA/A&E": {
+              "split": 9,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "split": 3,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    },
+    "Elderly alone": {
+      "size": 46105,
+      "pcnt": 25,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.04,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 4,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 1,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "split": 12,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "split": 3,
+              "treat": 0.05
+            }
+          }
+        },
+        "Loneliness": {
+          "pcnt": 0.054,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 222,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 222,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 111,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 444,
+              "treat": 0.91
+            }
+          }
+        },
+        "Stress and Distress": {
+          "pcnt": 0,
+          "treatments": {
+            "999/111": {
+              "split": 308,
+              "treat": 1
+            },
+            "CRHT": {
+              "split": 269,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 154,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "split": 269,
+              "treat": 0.05
+            }
+          }
+        },
+        "Suicide/ideation": {
+          "pcnt": 0.1,
+          "treatments": {
+            "Acute Inpatients": {
+              "split": 140,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "split": 265,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "split": 215,
+              "treat": 0.84
+            },
+            "SPA/A&E": {
+              "split": 265,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "split": 115,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    },
+    "Family of COVID deceased": {
+      "size": 4030,
+      "pcnt": 75,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Complicated grief": {
+          "pcnt": 0.0233,
+          "treatments": {
+            "Bereavement Services": {
+              "split": 1,
+              "treat": 0.53
+            }
+          }
+        },
+        "PTSD": {
+          "pcnt": 0,
+          "treatments": {
+            "999/111": {
+              "split": 153,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "split": 115,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "split": 308,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "split": 115,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "split": 308,
+              "treat": 0.91
+            }
+          }
+        }
+      }
+    },
+    "Family of ICU survivors": {
+      "size": 425,
+      "pcnt": 75,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.1667,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 4,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 1,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "split": 12,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "split": 3,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.13,
+          "treatments": {
+            "Acute Inpatients": {
+              "split": 135,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "split": 243,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 270,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 108,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 243,
+              "treat": 0.91
+            }
+          }
+        },
+        "PTSD": {
+          "pcnt": 0.0667,
+          "treatments": {
+            "999/111": {
+              "split": 153,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "split": 115,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "split": 308,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "split": 115,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "split": 308,
+              "treat": 0.91
+            }
+          }
+        },
+        "Stress and Distress": {
+          "pcnt": 0.2033,
+          "treatments": {
+            "999/111": {
+              "split": 308,
+              "treat": 1
+            },
+            "CRHT": {
+              "split": 269,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 154,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "split": 269,
+              "treat": 0.05
+            }
+          }
+        },
+        "Suicide/ideation": {
+          "pcnt": 0.0037,
+          "treatments": {
+            "Acute Inpatients": {
+              "split": 140,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "split": 265,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "split": 215,
+              "treat": 0.84
+            },
+            "SPA/A&E": {
+              "split": 265,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "split": 115,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    },
+    "General population": {
+      "size": 143087,
+      "pcnt": 10,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.0933,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 4,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 1,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "split": 12,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "split": 3,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.055,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 277,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 304,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 142,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 277,
+              "treat": 0.91
+            }
+          }
+        },
+        "Loneliness": {
+          "pcnt": 0.018,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 222,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 222,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 111,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 444,
+              "treat": 0.91
+            }
+          }
+        },
+        "Self harm": {
+          "pcnt": 0.0167,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 283,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "split": 195,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "split": 283,
+              "treat": 0.57
+            },
+            "SPA/A&E": {
+              "split": 239,
+              "treat": 0.05
+            }
+          }
+        },
+        "Stress and Distress": {
+          "pcnt": 0.027,
+          "treatments": {
+            "999/111": {
+              "split": 308,
+              "treat": 1
+            },
+            "CRHT": {
+              "split": 269,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 154,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "split": 269,
+              "treat": 0.05
+            }
+          }
+        },
+        "Substance misuse": {
+          "pcnt": 0.0257,
+          "treatments": {
+            "Addiction Services": {
+              "split": 333,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "split": 111,
+              "treat": 0.71
+            },
+            "CJ Liason": {
+              "split": 238,
+              "treat": 0.89
+            },
+            "Complex Care Team": {
+              "split": 32,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 111,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "split": 175,
+              "treat": 0.57
+            }
+          }
+        },
+        "Suicide/ideation": {
+          "pcnt": 0.0033,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 35,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "split": 30,
+              "treat": 0.84
+            },
+            "SPA/A&E": {
+              "split": 35,
+              "treat": 0.05
+            }
+          }
+        }
+      }
+    },
+    "Health and care workers": {
+      "size": 16749,
+      "pcnt": 25,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.1487,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 4,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 1,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "split": 12,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "split": 3,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.168,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 277,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 304,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 142,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 277,
+              "treat": 0.91
+            }
+          }
+        },
+        "Insomnia": {
+          "pcnt": 0.1133,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 1,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 1,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 1,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 1,
+              "treat": 0.91
+            }
+          }
+        },
+        "PTSD": {
+          "pcnt": 0.0333,
+          "treatments": {
+            "999/111": {
+              "split": 182,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "split": 337,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "split": 144,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "split": 337,
+              "treat": 0.91
+            }
+          }
+        }
+      }
+    },
+    "ICU survivors": {
+      "size": 137,
+      "pcnt": 75,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.1667,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 4,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 1,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "split": 12,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "split": 3,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.13,
+          "treatments": {
+            "Acute Inpatients": {
+              "split": 135,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "split": 243,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 270,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 108,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 243,
+              "treat": 0.91
+            }
+          }
+        },
+        "PTSD": {
+          "pcnt": 0.0667,
+          "treatments": {
+            "999/111": {
+              "split": 153,
+              "treat": 1
+            },
+            "Acute Inpatients": {
+              "split": 115,
+              "treat": 1
+            },
+            "Addiction Services": {
+              "split": 308,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "split": 115,
+              "treat": 0.71
+            },
+            "IAPT": {
+              "split": 308,
+              "treat": 0.91
+            }
+          }
+        },
+        "Stress and Distress": {
+          "pcnt": 0.2033,
+          "treatments": {
+            "999/111": {
+              "split": 308,
+              "treat": 1
+            },
+            "CRHT": {
+              "split": 269,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 154,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "split": 269,
+              "treat": 0.05
+            }
+          }
+        },
+        "Suicide/ideation": {
+          "pcnt": 0.0037,
+          "treatments": {
+            "Acute Inpatients": {
+              "split": 140,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "split": 265,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "split": 215,
+              "treat": 0.84
+            },
+            "SPA/A&E": {
+              "split": 265,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "split": 115,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    },
+    "Learning disabilities & autism": {
+      "size": 1683,
+      "pcnt": 50,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Increased acuity": {
+          "pcnt": 0.0667,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 250,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "split": 328,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "split": 188,
+              "treat": 0.57
+            },
+            "SPA/A&E": {
+              "split": 234,
+              "treat": 0.05
+            }
+          }
+        }
+      }
+    },
+    "Newly unemployed": {
+      "size": 1097,
+      "pcnt": 25,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.0289,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 4,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 1,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "split": 12,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "split": 3,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.0289,
+          "treatments": {
+            "Acute Inpatients": {
+              "split": 135,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "split": 243,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 270,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 108,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 243,
+              "treat": 0.91
+            }
+          }
+        },
+        "Insomnia": {
+          "pcnt": 0,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 1,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 1,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 1,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 1,
+              "treat": 0.91
+            }
+          }
+        },
+        "Stress and Distress": {
+          "pcnt": 0.0289,
+          "treatments": {
+            "999/111": {
+              "split": 308,
+              "treat": 1
+            },
+            "CRHT": {
+              "split": 269,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 154,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "split": 269,
+              "treat": 0.05
+            }
+          }
+        },
+        "Suicide/ideation": {
+          "pcnt": 0.0367,
+          "treatments": {
+            "Acute Inpatients": {
+              "split": 140,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "split": 265,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "split": 215,
+              "treat": 0.84
+            },
+            "SPA/A&E": {
+              "split": 265,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "split": 115,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    },
+    "Parents": {
+      "size": 141371,
+      "pcnt": 10,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.0367,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 4,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 1,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "split": 12,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "split": 3,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.0367,
+          "treatments": {
+            "Acute Inpatients": {
+              "split": 135,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "split": 243,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 270,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 108,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 243,
+              "treat": 0.91
+            }
+          }
+        },
+        "Stress and Distress": {
+          "pcnt": 0.07,
+          "treatments": {
+            "999/111": {
+              "split": 308,
+              "treat": 1
+            },
+            "CRHT": {
+              "split": 269,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 154,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "split": 269,
+              "treat": 0.05
+            }
+          }
+        }
+      }
+    },
+    "Pre existing CMH illness": {
+      "size": 29902,
+      "pcnt": 50,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Increased acuity": {
+          "pcnt": 0.0333,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 250,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "split": 328,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "split": 188,
+              "treat": 0.57
+            },
+            "SPA/A&E": {
+              "split": 234,
+              "treat": 0.05
+            }
+          }
+        }
+      }
+    },
+    "Pre existing LTC": {
+      "size": 176849,
+      "pcnt": 25,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.1767,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 4,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 1,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "split": 12,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "split": 3,
+              "treat": 0.05
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.0883,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 277,
+              "treat": 0.71
+            },
+            "Complex Care Team": {
+              "split": 304,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 142,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 277,
+              "treat": 0.91
+            }
+          }
+        }
+      }
+    },
+    "Pre existing SMI": {
+      "size": 6408,
+      "pcnt": 50,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Increased acuity": {
+          "pcnt": 0.05,
+          "treatments": {
+            "Adult CMHT": {
+              "split": 16,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "split": 21,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "split": 12,
+              "treat": 0.57
+            },
+            "SPA/A&E": {
+              "split": 15,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "split": 16,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    },
+    "Pregnant & New Mothers": {
+      "size": 5621,
+      "pcnt": 25,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Postnatal Depression": {
+          "pcnt": 0.2667,
+          "treatments": {
+            "Acute Inpatients": {
+              "split": 1,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "split": 8,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "split": 4,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 25,
+              "treat": 0.91
+            },
+            "Perinatal Services": {
+              "split": 58,
+              "treat": 0.23
+            },
+            "SPA/A&E": {
+              "split": 4,
+              "treat": 0.05
+            }
+          }
+        }
+      }
+    },
+    "Students FE & HE": {
+      "size": 80575,
+      "pcnt": 10,
+      "curve": "Follow the curve",
+      "conditions": {
+        "Anxiety": {
+          "pcnt": 0.0833,
+          "treatments": {
+            "Complex Care Team": {
+              "split": 1,
+              "treat": 0.99
+            },
+            "IAPT": {
+              "split": 12,
+              "treat": 0.91
+            },
+            "SPA/A&E": {
+              "split": 3,
+              "treat": 0.05
+            },
+            "Student Health Psychology": {
+              "split": 4,
+              "treat": 0.71
+            }
+          }
+        },
+        "Depression": {
+          "pcnt": 0.03,
+          "treatments": {
+            "Acute Inpatients": {
+              "split": 135,
+              "treat": 1
+            },
+            "Complex Care Team": {
+              "split": 270,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 108,
+              "treat": 0.84
+            },
+            "IAPT": {
+              "split": 216,
+              "treat": 0.91
+            },
+            "Student Health Psychology": {
+              "split": 270,
+              "treat": 0.71
+            }
+          }
+        },
+        "Self harm": {
+          "pcnt": 0.03,
+          "treatments": {
+            "Acute Inpatients": {
+              "split": 196,
+              "treat": 1
+            },
+            "Adult CMHT": {
+              "split": 196,
+              "treat": 0.71
+            },
+            "CRHT": {
+              "split": 106,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "split": 196,
+              "treat": 0.57
+            },
+            "SPA/A&E": {
+              "split": 153,
+              "treat": 0.05
+            },
+            "Triage Cars": {
+              "split": 153,
+              "treat": 0.29
+            }
+          }
+        },
+        "Substance misuse": {
+          "pcnt": 0,
+          "treatments": {
+            "Addiction Services": {
+              "split": 317,
+              "treat": 0.47
+            },
+            "Adult CMHT": {
+              "split": 95,
+              "treat": 0.71
+            },
+            "CJ Liason": {
+              "split": 222,
+              "treat": 0.89
+            },
+            "Complex Care Team": {
+              "split": 16,
+              "treat": 0.99
+            },
+            "CRHT": {
+              "split": 95,
+              "treat": 0.84
+            },
+            "EIP Team": {
+              "split": 159,
+              "treat": 0.57
+            },
+            "Triage Cars": {
+              "split": 95,
+              "treat": 0.29
+            }
+          }
+        }
+      }
+    }
+  },
+  "treatments": {
+    "999/111": {
+      "success": 1,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1
+    },
+    "Acute Inpatients": {
+      "success": 0.2105,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.65
+    },
+    "Addiction Services": {
+      "success": 0.4167,
+      "months": 5,
+      "decay": 0.5,
+      "demand": 1.25
+    },
+    "ADHD": {
+      "success": 0.4857,
+      "months": 5,
+      "decay": 0.5,
+      "demand": 1
+    },
+    "Adult CMHT": {
+      "success": 0.2242,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.57
+    },
+    "Aspergers": {
+      "success": 0.4857,
+      "months": 9,
+      "decay": 0.5,
+      "demand": 1.34
+    },
+    "Bereavement Services": {
+      "success": 0.2105,
+      "months": 4,
+      "decay": 0.5,
+      "demand": 1
+    },
+    "CAMHS": {
+      "success": 0.623,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.57
+    },
+    "CJ Liason": {
+      "success": 0.1576,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1
+    },
+    "Complex Care Team": {
+      "success": 0.2727,
+      "months": 12,
+      "decay": 0.5,
+      "demand": 1.67
+    },
+    "CRHT": {
+      "success": 0.2667,
+      "months": 11,
+      "decay": 0.5,
+      "demand": 2.03
+    },
+    "EIP Team": {
+      "success": 0.3107,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.63
+    },
+    "IAPT": {
+      "success": 0.4489,
+      "months": 2,
+      "decay": 0.5,
+      "demand": 1.5
+    },
+    "PD Hub": {
+      "success": 0.4167,
+      "months": 5,
+      "decay": 0.5,
+      "demand": 2.99
+    },
+    "Perinatal Services": {
+      "success": 0.4688,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.73
+    },
+    "SPA/A&E": {
+      "success": 0.3636,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.04
+    },
+    "Student Health Psychology": {
+      "success": 0.623,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.57
+    },
+    "Triage Cars": {
+      "success": 0.4,
+      "months": 1,
+      "decay": 0.5,
+      "demand": 1.11
+    }
+  },
+  "curves": {
+    "Follow the curve": [0, 0.0119, 0.0238, 0.0475, 0.095, 0.1188, 0.1206, 0.1069, 0.0841, 0.0722, 0.0594, 0.0487, 0.0392, 0.0333, 0.0285, 0.0249, 0.0214, 0.0178, 0.0143, 0.0116, 0.009, 0.0062, 0.0034, 0.0015],
+    "Shallow mid term": [0, 0.0076, 0.0152, 0.0227, 0.0303, 0.0379, 0.0455, 0.053, 0.0606, 0.0682, 0.0758, 0.0832, 0.0832, 0.0758, 0.0682, 0.0606, 0.053, 0.0455, 0.0379, 0.0303, 0.0227, 0.0152, 0.0076, 0],
+    "Sudden shock": [0, 0.0612, 0.1224, 0.2449, 0.2041, 0.1633, 0.102, 0.051, 0.0306, 0.0153, 0.0052, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "Sustained impact": [0, 0.0118, 0.0234, 0.0374, 0.042, 0.0448, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467, 0.0467]
+  },
+  "demand": {
+    "999/111": [
+      {
+        "month": "2020-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      }
+    ],
+    "Acute Inpatients": [
+      {
+        "month": "2020-05-01",
+        "underlying": 170,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 177,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 168,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 174,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 166,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 160,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 186,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 185,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 177,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 161,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 173,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 182,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 170,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 177,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 168,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 174,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 166,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 160,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 186,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 185,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 177,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 161,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 173,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 182,
+        "suppressed": 0
+      }
+    ],
+    "Addiction Services": [
+      {
+        "month": "2020-05-01",
+        "underlying": 434,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 472,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 481,
+        "suppressed": 36
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 426,
+        "suppressed": 36
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 420,
+        "suppressed": 36
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 414,
+        "suppressed": 36
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 396,
+        "suppressed": 36
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 310,
+        "suppressed": 36
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 453,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 409,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 423,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 439,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 434,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 472,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 481,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 426,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 420,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 414,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 396,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 310,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 453,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 409,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 423,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 439,
+        "suppressed": 0
+      }
+    ],
+    "ADHD": [
+      {
+        "month": "2020-05-01",
+        "underlying": 25,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 12,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 23,
+        "suppressed": 2
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 21,
+        "suppressed": 2
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 26,
+        "suppressed": 2
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 22,
+        "suppressed": 2
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 21,
+        "suppressed": 2
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 24,
+        "suppressed": 2
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 87,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 20,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 27,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 16,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 25,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 12,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 23,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 21,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 26,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 22,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 21,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 24,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 87,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 20,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 27,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 16,
+        "suppressed": 0
+      }
+    ],
+    "Adult CMHT": [
+      {
+        "month": "2020-05-01",
+        "underlying": 1169,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 1014,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 1183,
+        "suppressed": 71
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 1012,
+        "suppressed": 71
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 1091,
+        "suppressed": 71
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 1243,
+        "suppressed": 71
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 1199,
+        "suppressed": 71
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 879,
+        "suppressed": 71
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 1160,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 1086,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 1093,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 984,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 1169,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 1014,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 1183,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 1012,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 1091,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 1243,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 1199,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 879,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 1160,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 1086,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 1093,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 984,
+        "suppressed": 0
+      }
+    ],
+    "Aspergers": [
+      {
+        "month": "2020-05-01",
+        "underlying": 28,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 52,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 80,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 84,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 85,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 70,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 85,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 86,
+        "suppressed": 4
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 80,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 75,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 63,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 72,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 28,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 52,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 80,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 84,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 85,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 70,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 85,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 86,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 80,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 75,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 63,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 72,
+        "suppressed": 0
+      }
+    ],
+    "Bereavement Services": [
+      {
+        "month": "2020-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      }
+    ],
+    "CAMHS": [
+      {
+        "month": "2020-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      }
+    ],
+    "CJ Liason": [
+      {
+        "month": "2020-05-01",
+        "underlying": 609,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 599,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 621,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 548,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 594,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 594,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 550,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 560,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 644,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 617,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 601,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 670,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 609,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 599,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 621,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 548,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 594,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 594,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 550,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 560,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 644,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 617,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 601,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 670,
+        "suppressed": 0
+      }
+    ],
+    "Complex Care Team": [
+      {
+        "month": "2020-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      }
+    ],
+    "CRHT": [
+      {
+        "month": "2020-05-01",
+        "underlying": 381,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 316,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 323,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 332,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 362,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 313,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 330,
+        "suppressed": 4
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 319,
+        "suppressed": 4
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 390,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 348,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 332,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 237,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 381,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 316,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 323,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 332,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 362,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 313,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 330,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 319,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 390,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 348,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 332,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 237,
+        "suppressed": 0
+      }
+    ],
+    "EIP Team": [
+      {
+        "month": "2020-05-01",
+        "underlying": 112,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 127,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 132,
+        "suppressed": 7
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 137,
+        "suppressed": 7
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 128,
+        "suppressed": 7
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 162,
+        "suppressed": 7
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 138,
+        "suppressed": 7
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 107,
+        "suppressed": 7
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 145,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 124,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 130,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 117,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 112,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 127,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 132,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 137,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 128,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 162,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 138,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 107,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 145,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 124,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 130,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 117,
+        "suppressed": 0
+      }
+    ],
+    "IAPT": [
+      {
+        "month": "2020-05-01",
+        "underlying": 1973,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 1825,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 1938,
+        "suppressed": 366
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 1870,
+        "suppressed": 366
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 2089,
+        "suppressed": 366
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 2137,
+        "suppressed": 366
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 2063,
+        "suppressed": 366
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 1463,
+        "suppressed": 366
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 2313,
+        "suppressed": 366
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 1960,
+        "suppressed": 366
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 1485,
+        "suppressed": 366
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 1620,
+        "suppressed": 366
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 1973,
+        "suppressed": 366
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 1825,
+        "suppressed": 366
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 1938,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 1870,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 2089,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 2137,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 2063,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 1463,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 2313,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 1960,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 1485,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 1620,
+        "suppressed": 0
+      }
+    ],
+    "PD Hub": [
+      {
+        "month": "2020-05-01",
+        "underlying": 11,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 8,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 1,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 4,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 1,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 4,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 4,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 11,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 8,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 1,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 4,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 1,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 4,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 4,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 7,
+        "suppressed": 0
+      }
+    ],
+    "Perinatal Services": [
+      {
+        "month": "2020-05-01",
+        "underlying": 107,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 86,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 71,
+        "suppressed": 5
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 53,
+        "suppressed": 5
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 62,
+        "suppressed": 5
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 79,
+        "suppressed": 5
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 56,
+        "suppressed": 5
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 66,
+        "suppressed": 5
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 44,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 71,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 70,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 73,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 107,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 86,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 71,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 53,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 62,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 79,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 56,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 66,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 44,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 71,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 70,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 73,
+        "suppressed": 0
+      }
+    ],
+    "SPA/A&E": [
+      {
+        "month": "2020-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 0,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 0,
+        "suppressed": 0
+      }
+    ],
+    "Student Health Psychology": [
+      {
+        "month": "2020-05-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 1,
+        "suppressed": 1
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 7,
+        "suppressed": 1
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 9,
+        "suppressed": 1
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 9,
+        "suppressed": 1
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 6,
+        "suppressed": 1
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 16,
+        "suppressed": 1
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 6,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 2,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 11,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 5,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 1,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 9,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 9,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 6,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 16,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 6,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 2,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 7,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 11,
+        "suppressed": 0
+      }
+    ],
+    "Triage Cars": [
+      {
+        "month": "2020-05-01",
+        "underlying": 144,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-06-01",
+        "underlying": 169,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-07-01",
+        "underlying": 197,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-08-01",
+        "underlying": 166,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-09-01",
+        "underlying": 142,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-10-01",
+        "underlying": 160,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-11-01",
+        "underlying": 163,
+        "suppressed": 0
+      },
+      {
+        "month": "2020-12-01",
+        "underlying": 197,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-01-01",
+        "underlying": 180,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-02-01",
+        "underlying": 182,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-03-01",
+        "underlying": 167,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-04-01",
+        "underlying": 138,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-05-01",
+        "underlying": 144,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-06-01",
+        "underlying": 169,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-07-01",
+        "underlying": 197,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-08-01",
+        "underlying": 166,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-09-01",
+        "underlying": 142,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-10-01",
+        "underlying": 160,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-11-01",
+        "underlying": 163,
+        "suppressed": 0
+      },
+      {
+        "month": "2021-12-01",
+        "underlying": 197,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-01-01",
+        "underlying": 180,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-02-01",
+        "underlying": 182,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-03-01",
+        "underlying": 167,
+        "suppressed": 0
+      },
+      {
+        "month": "2022-04-01",
+        "underlying": 138,
+        "suppressed": 0
+      }
+    ]
+  }
+}
