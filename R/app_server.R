@@ -294,24 +294,7 @@ app_server <- function( input, output, session ) {
   # download_output (downloadButton)
   output$download_output <- downloadHandler(
     paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv"),
-    function(file) {
-      df <- model_output() %>%
-        filter(near(time, round(time))) %>%
-        group_by_at(vars(time:treatment)) %>%
-        summarise_all(sum)
-
-      bind_rows(
-        df,
-        # add the demand data
-        df %>%
-          filter(type == "treatment") %>%
-          inner_join(appointments(), by = "treatment") %>%
-          mutate(type = "demand",
-                 value = value * average_monthly_appointments,
-                 average_monthly_appointments = NULL)
-      ) %>%
-        write.csv(file, row.names = FALSE)
-    },
+    download_output(model_output(), appointments()),
     "text/csv"
   )
 
