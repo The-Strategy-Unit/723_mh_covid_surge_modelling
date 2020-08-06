@@ -23,24 +23,12 @@ jobs:
       - name: Install dependencies
         run: |
           options(repos = c(CRAN = "https://packagemanager.rstudio.com/all/__linux__/bionic/latest"))
-          install.packages(c("lintr"))
+          install.packages(c("devtools", "lintr"))
         shell: Rscript {0}
 
       - name: Lint
         run: |
           options(warn = 2)
-          # "no visible global function" warnings
-          utils::globalVariables(c("%>%",
-                                   "modify_at",
-                                   "select",
-                                   "where",
-                                   "write_xlsx",
-                                   "vertex.attributes",
-                                   "vertex.attributes<-",
-                                   "V",
-                                   "get.edgelist",
-                                   "layout.sugiyama"))
-
-          # run lint
-          lintr::lint_dir()
+          devtools::load_all()
+          lintr::lint_package()
         shell: Rscript {0}
