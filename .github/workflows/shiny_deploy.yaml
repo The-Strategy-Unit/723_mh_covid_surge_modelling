@@ -42,6 +42,7 @@ jobs:
           options(repos = c(CRAN = "https://packagemanager.rstudio.com/all/__linux__/bionic/latest"))
           install.packages(c("remotes", "rsconnect"))
           remotes::install_deps(dependencies = TRUE)
+
         shell: Rscript {0}
 
       - name: Deploy
