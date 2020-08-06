@@ -26,10 +26,17 @@ app_server <- function(input, output, session) {
 
   treatments <- names(params$treatments)
 
-  models <- params$groups %>%
-    names() %>%
-    set_names() %>%
-    map(~run_single_model(params, .x, 24, sim_time))
+  models <- local({
+    models_file <- app_sys("app/data/models.Rds")
+    if (!file.exists(models_file)) {
+      params$groups %>%
+        names() %>%
+        set_names() %>%
+        map(~run_single_model(params, .x, 24, sim_time)) %>%
+        saveRDS(models_file)
+    }
+    readRDS(models_file)
+  })
   # done initialising ----
 
   population_groups <- reactiveVal(population_groups)
