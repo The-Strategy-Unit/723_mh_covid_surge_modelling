@@ -5,9 +5,10 @@
 #' @importFrom plotly plot_ly layout config
 referrals_plot <- function(model_output, treatment) {
   df <- model_output %>%
-    filter(type == "new-referral", treatment == {{treatment}}) %>%
-    group_by(date) %>%
-    summarise(across(value, sum), .groups = "drop")
+    filter(.data$type == "new-referral",
+           .data$treatment == {{treatment}}) %>%
+    group_by(.data$date) %>%
+    summarise(across(.data$value, sum), .groups = "drop")
 
   if (nrow(df) < 1) return(NULL)
 
@@ -33,11 +34,12 @@ referrals_plot <- function(model_output, treatment) {
 #' @importFrom plotly plot_ly layout config
 demand_plot <- function(model_output, appointments, treatment) {
   df <- model_output %>%
-    filter(type == "treatment", treatment == {{treatment}}) %>%
-    group_by(date, treatment) %>%
-    summarise(across(value, sum), .groups = "drop") %>%
+    filter(.data$type == "treatment",
+           .data$treatment == {{treatment}}) %>%
+    group_by(.data$date, .data$treatment) %>%
+    summarise(across(.data$value, sum), .groups = "drop") %>%
     inner_join(appointments, by = "treatment") %>%
-    mutate(no_appointments = value * average_monthly_appointments)
+    mutate(no_appointments = .data$value * .data$average_monthly_appointments)
 
   if (nrow(df) < 1) return(NULL)
 
@@ -64,17 +66,17 @@ demand_plot <- function(model_output, appointments, treatment) {
 #' @import rlang
 popgroups_plot <- function(model_output, treatment) {
   model_output %>%
-    filter(type == "new-referral",
-           treatment == {{treatment}},
-           day(date) == 1) %>%
-    group_by(group) %>%
-    summarise(`# Referrals` = round(sum(value), 0), .groups = "drop") %>%
-    filter(`# Referrals` != 0) %>%
-    mutate(across(group, fct_reorder, `# Referrals`)) %>%
-    ggplot(aes(group, `# Referrals`)) +
+    filter(.data$type == "new-referral",
+           .data$treatment == {{treatment}},
+           day(.data$date) == 1) %>%
+    group_by(.data$group) %>%
+    summarise(`# Referrals` = round(sum(.data$value), 0), .groups = "drop") %>%
+    filter(.data$`# Referrals` != 0) %>%
+    mutate(across(.data$group, fct_reorder, .data$`# Referrals`)) %>%
+    ggplot(aes(.data$group, .data$`# Referrals`)) +
     theme_minimal() +
     geom_col(fill = "#00c0ef") +
-    geom_text(aes(label = `# Referrals`),
+    geom_text(aes(label = .data$`# Referrals`),
               hjust = -0.1) +
     coord_flip(clip = "off") +
     scale_x_discrete(labels = function(x) str_wrap(x, 13)) +
@@ -94,13 +96,13 @@ popgroups_plot <- function(model_output, treatment) {
 #' @importFrom plotly ggplotly layout config
 surge_plot <- function(data) {
   p <- data %>%
-    mutate(across(`new-referral`, `-`, `new-treatment`)) %>%
-    rename("Received treatment" = `new-treatment`,
-           "Referred, but not treated" = `new-referral`) %>%
-    pivot_longer(-group) %>%
-    mutate(across(name, fct_rev),
+    mutate(across(.data$`new-referral`, ~.x - .data$`new-treatment`)) %>%
+    rename("Received treatment" = .data$`new-treatment`,
+           "Referred, but not treated" = .data$`new-referral`) %>%
+    pivot_longer(-.data$group) %>%
+    mutate(across(.data$name, fct_rev),
            text = glue("<b>{name}</b><br>{value}")) %>%
-    ggplot(aes(value, group, fill = name, text = text)) +
+    ggplot(aes(.data$value, .data$group, fill = .data$name, text = .data$text)) +
     geom_col() +
     scale_x_continuous(expand = expansion(c(0, 0.05))) +
     scale_fill_discrete(guide = guide_legend(reverse = TRUE)) +
