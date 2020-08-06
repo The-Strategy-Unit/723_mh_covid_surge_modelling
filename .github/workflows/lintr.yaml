@@ -28,10 +28,13 @@ jobs:
 
       - name: Lint
         run: |
-          source("shiny_app/00_library.R")
           options(warn = 2)
           # "no visible global function" warnings
-          utils::globalVariables(c("where"))
+          utils::globalVariables(c("%>%",
+                                   "modify_at",
+                                   "select",
+                                   "where",
+                                   "write_xlsx"))
 
           # run lint
           lintr::lint_dir()

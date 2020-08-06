@@ -1,8 +1,25 @@
-options(tidyverse.quiet = TRUE,
-        scipen = 999)
+options(tidyverse.quiet = TRUE)
 
-# PUT ALL LIBRARY CALLS IN THIS SCRIPT
-source("00_library.R")
+suppressPackageStartupMessages({
+  library(magrittr)
+  library(tidyverse)
+  library(deSolve)
+  library(patchwork)
+  library(plotly, exclude = c("last_plot", "filter", "layout"))
+  library(rlang)
+  library(shiny)
+  library(shinyWidgets)
+  library(shinycssloaders)
+  library(shinydashboard)
+  library(jsonlite, exclude = c("flatten", "validate"))
+  library(packcircles)
+  library(lubridate, exclude = c("intersect", "setdiff", "union"))
+  library(readxl)
+  library(writexl)
+  library(glue, exclude = "collapse")
+  library(igraph, exclude = "compose")
+})
+options(scipen = 999)
 
 source("half_life_factor.R")
 source("run_model.R")
