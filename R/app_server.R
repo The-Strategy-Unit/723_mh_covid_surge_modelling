@@ -436,13 +436,13 @@ app_server <- function(input, output, session) {
     dat_gg <- circleLayoutVertices(packing, npoints = 50) %>%
       left_join(tibble(level_2 = circle_pack_plot$level_2, id = 1:16), by = "id")
 
-    my_plot <- ggplot(aes(.data$x, .data$y)) +
+    my_plot <- ggplot() +
       geom_polygon(data = dat_gg,
-                   aes(group = .data$id, fill = as.factor(.data$level_2)),
+                   aes(.data$x, .data$y, group = .data$id, fill = as.factor(.data$level_2)),
                    colour = "black",
                    alpha = 0.6) +
       geom_text(data = circle_pack_plot,
-                aes(size = 20, label = .data$subpopn)) +
+                aes(.data$x, .data$y, size = 20, label = .data$subpopn)) +
       scale_size_continuous(range = c(1, 4)) +
       theme_void() +
       theme(legend.position = "none") +
