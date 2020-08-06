@@ -124,6 +124,7 @@ surge_plot <- function(data) {
 }
 
 #' @importFrom magrittr %>% %$%
+#' @import rlang
 #' @importFrom dplyr filter group_by summarise across bind_rows
 #' @importFrom tidyr pivot_longer
 #' @importFrom purrr set_names compose map array_tree
@@ -136,13 +137,13 @@ create_graph <- function(model_output,
                          conditions = unique(model_output$condition),
                          treatments = unique(model_output$treatment)) {
   df <- model_output %>%
-    filter(type == "treatment",
-           group %in% groups,
-           condition %in% conditions,
-           treatment %in% treatments,
-           day(date) == 1) %>%
-    group_by(group, condition, treatment) %>%
-    summarise(across(value, compose(round, sum)), .groups = "drop")
+    filter(.data$type == "treatment",
+           .data$group %in% groups,
+           .data$condition %in% conditions,
+           .data$treatment %in% treatments,
+           day(.data$date) == 1) %>%
+    group_by(.data$group, .data$condition, .data$treatment) %>%
+    summarise(across(.data$value, compose(round, sum)), .groups = "drop")
 
   if (nrow(df) < 1) return(NULL)
 
@@ -150,12 +151,12 @@ create_graph <- function(model_output,
   # note however, this graph is "reversed", e.g. treatment points to conditions
   # the layout didn't work otherwise.
   g <- bind_rows(
-    df %>% group_by(from = condition, to = group),
-    df %>% group_by(from = treatment, to = condition)
+    df %>% group_by(from = .data$condition, to = .data$group),
+    df %>% group_by(from = .data$treatment, to = .data$condition)
   ) %>%
-    summarise(weight = sum(value), .groups = "drop") %>%
+    summarise(weight = sum(.data$value), .groups = "drop") %>%
     # remove any lines that after rounding sum to 0
-    filter(weight > 0) %>%
+    filter(.data$weight > 0) %>%
     graph_from_data_frame()
 
   # converts the graph to be a bipartite graph
@@ -163,11 +164,11 @@ create_graph <- function(model_output,
 
   # calculate the "weight" of each vertex
   vertex_weights <- df %>%
-    pivot_longer(-value, names_to = "type", values_to = "name") %>%
-    group_by(type, name) %>%
-    summarise(across(value, sum), .groups = "drop") %$%
-    # convert to a named list: add in the current treatment as an option also
-    set_names(value, name)
+    pivot_longer(-.data$value, names_to = "type", values_to = "name") %>%
+    group_by(.data$type, .data$name) %>%
+    summarise(across(.data$value, sum), .groups = "drop")
+  # convert to a named list: add in the current treatment as an option also
+  vertex_weights <- set_names(vertex_weights$value, vertex_weights$name)
 
   # set the "weight" attribute of this vertex
   vertex.attributes(g)$weight <- vertex_weights[vertex.attributes(g)$name]
