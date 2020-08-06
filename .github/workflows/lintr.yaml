@@ -34,7 +34,12 @@ jobs:
                                    "modify_at",
                                    "select",
                                    "where",
-                                   "write_xlsx"))
+                                   "write_xlsx",
+                                   "vertex.attributes",
+                                   "vertex.attributes<-",
+                                   "V",
+                                   "get.edgelist",
+                                   "layout.sugiyama"))
 
           # run lint
           lintr::lint_dir()
