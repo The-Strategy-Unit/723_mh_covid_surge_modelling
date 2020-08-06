@@ -315,15 +315,7 @@ shinyServer(function(input, output, session) {
   })
 
   output$graph <- renderPlotly({
-    df <- model_output() %>%
-      filter(type == "treatment",
-             treatment == input$services,
-             day(date) == 1) %>%
-      group_by(group, condition) %>%
-      summarise(across(value, sum), .groups = "drop")
-
-    if (nrow(df) < 1) return(NULL)
-    create_graph(df, input$services)
+    create_graph(model_output(), input$services)
   })
 
   # Output boxes
