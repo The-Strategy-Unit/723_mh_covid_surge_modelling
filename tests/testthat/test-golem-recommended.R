@@ -26,7 +26,7 @@ test_that(
       )
     )
     i <- 0
-    while ((i <- i + 1) <= 10 && !x$is_alive()) {
+    while ((i <- i + 1) <= 30 && !x$is_alive()) {
       Sys.sleep(1)
     }
     expect_true(x$is_alive())
