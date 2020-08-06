@@ -6,8 +6,9 @@ shinyServer(function(input, output, session) {
   ## needs to be after upload function
 
   population_groups <- reactiveVal(population_groups)
-  curves <- reactiveVal(names(params$curves))
+  all_conditions <- reactiveVal(get_all_conditions(params))
   treatments <- reactiveVal(treatments)
+  curves <- reactiveVal(names(params$curves))
 
   models <- lift_dl(reactiveValues)(models)
   params <- lift_dl(reactiveValues)(params)
@@ -31,6 +32,7 @@ shinyServer(function(input, output, session) {
     params$curves <- new_params$curves
 
     population_groups(names(new_params$groups))
+    all_conditions(get_all_conditions(params))
     treatments(names(new_params$treatments))
     curves(names(new_params$curves))
 

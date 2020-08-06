@@ -34,6 +34,15 @@ params <- read_json("params.json", simplifyVector = TRUE) %>%
   modify_at("demand", as.list)
 
 population_groups <- names(params$groups)
+get_all_conditions <- function(params) {
+  params$groups %>%
+    map("conditions") %>%
+    map(names) %>%
+    unname() %>%
+    flatten_chr() %>%
+    unique() %>%
+    sort()
+}
 treatments <- names(params$treatments)
 
 models <- params$groups %>%
