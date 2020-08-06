@@ -215,15 +215,38 @@ body_bubbleplot <- tabItem(
 )
 
 dashboardPage(
-  dashboardHeader(title = "Mersey Care MH Surge Modelling"),
+  dashboardHeader(
+    title = "Mersey Care MH Surge Modelling"
+  ),
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Parameters", tabName = "params", icon = icon("dashboard"), selected = TRUE),
-      menuItem("Results", tabName = "results", icon = icon("th")),
-      menuItem("Surge Demand - Population Group", tabName = "surgetab_subpopn"),
-      menuItem("Surge Demand - Condition", tabName = "surgetab_condition"),
-      menuItem("Surge Demand - Service", tabName = "surgetab_service"),
-      menuItem("Bubble Plot Test", tabName = "bubbleplot")
+      menuItem(
+        "Parameters",
+        tabName = "params",
+        icon = icon("dashboard"),
+        selected = TRUE
+      ),
+      menuItem(
+        "Results",
+        tabName = "results",
+        icon = icon("th")
+      ),
+      menuItem(
+        "Surge Demand - Population Group",
+        tabName = "surgetab_subpopn"
+      ),
+      menuItem(
+        "Surge Demand - Condition",
+        tabName = "surgetab_condition"
+      ),
+      menuItem(
+        "Surge Demand - Service",
+        tabName = "surgetab_service"
+      ),
+      menuItem(
+        "Bubble Plot Test",
+        tabName = "bubbleplot"
+      )
     )
   ),
   dashboardBody(
