@@ -149,7 +149,8 @@ body_report <- tabItem(
           "graph",
           height = "600px"
         )
-      ), width = 12
+      ),
+      width = 12
     )
   )
 )
@@ -214,6 +215,48 @@ body_bubbleplot <- tabItem(
   )
 )
 
+body_graph <- tabItem(
+  "graphpage",
+  fluidRow(
+    box(
+      selectInput(
+        "graphpage_select_groups",
+        "Filter Groups",
+        choices = NA,
+        multiple = TRUE
+      ),
+      width = 4
+    ),
+    box(
+      selectInput(
+        "graphpage_select_conditions",
+        "Filter Conditions",
+        choices = NA,
+        multiple = TRUE
+      ),
+      width = 4
+    ),
+    box(
+      selectInput(
+        "graphpage_select_treatments",
+        "Filter Treatments",
+        choices = NA,
+        multiple = TRUE
+      ),
+      width = 4
+    ),
+    box(
+      withSpinner(
+        plotlyOutput(
+          "graphpage_graph",
+          height = "600px"
+        )
+      ),
+      width = 12
+    )
+  )
+)
+
 dashboardPage(
   dashboardHeader(
     title = "Mersey Care MH Surge Modelling"
@@ -246,6 +289,10 @@ dashboardPage(
       menuItem(
         "Bubble Plot Test",
         tabName = "bubbleplot"
+      ),
+      menuItem(
+        "Graph",
+        tabName = "graphpage"
       )
     )
   ),
@@ -256,7 +303,8 @@ dashboardPage(
       body_surgesubpopn,
       body_surgecondition,
       body_surgetreatment,
-      body_bubbleplot
+      body_bubbleplot,
+      body_graph
     )
   )
 )
