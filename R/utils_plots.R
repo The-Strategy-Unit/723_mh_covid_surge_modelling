@@ -235,3 +235,62 @@ create_graph <- function(model_output,
          yaxis = list(visible = FALSE)) %>%
     config(displayModeBar = FALSE)
 }
+
+#' @importFrom magrittr %>%
+#' @importFrom purrr map_dbl
+#' @importFrom tibble enframe tribble tibble
+#' @importFrom dplyr left_join
+#' @importFrom tidyr fill
+#' @import rlang
+#' @import ggplot2
+#' @importFrom plotly ggplotly
+#' @importFrom packcircles circleProgressiveLayout circleLayoutVertices
+bubble_plot <- function(params) {
+  circle_pack_plot <- params$groups %>%
+    map_dbl("size") %>%
+    enframe(name = "subpopn") %>%
+    left_join(
+      tribble(
+        ~subpopn,                         ~level_2,
+        "Children & young people",        "Children & young people",
+        "Students FE & HE",               NA,
+        "Elderly alone",                  "Elderly alone",
+        "General population",             "General population",
+        "Domestic abuse victims",         "Other Adults and Specific Groups",
+        "Family of COVID deceased",       NA,
+        "Family of ICU survivors",        NA,
+        "Newly unemployed",               NA,
+        "Pregnant & New Mothers",         NA,
+        "Parents",                        NA,
+        "Health and care workers",        "Directly affected individuals",
+        "ICU survivors",                  NA,
+        "Learning disabilities & autism", "Existing Conditions",
+        "Pre existing CMH illness",       NA,
+        "Pre existing LTC",               NA,
+        "Pre existing SMI",               NA
+      ) %>%
+        fill(.data$level_2),
+      by = "subpopn"
+    )
+
+  packing <- circleProgressiveLayout(circle_pack_plot$value, sizetype = "area")
+  circle_pack_plot <- cbind(circle_pack_plot, packing)
+
+  dat_gg <- circleLayoutVertices(packing, npoints = 50) %>%
+    left_join(tibble(level_2 = circle_pack_plot$level_2, id = 1:16), by = "id")
+
+  p <- ggplot() +
+    geom_polygon(data = dat_gg,
+                 aes(.data$x, .data$y, group = .data$id, fill = as.factor(.data$level_2)),
+                 colour = "black",
+                 alpha = 0.6) +
+    geom_text(data = circle_pack_plot,
+              aes(.data$x, .data$y, size = 20, label = .data$subpopn)) +
+    scale_size_continuous(range = c(1, 4)) +
+    theme_void() +
+    theme(legend.position = "none") +
+    scale_fill_brewer(palette = "Set1") +
+    coord_equal()
+
+  ggplotly(p)
+}
