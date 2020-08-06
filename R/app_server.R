@@ -17,7 +17,7 @@
 #' @importFrom plotly renderPlotly ggplotly
 #' @importFrom utils write.csv
 #' @noRd
-app_server <- function( input, output, session ) {
+app_server <- function(input, output, session) {
   # app init ----
   sim_time <- as.numeric(Sys.getenv("SIM_TIME", 1 / 5))
 
