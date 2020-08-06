@@ -6,8 +6,9 @@ shinyServer(function(input, output, session) {
   ## needs to be after upload function
 
   population_groups <- reactiveVal(population_groups)
-  curves <- reactiveVal(names(params$curves))
+  all_conditions <- reactiveVal(get_all_conditions(params))
   treatments <- reactiveVal(treatments)
+  curves <- reactiveVal(names(params$curves))
 
   models <- lift_dl(reactiveValues)(models)
   params <- lift_dl(reactiveValues)(params)
@@ -31,6 +32,7 @@ shinyServer(function(input, output, session) {
     params$curves <- new_params$curves
 
     population_groups(names(new_params$groups))
+    all_conditions(get_all_conditions(params))
     treatments(names(new_params$treatments))
     curves(names(new_params$curves))
 
@@ -314,6 +316,10 @@ shinyServer(function(input, output, session) {
     demand_plot(model_output(), appointments(), input$services)
   })
 
+  output$graph <- renderPlotly({
+    create_graph(model_output(), treatments = input$services)
+  })
+
   # Output boxes
 
   tribble(
@@ -430,6 +436,32 @@ shinyServer(function(input, output, session) {
       coord_equal()
 
     ggplotly(my_plot)
+  })
+
+  # graphpage ====
+
+  observe({
+    updateSelectInput(session,
+                      "graphpage_select_groups",
+                      choices = population_groups(),
+                      selected = population_groups())
+
+    updateSelectInput(session,
+                      "graphpage_select_conditions",
+                      choices = all_conditions(),
+                      selected = all_conditions())
+
+    updateSelectInput(session,
+                      "graphpage_select_treatments",
+                      choices = treatments(),
+                      selected = treatments())
+  })
+
+  output$graphpage_graph <- renderPlotly({
+    create_graph(model_output(),
+                 input$graphpage_select_groups,
+                 input$graphpage_select_conditions,
+                 input$graphpage_select_treatments)
   })
 
 })

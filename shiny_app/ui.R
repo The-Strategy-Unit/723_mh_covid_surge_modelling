@@ -129,8 +129,29 @@ body_report <- tabItem(
     )
   ),
   fluidRow(
-    box(withSpinner(plotlyOutput("referrals_plot"))),
-    box(withSpinner(plotlyOutput("demand_plot")))
+    box(
+      withSpinner(
+        plotlyOutput(
+          "referrals_plot"
+        )
+      )
+    ),
+    box(
+      withSpinner(
+        plotlyOutput(
+          "demand_plot"
+        )
+      )
+    ),
+    box(
+      withSpinner(
+        plotlyOutput(
+          "graph",
+          height = "600px"
+        )
+      ),
+      width = 12
+    )
   )
 )
 
@@ -194,16 +215,85 @@ body_bubbleplot <- tabItem(
   )
 )
 
+body_graph <- tabItem(
+  "graphpage",
+  fluidRow(
+    box(
+      selectInput(
+        "graphpage_select_groups",
+        "Filter Groups",
+        choices = NA,
+        multiple = TRUE
+      ),
+      width = 4
+    ),
+    box(
+      selectInput(
+        "graphpage_select_conditions",
+        "Filter Conditions",
+        choices = NA,
+        multiple = TRUE
+      ),
+      width = 4
+    ),
+    box(
+      selectInput(
+        "graphpage_select_treatments",
+        "Filter Treatments",
+        choices = NA,
+        multiple = TRUE
+      ),
+      width = 4
+    ),
+    box(
+      withSpinner(
+        plotlyOutput(
+          "graphpage_graph",
+          height = "600px"
+        )
+      ),
+      width = 12
+    )
+  )
+)
+
 dashboardPage(
-  dashboardHeader(title = "Mersey Care MH Surge Modelling"),
+  dashboardHeader(
+    title = "Mersey Care MH Surge Modelling"
+  ),
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Parameters", tabName = "params", icon = icon("dashboard"), selected = TRUE),
-      menuItem("Results", tabName = "results", icon = icon("th")),
-      menuItem("Surge Demand - Population Group", tabName = "surgetab_subpopn"),
-      menuItem("Surge Demand - Condition", tabName = "surgetab_condition"),
-      menuItem("Surge Demand - Service", tabName = "surgetab_service"),
-      menuItem("Bubble Plot Test", tabName = "bubbleplot")
+      menuItem(
+        "Parameters",
+        tabName = "params",
+        icon = icon("dashboard"),
+        selected = TRUE
+      ),
+      menuItem(
+        "Results",
+        tabName = "results",
+        icon = icon("th")
+      ),
+      menuItem(
+        "Surge Demand - Population Group",
+        tabName = "surgetab_subpopn"
+      ),
+      menuItem(
+        "Surge Demand - Condition",
+        tabName = "surgetab_condition"
+      ),
+      menuItem(
+        "Surge Demand - Service",
+        tabName = "surgetab_service"
+      ),
+      menuItem(
+        "Bubble Plot Test",
+        tabName = "bubbleplot"
+      ),
+      menuItem(
+        "Graph",
+        tabName = "graphpage"
+      )
     )
   ),
   dashboardBody(
@@ -213,7 +303,8 @@ dashboardPage(
       body_surgesubpopn,
       body_surgecondition,
       body_surgetreatment,
-      body_bubbleplot
+      body_bubbleplot,
+      body_graph
     )
   )
 )
