@@ -367,7 +367,7 @@ app_server <- function( input, output, session ) {
   output$surge_subpopn_plot <- renderPlotly({
     model_output() %>%
       surge_summary(group) %>%
-      select(-`new-at-risk`) %>%
+      select(-.data$`new-at-risk`) %>%
       surge_plot()
   })
 
@@ -426,7 +426,7 @@ app_server <- function( input, output, session ) {
           "Pre existing LTC",               NA,
           "Pre existing SMI",               NA
         ) %>%
-          fill(level_2),
+          fill(.data$level_2),
         by = "subpopn"
       )
 
@@ -436,13 +436,13 @@ app_server <- function( input, output, session ) {
     dat_gg <- circleLayoutVertices(packing, npoints = 50) %>%
       left_join(tibble(level_2 = circle_pack_plot$level_2, id = 1:16), by = "id")
 
-    my_plot <- ggplot() +
+    my_plot <- ggplot(aes(.data$x, .data$y)) +
       geom_polygon(data = dat_gg,
-                   aes(x, y, group = id, fill = as.factor(level_2)),
+                   aes(group = .data$id, fill = as.factor(.data$level_2)),
                    colour = "black",
                    alpha = 0.6) +
       geom_text(data = circle_pack_plot,
-                aes(x, y, size = 20, label = subpopn)) +
+                aes(size = 20, label = .data$subpopn)) +
       scale_size_continuous(range = c(1, 4)) +
       theme_void() +
       theme(legend.position = "none") +

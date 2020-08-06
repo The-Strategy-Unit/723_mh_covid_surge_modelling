@@ -31,9 +31,9 @@ get_model_output <- function(models) {
     # add in a date column relating to the time value
     # we need to add in separately the month's and days
     mutate(date = ymd(20200501) %m+%
-             months(as.integer(floor(time))) %m+%
-             days(as.integer((time - floor(time)) * 30))) %>%
-    select(time, date, everything())
+             months(as.integer(floor(.data$time))) %m+%
+             days(as.integer((.data$time - floor(.data$time)) * 30))) %>%
+    select(.data$time, .data$date, everything())
 }
 
 #' @importFrom magrittr %>%
@@ -42,7 +42,7 @@ get_model_output <- function(models) {
 get_appointments <- function(params) {
   params$treatments %>%
     map_dfr(bind_cols, .id = "treatment") %>%
-    transmute(treatment, average_monthly_appointments = demand)
+    transmute(.data$treatment, average_monthly_appointments = .data$demand)
 }
 
 # model output helpers ====
@@ -54,8 +54,10 @@ get_appointments <- function(params) {
 #' @import rlang
 model_totals <- function(model_output, type, treatment) {
   model_output %>%
-    filter(type == {{type}}, treatment == {{treatment}}, day(date) == 1) %>%
-    pull(value) %>%
+    filter(.data$type == {{type}},
+           .data$treatment == {{treatment}},
+           day(.data$date) == 1) %>%
+    pull(.data$value) %>%
     sum() %>%
     comma()
 }
@@ -69,13 +71,15 @@ model_totals <- function(model_output, type, treatment) {
 #' @import rlang
 surge_summary <- function(model_output, column) {
   model_output %>%
-    filter(day(date) == 1, !is.na({{column}}), str_starts(type, "new-")) %>%
-    group_by(type, {{column}}) %>%
-    summarise(across(value, sum), .groups = "drop") %>%
-    pivot_wider(names_from = type, values_from = value) %>%
-    mutate(across({{column}}, fct_reorder, `new-referral`),
+    filter(day(.data$date) == 1,
+           !is.na({{column}}),
+           str_starts(.data$type, "new-")) %>%
+    group_by(.data$type, {{column}}) %>%
+    summarise(across(.data$value, sum), .groups = "drop") %>%
+    pivot_wider(names_from = .data$type, values_from = .data$value) %>%
+    mutate(across({{column}}, fct_reorder, .data$`new-referral`),
            across(starts_with("new-"), compose(as.integer, round))) %>%
-    arrange(desc(`new-referral`)) %>%
+    arrange(desc(.data$`new-referral`)) %>%
     rename(group = {{column}})
 }
 
@@ -84,13 +88,13 @@ surge_summary <- function(model_output, column) {
 #' @import rlang
 surge_table <- function(surge_data, group_name) {
   df <- surge_data %>%
-    rename({{group_name}} := `group`,
-           "Total symptomatic over period referrals" = `new-referral`,
-           "Total receiving services over period" = `new-treatment`)
+    rename({{group_name}} := .data$`group`,
+           "Total symptomatic over period referrals" = .data$`new-referral`,
+           "Total receiving services over period" = .data$`new-treatment`)
 
   if ("new-at-risk" %in% colnames(df)) {
     df <- df %>%
-      rename("Adjusted exposed / at risk @ baseline" = `new-at-risk`)
+      rename("Adjusted exposed / at risk @ baseline" = .data$`new-at-risk`)
   }
 
   df
@@ -107,14 +111,14 @@ get_model_params <- function(params) {
     map_dfr(~.x$conditions %>%
               map(modify_at, "treatments", map_dfr, bind_cols, .id = "treatment") %>%
               map_dfr(bind_cols, .id = "condition") %>%
-              group_by(condition) %>%
-              mutate(across(pcnt, ~.x * split / sum(split))) %>%
-              select(condition, treatment, pcnt, treat) %>%
+              group_by(.data$condition) %>%
+              mutate(across(.data$pcnt, ~.x * .data$split / sum(.data$split))) %>%
+              select(.data$condition, .data$treatment, .data$pcnt, .data$treat) %>%
               inner_join(params$treatments %>%
                            map_dfr(bind_cols, .id = "treatment"),
                          by = "treatment") %>%
-              mutate(across(decay, ~half_life_factor(months, .x))) %>%
-              select(-months, -demand),
+              mutate(across(.data$decay, ~half_life_factor(.data$months, .x))) %>%
+              select(-.data$months, -.data$demand),
             .id = "group") %>%
     as.data.frame()
 
@@ -163,22 +167,22 @@ download_output <- function(model_output, appointments) {
 
   function(file) {
     df <- model_output %>%
-      filter(day(.data[["date"]]) == 1) %>%
-      group_by(.data[["date"]],
-               .data[["type"]],
-               .data[["group"]],
-               .data[["condition"]],
-               .data[["treatment"]]) %>%
-      summarise(across(.data[["value"]], sum), .groups = "drop")
+      filter(day(.data$date) == 1) %>%
+      group_by(.data$date,
+               .data$type,
+               .data$group,
+               .data$condition,
+               .data$treatment) %>%
+      summarise(across(.data$value, sum), .groups = "drop")
 
     bind_rows(
       df,
       # add the demand data
       df %>%
-        filter(type == "treatment") %>%
+        filter(.data$type == "treatment") %>%
         inner_join(appointments, by = "treatment") %>%
         mutate(type = "demand",
-               value = value * average_monthly_appointments,
+               value = .data$value * .data$average_monthly_appointments,
                average_monthly_appointments = NULL)
     ) %>%
       write.csv(file, row.names = FALSE)
