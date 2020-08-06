@@ -2,18 +2,8 @@ half_life_factor <- function(t, p = 0.5) {
   log(p) / t
 }
 
-#' @importFrom magrittr %>%
-#' @importFrom purrr map
-#' @import rlang
-get_all_conditions <- function(params) {
-  params$groups %>%
-    map("conditions") %>%
-    map(names) %>%
-    unname() %>%
-    flatten_chr() %>%
-    unique() %>%
-    sort()
-}
+# tidyselect where is not-exported
+where <- tidyselect:::where
 
 # data conversion helpers ====
 
