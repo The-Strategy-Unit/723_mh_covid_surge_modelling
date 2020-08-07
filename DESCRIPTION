@@ -4,12 +4,11 @@ Version: 0.0.0.9000
 Authors@R: person('Tom', 'Jemmett', email = 'thomas.jemmett@nhs.net', role = c('cre', 'aut'))
 Description: PKG_DESC.
 License: MIT + file LICENSE
+Depends: R (>= 4.0)
 Imports: 
-    attempt,
     config,
     deSolve,
     dplyr,
-    DT,
     forcats,
     ggplot2,
     glue,
@@ -20,9 +19,7 @@ Imports:
     lubridate,
     magrittr,
     packcircles,
-    pkgload,
     plotly,
-    processx,
     purrr,
     readxl,
     rlang,
@@ -37,10 +34,15 @@ Imports:
     tidyselect,
     uuid,
     writexl
+Suggests:
+    here,
+    mockery,
+    pkgload,
+    processx,
+    testthat,
+    usethis
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
-Suggests: 
-    testthat
 URL: https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling
 BugReports: https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/issues
