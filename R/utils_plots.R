@@ -1,3 +1,31 @@
+#' @importFrom magrittr %>%
+#' @import rlang
+#' @import ggplot
+#' @importFrom plotly ggplotly layout config
+#' @importFrom dplyr filter group_by summarise across mutate rename
+#' @importFrom tidyr pivot_longer
+#' @importFrom lubridate ymd
+combined_plot <- function(model_output, treatment, params) {
+  df <- bind_rows(
+    models %>%
+      get_model_output() %>%
+      filter(.data$treatment == {{treatment}},
+             .data$type == "treatment") %>%
+      group_by(.data$date) %>%
+      summarise(across(.data$value, sum), .groups = "drop") %>%
+      mutate(type = "surge"),
+
+    params$demand[[treatment]] %>%
+      pivot_longer(-.data$month, names_to = "type") %>%
+      rename(date = month) %>%
+      mutate(across(date, ymd))
+  )
+
+  p <- ggplot(df, aes(date, value, colour = type)) +
+    geom_line()
+
+  ggplotly(p)
+}
 
 #' @importFrom magrittr %>%
 #' @importFrom dplyr filter group_by summarise across
