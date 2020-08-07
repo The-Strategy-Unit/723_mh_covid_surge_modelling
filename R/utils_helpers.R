@@ -20,10 +20,18 @@ get_all_conditions <- function(params) {
     sort()
 }
 
+#' Get model output
+#'
+#' Takes models list and returns a dataframe of the model results
+#'
+#' @param models the model output list
+#'
 #' @importFrom magrittr %>%
 #' @importFrom dplyr bind_rows mutate select
 #' @import tidyselect
 #' @importFrom lubridate %m+% ymd days
+#'
+#' @return a tibble
 get_model_output <- function(models) {
   models %>%
     # combine models
