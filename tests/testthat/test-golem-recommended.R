@@ -14,12 +14,11 @@ test_that("app server", {
 
 # Configure this test to fit your need
 test_that("app launches", {
-  if(!"R" %in% dir(here::here())) {
+  if (!"R" %in% dir(here::here())) {
     skip("This test only works in devtools::test")
   }
 
-  # The issue is around here::here(), it will be running in
-  # golemTest.Rcheck/tests/testthat
+  # The issue is around here::here(), it will be running in golemTest.Rcheck/tests/testthat
   # on R cmd check, so it won't find the functions to load
 
   skip_on_cran()

@@ -3,7 +3,7 @@ utils::globalVariables("group")
 #' @importFrom magrittr %>%
 #' @importFrom jsonlite read_json
 #' @importFrom purrr modify_at map
-.onLoad <- function(libname, pkgname) {
+.onLoad <- function(libname, pkgname) { # nolint
   sim_time <<- as.numeric(Sys.getenv("SIM_TIME", 1 / 5))
 
   params <<- app_sys("app/data/params.json") %>%
