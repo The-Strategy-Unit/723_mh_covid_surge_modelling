@@ -21,10 +21,23 @@ combined_plot <- function(model_output, treatment, params) {
       mutate(across(date, ymd))
   )
 
-  p <- ggplot(df, aes(date, value, colour = type)) +
-    geom_line()
+  df <- bind_rows(df,
+                  df %>%
+                    group_by(date) %>%
+                    summarise(type = "total", value = sum(value)) %>%
+                    filter(date %in% c(df %>% filter(type == "underlying") %>% pull(date)))
+                  )
 
-  ggplotly(p)
+  plot_ly(df,
+          type = "scatter",
+          mode = "lines",
+          x = ~date,
+          y = ~value,
+          color = ~type
+  ) %>%
+    layout(showlegend = TRUE,
+           xaxis = list(title = "Month"),
+           yaxis = list(title = "# Referrals"))
 }
 
 #' @importFrom magrittr %>%

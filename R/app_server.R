@@ -314,6 +314,10 @@ app_server <- function(input, output, session) {
     create_graph(model_output(), treatments = input$services)
   })
 
+  output$combined_plot <- renderPlotly({
+    combined_plot(model_output(), input$services, params %>% reactiveValuesToList())
+  })
+
   # Output boxes
 
   tribble(

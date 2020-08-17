@@ -161,6 +161,15 @@ app_ui <- function(request) {
           )
         ),
         width = 12
+      ),
+      box(
+        withSpinner(
+          plotlyOutput(
+            "combined_plot",
+            height = "600px"
+          )
+        ),
+        width = 12
       )
     )
   )
