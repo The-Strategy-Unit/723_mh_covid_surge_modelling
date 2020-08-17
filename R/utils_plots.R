@@ -272,13 +272,12 @@ create_graph <- function(model_output,
 #' @importFrom plotly ggplotly
 #' @importFrom packcircles circleProgressiveLayout circleLayoutVertices
 bubble_plot <- function(params) {
-  circle_pack_plot <- params$groups %>%
-    map_dbl("size") %>% {
-      tibble(
-        subpopn = names(.),
-        value = unname(.)
-      )
-    } %>%
+  population_group_sizes <- map_dbl(params$groups, "size")
+
+  circle_pack_plot <- tibble(
+    subpopn = names(population_group_sizes),
+    value = unname(population_group_sizes)
+  ) %>%
     left_join(
       tribble(
         ~subpopn,                         ~level_2,
