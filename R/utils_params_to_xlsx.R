@@ -1,5 +1,4 @@
-#' @importFrom magrittr %>%
-#' @importFrom dplyr bind_cols mutate row_number select bind_rows bind_cols
+#' @importFrom dplyr %>% bind_cols mutate row_number select bind_rows bind_cols
 #' @import tidyselect
 #' @importFrom purrr map_dfr modify_at map map_dbl map_depth
 #' @importFrom tibble enframe

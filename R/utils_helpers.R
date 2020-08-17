@@ -7,7 +7,7 @@ where <- tidyselect:::where
 
 # data conversion helpers ====
 
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>%
 #' @importFrom purrr map
 #' @import rlang
 get_all_conditions <- function(params) {
@@ -26,8 +26,7 @@ get_all_conditions <- function(params) {
 #'
 #' @param models the model output list
 #'
-#' @importFrom magrittr %>%
-#' @importFrom dplyr bind_rows mutate select
+#' @importFrom dplyr %>% bind_rows mutate select
 #' @import tidyselect
 #' @importFrom lubridate %m+% ymd days
 #'
@@ -44,8 +43,7 @@ get_model_output <- function(models) {
     select(.data$time, .data$date, everything())
 }
 
-#' @importFrom magrittr %>%
-#' @importFrom dplyr bind_cols transmute
+#' @importFrom dplyr %>% bind_cols transmute
 #' @importFrom purrr map_dfr
 get_appointments <- function(params) {
   params$treatments %>%
@@ -55,8 +53,7 @@ get_appointments <- function(params) {
 
 # model output helpers ====
 
-#' @importFrom magrittr %>%
-#' @importFrom dplyr filter pull
+#' @importFrom dplyr %>% filter pull
 #' @importFrom lubridate day
 #' @importFrom scales comma
 #' @import rlang
@@ -70,8 +67,7 @@ model_totals <- function(model_output, type, treatment) {
     comma()
 }
 
-#' @importFrom magrittr %>%
-#' @importFrom dplyr filter group_by summarise across mutate arrange desc rename
+#' @importFrom dplyr %>% filter group_by summarise across mutate arrange desc rename
 #' @importFrom purrr compose
 #' @importFrom stringr str_starts
 #' @importFrom lubridate day
@@ -91,8 +87,7 @@ surge_summary <- function(model_output, column) {
     rename(group = {{column}})
 }
 
-#' @importFrom magrittr %>%
-#' @importFrom dplyr rename
+#' @importFrom dplyr %>% rename
 #' @import rlang
 surge_table <- function(surge_data, group_name) {
   df <- surge_data %>%
@@ -110,8 +105,7 @@ surge_table <- function(surge_data, group_name) {
 
 # model helpers ====
 
-#' @importFrom magrittr %>%
-#' @importFrom dplyr bind_cols group_by mutate across select inner_join
+#' @importFrom dplyr %>% bind_cols group_by mutate across select inner_join
 #' @import tidyselect
 #' @importFrom purrr map_dfr map modify_at
 get_model_params <- function(params) {
@@ -137,7 +131,7 @@ get_model_params <- function(params) {
   p %>% as.matrix() %>% t()
 }
 
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>%
 #' @importFrom purrr map
 #' @importFrom stats approxfun
 get_model_potential_functions <- function(params) {
@@ -164,8 +158,7 @@ run_single_model <- function(params, groups, months, sim_time) {
 }
 
 # params helpers ====
-#' @importFrom magrittr %>%
-#' @importFrom dplyr mutate filter near group_by_at summarise across
+#' @importFrom dplyr %>% mutate filter near group_by_at summarise across
 #' @importFrom lubridate day
 #' @import rlang
 #' @importFrom utils write.csv

@@ -1,7 +1,6 @@
-#' @importFrom magrittr %>%
 #' @import rlang
 #' @importFrom plotly plot_ly layout config
-#' @importFrom dplyr filter group_by summarise across mutate rename
+#' @importFrom dplyr %>% filter group_by summarise across mutate rename
 #' @importFrom tidyr pivot_longer
 #' @importFrom lubridate ymd
 combined_plot <- function(model_output, treatment, params) {
@@ -39,8 +38,7 @@ combined_plot <- function(model_output, treatment, params) {
            yaxis = list(title = "# Referrals"))
 }
 
-#' @importFrom magrittr %>%
-#' @importFrom dplyr filter group_by summarise across
+#' @importFrom dplyr %>% filter group_by summarise across
 #' @import rlang
 #' @importFrom plotly plot_ly layout config
 referrals_plot <- function(model_output, treatment) {
@@ -68,8 +66,7 @@ referrals_plot <- function(model_output, treatment) {
     config(displayModeBar = FALSE)
 }
 
-#' @importFrom magrittr %>%
-#' @importFrom dplyr filter group_by summarise across inner_join mutate
+#' @importFrom dplyr %>% filter group_by summarise across inner_join mutate
 #' @import rlang
 #' @importFrom plotly plot_ly layout config
 demand_plot <- function(model_output, appointments, treatment) {
@@ -98,8 +95,7 @@ demand_plot <- function(model_output, appointments, treatment) {
     config(displayModeBar = FALSE)
 }
 
-#' @importFrom magrittr %>%
-#' @importFrom dplyr filter group_by summarise across inner_join mutate
+#' @importFrom dplyr %>% filter group_by summarise across inner_join mutate
 #' @importFrom forcats fct_reorder fct_relabel
 #' @importFrom stringr str_wrap
 #' @import rlang
@@ -126,8 +122,7 @@ popgroups_plot <- function(model_output, treatment) {
     config(displayModeBar = FALSE)
 }
 
-#' @importFrom magrittr %>%
-#' @importFrom dplyr mutate across rename
+#' @importFrom dplyr %>% mutate across rename
 #' @importFrom tidyr pivot_longer
 #' @importFrom forcats fct_rev
 #' @importFrom scales comma
@@ -160,9 +155,8 @@ surge_plot <- function(data) {
     config(displayModeBar = FALSE)
 }
 
-#' @importFrom magrittr %>% %$%
 #' @import rlang
-#' @importFrom dplyr filter group_by summarise across bind_rows
+#' @importFrom dplyr %>% filter group_by summarise across bind_rows
 #' @importFrom tidyr pivot_longer
 #' @importFrom purrr set_names compose map array_tree
 #' @importFrom lubridate day
@@ -271,10 +265,9 @@ create_graph <- function(model_output,
     config(displayModeBar = FALSE)
 }
 
-#' @importFrom magrittr %>%
 #' @importFrom purrr map_dbl
 #' @importFrom tibble enframe tribble tibble
-#' @importFrom dplyr left_join
+#' @importFrom dplyr %>% left_join
 #' @importFrom tidyr fill
 #' @import rlang
 #' @import ggplot2

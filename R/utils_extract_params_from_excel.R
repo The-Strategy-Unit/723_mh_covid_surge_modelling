@@ -1,7 +1,6 @@
-#' @importFrom magrittr %>%
 #' @importFrom purrr set_names map map2 compose
 #' @importFrom readxl excel_sheets read_excel
-#' @importFrom dplyr group_by summarise across anti_join select group_nest
+#' @importFrom dplyr %>% group_by summarise across anti_join select group_nest
 #' @importFrom tidyr pivot_longer
 #' @import rlang
 extract_params_from_excel <- function(raw_data_path) {
@@ -117,7 +116,7 @@ extract_params_from_excel <- function(raw_data_path) {
   )
 }
 
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>%
 #' @importFrom jsonlite write_json
 update_params_json <- function(params) {
   params %>%

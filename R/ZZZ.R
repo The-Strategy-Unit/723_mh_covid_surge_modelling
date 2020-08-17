@@ -1,6 +1,6 @@
 utils::globalVariables("group")
 
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>%
 #' @importFrom jsonlite read_json
 #' @importFrom purrr modify_at map
 .onLoad <- function(libname, pkgname) { # nolint

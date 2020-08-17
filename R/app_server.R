@@ -4,9 +4,8 @@
 #'     DO NOT REMOVE.
 #' @import shiny
 #' @import shinydashboard
-#' @importFrom magrittr %>%
 #' @importFrom uuid UUIDgenerate
-#' @importFrom dplyr select
+#' @importFrom dplyr %>% select
 #' @importFrom purrr map walk walk2 pmap map_dbl lift_dl modify_at set_names
 #' @importFrom stringr str_replace_all
 #' @importFrom jsonlite toJSON read_json

@@ -1,9 +1,8 @@
-#' @importFrom magrittr %>%
 #' @importFrom purrr set_names map_dbl map
 #' @importFrom stringr str_extract
 #' @importFrom deSolve ode
 #' @importFrom tibble as_tibble
-#' @importFrom dplyr rename_with
+#' @importFrom dplyr %>% rename_with
 #' @importFrom tidyr pivot_longer separate
 #' @import tidyselect
 run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), long_output_format = TRUE) {
