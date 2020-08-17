@@ -1,13 +1,12 @@
 utils::globalVariables("group")
 
 #' @importFrom dplyr %>%
-#' @importFrom jsonlite read_json
 #' @importFrom purrr modify_at map
 .onLoad <- function(libname, pkgname) { # nolint
   sim_time <<- as.numeric(Sys.getenv("SIM_TIME", 1 / 5))
 
-  params <<- app_sys("app/data/params.json") %>%
-    read_json(simplifyVector = TRUE) %>%
+  params <<- app_sys("app/data/params.xlsx") %>%
+    extract_params_from_excel() %>%
     modify_at("demand", as.list)
 
   population_groups <<- names(params$groups)

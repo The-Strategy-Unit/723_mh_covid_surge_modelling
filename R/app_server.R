@@ -7,7 +7,6 @@
 #' @importFrom dplyr %>% select tibble tribble
 #' @importFrom purrr map walk walk2 pmap map_dbl lift_dl modify_at set_names
 #' @importFrom stringr str_replace_all
-#' @importFrom jsonlite toJSON read_json
 #' @importFrom plotly renderPlotly
 #' @importFrom utils write.csv
 #' @noRd
@@ -33,8 +32,8 @@ app_server <- function(input, output, session) {
 
   ## New params
 
-  observeEvent(input$user_upload_json, {
-    new_params <- read_json(input$user_upload_json$datapath, simplifyVector = TRUE)
+  observeEvent(input$user_upload_xlsx, {
+    new_params <- extract_params_from_excel(input$user_upload_xlsx$datapath)
 
     params$groups <- new_params$groups
     params$treatments <- new_params$treatments
@@ -260,14 +259,12 @@ app_server <- function(input, output, session) {
 
   # download_params (downloadButton)
   output$download_params <- downloadHandler(
-    "params.json",
+    "params.xlsx",
     function(file) {
-      js <- reactiveValuesToList(params) %>%
-        toJSON(pretty = TRUE, auto_unbox = TRUE)
-
-      writeLines(js, file)
-    },
-    "application/json"
+      params %>%
+        reactiveValuesToList() %>%
+        params_to_xlsx(file)
+    }
   )
 
   # download_output (downloadButton)

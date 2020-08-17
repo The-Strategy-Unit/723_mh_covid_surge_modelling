@@ -1,7 +1,7 @@
 #' @importFrom dplyr %>% bind_cols mutate row_number select bind_rows bind_cols everything
 #' @importFrom purrr map_dfr modify_at map map_dbl map_depth
 #' @importFrom writexl write_xlsx
-params_to_xlsx <- function(params) {
+params_to_xlsx <- function(params, file) {
   xl <- list()
 
   xl$curves <- params$curves %>%
@@ -32,5 +32,5 @@ params_to_xlsx <- function(params) {
   xl$demand <- params$demand %>%
     bind_rows(.id = "service")
 
-  write_xlsx(xl, "params.xlsx")
+  write_xlsx(xl, file)
 }

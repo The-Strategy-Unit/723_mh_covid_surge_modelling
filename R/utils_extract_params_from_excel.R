@@ -4,9 +4,14 @@
 #' @importFrom tidyr pivot_longer
 #' @import rlang
 extract_params_from_excel <- function(raw_data_path) {
-  raw_data <- excel_sheets(raw_data_path) %>%
-    set_names() %>%
-    map(read_excel, path = raw_data_path)
+  sheet_names <- excel_sheets(raw_data_path) %>%
+    set_names()
+
+  # TODO: verify sheet names are correct
+
+  raw_data <- sheet_names %>%
+    # users shouldn't be able to upload more than 1000 rows of data
+    map(read_excel, path = raw_data_path, n_max = 1000)
 
   # verify data ====
 
@@ -114,11 +119,4 @@ extract_params_from_excel <- function(raw_data_path) {
     curves = set_names(curves$value, curves$name),
     demand = set_names(demand$data, demand$service)
   )
-}
-
-#' @importFrom dplyr %>%
-#' @importFrom jsonlite write_json
-update_params_json <- function(params) {
-  params %>%
-    write_json("params.json", pretty = TRUE, auto_unbox = TRUE)
 }

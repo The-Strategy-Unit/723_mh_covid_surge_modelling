@@ -95,13 +95,13 @@ app_ui <- function(request) {
       column(
         4,
         box(
-          title = "Upload JSON parameters",
+          title = "Upload parameters",
           width = 12,
           fileInput(
-            "user_upload_json",
+            "user_upload_xlsx",
             label = NULL,
             multiple = FALSE,
-            accept = ".json",
+            accept = ".xlsx",
             placeholder = "Previously downloaded parameters"
           )
         ),

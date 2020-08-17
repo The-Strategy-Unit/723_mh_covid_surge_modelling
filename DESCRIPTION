@@ -14,7 +14,6 @@ Imports:
     golem,
     htmltools,
     igraph,
-    jsonlite,
     lubridate,
     methods,
     packcircles,
