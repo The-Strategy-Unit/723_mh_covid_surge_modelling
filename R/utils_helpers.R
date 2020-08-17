@@ -72,7 +72,7 @@ model_totals <- function(model_output, type, treatment) {
     comma()
 }
 
-#' @importFrom dplyr %>% filter group_by summarise across mutate arrange desc rename
+#' @importFrom dplyr %>% filter group_by summarise across mutate arrange desc rename starts_with
 #' @importFrom purrr compose
 #' @importFrom stringr str_starts
 #' @importFrom lubridate day
