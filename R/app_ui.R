@@ -5,7 +5,6 @@
 #' @import shiny
 #' @import shinydashboard
 #' @import shinycssloaders
-#' @import shinyWidgets
 #' @importFrom plotly plotlyOutput
 #' @noRd
 app_ui <- function(request) {
