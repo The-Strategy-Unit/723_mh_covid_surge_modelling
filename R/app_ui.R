@@ -132,7 +132,11 @@ app_ui <- function(request) {
       ),
       box(
         width = 5,
-        plotOutput("results_popgroups"),
+        withSpinner(
+          plotlyOutput(
+            "results_popgroups"
+          )
+        ),
         title = "Population group source of 'surge'",
         solidHeader = TRUE,
         status = "primary"

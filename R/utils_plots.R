@@ -100,31 +100,31 @@ demand_plot <- function(model_output, appointments, treatment) {
 
 #' @importFrom magrittr %>%
 #' @importFrom dplyr filter group_by summarise across inner_join mutate
-#' @importFrom forcats fct_reorder
+#' @importFrom forcats fct_reorder fct_relabel
 #' @importFrom stringr str_wrap
 #' @import ggplot2
 #' @import rlang
 popgroups_plot <- function(model_output, treatment) {
-  model_output %>%
+  df <- model_output %>%
     filter(.data$type == "new-referral",
            .data$treatment == {{treatment}},
            day(.data$date) == 1) %>%
     group_by(.data$group) %>%
     summarise(`# Referrals` = round(sum(.data$value), 0), .groups = "drop") %>%
     filter(.data$`# Referrals` != 0) %>%
-    mutate(across(.data$group, fct_reorder, .data$`# Referrals`)) %>%
-    ggplot(aes(.data$group, .data$`# Referrals`)) +
-    theme_minimal() +
-    geom_col(fill = "#00c0ef") +
-    geom_text(aes(label = .data$`# Referrals`),
-              hjust = -0.1) +
-    coord_flip(clip = "off") +
-    scale_x_discrete(labels = function(x) str_wrap(x, 13)) +
-    scale_y_continuous(expand = expansion(mult = c(0, .15))) +
-    theme(axis.title.y = element_blank(),
-          axis.ticks.y = element_blank(),
-          plot.margin = margin(t = 0, r = 25, b = 0, l = 0, unit = "pt")
-    )
+    mutate(across(.data$group, fct_reorder, .data$`# Referrals`))
+
+  plot_ly(df,
+          x = ~`# Referrals`,
+          y = ~group,
+          text = df$`# Referrals`,
+          textposition = "auto",
+          type = "bar",
+          marker = list(color = "rgb(158,202,225)",
+                        line = list(color = "rgb(8,48,107)", width = 1.5))) %>%
+    layout(xaxis = list(title = "# Referrals"),
+           yaxis = list(title = "")) %>%
+    config(displayModeBar = FALSE)
 }
 
 #' @importFrom magrittr %>%

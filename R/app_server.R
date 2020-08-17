@@ -335,7 +335,7 @@ app_server <- function(input, output, session) {
       })
     })
 
-  output$results_popgroups <- renderPlot({
+  output$results_popgroups <- renderPlotly({
     popgroups_plot(model_output(), input$services)
   })
 
