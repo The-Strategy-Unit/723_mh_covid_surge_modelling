@@ -2,6 +2,11 @@ half_life_factor <- function(t, p = 0.5) {
   log(p) / t
 }
 
+# simple version of scales::comma
+comma <- function(x) {
+  format(round(x), big.mark = ",")
+}
+
 # tidyselect where is not-exported
 where <- tidyselect:::where
 
@@ -55,7 +60,6 @@ get_appointments <- function(params) {
 
 #' @importFrom dplyr %>% filter pull
 #' @importFrom lubridate day
-#' @importFrom scales comma
 #' @import rlang
 model_totals <- function(model_output, type, treatment) {
   model_output %>%

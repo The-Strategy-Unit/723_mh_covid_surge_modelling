@@ -125,7 +125,6 @@ popgroups_plot <- function(model_output, treatment) {
 #' @importFrom dplyr %>% mutate across rename
 #' @importFrom tidyr pivot_longer
 #' @importFrom forcats fct_rev
-#' @importFrom scales comma
 #' @importFrom plotly layout config add_trace
 surge_plot <- function(data) {
   df <- data %>%
@@ -137,14 +136,14 @@ surge_plot <- function(data) {
           x = ~`Received treatment`,
           y = ~group,
           text = paste0("<b>Received treatment</b><br>",
-                        comma(df[["Received treatment"]], accuracy = 1)),
+                        comma(df[["Received treatment"]])),
           hoverinfo = "text",
           type = "bar",
           name = "Received treatment") %>%
     add_trace(x = ~df[["Referred, but not treated"]],
               name = "Referred, but not treated",
               text = paste0("<b>Referred, but not treated</b><br>",
-                            comma(df[["Referred, but not treated"]], accuracy = 1))) %>%
+                            comma(df[["Referred, but not treated"]]))) %>%
     layout(xaxis = list(title = "Total Referrals / Treatments"),
            yaxis = list(title = ""),
            barmode = "stack",

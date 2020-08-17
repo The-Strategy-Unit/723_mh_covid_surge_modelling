@@ -21,7 +21,6 @@ Imports:
     purrr,
     readxl,
     rlang,
-    scales,
     shiny,
     shinycssloaders,
     shinydashboard,
