@@ -15,27 +15,26 @@ combined_plot <- function(model_output, treatment, params) {
 
     params$demand[[treatment]] %>%
       pivot_longer(-.data$month, names_to = "type") %>%
-      rename(date = month) %>%
-      mutate(across(date, ymd))
+      rename(date = .data$month) %>%
+      mutate(across(.data$date, ymd))
   )
 
-  df <- bind_rows(df,
-                  df %>%
-                    group_by(date) %>%
-                    summarise(type = "total", value = sum(value)) %>%
-                    filter(date %in% c(df %>% filter(type == "underlying") %>% pull(date)))
-                  )
-
-  plot_ly(df,
-          type = "scatter",
-          mode = "lines",
-          x = ~date,
-          y = ~value,
-          color = ~type
+  bind_rows(
+    df,
+    df %>%
+      filter(day(date) == 1) %>%
+      group_by(.data$date) %>%
+      summarise(across(.data$value, sum), type = "total")
   ) %>%
+    plot_ly(type = "scatter",
+            mode = "lines",
+            x = ~date,
+            y = ~value,
+            color = ~type) %>%
     layout(showlegend = TRUE,
            xaxis = list(title = "Month"),
-           yaxis = list(title = "# Referrals"))
+           yaxis = list(title = "# Referrals")) %>%
+    config(displayModeBar = FALSE)
 }
 
 #' @importFrom dplyr %>% filter group_by summarise across
