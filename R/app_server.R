@@ -13,12 +13,7 @@
 #' @importFrom utils write.csv
 #' @noRd
 app_server <- function(input, output, session) {
-  # create a counter object that can be accessed with a method "get()"
-  counter <- as.environment(list("__value" = 0))
-  counter$get <- function() {
-    # increment the counter and return it
-    (counter[["__value"]] <- counter[["__value"]] + 1)
-  }
+  counter <- Counter$new()
 
   population_groups <- reactiveVal(population_groups)
   all_conditions <- reactiveVal(get_all_conditions(params))
