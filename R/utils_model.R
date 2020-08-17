@@ -2,9 +2,8 @@
 #' @importFrom stringr str_extract
 #' @importFrom deSolve ode
 #' @importFrom tibble as_tibble
-#' @importFrom dplyr %>% rename_with
+#' @importFrom dplyr %>% rename_with all_of
 #' @importFrom tidyr pivot_longer separate
-#' @import tidyselect
 run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), long_output_format = TRUE) {
   # ensure params are ordered
   params <- params[, sort(colnames(params))]

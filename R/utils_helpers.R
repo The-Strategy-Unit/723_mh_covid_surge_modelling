@@ -7,8 +7,10 @@ comma <- function(x) {
   format(round(x), big.mark = ",")
 }
 
-# tidyselect where is not-exported
-where <- tidyselect:::where
+# reimplements tidyselect::where. this is far simpler but will suffice for our needs
+where <- function(fn) {
+  function(x, ...) fn(x, ...)
+}
 
 # data conversion helpers ====
 
@@ -31,8 +33,7 @@ get_all_conditions <- function(params) {
 #'
 #' @param models the model output list
 #'
-#' @importFrom dplyr %>% bind_rows mutate select
-#' @import tidyselect
+#' @importFrom dplyr %>% bind_rows mutate select everything
 #' @importFrom lubridate %m+% ymd days
 #'
 #' @return a tibble
@@ -110,7 +111,6 @@ surge_table <- function(surge_data, group_name) {
 # model helpers ====
 
 #' @importFrom dplyr %>% bind_cols group_by mutate across select inner_join
-#' @import tidyselect
 #' @importFrom purrr map_dfr map modify_at
 get_model_params <- function(params) {
   p <- params$groups %>%

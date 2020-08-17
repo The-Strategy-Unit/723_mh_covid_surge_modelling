@@ -16,6 +16,7 @@ Imports:
     igraph,
     jsonlite,
     lubridate,
+    methods,
     packcircles,
     plotly,
     purrr,
@@ -27,7 +28,6 @@ Imports:
     stringr,
     tibble,
     tidyr,
-    tidyselect,
     writexl
 Suggests:
     here,
