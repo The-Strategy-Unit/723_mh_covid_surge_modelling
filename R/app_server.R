@@ -4,7 +4,6 @@
 #'     DO NOT REMOVE.
 #' @import shiny
 #' @import shinydashboard
-#' @importFrom uuid UUIDgenerate
 #' @importFrom dplyr %>% select
 #' @importFrom purrr map walk walk2 pmap map_dbl lift_dl modify_at set_names
 #' @importFrom stringr str_replace_all
@@ -14,6 +13,12 @@
 #' @importFrom utils write.csv
 #' @noRd
 app_server <- function(input, output, session) {
+  # create a counter object that can be accessed with a method "get()"
+  counter <- as.environment(list("__value" = 0))
+  counter$get<- function() {
+    # increment the counter and return it
+    (counter[["__value"]] <- counter[["__value"]] + 1)
+  }
 
   population_groups <- reactiveVal(population_groups)
   all_conditions <- reactiveVal(get_all_conditions(params))
@@ -46,7 +51,7 @@ app_server <- function(input, output, session) {
     treatments(names(new_params$treatments))
     curves(names(new_params$curves))
 
-    u <- UUIDgenerate()
+    u <- counter$get()
     redraw_dropdowns(u)
     redraw_treatments(u)
     redraw_g2c(u)
@@ -69,7 +74,7 @@ app_server <- function(input, output, session) {
 
   # popn_subgroup (selectInput)
   observeEvent(input$popn_subgroup, {
-    redraw_g2c(UUIDgenerate())
+    redraw_g2c(counter$get())
   })
 
   observeEvent(redraw_g2c(), {
@@ -79,7 +84,7 @@ app_server <- function(input, output, session) {
 
     conditions <- names(px$conditions)
     updateSelectInput(session, "sliders_select_cond", choices = conditions)
-    redraw_c2t(UUIDgenerate())
+    redraw_c2t(counter$get())
 
     updateNumericInput(session, "subpopulation_size", value = px$size)
     updateNumericInput(session, "subpopulation_pcnt", value = px$pcnt)
@@ -145,7 +150,7 @@ app_server <- function(input, output, session) {
 
   # sliders_select_cond (selectInput)
   observeEvent(input$sliders_select_cond, {
-    redraw_c2t(UUIDgenerate())
+    redraw_c2t(counter$get())
   })
 
   observeEvent(redraw_c2t(), {
@@ -224,7 +229,7 @@ app_server <- function(input, output, session) {
 
   # treatment_type (selectInput)
   observeEvent(input$treatment_type, {
-    redraw_treatments(UUIDgenerate())
+    redraw_treatments(counter$get())
   })
 
   observeEvent(redraw_treatments(), {

@@ -29,7 +29,6 @@ Imports:
     tibble,
     tidyr,
     tidyselect,
-    uuid,
     writexl
 Suggests:
     here,
