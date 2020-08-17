@@ -1,7 +1,6 @@
 #' @importFrom magrittr %>%
 #' @import rlang
-#' @import ggplot
-#' @importFrom plotly ggplotly layout config
+#' @importFrom plotly plot_ly layout config
 #' @importFrom dplyr filter group_by summarise across mutate rename
 #' @importFrom tidyr pivot_longer
 #' @importFrom lubridate ymd
