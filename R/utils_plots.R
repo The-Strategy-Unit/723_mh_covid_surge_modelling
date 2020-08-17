@@ -265,8 +265,7 @@ create_graph <- function(model_output,
 }
 
 #' @importFrom purrr map_dbl
-#' @importFrom tibble enframe tribble tibble
-#' @importFrom dplyr %>% left_join
+#' @importFrom dplyr %>% left_join tibble tribble
 #' @importFrom tidyr fill
 #' @import rlang
 #' @import ggplot2
@@ -274,8 +273,12 @@ create_graph <- function(model_output,
 #' @importFrom packcircles circleProgressiveLayout circleLayoutVertices
 bubble_plot <- function(params) {
   circle_pack_plot <- params$groups %>%
-    map_dbl("size") %>%
-    enframe(name = "subpopn") %>%
+    map_dbl("size") %>% {
+      tibble(
+        subpopn = names(.),
+        value = unname(.)
+      )
+    } %>%
     left_join(
       tribble(
         ~subpopn,                         ~level_2,

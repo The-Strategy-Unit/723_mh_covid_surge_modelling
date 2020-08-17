@@ -1,8 +1,7 @@
 #' @importFrom purrr set_names map_dbl map
 #' @importFrom stringr str_extract
 #' @importFrom deSolve ode
-#' @importFrom tibble as_tibble
-#' @importFrom dplyr %>% rename_with all_of
+#' @importFrom dplyr %>% rename_with all_of tibble as_tibble
 #' @importFrom tidyr pivot_longer separate
 run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), long_output_format = TRUE) {
   # ensure params are ordered

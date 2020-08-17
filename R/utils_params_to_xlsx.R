@@ -1,6 +1,5 @@
 #' @importFrom dplyr %>% bind_cols mutate row_number select bind_rows bind_cols everything
 #' @importFrom purrr map_dfr modify_at map map_dbl map_depth
-#' @importFrom tibble enframe
 #' @importFrom writexl write_xlsx
 params_to_xlsx <- function(params) {
   xl <- list()
@@ -16,7 +15,7 @@ params_to_xlsx <- function(params) {
   xl$g2c <- params$groups %>%
     map("conditions") %>%
     map(map_dbl, "pcnt") %>%
-    map_dfr(enframe, name = "condition", value = "pcnt", .id = "group")
+    map_dfr(~list(condition = names(.x), pcnt = unname(.x)), .id = "group")
 
 
   xl$c2t <- params$groups %>%

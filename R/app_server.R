@@ -4,11 +4,10 @@
 #'     DO NOT REMOVE.
 #' @import shiny
 #' @import shinydashboard
-#' @importFrom dplyr %>% select
+#' @importFrom dplyr %>% select tibble tribble
 #' @importFrom purrr map walk walk2 pmap map_dbl lift_dl modify_at set_names
 #' @importFrom stringr str_replace_all
 #' @importFrom jsonlite toJSON read_json
-#' @importFrom tibble tribble
 #' @importFrom plotly renderPlotly
 #' @importFrom utils write.csv
 #' @noRd
