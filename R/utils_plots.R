@@ -102,7 +102,6 @@ demand_plot <- function(model_output, appointments, treatment) {
 #' @importFrom dplyr filter group_by summarise across inner_join mutate
 #' @importFrom forcats fct_reorder fct_relabel
 #' @importFrom stringr str_wrap
-#' @import ggplot2
 #' @import rlang
 popgroups_plot <- function(model_output, treatment) {
   df <- model_output %>%
@@ -131,34 +130,30 @@ popgroups_plot <- function(model_output, treatment) {
 #' @importFrom dplyr mutate across rename
 #' @importFrom tidyr pivot_longer
 #' @importFrom forcats fct_rev
-#' @importFrom glue glue
-#' @import ggplot2
-#' @importFrom plotly ggplotly layout config
+#' @importFrom scales comma
+#' @importFrom plotly layout config add_trace
 surge_plot <- function(data) {
-  p <- data %>%
+  df <- data %>%
     mutate(across(.data$`new-referral`, ~.x - .data$`new-treatment`)) %>%
     rename("Received treatment" = .data$`new-treatment`,
-           "Referred, but not treated" = .data$`new-referral`) %>%
-    pivot_longer(-.data$group) %>%
-    mutate(across(.data$name, fct_rev),
-           text = glue("<b>{name}</b><br>{value}")) %>%
-    ggplot(aes(.data$value, .data$group, fill = .data$name, text = .data$text)) +
-    geom_col() +
-    scale_x_continuous(expand = expansion(c(0, 0.05))) +
-    scale_fill_discrete(guide = guide_legend(reverse = TRUE)) +
-    theme(panel.background = element_blank(),
-          panel.grid = element_blank(),
-          axis.ticks.y = element_blank(),
-          axis.line.x = element_line(),
-          legend.title = element_blank(),
-          legend.background = element_blank()) +
-    labs(y = "",
-         x = "Total Referrals / Treatments",
-         caption = paste0("The total receiving services offered for each condition will never exceed the total",
-                          "symptomatic over period referrals"))
+           "Referred, but not treated" = .data$`new-referral`)
 
-  ggplotly(p, tooltip = "text") %>%
-    layout(legend = list(xanchor = "right",
+  plot_ly(df,
+          x = ~`Received treatment`,
+          y = ~group,
+          text = paste0("<b>Received treatment</b><br>",
+                        comma(df[["Received treatment"]], accuracy = 1)),
+          hoverinfo = "text",
+          type = "bar",
+          name = "Received treatment") %>%
+    add_trace(x = ~df[["Referred, but not treated"]],
+              name = "Referred, but not treated",
+              text = paste0("<b>Referred, but not treated</b><br>",
+                            comma(df[["Referred, but not treated"]], accuracy = 1))) %>%
+    layout(xaxis = list(title = "Total Referrals / Treatments"),
+           yaxis = list(title = ""),
+           barmode = "stack",
+           legend = list(xanchor = "right",
                          yanchor = "bottom",
                          x = 0.99,
                          y = 0.01)) %>%
