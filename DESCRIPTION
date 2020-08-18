@@ -16,6 +16,7 @@ Imports:
     igraph,
     lubridate,
     methods,
+    pkgload,
     packcircles,
     plotly,
     purrr,
@@ -29,7 +30,6 @@ Imports:
 Suggests:
     here,
     mockery,
-    pkgload,
     processx,
     testthat,
     usethis
