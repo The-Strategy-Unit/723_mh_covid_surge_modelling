@@ -1,8 +1,19 @@
+#' Run Model
+#'
+#' Performs the Systems Dynamics modelling on the given parameter values.
+#'
+#' @param params the value returned from \code{get_model_params()} from the current `params`
+#' @param new_potential the value returned from \code{get_model_potential_functions()} from the current `params`
+#' @param simtime the points at which we should try to solve the function at. Defaults to 0 to 18 (months), solving at
+#'   intervals of 1 / 30 (e.g. each day in the month)
+#'
+#' @return a tibble of the results of running the model
+#'
 #' @importFrom purrr set_names map_chr map_dbl map
 #' @importFrom deSolve ode
 #' @importFrom dplyr %>% rename_with all_of tibble as_tibble
 #' @importFrom tidyr pivot_longer separate
-run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), long_output_format = TRUE) {
+run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30)) {
   # ensure params are ordered
   params <- params[, sort(colnames(params))]
 
@@ -77,16 +88,11 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
   }
 
   # run the model and return the results in a long tidy format
-  o <- ode(stocks, simtime, model, params, "euler") %>%
+  ode(stocks, simtime, model, params, "euler") %>%
     as.data.frame() %>%
     as_tibble() %>%
     rename_with(~paste0("at-risk|", .x), .cols = all_of(initials)) %>%
-    rename_with(~paste0("treatment|", .x), .cols = all_of(treatments))
-
-  if (long_output_format) {
-    o <- o %>%
-      pivot_longer(-.data$time) %>%
-      separate(.data$name, c("type", "group", "condition", "treatment"), "\\|", fill = "right")
-  }
-  o
+    rename_with(~paste0("treatment|", .x), .cols = all_of(treatments)) %>%
+    pivot_longer(-.data$time) %>%
+    separate(.data$name, c("type", "group", "condition", "treatment"), "\\|", fill = "right")
 }
