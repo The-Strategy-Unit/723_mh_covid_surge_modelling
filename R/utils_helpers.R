@@ -74,7 +74,6 @@ model_totals <- function(model_output, type, treatment) {
 
 #' @importFrom dplyr %>% filter group_by summarise across mutate arrange desc rename starts_with
 #' @importFrom purrr compose
-#' @importFrom stringr str_starts
 #' @importFrom lubridate day
 #' @importFrom tidyr pivot_wider
 #' @import rlang
@@ -82,7 +81,7 @@ surge_summary <- function(model_output, column) {
   model_output %>%
     filter(day(.data$date) == 1,
            !is.na({{column}}),
-           str_starts(.data$type, "new-")) %>%
+           grepl("^new-", .data$type)) %>%
     group_by(.data$type, {{column}}) %>%
     summarise(across(.data$value, sum), .groups = "drop") %>%
     pivot_wider(names_from = .data$type, values_from = .data$value) %>%

@@ -1,5 +1,4 @@
-#' @importFrom purrr set_names map_dbl map
-#' @importFrom stringr str_extract
+#' @importFrom purrr set_names map_chr map_dbl map
 #' @importFrom deSolve ode
 #' @importFrom dplyr %>% rename_with all_of tibble as_tibble
 #' @importFrom tidyr pivot_longer separate
@@ -11,9 +10,10 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
   treatments <- colnames(params)
 
   # get the names of the initial groups from the start of the treatment names
-  initials <- treatments %>%
-    str_extract("^([^|]+)(?=|)") %>%
-    unique()
+  all_initials <- treatments %>%
+    strsplit("\\|") %>%
+    map_chr(1)
+  initials <- unique(all_initials)
 
   # reorders the new_potential object to be same order as the initials
   new_potential <- new_potential[initials]
@@ -25,8 +25,7 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30), 
 
   # create a matrix that can take the initial group stocks and create a matrix that matches the treatment stocks.
   # each initial group is a column in the matrix
-  initial_treatment_map <- treatments %>%
-    str_extract("([^|]+)(?=|)") %>%
+  initial_treatment_map <- all_initials %>%
     map(~as.numeric(.x == initials)) %>%
     flatten_dbl() %>%
     matrix(ncol = length(initials), byrow = TRUE)

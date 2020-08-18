@@ -96,7 +96,6 @@ demand_plot <- function(model_output, appointments, treatment) {
 
 #' @importFrom dplyr %>% filter group_by summarise across inner_join mutate
 #' @importFrom forcats fct_reorder fct_relabel
-#' @importFrom stringr str_wrap
 #' @import rlang
 popgroups_plot <- function(model_output, treatment) {
   df <- model_output %>%

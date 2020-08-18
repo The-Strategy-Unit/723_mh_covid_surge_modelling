@@ -24,7 +24,6 @@ Imports:
     shiny,
     shinycssloaders,
     shinydashboard,
-    stringr,
     tidyr,
     writexl
 Suggests:

@@ -6,7 +6,6 @@
 #' @import shinydashboard
 #' @importFrom dplyr %>% select tibble tribble
 #' @importFrom purrr map walk walk2 pmap map_dbl lift_dl modify_at set_names
-#' @importFrom stringr str_replace_all
 #' @importFrom plotly renderPlotly
 #' @importFrom utils write.csv
 #' @noRd
@@ -98,7 +97,7 @@ app_server <- function(input, output, session) {
     # loop over the conditions (and the corresponding max values)
     walk2(conditions, mv, function(i, mv) {
       # slider names can't have spaces, replace with _
-      slider_name <- paste0("slider_cond_pcnt_", i) %>% str_replace_all(" ", "_")
+      slider_name <- gsub(" ", "_", paste0("slider_cond_pcnt_", i))
       slider <- sliderInput(
         slider_name, label = i,
         value = px$conditions[[i]]$pcnt * 100,
@@ -114,7 +113,7 @@ app_server <- function(input, output, session) {
         m <- 1 - params$groups[[sg]]$conditions %>% map_dbl("pcnt") %>% sum()
         walk(conditions, function(j) {
           v <- params$groups[[sg]]$conditions[[j]]$pcnt + m
-          sn <- paste0("slider_cond_pcnt_", j) %>% str_replace_all(" ", "_")
+          sn <- gsub(" ", "_", paste0("slider_cond_pcnt_", j))
           updateSliderInput(session, sn, max = v * 100)
         })
       })
@@ -165,7 +164,7 @@ app_server <- function(input, output, session) {
     # loop over the treatments
     walk(treatments_pathways, function(i) {
       # slider names can't have spaces, replace with _
-      ix <- str_replace_all(i, " ", "_")
+      ix <- gsub(" ", "_", i)
       split_name <- paste0("numeric_treatpath_split_", ix)
       treat_name <- paste0("slider_treatpath_treat_", ix)
 
