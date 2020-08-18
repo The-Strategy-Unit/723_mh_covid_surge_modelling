@@ -7,9 +7,9 @@
 popgroups_plot(model_output, treatment)
 }
 \arguments{
-\item{treatment}{a name of a treatment to filter by}
+\item{model_output}{output from \code{run_model()} and \code{get_model_output()}}
 
-\item{model_ouput}{output from \code{run_model()} and \code{get_model_output()}}
+\item{treatment}{a name of a treatment to filter by}
 }
 \value{
 a plotly chart

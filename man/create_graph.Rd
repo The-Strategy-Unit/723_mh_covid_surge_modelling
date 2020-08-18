@@ -12,13 +12,13 @@ create_graph(
 )
 }
 \arguments{
+\item{model_output}{output from \code{run_model()} and \code{get_model_output()}}
+
 \item{groups}{a vector of population groups to include in the graph, defaults to all groups}
 
 \item{conditions}{a vector of conditions to include in the graph, defaults to all conditions}
 
-\item{model_ouput}{output from \code{run_model()} and \code{get_model_output()}}
-
-\item{treatment}{a vector of treatments to include in the graph, defaults to all treatments}
+\item{treatments}{a vector of treatments to include in the graph, defaults to all treatments}
 }
 \value{
 a plotly chart

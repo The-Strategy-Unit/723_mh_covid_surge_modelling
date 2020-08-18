@@ -7,11 +7,11 @@
 combined_plot(model_output, treatment, params)
 }
 \arguments{
+\item{model_output}{output from \code{run_model()} and \code{get_model_output()}}
+
 \item{treatment}{a name of a treatment to filter by}
 
 \item{params}{the current `params` object used to model the data}
-
-\item{model_ouput}{output from \code{run_model()} and \code{get_model_output()}}
 }
 \value{
 a plotly chart

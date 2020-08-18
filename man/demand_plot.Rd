@@ -7,11 +7,11 @@
 demand_plot(model_output, appointments, treatment)
 }
 \arguments{
+\item{model_output}{output from \code{run_model()} and \code{get_model_output()}}
+
 \item{appointments}{output from \code{get_appointments()}}
 
 \item{treatment}{a name of a treatment to filter by}
-
-\item{model_ouput}{output from \code{run_model()} and \code{get_model_output()}}
 }
 \value{
 a plotly chart
