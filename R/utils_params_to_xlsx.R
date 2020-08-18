@@ -1,3 +1,12 @@
+#' Params To xlsx
+#'
+#' Take the `params` and creates an Excel file which can be downloaded and reuploaded at a later date
+#'
+#' @param params the current `params` object used to model the data
+#' @param file the filename where to save the xlsx file
+#'
+#' @return invisibly returns where the file was saved
+#'
 #' @importFrom dplyr %>% bind_cols mutate row_number select bind_rows bind_cols everything
 #' @importFrom purrr map_dfr modify_at map map_dbl map_depth
 #' @importFrom writexl write_xlsx
