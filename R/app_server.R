@@ -309,7 +309,7 @@ app_server <- function(input, output, session) {
   })
 
   output$combined_plot <- renderPlotly({
-    combined_plot(model_output(), input$services, params %>% reactiveValuesToList())
+    combined_plot(model_output(), input$services, reactiveValuesToList(params))
   })
 
   # Output boxes
