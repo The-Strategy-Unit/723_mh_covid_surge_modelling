@@ -1,5 +1,9 @@
+# any global variables that are used in the package need to be listed here: this will largely just be any NSE column
+# names
 utils::globalVariables("group")
 
+# This function runs when the package is loaded: use it to set any variables into the parent environment
+# note: must use the global assignment operator (<<-)
 #' @importFrom dplyr %>%
 #' @importFrom purrr modify_at map
 .onLoad <- function(libname, pkgname) { # nolint
