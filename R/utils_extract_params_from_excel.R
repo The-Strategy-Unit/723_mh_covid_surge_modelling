@@ -1,13 +1,32 @@
-#' @importFrom magrittr %>%
+#' Extract Params From Excel File
+#'
+#' Extracts the params object to use in the model from an Excel file
+#'
+#' @param raw_data_path the filepath where the Excel file is located
+#'
+#' @return `param` object to use in the model
+#'
 #' @importFrom purrr set_names map map2 compose
 #' @importFrom readxl excel_sheets read_excel
-#' @importFrom dplyr group_by summarise across anti_join select group_nest
+#' @importFrom dplyr %>% group_by summarise across anti_join select group_nest
 #' @importFrom tidyr pivot_longer
 #' @import rlang
 extract_params_from_excel <- function(raw_data_path) {
-  raw_data <- excel_sheets(raw_data_path) %>%
-    set_names() %>%
-    map(read_excel, path = raw_data_path)
+  sheet_names <- excel_sheets(raw_data_path) %>%
+    set_names()
+
+  expected_sheets <- c(
+    "curves", "groups", "g2c", "c2t", "treatments", "demand"
+  )
+
+  stopifnot(
+    "Not all required sheets are present in file" = all(expected_sheets %in% sheet_names)
+  )
+
+  # make sure to ignore any "unknown" sheets
+  raw_data <- sheet_names[expected_sheets] %>%
+    # users shouldn't be able to upload more than 1000 rows of data
+    map(read_excel, path = raw_data_path, n_max = 1000)
 
   # verify data ====
 
@@ -115,11 +134,4 @@ extract_params_from_excel <- function(raw_data_path) {
     curves = set_names(curves$value, curves$name),
     demand = set_names(demand$data, demand$service)
   )
-}
-
-#' @importFrom magrittr %>%
-#' @importFrom jsonlite write_json
-update_params_json <- function(params) {
-  params %>%
-    write_json("params.json", pretty = TRUE, auto_unbox = TRUE)
 }

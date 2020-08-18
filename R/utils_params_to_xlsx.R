@@ -1,10 +1,16 @@
-#' @importFrom magrittr %>%
-#' @importFrom dplyr bind_cols mutate row_number select bind_rows bind_cols
-#' @import tidyselect
+#' Params To xlsx
+#'
+#' Take the `params` and creates an Excel file which can be downloaded and reuploaded at a later date
+#'
+#' @param params the current `params` object used to model the data
+#' @param file the filename where to save the xlsx file
+#'
+#' @return invisibly returns where the file was saved
+#'
+#' @importFrom dplyr %>% bind_cols mutate row_number select bind_rows bind_cols everything
 #' @importFrom purrr map_dfr modify_at map map_dbl map_depth
-#' @importFrom tibble enframe
 #' @importFrom writexl write_xlsx
-params_to_xlsx <- function(params) {
+params_to_xlsx <- function(params, file) {
   xl <- list()
 
   xl$curves <- params$curves %>%
@@ -18,7 +24,7 @@ params_to_xlsx <- function(params) {
   xl$g2c <- params$groups %>%
     map("conditions") %>%
     map(map_dbl, "pcnt") %>%
-    map_dfr(enframe, name = "condition", value = "pcnt", .id = "group")
+    map_dfr(~list(condition = names(.x), pcnt = unname(.x)), .id = "group")
 
 
   xl$c2t <- params$groups %>%
@@ -35,5 +41,5 @@ params_to_xlsx <- function(params) {
   xl$demand <- params$demand %>%
     bind_rows(.id = "service")
 
-  write_xlsx(xl, "params.xlsx")
+  write_xlsx(xl, file)
 }

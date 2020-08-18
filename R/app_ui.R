@@ -5,7 +5,6 @@
 #' @import shiny
 #' @import shinydashboard
 #' @import shinycssloaders
-#' @import shinyWidgets
 #' @importFrom plotly plotlyOutput
 #' @noRd
 app_ui <- function(request) {
@@ -96,13 +95,13 @@ app_ui <- function(request) {
       column(
         4,
         box(
-          title = "Upload JSON parameters",
+          title = "Upload parameters",
           width = 12,
           fileInput(
-            "user_upload_json",
+            "user_upload_xlsx",
             label = NULL,
             multiple = FALSE,
-            accept = ".json",
+            accept = ".xlsx",
             placeholder = "Previously downloaded parameters"
           )
         ),
@@ -132,7 +131,11 @@ app_ui <- function(request) {
       ),
       box(
         width = 5,
-        plotOutput("results_popgroups"),
+        withSpinner(
+          plotlyOutput(
+            "results_popgroups"
+          )
+        ),
         title = "Population group source of 'surge'",
         solidHeader = TRUE,
         status = "primary"
@@ -157,6 +160,15 @@ app_ui <- function(request) {
         withSpinner(
           plotlyOutput(
             "graph",
+            height = "600px"
+          )
+        ),
+        width = 12
+      ),
+      box(
+        withSpinner(
+          plotlyOutput(
+            "combined_plot",
             height = "600px"
           )
         ),
@@ -331,6 +343,7 @@ app_ui <- function(request) {
 #' resources inside the Shiny application.
 #'
 #' @import shiny
+#' @importFrom htmltools tags
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
 #' @noRd
 golem_add_external_resources <- function() {

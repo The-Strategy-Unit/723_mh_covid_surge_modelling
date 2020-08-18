@@ -4,40 +4,13 @@
 #'     DO NOT REMOVE.
 #' @import shiny
 #' @import shinydashboard
-#' @importFrom magrittr %>%
-#' @importFrom uuid UUIDgenerate
-#' @importFrom dplyr select
+#' @importFrom dplyr %>% select tibble tribble
 #' @importFrom purrr map walk walk2 pmap map_dbl lift_dl modify_at set_names
-#' @importFrom stringr str_replace_all
-#' @importFrom jsonlite toJSON read_json
-#' @importFrom tibble tribble
 #' @importFrom plotly renderPlotly
 #' @importFrom utils write.csv
 #' @noRd
 app_server <- function(input, output, session) {
-  # app init ----
-  sim_time <- as.numeric(Sys.getenv("SIM_TIME", 1 / 5))
-
-  params <- app_sys("app/data/params.json") %>%
-    read_json(simplifyVector = TRUE) %>%
-    modify_at("demand", as.list)
-
-  population_groups <- names(params$groups)
-
-  treatments <- names(params$treatments)
-
-  models <- local({
-    models_file <- app_sys("app/data/models.Rds")
-    if (!file.exists(models_file)) {
-      params$groups %>%
-        names() %>%
-        set_names() %>%
-        map(~run_single_model(params, .x, 24, sim_time)) %>%
-        saveRDS(models_file)
-    }
-    readRDS(models_file)
-  })
-  # done initialising ----
+  counter <- methods::new("Counter")
 
   population_groups <- reactiveVal(population_groups)
   all_conditions <- reactiveVal(get_all_conditions(params))
@@ -58,8 +31,8 @@ app_server <- function(input, output, session) {
 
   ## New params
 
-  observeEvent(input$user_upload_json, {
-    new_params <- read_json(input$user_upload_json$datapath, simplifyVector = TRUE)
+  observeEvent(input$user_upload_xlsx, {
+    new_params <- extract_params_from_excel(input$user_upload_xlsx$datapath)
 
     params$groups <- new_params$groups
     params$treatments <- new_params$treatments
@@ -70,7 +43,7 @@ app_server <- function(input, output, session) {
     treatments(names(new_params$treatments))
     curves(names(new_params$curves))
 
-    u <- UUIDgenerate()
+    u <- counter$get()
     redraw_dropdowns(u)
     redraw_treatments(u)
     redraw_g2c(u)
@@ -93,7 +66,7 @@ app_server <- function(input, output, session) {
 
   # popn_subgroup (selectInput)
   observeEvent(input$popn_subgroup, {
-    redraw_g2c(UUIDgenerate())
+    redraw_g2c(counter$get())
   })
 
   observeEvent(redraw_g2c(), {
@@ -103,7 +76,7 @@ app_server <- function(input, output, session) {
 
     conditions <- names(px$conditions)
     updateSelectInput(session, "sliders_select_cond", choices = conditions)
-    redraw_c2t(UUIDgenerate())
+    redraw_c2t(counter$get())
 
     updateNumericInput(session, "subpopulation_size", value = px$size)
     updateNumericInput(session, "subpopulation_pcnt", value = px$pcnt)
@@ -124,7 +97,7 @@ app_server <- function(input, output, session) {
     # loop over the conditions (and the corresponding max values)
     walk2(conditions, mv, function(i, mv) {
       # slider names can't have spaces, replace with _
-      slider_name <- paste0("slider_cond_pcnt_", i) %>% str_replace_all(" ", "_")
+      slider_name <- gsub(" ", "_", paste0("slider_cond_pcnt_", i))
       slider <- sliderInput(
         slider_name, label = i,
         value = px$conditions[[i]]$pcnt * 100,
@@ -140,7 +113,7 @@ app_server <- function(input, output, session) {
         m <- 1 - params$groups[[sg]]$conditions %>% map_dbl("pcnt") %>% sum()
         walk(conditions, function(j) {
           v <- params$groups[[sg]]$conditions[[j]]$pcnt + m
-          sn <- paste0("slider_cond_pcnt_", j) %>% str_replace_all(" ", "_")
+          sn <- gsub(" ", "_", paste0("slider_cond_pcnt_", j))
           updateSliderInput(session, sn, max = v * 100)
         })
       })
@@ -169,7 +142,7 @@ app_server <- function(input, output, session) {
 
   # sliders_select_cond (selectInput)
   observeEvent(input$sliders_select_cond, {
-    redraw_c2t(UUIDgenerate())
+    redraw_c2t(counter$get())
   })
 
   observeEvent(redraw_c2t(), {
@@ -191,7 +164,7 @@ app_server <- function(input, output, session) {
     # loop over the treatments
     walk(treatments_pathways, function(i) {
       # slider names can't have spaces, replace with _
-      ix <- str_replace_all(i, " ", "_")
+      ix <- gsub(" ", "_", i)
       split_name <- paste0("numeric_treatpath_split_", ix)
       treat_name <- paste0("slider_treatpath_treat_", ix)
 
@@ -248,7 +221,7 @@ app_server <- function(input, output, session) {
 
   # treatment_type (selectInput)
   observeEvent(input$treatment_type, {
-    redraw_treatments(UUIDgenerate())
+    redraw_treatments(counter$get())
   })
 
   observeEvent(redraw_treatments(), {
@@ -285,14 +258,12 @@ app_server <- function(input, output, session) {
 
   # download_params (downloadButton)
   output$download_params <- downloadHandler(
-    "params.json",
+    "params.xlsx",
     function(file) {
-      js <- reactiveValuesToList(params) %>%
-        toJSON(pretty = TRUE, auto_unbox = TRUE)
-
-      writeLines(js, file)
-    },
-    "application/json"
+      params %>%
+        reactiveValuesToList() %>%
+        params_to_xlsx(file)
+    }
   )
 
   # download_output (downloadButton)
@@ -337,6 +308,10 @@ app_server <- function(input, output, session) {
     create_graph(model_output(), treatments = input$services)
   })
 
+  output$combined_plot <- renderPlotly({
+    combined_plot(model_output(), input$services, reactiveValuesToList(params))
+  })
+
   # Output boxes
 
   tribble(
@@ -354,7 +329,7 @@ app_server <- function(input, output, session) {
       })
     })
 
-  output$results_popgroups <- renderPlot({
+  output$results_popgroups <- renderPlotly({
     popgroups_plot(model_output(), input$services)
   })
 
