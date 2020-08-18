@@ -2,7 +2,7 @@
 #'
 #' @field value the current value of the counter, should not be accessed directly
 #' @import methods
-Counter <- setRefClass( # nolint
+setRefClass(
   "Counter",
   fields = list("value" = "integer"),
   methods = list(

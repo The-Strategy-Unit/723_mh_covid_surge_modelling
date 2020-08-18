@@ -11,7 +11,7 @@
 #' @importFrom utils write.csv
 #' @noRd
 app_server <- function(input, output, session) {
-  counter <- Counter$new()
+  counter <- methods::new("Counter")
 
   population_groups <- reactiveVal(population_groups)
   all_conditions <- reactiveVal(get_all_conditions(params))

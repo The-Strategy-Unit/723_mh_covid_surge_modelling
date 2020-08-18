@@ -3,7 +3,6 @@
 \docType{class}
 \name{Counter-class}
 \alias{Counter-class}
-\alias{Counter}
 \title{Counter Class}
 \description{
 Counter Class
