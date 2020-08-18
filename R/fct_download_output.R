@@ -1,8 +1,19 @@
+#' Download Model Output
+#'
+#' Download the model output as a csv in order to be used with other applications
+#'
+#' @param model_output output from \code{run_model()} and \code{get_model_output()}
+#' @param appointments output from \code{get_appointments()}
+#'
+#' @return a function that accepts a file name to save the results to
+#'
 #' @importFrom dplyr %>% mutate filter near group_by_at summarise across
 #' @importFrom lubridate day
 #' @import rlang
 #' @importFrom utils write.csv
 download_output <- function(model_output, appointments) {
+  # make sure to "force" the model_output and appointments so that the values are available when called from the
+  # returned function
   force(model_output)
   force(appointments)
 
