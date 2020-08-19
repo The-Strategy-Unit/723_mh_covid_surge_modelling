@@ -378,12 +378,12 @@ app_server <- function(input, output, session) {
       surge_plot()
   })
 
-  # Bubble plot tab ====
+  # Treemap plot tab ====
 
-  output$bubble_plot_baselinepopn <- renderPlotly({
+  output$treemap_plot <- renderPlotly({
     params %>%
       reactiveValuesToList() %>%
-      bubble_plot()
+      treemap_plot()
   })
 
   # graphpage ====

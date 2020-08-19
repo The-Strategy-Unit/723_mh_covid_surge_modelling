@@ -229,10 +229,10 @@ app_ui <- function(request) {
     )
   )
 
-  body_bubbleplot <- tabItem(
-    "bubbleplot",
+  body_treemap <- tabItem(
+    "treemap_tab",
     plotlyOutput(
-      "bubble_plot_baselinepopn",
+      "treemap_plot",
       height = "900px"
     )
   )
@@ -313,8 +313,8 @@ app_ui <- function(request) {
             tabName = "surgetab_service"
           ),
           menuItem(
-            "Bubble Plot Test",
-            tabName = "bubbleplot"
+            "Population Groups Treemap",
+            tabName = "treemap_tab"
           ),
           menuItem(
             "Graph",
@@ -329,7 +329,7 @@ app_ui <- function(request) {
           body_surgesubpopn,
           body_surgecondition,
           body_surgetreatment,
-          body_bubbleplot,
+          body_treemap,
           body_graph
         )
       )
