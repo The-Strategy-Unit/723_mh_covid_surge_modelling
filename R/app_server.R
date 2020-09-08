@@ -107,11 +107,6 @@ app_server <- function(input, output, session) {
         # can't use the px element here: must use full params
         params$groups[[sg]]$conditions[[i]]$pcnt <- input[[slider_name]] / 100
 
-        # check that we do not exceed 100% for conditions
-        pcnt_sum <- params$groups[[sg]]$conditions %>%
-          map_dbl("pcnt") %>%
-          sum()
-
         # if we have exceeded 100%, reduce each slider evenly to maintain 100%
         isolate({
           # if we are going to reduce a slider by more than its current amount, reduce all the sliders by that amount
@@ -120,29 +115,36 @@ app_server <- function(input, output, session) {
             names() %>%
             subset(. != i)
 
-          while (pcnt_sum > 1) {
+          repeat {
+            # check that we do not exceed 100% for conditions
+            pcnt_sum <- params$groups[[sg]]$conditions %>%
+              map_dbl("pcnt") %>%
+              sum()
+            # break out the loop
+            if (pcnt_sum <= 1) break
+
+            # get the pcnt's for the "current" conditions
             current_pcnts <- params$groups[[sg]]$conditions[current_conditions] %>%
               map_dbl("pcnt")
 
             # find the smallest percentage currently
             min_pcnt <- min(current_pcnts)
-            # what is the smallest group?
+            # what is(are) the smallest group(s)?
             j <- names(which(current_pcnts == min_pcnt))
             # find the target reduction (either the minimum percentage present, or an equal split of the amount of the
             # sum over 100%)
             tgt_pcnt <- min(min_pcnt, (pcnt_sum - 1) / length(current_conditions))
-            pcnt_sum <- pcnt_sum - tgt_pcnt * length(current_conditions)
 
             # now, reduce the pcnts by the target
-            for (k in current_conditions) {
+            map(current_conditions, function(k) {
               v <- params$groups[[sg]]$conditions[[k]]$pcnt - tgt_pcnt
               params$groups[[sg]]$conditions[[k]]$pcnt <- v
               updateSliderInput(session,
                                 gsub(" ", "_", paste0("slider_cond_pcnt_", k)),
                                 value = v * 100)
-            }
+            })
 
-            # remove the smallest group j and loop if required
+            # remove the smallest group(s) j and loop
             current_conditions <- current_conditions[!current_conditions %in% j]
           }
         })
