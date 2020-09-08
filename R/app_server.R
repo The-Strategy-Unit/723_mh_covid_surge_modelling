@@ -113,7 +113,7 @@ app_server <- function(input, output, session) {
           # and then start again with the remaining sliders
           current_conditions <- params$groups[[sg]]$conditions %>%
             names() %>%
-            subset(. != i)
+            tidy_subset(~.x != i)
 
           repeat {
             # check that we do not exceed 100% for conditions
