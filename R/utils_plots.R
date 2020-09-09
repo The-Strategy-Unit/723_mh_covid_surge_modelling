@@ -381,6 +381,10 @@ bubble_plot <- function(params) {
   ggplotly(p)
 }
 
+#' Subpopulation curve plot
+#'
+#' displays a quick plot of what the current parameters selected for the subpopulation group will generate
+#'
 #' @param curve the curve vector to display
 #' @param size the base population size
 #' @param pcnt the percentage of the base population size we are using (0 - 100)
