@@ -201,62 +201,25 @@ app_server <- function(input, output, session) {
 
     treatments_pathways <- names(px$treatments)
 
-    updateSelectInput(session, "sliders_select_treat", choices = treatments_pathways)
-
     # loop over the treatments
     walk(treatments_pathways, function(i) {
       # slider names can't have spaces, replace with _
       ix <- gsub(" ", "_", i)
       split_name <- paste0("numeric_treatpath_split_", ix)
-      treat_name <- paste0("slider_treatpath_treat_", ix)
 
       split <- numericInput(
         split_name,
         label = paste("split", i),
-        value = px$treatments[[i]]$split
-      )
-
-      treat <- sliderInput(
-        treat_name,
-        label = paste("treat %", i),
-        value = px$treatments[[i]]$treat * 100,
-        min = 0, max = 100, step = 0.01, post = "%"
+        value = px$treatments[[i]]
       )
 
       insertUI("#div_slider_treatmentpathway", "beforeEnd", split)
-      insertUI("#div_slider_treatmentpathway", "beforeEnd", treat)
 
       div_slider_treatpath_obs[[split_name]] <<- observeEvent(input[[split_name]], {
         v <- input[[split_name]]
-        params$groups[[sg]]$conditions[[ssc]]$treatments[[i]]$split <- v
-      })
-
-      div_slider_treatpath_obs[[treat_name]] <<- observeEvent(input[[treat_name]], {
-        v <- input[[treat_name]] / 100
-        params$groups[[sg]]$conditions[[ssc]]$treatments[[i]]$treat <- v
+        params$groups[[sg]]$conditions[[ssc]]$treatments[[i]] <- v
       })
     })
-  })
-
-  # params_cond_to_treat ====
-
-  observeEvent(input$sliders_select_treat, {
-    sg <- req(input$popn_subgroup)
-    condition <- req(input$sliders_select_cond)
-    treatment <- req(input$sliders_select_treat)
-
-    v <- params$groups[[sg]]$conditions[[condition]]$treatments[[treatment]]$treat * 100
-    updateSliderInput(session, "slider_treat", value = v)
-  })
-
-  # slider_treat (sliderInput)
-  observeEvent(input$slider_treat, {
-    sg <- req(input$popn_subgroup)
-    condition <- req(input$sliders_select_cond)
-    treatment <- req(input$sliders_select_treat)
-
-    v <- input$slider_treat / 100
-    params$groups[[sg]]$conditions[[condition]]$treatments[[treatment]]$treat <- v
   })
 
   # params_demand ====
@@ -272,6 +235,7 @@ app_server <- function(input, output, session) {
     updateSliderInput(session, "slider_success", value = tx$success * 100)
     updateSliderInput(session, "slider_tx_months", value = tx$months)
     updateSliderInput(session, "slider_decay", value = tx$decay * 100)
+    updateSliderInput(session, "slider_treat_pcnt", value = tx$treat_pcnt * 100)
   })
 
   # treatment_appointments (sliderInput)
@@ -296,6 +260,11 @@ app_server <- function(input, output, session) {
   observeEvent(input$slider_decay, {
     ttype <- req(input$treatment_type)
     params$treatments[[ttype]]$decay <- input$slider_decay / 100
+  })
+
+  observeEvent(input$slider_treat_pcnt, {
+    ttype <- req(input$treatment_type)
+    params$treatments[[ttype]]$treat_pcnt <- input$slider_treat_pcnt / 100
   })
 
   # download_params (downloadButton)

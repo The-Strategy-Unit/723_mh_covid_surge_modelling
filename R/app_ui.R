@@ -85,6 +85,11 @@ app_ui <- function(request) {
       "Decay Percentage",
       min = 0, max = 100, value = 0, step = 0.01, post = "%"
     ),
+    sliderInput(
+      "slider_treat_pcnt",
+      "Treating Percentage",
+      min = 0, max = 100, value = 0, step = 0.01, post = "%"
+    ),
     downloadButton(
       "download_params",
       "Download current parameters"
