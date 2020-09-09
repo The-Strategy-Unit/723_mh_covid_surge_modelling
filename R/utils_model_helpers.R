@@ -8,6 +8,7 @@
 #'
 #' @importFrom dplyr %>% bind_cols group_by mutate across select inner_join relocate
 #' @importFrom purrr map_dfr map modify_at
+#' @import rlang
 get_model_params <- function(params) {
 
   p <- params$groups %>%
@@ -23,8 +24,8 @@ get_model_params <- function(params) {
               mutate(across(.data$decay, ~half_life_factor(.data$months, .x))) %>%
               select(-.data$months, -.data$demand),
         .id = "group") %>%
-    rename(treat = treat_pcnt) %>%
-    relocate(treat, .after = pcnt) %>%
+    rename(treat = .data$treat_pcnt) %>%
+    relocate(.data$treat, .after = .data$pcnt) %>%
     as.data.frame()
 
   rownames <- paste(p$group, p$condition, p$treatment, sep = "|")
