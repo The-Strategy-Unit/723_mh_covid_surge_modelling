@@ -28,6 +28,7 @@ app_ui <- function(request) {
       value = 100, min = 0, max = 100, step = 1,
       post = "%"
     ),
+    textOutput("subpopulation_size_pcnt"),
     selectInput(
       "subpopulation_curve",
       "Choose scenario",

@@ -164,6 +164,10 @@ app_server <- function(input, output, session) {
     params$groups[[sg]]$pcnt <- input$subpopulation_pcnt
   })
 
+  output$subpopulation_size_pcnt <- renderText({
+    paste0("Modelled population: ", comma(input$subpopulation_size * input$subpopulation_pcnt / 100))
+  })
+
   # subpopulation_curve (selectInput)
   observeEvent(input$subpopulation_curve, {
     sg <- req(input$popn_subgroup)
