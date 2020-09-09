@@ -104,7 +104,7 @@ app_ui <- function(request) {
     "params",
     fluidRow(
       column(
-        4,
+        3,
         box(
           title = "Upload parameters",
           width = 12,
@@ -118,8 +118,9 @@ app_ui <- function(request) {
         ),
         params_population_groups
       ),
-      column(4, params_group_to_cond, params_cond_to_treat),
-      column(4, params_demand)
+      column(3, params_group_to_cond),
+      column(3, params_cond_to_treat),
+      column(3, params_demand)
     )
   )
 
