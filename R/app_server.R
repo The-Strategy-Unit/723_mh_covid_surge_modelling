@@ -8,6 +8,7 @@
 #' @importFrom purrr map walk walk2 pmap map_dbl lift_dl modify_at set_names discard
 #' @importFrom plotly renderPlotly
 #' @importFrom utils write.csv
+#' @importFrom shinyjs disabled
 #' @noRd
 app_server <- function(input, output, session) {
   counter <- methods::new("Counter")
@@ -92,6 +93,16 @@ app_server <- function(input, output, session) {
     removeUI("#div_slider_cond_pcnt > *", TRUE, TRUE)
     # now, add the new sliders
 
+    # create the no mental health group slider
+    nmh_slider <- disabled(
+      sliderInput(
+        "slider_cond_pcnt_no_mh_needs",
+        "No Mental Health Needs",
+        value = (1 - map_dbl(px$conditions, "pcnt") %>% sum()) * 100,
+        min = 0, max = 100, step = 0.01, post = "%"
+      )
+    )
+
     # loop over the conditions (and the corresponding max values)
     walk(conditions, function(i) {
       # slider names can't have spaces, replace with _
@@ -147,9 +158,15 @@ app_server <- function(input, output, session) {
             # remove the smallest group(s) j and loop
             current_conditions <- current_conditions[!current_conditions %in% j]
           }
+
+          updateSliderInput(session,
+                            "slider_cond_pcnt_no_mh_needs",
+                            value = (1 - pcnt_sum) * 100)
         })
       })
     })
+
+    insertUI("#div_slider_cond_pcnt", "beforeEnd", nmh_slider)
   })
 
   # subpopulation_size (numericInput)

@@ -5,6 +5,7 @@
 #' @import shiny
 #' @import shinydashboard
 #' @import shinycssloaders
+#' @importFrom shinyjs useShinyjs
 #' @importFrom plotly plotlyOutput
 #' @noRd
 app_ui <- function(request) {
@@ -344,7 +345,8 @@ app_ui <- function(request) {
           body_bubbleplot,
           body_graph
         )
-      )
+      ),
+      useShinyjs()
     )
   )
 }
