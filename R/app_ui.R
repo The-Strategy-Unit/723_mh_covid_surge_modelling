@@ -22,10 +22,11 @@ app_ui <- function(request) {
       "Subpopulation Figure",
       value = NULL, step = 100
     ),
-    numericInput(
+    sliderInput(
       "subpopulation_pcnt",
       "% in subgroup",
-      value = 100, min = 0, max = 100, step = 1
+      value = 100, min = 0, max = 100, step = 1,
+      post = "%"
     ),
     selectInput(
       "subpopulation_curve",
