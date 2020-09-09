@@ -174,6 +174,12 @@ app_server <- function(input, output, session) {
     params$groups[[sg]]$curve <- input$subpopulation_curve
   })
 
+  output$subpopulation_curve_plot <- renderPlotly({
+    subpopulation_curve_plot(params$curves[[input$subpopulation_curve]],
+                             input$subpopulation_size,
+                             input$subpopulation_pcnt)
+  })
+
   # params_group_to_cond ====
 
   # sliders_select_cond (selectInput)

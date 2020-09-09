@@ -380,3 +380,23 @@ bubble_plot <- function(params) {
 
   ggplotly(p)
 }
+
+subpopulation_curve_plot <- function(curve, size, pcnt) {
+  x <- seq_along(curve)
+  y <- curve * size * pcnt / 100
+
+  plot_ly(x = x,
+          y = y,
+          type = "scatter",
+          mode = "lines",
+          text = paste0("month ", x, ": ", comma(y)),
+          hoverinfo = "text",
+          line = list(shape = "spline")) %>%
+    layout(xaxis = list(visible = FALSE,
+                        showgrid = FALSE,
+                        zeroline = FALSE),
+           yaxis = list(visible = FALSE),
+           margin = list(l = 0, r = 0, b = 0, t = 0, pad = 1),
+           showlegend  = FALSE) %>%
+    config(displayModeBar = FALSE)
+}

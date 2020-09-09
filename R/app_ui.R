@@ -33,6 +33,10 @@ app_ui <- function(request) {
       "subpopulation_curve",
       "Choose scenario",
       choices = NULL
+    ),
+    plotlyOutput(
+      "subpopulation_curve_plot",
+      height = "100px"
     )
   )
 
