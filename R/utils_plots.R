@@ -381,6 +381,13 @@ bubble_plot <- function(params) {
   ggplotly(p)
 }
 
+#' @param curve the curve vector to display
+#' @param size the base population size
+#' @param pcnt the percentage of the base population size we are using (0 - 100)
+#'
+#' @importFrom plotly plot_ly layout config
+#'
+#' @return a plotly chart
 subpopulation_curve_plot <- function(curve, size, pcnt) {
   x <- seq_along(curve)
   y <- curve * size * pcnt / 100
