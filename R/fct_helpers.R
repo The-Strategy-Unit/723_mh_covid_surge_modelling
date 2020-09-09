@@ -31,19 +31,3 @@ comma <- function(x) {
 where <- function(fn) {
   function(x, ...) fn(x, ...)
 }
-
-#' Tidy subset
-#'
-#' A variant on the base function \code{subset()} which takes a predicate function, si
-#'
-#' @inheritParams purrr::as_mapper
-#' @param .x A list or atomic vector.
-#' @param ... Additional arguments passed on to the mapped function.
-#'
-#' @importFrom purrr as_mapper
-#'
-#' @return a subset of \code{.x}
-tidy_subset <- function(.x, .f, ...) {
-  .f <- purrr::as_mapper(.f, ...)
-  subset(.x, .f(.x))
-}

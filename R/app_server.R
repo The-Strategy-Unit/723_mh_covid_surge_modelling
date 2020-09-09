@@ -5,7 +5,7 @@
 #' @import shiny
 #' @import shinydashboard
 #' @importFrom dplyr %>% select tibble tribble
-#' @importFrom purrr map walk walk2 pmap map_dbl lift_dl modify_at set_names
+#' @importFrom purrr map walk walk2 pmap map_dbl lift_dl modify_at set_names discard
 #' @importFrom plotly renderPlotly
 #' @importFrom utils write.csv
 #' @noRd
@@ -113,7 +113,7 @@ app_server <- function(input, output, session) {
           # and then start again with the remaining sliders
           current_conditions <- params$groups[[sg]]$conditions %>%
             names() %>%
-            tidy_subset(~.x != i)
+            discard(~.x == i)
 
           repeat {
             # check that we do not exceed 100% for conditions
