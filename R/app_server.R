@@ -220,6 +220,12 @@ app_server <- function(input, output, session) {
         params$groups[[sg]]$conditions[[ssc]]$treatments[[i]] <- v
       })
     })
+
+    treat_split_plot <- plotlyOutput("treat_split_plot")
+    insertUI("#div_slider_treatmentpathway", "beforeEnd", treat_split_plot)
+    output$treat_split_plot <- renderPlotly({
+      treatment_split_plot(params$groups[[sg]]$conditions[[ssc]]$treatments)
+    })
   })
 
   # params_demand ====
