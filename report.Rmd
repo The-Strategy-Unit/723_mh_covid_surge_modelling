@@ -1,0 +1,52 @@
+---
+output: 
+  pdf_document:
+    latex_engine: xelatex
+sansfont: Calibri Light
+classoption: landscape
+params:
+  set_title: "My Title"
+  demand_plot: NA
+  referrals_plot: NA
+  combined_plot: NA
+  total_surge: NA
+  total_demand: NA
+  total_newpatients: NA
+  source_referrals: NA
+title: "\\vspace{-3cm} `r params$set_title`"
+---
+
+```{r results='hide', message=FALSE, warning=FALSE, echo = F}
+library(tidyverse)
+library(patchwork)
+library(gridExtra)
+library(grid)
+```
+
+```{r, echo = F, fig.width=14, fig.height=9}
+ 
+a <- params$referrals_plot
+b <- params$demand_plot
+c <- tableGrob(
+  tribble(
+    ~ Metric,
+    ~ Number,
+    "Total 'surge' Referrals",
+    params$total_surge,
+    "Total new patients in service",
+    params$total_demand,
+    "Total additional demand per contact type",
+    params$total_newpatients
+  ),
+  rows = NULL,
+  cols = NULL,
+  theme = ttheme_default(core = list(fg_params = list(
+    hjust = 0, x = 0
+  )))
+)
+d <- tableGrob(params$source_referrals, rows = NULL)
+e <- params$combined_plot
+
+(a | b) / (wrap_elements(c) | wrap_elements(d) | e) ## c and d needs to be made patchwork compliant
+
+```

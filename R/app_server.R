@@ -367,6 +367,44 @@ app_server <- function(input, output, session) {
     popgroups_plot(model_output(), input$services)
   })
 
+  # Download Option ----
+
+  output$download_results <- downloadHandler(
+    filename = "report.pdf",
+    content = function(file) {
+      tempReport <- file.path(tempdir(), "report.Rmd")
+      file.copy("report.Rmd", tempReport, overwrite = TRUE)
+      params <- list(set_title = paste0("Modelled Results by Service: ", input$services),
+                     combined_plot = markdown_referrals(),
+                     demand_plot = markdown_demand(),
+                     referrals_plot = markdown_treatment(),
+                     total_surge = model_output() %>%
+                       model_totals("new-referral", input$services),
+                     total_demand = model_output() %>%
+                       model_totals("treatment", input$services),
+                     total_newpatients = model_output() %>%
+                       model_totals("new-treatment", input$services),
+                     source_referrals = model_output() %>%
+                       filter(.data$type == "new-referral",
+                              .data$treatment == input$services,
+                              day(.data$date) == 1) %>%
+                       group_by(.data$group) %>%
+                       summarise(`# Referrals` = round(sum(.data$value), 0), .groups = "drop") %>%
+                       filter(.data$`# Referrals` != 0) %>%
+                       mutate(across(.data$group, fct_reorder, .data$`# Referrals`)) %>%
+                       arrange(-`# Referrals`) %>%
+                       rename(Group = group)
+
+      )
+      rmarkdown::render(
+        tempReport,
+        output_file = file,
+        params = params,
+        envir = new.env(parent = globalenv())
+      )
+    }
+  )
+
   # Surge Tabs ----
 
   # Surge subpopn tab ====
@@ -445,5 +483,90 @@ app_server <- function(input, output, session) {
                  input$graphpage_select_conditions,
                  input$graphpage_select_treatments)
   })
+
+  ## Markdown Plots ####
+
+markdown_treatment <- reactive(
+  {
+  df <- model_output() %>%
+      filter(.data$type == "new-referral",
+             .data$treatment == input$services) %>%
+      group_by(.data$date) %>%
+      summarise(across(.data$value, sum), .groups = "drop")
+
+  df %>% ggplot(aes(date, value)) +
+    theme_bw() +
+    geom_line(colour = "red") +
+    scale_x_date(name = "Month",
+                 date_breaks = "3 months",
+                 date_labels =  "%b %Y") +
+    labs(y = "New Referrals",
+         title = "Additional Patients Receiving Service")
+  }
+)
+
+markdown_demand <- reactive(
+    {
+      df <- model_output() %>%
+        filter(.data$type == "treatment",
+               .data$treatment == input$services) %>%
+        group_by(.data$date, .data$treatment) %>%
+        summarise(across(.data$value, sum), .groups = "drop") %>%
+        inner_join(appointments(), by = "treatment") %>%
+        mutate(no_appointments = .data$value * .data$average_monthly_appointments)
+
+      df %>% ggplot(aes(date, no_appointments)) +
+        theme_bw() +
+        geom_line(colour = "green") +
+        scale_x_date(name = "Month",
+                     date_breaks = "3 months",
+                     date_labels =  "%b %Y") +
+        labs(y = "Demand",
+             title = "Typical Additional Contact Volumes per Appointment Type")
+    }
+  )
+
+markdown_referrals <-
+  reactive({
+      temp <- params %>% reactiveValuesToList()
+
+      df <- bind_rows(
+
+       model_output() %>%
+          get_model_output() %>%
+          filter(
+            .data$treatment == input$services,
+            .data$type == "treatment"
+          ) %>%
+          group_by(.data$date) %>%
+          summarise(across(.data$value, sum), .groups = "drop") %>%
+          mutate(type = "surge")
+        ,
+        temp$demand[[input$services]] %>%
+          pivot_longer(-.data$month, names_to = "type") %>%
+          rename(date = month) %>%
+          mutate(across(date, ymd))
+      )
+
+      df <- bind_rows(
+        df,
+        df %>%
+          group_by(date) %>%
+          summarise(type = "total", value = sum(value)) %>%
+          filter(date %in% c(    df %>% filter(type == "underlying") %>% pull(date)
+          ))
+      )
+
+      df %>% ggplot(aes(date, value, group = type, colour = type)) +
+        theme_bw() +
+        geom_line() +
+        scale_x_date(name = "Month",
+                     date_breaks = "3 months",
+                     date_labels =  "%b %Y") +
+        labs(title = "Referrals") +
+        scale_colour_discrete(name = "Type")
+
+    })
+
 
 }
