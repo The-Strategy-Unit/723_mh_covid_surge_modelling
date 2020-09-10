@@ -3,7 +3,9 @@ output:
   pdf_document:
     latex_engine: xelatex
 sansfont: Calibri Light
+papersize: a4
 classoption: landscape
+geometry: margin=1in
 params:
   set_title: "My Title"
   demand_plot: NA
@@ -17,32 +19,32 @@ title: "\\vspace{-3cm} `r params$set_title`"
 ---
 
 ```{r results='hide', message=FALSE, warning=FALSE, echo = F}
-library(tidyverse)
+library(tibble)
 library(patchwork)
 library(gridExtra)
 library(grid)
 ```
 
-```{r, echo = F, fig.width=14, fig.height=9}
+```{r, echo = F, fig.width=18, fig.height=11}
  
 a <- params$referrals_plot
 b <- params$demand_plot
 c <- tableGrob(
   tribble(
-    ~ Metric,
-    ~ Number,
-    "Total 'surge' Referrals",
-    params$total_surge,
-    "Total new patients in service",
-    params$total_demand,
-    "Total additional demand per contact type",
-    params$total_newpatients
+    ~ Metric, ~ Number,
+    "Total 'surge' Referrals", params$total_surge,
+    "Total new patients in service", params$total_demand,
+    "Total additional demand per contact type", params$total_newpatients
   ),
   rows = NULL,
   cols = NULL,
-  theme = ttheme_default(core = list(fg_params = list(
-    hjust = 0, x = 0
-  )))
+  theme = ttheme_default(
+    core = list(
+      fg_params = list(
+        hjust = 0, x = 0
+      )
+    )
+  )
 )
 d <- tableGrob(params$source_referrals, rows = NULL)
 e <- params$combined_plot
