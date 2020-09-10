@@ -380,3 +380,61 @@ bubble_plot <- function(params) {
 
   ggplotly(p)
 }
+
+#' Subpopulation curve plot
+#'
+#' displays a quick plot of what the current parameters selected for the subpopulation group will generate
+#'
+#' @param curve the curve vector to display
+#' @param size the base population size
+#' @param pcnt the percentage of the base population size we are using (0 - 100)
+#'
+#' @importFrom plotly plot_ly layout config
+#'
+#' @return a plotly chart
+subpopulation_curve_plot <- function(curve, size, pcnt) {
+  x <- seq_along(curve)
+  y <- curve * size * pcnt / 100
+
+  plot_ly(x = x,
+          y = y,
+          type = "scatter",
+          mode = "lines",
+          text = paste0("month ", x, ": ", comma(y)),
+          hoverinfo = "text",
+          line = list(shape = "spline")) %>%
+    layout(xaxis = list(visible = FALSE,
+                        showgrid = FALSE,
+                        zeroline = FALSE),
+           yaxis = list(visible = FALSE),
+           margin = list(l = 0, r = 0, b = 0, t = 0, pad = 1),
+           showlegend  = FALSE) %>%
+    config(displayModeBar = FALSE)
+}
+
+#' Treatment split plot
+#'
+#' generates a bar chart to show the percentage splits for the current treatments
+#'
+#' @param treatments a named vector of the splits for the treatments
+#'
+#' @importFrom dplyr tibble mutate across arrange desc
+#' @importFrom forcats fct_reorder
+#' @importFrom plotly plot_ly layout config
+#' @import rlang
+#'
+#' @return a plotly chart
+treatment_split_plot <- function(treatments) {
+  tibble(treatment = names(treatments),
+         split = treatments) %>%
+    mutate(across(.data$split, ~ .x / sum(.x)),
+           across(.data$treatment, fct_reorder, split)) %>%
+    arrange(desc(.data$split)) %>%
+    plot_ly(x = ~split,
+            y = ~treatment,
+            type =  "bar") %>%
+    layout(xaxis = list(tickformat = "%",
+                        title = FALSE),
+           yaxis = list(title = FALSE))  %>%
+    config(displayModeBar = FALSE)
+}

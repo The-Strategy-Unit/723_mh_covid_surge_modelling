@@ -46,12 +46,12 @@ extract_params_from_excel <- function(raw_data_path) {
       verify_fn(.data$pcnt < 0 | .data$pcnt > 100),
     "g2c pcnt not between 0 and 1" = raw_data$g2c %>%
       verify_fn(.data$pcnt < 0 | .data$pcnt > 1),
-    "c2t treat not between 0 and 1" = raw_data$c2t %>%
-      verify_fn(.data$treat < 0 | .data$treat > 1),
     "treatments success not between 0 and 1" = raw_data$treatments %>%
       verify_fn(.data$success < 0, .data$success > 1),
     "treatments decay not between 0 and 1" = raw_data$treatments %>%
       verify_fn(.data$decay < 0 | .data$decay > 1),
+    "treatments treat_ocnt not between 0 and 1" = raw_data$treatments %>%
+      verify_fn(.data$treat_pcnt < 0 | .data$treat_pcnt > 1),
     "unrecognised curve in groups" = raw_data$groups %>%
       anti_join(pivot_longer(raw_data$curves, -.data$month, names_to = "curve"), by = "curve") %>%
       verify_fn(TRUE),
@@ -78,13 +78,8 @@ extract_params_from_excel <- function(raw_data_path) {
   # produce json ====
 
   c2t <- raw_data$c2t %>%
-    pivot_longer(where(is.numeric)) %>%
-    group_by(.data$group, .data$condition, .data$treatment) %>%
-    summarise(data = map2(list(.data$value),
-                          list(.data$name),
-                          compose(as.list, set_names)),
-              .groups = "drop_last") %>%
-    summarise(treatments = map2(list(.data$data),
+    group_by(.data$group, .data$condition) %>%
+    summarise(treatments = map2(list(.data$split),
                                 list(.data$treatment),
                                 set_names),
               .groups = "drop")

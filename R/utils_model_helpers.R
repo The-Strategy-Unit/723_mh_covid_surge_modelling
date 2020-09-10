@@ -6,22 +6,26 @@
 #'
 #' @return a matrix of the parameters for the Systems Dynamics model
 #'
-#' @importFrom dplyr %>% bind_cols group_by mutate across select inner_join
+#' @importFrom dplyr %>% bind_cols group_by mutate across select inner_join relocate
 #' @importFrom purrr map_dfr map modify_at
+#' @import rlang
 get_model_params <- function(params) {
+
   p <- params$groups %>%
     map_dfr(~.x$conditions %>%
-              map(modify_at, "treatments", map_dfr, bind_cols, .id = "treatment") %>%
+              map(modify_at, "treatments", ~tibble(treatment = names(.x), split = .x)) %>%
               map_dfr(bind_cols, .id = "condition") %>%
               group_by(.data$condition) %>%
               mutate(across(.data$pcnt, ~.x * .data$split / sum(.data$split))) %>%
-              select(.data$condition, .data$treatment, .data$pcnt, .data$treat) %>%
+              select(.data$condition, .data$treatment, .data$pcnt) %>%
               inner_join(params$treatments %>%
                            map_dfr(bind_cols, .id = "treatment"),
                          by = "treatment") %>%
               mutate(across(.data$decay, ~half_life_factor(.data$months, .x))) %>%
               select(-.data$months, -.data$demand),
-            .id = "group") %>%
+        .id = "group") %>%
+    rename(treat = .data$treat_pcnt) %>%
+    relocate(.data$treat, .after = .data$pcnt) %>%
     as.data.frame()
 
   rownames <- paste(p$group, p$condition, p$treatment, sep = "|")
