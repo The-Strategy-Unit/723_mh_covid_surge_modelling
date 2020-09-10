@@ -5,6 +5,7 @@
 #' @import shiny
 #' @import shinydashboard
 #' @import shinycssloaders
+#' @importFrom shinyjs useShinyjs
 #' @importFrom plotly plotlyOutput
 #' @noRd
 app_ui <- function(request) {
@@ -22,15 +23,21 @@ app_ui <- function(request) {
       "Subpopulation Figure",
       value = NULL, step = 100
     ),
-    numericInput(
+    sliderInput(
       "subpopulation_pcnt",
       "% in subgroup",
-      value = 100, min = 0, max = 100, step = 1
+      value = 100, min = 0, max = 100, step = 1,
+      post = "%"
     ),
+    textOutput("subpopulation_size_pcnt"),
     selectInput(
       "subpopulation_curve",
       "Choose scenario",
       choices = NULL
+    ),
+    plotlyOutput(
+      "subpopulation_curve_plot",
+      height = "100px"
     )
   )
 
@@ -79,6 +86,11 @@ app_ui <- function(request) {
       "Decay Percentage",
       min = 0, max = 100, value = 0, step = 0.01, post = "%"
     ),
+    sliderInput(
+      "slider_treat_pcnt",
+      "Treating Percentage",
+      min = 0, max = 100, value = 0, step = 0.01, post = "%"
+    ),
     downloadButton(
       "download_params",
       "Download current parameters"
@@ -93,7 +105,7 @@ app_ui <- function(request) {
     "params",
     fluidRow(
       column(
-        4,
+        3,
         box(
           title = "Upload parameters",
           width = 12,
@@ -107,8 +119,9 @@ app_ui <- function(request) {
         ),
         params_population_groups
       ),
-      column(4, params_group_to_cond, params_cond_to_treat),
-      column(4, params_demand)
+      column(3, params_group_to_cond),
+      column(3, params_cond_to_treat),
+      column(3, params_demand)
     )
   )
 
@@ -332,7 +345,8 @@ app_ui <- function(request) {
           body_treemap,
           body_graph
         )
-      )
+      ),
+      useShinyjs()
     )
   )
 }

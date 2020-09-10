@@ -1,6 +1,6 @@
 # any global variables that are used in the package need to be listed here: this will largely just be any NSE column
 # names
-utils::globalVariables("group")
+utils::globalVariables(c("group", "condition", "treatment"))
 
 # This function runs when the package is loaded: use it to set any variables into the parent environment
 # note: must use the global assignment operator (<<-)

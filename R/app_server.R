@@ -5,9 +5,10 @@
 #' @import shiny
 #' @import shinydashboard
 #' @importFrom dplyr %>% select tibble tribble
-#' @importFrom purrr map walk walk2 pmap map_dbl lift_dl modify_at set_names
+#' @importFrom purrr map walk walk2 pmap map_dbl lift_dl modify_at set_names discard
 #' @importFrom plotly renderPlotly
 #' @importFrom utils write.csv
+#' @importFrom shinyjs disabled
 #' @noRd
 app_server <- function(input, output, session) {
   counter <- methods::new("Counter")
@@ -92,16 +93,24 @@ app_server <- function(input, output, session) {
     removeUI("#div_slider_cond_pcnt > *", TRUE, TRUE)
     # now, add the new sliders
 
-    # get initial max values for the sliders
-    mv <- map_dbl(px$conditions, "pcnt") %>% (function(x) x + 1 - sum(x)) * 100
+    # create the no mental health group slider
+    nmh_slider <- disabled(
+      sliderInput(
+        "slider_cond_pcnt_no_mh_needs",
+        "No Mental Health Needs",
+        value = (1 - map_dbl(px$conditions, "pcnt") %>% sum()) * 100,
+        min = 0, max = 100, step = 0.01, post = "%"
+      )
+    )
+
     # loop over the conditions (and the corresponding max values)
-    walk2(conditions, mv, function(i, mv) {
+    walk(conditions, function(i) {
       # slider names can't have spaces, replace with _
       slider_name <- gsub(" ", "_", paste0("slider_cond_pcnt_", i))
       slider <- sliderInput(
         slider_name, label = i,
         value = px$conditions[[i]]$pcnt * 100,
-        min = 0, max = mv, step = 0.01, post = "%"
+        min = 0, max = 100, step = 0.01, post = "%"
       )
       insertUI("#div_slider_cond_pcnt", "beforeEnd", slider)
 
@@ -109,15 +118,55 @@ app_server <- function(input, output, session) {
         # can't use the px element here: must use full params
         params$groups[[sg]]$conditions[[i]]$pcnt <- input[[slider_name]] / 100
 
-        # update other sliders max values
-        m <- 1 - params$groups[[sg]]$conditions %>% map_dbl("pcnt") %>% sum()
-        walk(conditions, function(j) {
-          v <- params$groups[[sg]]$conditions[[j]]$pcnt + m
-          sn <- gsub(" ", "_", paste0("slider_cond_pcnt_", j))
-          updateSliderInput(session, sn, max = v * 100)
+        # if we have exceeded 100%, reduce each slider evenly to maintain 100%
+        isolate({
+          # if we are going to reduce a slider by more than its current amount, reduce all the sliders by that amount
+          # and then start again with the remaining sliders
+          current_conditions <- params$groups[[sg]]$conditions %>%
+            names() %>%
+            discard(~.x == i)
+
+          repeat {
+            # check that we do not exceed 100% for conditions
+            pcnt_sum <- params$groups[[sg]]$conditions %>%
+              map_dbl("pcnt") %>%
+              sum()
+            # break out the loop
+            if (pcnt_sum <= 1) break
+
+            # get the pcnt's for the "current" conditions
+            current_pcnts <- params$groups[[sg]]$conditions[current_conditions] %>%
+              map_dbl("pcnt")
+
+            # find the smallest percentage currently
+            min_pcnt <- min(current_pcnts)
+            # what is(are) the smallest group(s)?
+            j <- names(which(current_pcnts == min_pcnt))
+            # find the target reduction (either the minimum percentage present, or an equal split of the amount of the
+            # sum over 100%)
+            tgt_pcnt <- min(min_pcnt, (pcnt_sum - 1) / length(current_conditions))
+
+            # now, reduce the pcnts by the target
+            map(current_conditions, function(k) {
+              v <- params$groups[[sg]]$conditions[[k]]$pcnt - tgt_pcnt
+              params$groups[[sg]]$conditions[[k]]$pcnt <- v
+              updateSliderInput(session,
+                                gsub(" ", "_", paste0("slider_cond_pcnt_", k)),
+                                value = v * 100)
+            })
+
+            # remove the smallest group(s) j and loop
+            current_conditions <- current_conditions[!current_conditions %in% j]
+          }
+
+          updateSliderInput(session,
+                            "slider_cond_pcnt_no_mh_needs",
+                            value = (1 - pcnt_sum) * 100)
         })
       })
     })
+
+    insertUI("#div_slider_cond_pcnt", "beforeEnd", nmh_slider)
   })
 
   # subpopulation_size (numericInput)
@@ -132,10 +181,20 @@ app_server <- function(input, output, session) {
     params$groups[[sg]]$pcnt <- input$subpopulation_pcnt
   })
 
+  output$subpopulation_size_pcnt <- renderText({
+    paste0("Modelled population: ", comma(input$subpopulation_size * input$subpopulation_pcnt / 100))
+  })
+
   # subpopulation_curve (selectInput)
   observeEvent(input$subpopulation_curve, {
     sg <- req(input$popn_subgroup)
     params$groups[[sg]]$curve <- input$subpopulation_curve
+  })
+
+  output$subpopulation_curve_plot <- renderPlotly({
+    subpopulation_curve_plot(params$curves[[input$subpopulation_curve]],
+                             input$subpopulation_size,
+                             input$subpopulation_pcnt)
   })
 
   # params_group_to_cond ====
@@ -159,62 +218,31 @@ app_server <- function(input, output, session) {
 
     treatments_pathways <- names(px$treatments)
 
-    updateSelectInput(session, "sliders_select_treat", choices = treatments_pathways)
-
     # loop over the treatments
     walk(treatments_pathways, function(i) {
       # slider names can't have spaces, replace with _
       ix <- gsub(" ", "_", i)
       split_name <- paste0("numeric_treatpath_split_", ix)
-      treat_name <- paste0("slider_treatpath_treat_", ix)
 
       split <- numericInput(
         split_name,
         label = paste("split", i),
-        value = px$treatments[[i]]$split
-      )
-
-      treat <- sliderInput(
-        treat_name,
-        label = paste("treat %", i),
-        value = px$treatments[[i]]$treat * 100,
-        min = 0, max = 100, step = 0.01, post = "%"
+        value = px$treatments[[i]]
       )
 
       insertUI("#div_slider_treatmentpathway", "beforeEnd", split)
-      insertUI("#div_slider_treatmentpathway", "beforeEnd", treat)
 
       div_slider_treatpath_obs[[split_name]] <<- observeEvent(input[[split_name]], {
         v <- input[[split_name]]
-        params$groups[[sg]]$conditions[[ssc]]$treatments[[i]]$split <- v
-      })
-
-      div_slider_treatpath_obs[[treat_name]] <<- observeEvent(input[[treat_name]], {
-        v <- input[[treat_name]] / 100
-        params$groups[[sg]]$conditions[[ssc]]$treatments[[i]]$treat <- v
+        params$groups[[sg]]$conditions[[ssc]]$treatments[[i]] <- v
       })
     })
-  })
 
-  # params_cond_to_treat ====
-
-  observeEvent(input$sliders_select_treat, {
-    sg <- req(input$popn_subgroup)
-    condition <- req(input$sliders_select_cond)
-    treatment <- req(input$sliders_select_treat)
-
-    v <- params$groups[[sg]]$conditions[[condition]]$treatments[[treatment]]$treat * 100
-    updateSliderInput(session, "slider_treat", value = v)
-  })
-
-  # slider_treat (sliderInput)
-  observeEvent(input$slider_treat, {
-    sg <- req(input$popn_subgroup)
-    condition <- req(input$sliders_select_cond)
-    treatment <- req(input$sliders_select_treat)
-
-    v <- input$slider_treat / 100
-    params$groups[[sg]]$conditions[[condition]]$treatments[[treatment]]$treat <- v
+    treat_split_plot <- plotlyOutput("treat_split_plot")
+    insertUI("#div_slider_treatmentpathway", "beforeEnd", treat_split_plot)
+    output$treat_split_plot <- renderPlotly({
+      treatment_split_plot(params$groups[[sg]]$conditions[[ssc]]$treatments)
+    })
   })
 
   # params_demand ====
@@ -230,6 +258,7 @@ app_server <- function(input, output, session) {
     updateSliderInput(session, "slider_success", value = tx$success * 100)
     updateSliderInput(session, "slider_tx_months", value = tx$months)
     updateSliderInput(session, "slider_decay", value = tx$decay * 100)
+    updateSliderInput(session, "slider_treat_pcnt", value = tx$treat_pcnt * 100)
   })
 
   # treatment_appointments (sliderInput)
@@ -254,6 +283,11 @@ app_server <- function(input, output, session) {
   observeEvent(input$slider_decay, {
     ttype <- req(input$treatment_type)
     params$treatments[[ttype]]$decay <- input$slider_decay / 100
+  })
+
+  observeEvent(input$slider_treat_pcnt, {
+    ttype <- req(input$treatment_type)
+    params$treatments[[ttype]]$treat_pcnt <- input$slider_treat_pcnt / 100
   })
 
   # download_params (downloadButton)

@@ -23,6 +23,7 @@ Imports:
     shiny,
     shinycssloaders,
     shinydashboard,
+    shinyjs,
     tidyr,
     writexl
 Suggests:
