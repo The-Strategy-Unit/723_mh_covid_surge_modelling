@@ -12,15 +12,11 @@ Imports:
     forcats,
     ggplot2,
     golem,
-    grid,
-    gridExtra,
     htmltools,
     igraph,
     lubridate,
     methods,
-    pkgload,
     packcircles,
-    patchwork,
     plotly,
     purrr,
     readxl,
@@ -30,15 +26,20 @@ Imports:
     shinycssloaders,
     shinydashboard,
     shinyjs,
-    tibble,
     tidyr,
     writexl
 Suggests:
     here,
     mockery,
     processx,
+    pkgload,
     testthat,
     usethis
+Enchances:
+    grid,
+    gridExtra,
+    patchwork,
+    tibble
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
