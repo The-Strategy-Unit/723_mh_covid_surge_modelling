@@ -31,7 +31,7 @@ stopifnot("model_output does not exist" = exists("model_output"),
 ```{r, echo = F, fig.width=18, fig.height=11}
  
 a <- model_output %>%
-  summarise_model_output("new_referral", services) %>%
+  summarise_model_output("new-referral", services) %>%
   ggplot(aes(date, value)) +
   theme_bw() +
   geom_line(colour = "red") +
