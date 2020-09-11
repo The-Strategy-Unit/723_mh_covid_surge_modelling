@@ -4,14 +4,14 @@
 \alias{summarise_model_output}
 \title{Summarise model output}
 \usage{
-summarise_model_output(model_output, type, treatment)
+summarise_model_output(model_output, type, treatments)
 }
 \arguments{
 \item{model_output}{output from \code{run_model()} and \code{get_model_output()}}
 
 \item{type}{the row "type" to filter by}
 
-\item{treatment}{a name of a treatment to filter by}
+\item{treatments}{the list of treatments to filter model_output by}
 }
 \value{
 a filtered and summarised version of \code{model_output}
