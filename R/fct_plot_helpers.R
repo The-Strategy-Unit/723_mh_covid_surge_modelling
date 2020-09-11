@@ -3,6 +3,7 @@
 #' Helper function used to filter results of the model output for use in plots and tables
 #'
 #' @param model_output output from \code{run_model()} and \code{get_model_output()}
+#' @param type the row "type" to filter by
 #' @param treatment a name of a treatment to filter by
 #'
 #' @return a filtered and summarised version of \code{model_output}

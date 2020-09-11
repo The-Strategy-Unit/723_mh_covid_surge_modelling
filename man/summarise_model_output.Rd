@@ -9,6 +9,8 @@ summarise_model_output(model_output, type, treatment)
 \arguments{
 \item{model_output}{output from \code{run_model()} and \code{get_model_output()}}
 
+\item{type}{the row "type" to filter by}
+
 \item{treatment}{a name of a treatment to filter by}
 }
 \value{
