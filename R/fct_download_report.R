@@ -1,4 +1,4 @@
-#' Download Results Report
+#' Download Report
 #'
 #' Generates a pdf report to download for the current services
 #'
