@@ -140,13 +140,6 @@ popgroups_plot <- function(model_output, treatment) {
     mutate(across(.data$group, fct_reorder, .data$value)) %>%
     rename(`# Referrals` = .data$value)
 
-  model_output %>%
-    group_by(.data$group) %>%
-    filter(day(.data$date) == 1,
-           type == "new-referral",
-           treatment == "IAPT") %>%
-    summarise(across(value, sum), .groups = "drop_last")
-
   if (nrow(df) < 1) return(NULL)
 
   plot_ly(df,
