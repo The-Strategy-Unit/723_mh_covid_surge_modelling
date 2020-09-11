@@ -33,34 +33,29 @@ stopifnot("model_output does not exist" = exists("model_output"),
 ```{r, echo = F, fig.width=18, fig.height=11}
  
 a <- model_output %>%
-    filter(.data$type == "new-referral",
-           .data$treatment == services) %>%
-    group_by(.data$date) %>%
-    summarise(across(.data$value, sum), .groups = "drop") %>%
-    ggplot(aes(date, value)) +
-    theme_bw() +
-    geom_line(colour = "red") +
-    scale_x_date(name = "Month",
-                 date_breaks = "3 months",
-                 date_labels =  "%b %Y") +
-    labs(y = "New Referrals",
-         title = "Additional Patients Receiving Service")
+  summarise_model_output("new_referral", services) %>%
+  ggplot(aes(date, value)) +
+  theme_bw() +
+  geom_line(colour = "red") +
+  scale_x_date(name = "Month",
+               date_breaks = "3 months",
+               date_labels =  "%b %Y") +
+  labs(y = "New Referrals",
+       title = "Additional Patients Receiving Service")
 
 b <- model_output %>%
-    filter(.data$type == "treatment",
-           .data$treatment == services) %>%
-    group_by(.data$date, .data$treatment) %>%
-    summarise(across(.data$value, sum), .groups = "drop") %>%
-    inner_join(appointments, by = "treatment") %>%
-    mutate(no_appointments = .data$value * .data$average_monthly_appointments) %>%
-    ggplot(aes(date, no_appointments)) +
-    theme_bw() +
-    geom_line(colour = "green") +
-    scale_x_date(name = "Month",
-                 date_breaks = "3 months",
-                 date_labels =  "%b %Y") +
-    labs(y = "Demand",
-         title = "Typical Additional Contact Volumes per Appointment Type")
+  summarise_model_output("treatment", services) %>%
+  mutate(treatment = services) %>%
+  inner_join(appointments, by = "treatment") %>%
+  mutate(no_appointments = .data$value * .data$average_monthly_appointments) %>%
+  ggplot(aes(date, no_appointments)) +
+  theme_bw() +
+  geom_line(colour = "green") +
+  scale_x_date(name = "Month",
+               date_breaks = "3 months",
+               date_labels =  "%b %Y") +
+  labs(y = "Demand",
+       title = "Typical Additional Contact Volumes per Appointment Type")
 
 c <- tableGrob(
   tribble(
@@ -81,10 +76,9 @@ c <- tableGrob(
 )
 
 d <- model_output %>%
-  filter(.data$type == "new-referral",
-         .data$treatment == services,
-         day(.data$date) == 1) %>%
+  filter(day(.data$date) == 1) %>%
   group_by(.data$group) %>%
+  summarise_model_output("new-referral", services) %>%
   summarise(`# Referrals` = round(sum(.data$value), 0), .groups = "drop") %>%
   filter(.data$`# Referrals` != 0) %>%
   mutate(across(.data$group, fct_reorder, .data$`# Referrals`)) %>%
@@ -94,10 +88,7 @@ d <- model_output %>%
 
 e <- bind_rows(
   model_output %>%
-    filter(.data$treatment == services,
-           .data$type == "treatment") %>%
-    group_by(.data$date) %>%
-    summarise(across(.data$value, sum), .groups = "drop") %>%
+    summarise_model_output("treatment", services) %>%
     mutate(type = "surge"),
   demand[[services]] %>%
     pivot_longer(-.data$month, names_to = "type") %>%

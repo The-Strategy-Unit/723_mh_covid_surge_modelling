@@ -14,27 +14,28 @@
 #' @importFrom tidyr pivot_longer
 #' @importFrom lubridate ymd
 combined_plot <- function(model_output, treatment, params) {
-  df <- bind_rows(
-    model_output %>%
-      filter(.data$treatment == {{treatment}},
-             .data$type == "treatment") %>%
-      group_by(.data$date) %>%
-      summarise(across(.data$value, sum), .groups = "drop") %>%
-      mutate(type = "surge"),
+  df <- model_output %>%
+    summarise_model_output("treatment", {{treatment}}) %>%
+    mutate(type = "surge") %>%
+    bind_rows(
+      params$demand[[treatment]] %>%
+        pivot_longer(-.data$month, names_to = "type") %>%
+        rename(date = .data$month) %>%
+        mutate(across(.data$date, ymd))
+    ) %>%
+    (function(df) {
+      bind_rows(
+        df,
+        df %>%
+          filter(day(date) == 1) %>%
+          group_by(.data$date) %>%
+          summarise(across(.data$value, sum), type = "total")
+      )
+    })()
 
-    params$demand[[treatment]] %>%
-      pivot_longer(-.data$month, names_to = "type") %>%
-      rename(date = .data$month) %>%
-      mutate(across(.data$date, ymd))
-  )
+  if (nrow(df) < 1) return(NULL)
 
-  bind_rows(
-    df,
-    df %>%
-      filter(day(date) == 1) %>%
-      group_by(.data$date) %>%
-      summarise(across(.data$value, sum), type = "total")
-  ) %>%
+  df %>%
     plot_ly(type = "scatter",
             mode = "lines",
             x = ~date,
@@ -60,10 +61,7 @@ combined_plot <- function(model_output, treatment, params) {
 #' @importFrom plotly plot_ly layout config
 referrals_plot <- function(model_output, treatment) {
   df <- model_output %>%
-    filter(.data$type == "new-referral",
-           .data$treatment == {{treatment}}) %>%
-    group_by(.data$date) %>%
-    summarise(across(.data$value, sum), .groups = "drop")
+    summarise_model_output("new-referral", {{treatment}})
 
   if (nrow(df) < 1) return(NULL)
 
@@ -98,10 +96,8 @@ referrals_plot <- function(model_output, treatment) {
 #' @importFrom plotly plot_ly layout config
 demand_plot <- function(model_output, appointments, treatment) {
   df <- model_output %>%
-    filter(.data$type == "treatment",
-           .data$treatment == {{treatment}}) %>%
-    group_by(.data$date, .data$treatment) %>%
-    summarise(across(.data$value, sum), .groups = "drop") %>%
+    summarise_model_output("treatment", treatment) %>%
+    mutate(treatment = {{treatment}}) %>%
     inner_join(appointments, by = "treatment") %>%
     mutate(no_appointments = .data$value * .data$average_monthly_appointments)
 
@@ -136,13 +132,22 @@ demand_plot <- function(model_output, appointments, treatment) {
 #' @import rlang
 popgroups_plot <- function(model_output, treatment) {
   df <- model_output %>%
-    filter(.data$type == "new-referral",
-           .data$treatment == {{treatment}},
-           day(.data$date) == 1) %>%
     group_by(.data$group) %>%
-    summarise(`# Referrals` = round(sum(.data$value), 0), .groups = "drop") %>%
-    filter(.data$`# Referrals` != 0) %>%
-    mutate(across(.data$group, fct_reorder, .data$`# Referrals`))
+    filter(day(.data$date) == 1) %>%
+    summarise_model_output("new-referral", treatment) %>%
+    summarise(across(.data$value, ~round(sum(.x), 0)), .groups = "drop") %>%
+    filter(.data$value != 0) %>%
+    mutate(across(.data$group, fct_reorder, .data$value)) %>%
+    rename(`# Referrals` = .data$value)
+
+  model_output %>%
+    group_by(.data$group) %>%
+    filter(day(.data$date) == 1,
+           type == "new-referral",
+           treatment == "IAPT") %>%
+    summarise(across(value, sum), .groups = "drop_last")
+
+  if (nrow(df) < 1) return(NULL)
 
   plot_ly(df,
           x = ~`# Referrals`,
