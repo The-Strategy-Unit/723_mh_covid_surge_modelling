@@ -135,8 +135,14 @@ app_ui <- function(request) {
           "Service",
           choices = NULL
         ),
-        radioButtons("download_choice", "Download option", c("Selected", "All"), "Selected", T),
-        downloadButton("download_results", label = "Download")
+        radioButtons(
+          "download_choice",
+          "Download option",
+          c("Selected", "All"),
+          "Selected",
+          TRUE
+        ),
+        downloadButton("download_results")
       ),
       box(
         width = 5,
