@@ -10,14 +10,13 @@
 #' @importFrom dplyr %>% filter group_by summarise across
 #' @import rlang
 summarise_model_output <- function(model_output, type, treatment) {
-  # thought that you should be able to call {{type}} and {{treatment}} in the filter call, but this seems to be causing
-  # the results to not filter correctly.
-  f_type <- type
-  f_treatment <- treatment
+  # "treatment" is usually passed in as a variable, this value needs to be forced, otherwise treatment will just remain
+  # as a call
+  force(treatment)
 
   model_output %>%
-    filter(.data$type == f_type,
-           .data$treatment == f_treatment) %>%
+    filter(.data$type == {{type}},
+           .data$treatment == {{treatment}}) %>%
     group_by(.data$date, .add = TRUE) %>%
     summarise(across(.data$value, sum), .groups = "drop_last")
 }
