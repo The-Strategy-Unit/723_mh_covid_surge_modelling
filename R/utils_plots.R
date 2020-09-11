@@ -15,8 +15,7 @@
 #' @importFrom lubridate ymd
 combined_plot <- function(model_output, treatment, params) {
   df <- bind_rows(
-    models %>%
-      get_model_output() %>%
+    model_output %>%
       filter(.data$treatment == {{treatment}},
              .data$type == "treatment") %>%
       group_by(.data$date) %>%
