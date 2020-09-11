@@ -5,7 +5,7 @@
 #' @param services the services to generate this report for
 #' @param model_output output from \code{run_model()} and \code{get_model_output()}
 #' @param appointments output from \code{get_appointments()}
-#' @param params the current `params` object used to model the data
+#' @param demand the current value of `params$demand`
 #'
 #' @return a function that accepts a file name to save the report to
 #'

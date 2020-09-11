@@ -13,7 +13,7 @@ download_report(services, model_output, appointments, demand)
 
 \item{appointments}{output from \code{get_appointments()}}
 
-\item{params}{the current `params` object used to model the data}
+\item{demand}{the current value of `params$demand`}
 }
 \value{
 a function that accepts a file name to save the report to
