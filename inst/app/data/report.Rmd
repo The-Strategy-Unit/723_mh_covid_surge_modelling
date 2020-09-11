@@ -1,8 +1,6 @@
 ---
 output: 
-  pdf_document:
-    latex_engine: xelatex
-sansfont: Calibri Light
+  pdf_document: default
 papersize: a4
 classoption: landscape
 geometry: margin=1in
