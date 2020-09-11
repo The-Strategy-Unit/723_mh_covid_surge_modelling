@@ -34,8 +34,7 @@ Suggests:
     processx,
     pkgload,
     testthat,
-    usethis
-Enchances:
+    usethis,
     grid,
     gridExtra,
     patchwork,

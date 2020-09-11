@@ -42,7 +42,6 @@ jobs:
           options(repos = c(CRAN = "https://packagemanager.rstudio.com/all/__linux__/bionic/latest"))
           install.packages(c("remotes", "rsconnect"))
           remotes::install_deps(dependencies = TRUE)
-          remotes::install_deps(dependencies = "Enhances")
 
         shell: Rscript {0}
 
