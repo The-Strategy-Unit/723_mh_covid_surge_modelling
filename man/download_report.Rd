@@ -4,7 +4,7 @@
 \alias{download_report}
 \title{Download Report}
 \usage{
-download_report(services, model_output, appointments, params)
+download_report(services, model_output, appointments, demand)
 }
 \arguments{
 \item{services}{the services to generate this report for}

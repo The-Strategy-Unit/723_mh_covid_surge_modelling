@@ -7,15 +7,8 @@ papersize: a4
 classoption: landscape
 geometry: margin=1in
 params:
-  set_title: "My Title"
-  demand_plot: NA
-  referrals_plot: NA
-  combined_plot: NA
-  total_surge: NA
-  total_demand: NA
-  total_newpatients: NA
-  source_referrals: NA
-title: "\\vspace{-3cm} `r params$set_title`"
+  services: NA
+title: "\\vspace{-3cm} Modelled Results by Service: `r params$services`"
 ---
 
 ```{r results='hide', message=FALSE, warning=FALSE, echo = F}
@@ -23,18 +16,58 @@ library(tibble)
 library(patchwork)
 library(gridExtra)
 library(grid)
+
+services <- params$services
+
+# model_output, appointments and demand should be set in the environment before running this report
+stopifnot("model_output does not exist" = exists("model_output"),
+          "appointments does not exist" = exists("appointments"),
+          "demand does not exist" = exists("demand"))
+
+# you can recreate these variables using the code below. Note: this is the model params, not the Rmd params
+# model_output <- get_model_output(models)
+# appointments <- get_appointments(params)
+# demand <- params$demand
 ```
 
 ```{r, echo = F, fig.width=18, fig.height=11}
  
-a <- params$referrals_plot
-b <- params$demand_plot
+a <- model_output %>%
+    filter(.data$type == "new-referral",
+           .data$treatment == services) %>%
+    group_by(.data$date) %>%
+    summarise(across(.data$value, sum), .groups = "drop") %>%
+    ggplot(aes(date, value)) +
+    theme_bw() +
+    geom_line(colour = "red") +
+    scale_x_date(name = "Month",
+                 date_breaks = "3 months",
+                 date_labels =  "%b %Y") +
+    labs(y = "New Referrals",
+         title = "Additional Patients Receiving Service")
+
+b <- model_output %>%
+    filter(.data$type == "treatment",
+           .data$treatment == services) %>%
+    group_by(.data$date, .data$treatment) %>%
+    summarise(across(.data$value, sum), .groups = "drop") %>%
+    inner_join(appointments, by = "treatment") %>%
+    mutate(no_appointments = .data$value * .data$average_monthly_appointments) %>%
+    ggplot(aes(date, no_appointments)) +
+    theme_bw() +
+    geom_line(colour = "green") +
+    scale_x_date(name = "Month",
+                 date_breaks = "3 months",
+                 date_labels =  "%b %Y") +
+    labs(y = "Demand",
+         title = "Typical Additional Contact Volumes per Appointment Type")
+
 c <- tableGrob(
   tribble(
     ~ Metric, ~ Number,
-    "Total 'surge' Referrals", params$total_surge,
-    "Total new patients in service", params$total_demand,
-    "Total additional demand per contact type", params$total_newpatients
+    "Total 'surge' Referrals", model_totals(model_output, "new-referral", services),
+    "Total new patients in service", model_totals(model_output, "treatment", services),
+    # "Total additional demand per contact type", model_totals(model_output, "new-treatment", services),
   ),
   rows = NULL,
   cols = NULL,
@@ -46,8 +79,48 @@ c <- tableGrob(
     )
   )
 )
-d <- tableGrob(params$source_referrals, rows = NULL)
-e <- params$combined_plot
+
+d <- model_output %>%
+  filter(.data$type == "new-referral",
+         .data$treatment == services,
+         day(.data$date) == 1) %>%
+  group_by(.data$group) %>%
+  summarise(`# Referrals` = round(sum(.data$value), 0), .groups = "drop") %>%
+  filter(.data$`# Referrals` != 0) %>%
+  mutate(across(.data$group, fct_reorder, .data$`# Referrals`)) %>%
+  arrange(-`# Referrals`) %>%
+  rename(Group = group) %>%
+  tableGrob(rows = NULL)
+
+e <- bind_rows(
+  model_output %>%
+    filter(.data$treatment == services,
+           .data$type == "treatment") %>%
+    group_by(.data$date) %>%
+    summarise(across(.data$value, sum), .groups = "drop") %>%
+    mutate(type = "surge"),
+  demand[[services]] %>%
+    pivot_longer(-.data$month, names_to = "type") %>%
+    rename(date = month) %>%
+    mutate(across(date, ymd))
+) %>%
+  (function(df) {
+    bind_rows(
+      df,
+      df %>%
+        filter(day(.data$date) == 1) %>%
+        group_by(date) %>%
+        summarise(type = "total", across(value, sum), .groups = "drop")
+    )
+  })() %>%
+  ggplot(aes(date, value, group = type, colour = type)) +
+  theme_bw() +
+  geom_line() +
+  scale_x_date(name = "Month",
+               date_breaks = "3 months",
+               date_labels =  "%b %Y") +
+  labs(title = "Referrals") +
+  scale_colour_discrete(name = "Type")
 
 (a | b) / (wrap_elements(c) | wrap_elements(d) | e) ## c and d needs to be made patchwork compliant
 

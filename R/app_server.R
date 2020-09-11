@@ -374,7 +374,7 @@ app_server <- function(input, output, session) {
     content = download_report(input$services,
                               model_output(),
                               appointments(),
-                              reactiveValuesToList(params))
+                              reactiveValuesToList(params)$demand)
   )
 
   # Surge Tabs ----
