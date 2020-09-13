@@ -138,9 +138,8 @@ app_ui <- function(request) {
         radioButtons(
           "download_choice",
           "Download option",
-          c("Selected", "All"),
-          "Selected",
-          TRUE
+          c("Selected" = "selected", "All" = "all"),
+          inline = TRUE
         ),
         downloadButton("download_results")
       ),

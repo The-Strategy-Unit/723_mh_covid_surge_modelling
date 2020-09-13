@@ -367,14 +367,21 @@ app_server <- function(input, output, session) {
     popgroups_plot(model_output(), input$services)
   })
 
+  download_report_services <- reactive({
+    if (input$download_choice == "all") {
+      names(params$treatments)
+    } else {
+      input$services
+    }
+  })
+
   # Download Option ----
 
   output$download_results <- downloadHandler(
     filename = "report.pdf",
-    content = download_report(input$services,
-                              model_output(),
-                              appointments(),
-                              reactiveValuesToList(params)$demand)
+    content = download_report(model_output(),
+                              reactiveValuesToList(params),
+                              download_report_services())
   )
 
   # Surge Tabs ----
@@ -382,44 +389,31 @@ app_server <- function(input, output, session) {
   # Surge subpopn tab ====
 
   output$surge_subpopn_table <- renderTable({
-    model_output() %>%
-      surge_summary(group) %>%
-      surge_table("Subpopulation group")
+    surge_table(model_output(), group, "Subpopulation group")
   })
 
   output$surge_subpopn_plot <- renderPlotly({
-    model_output() %>%
-      surge_summary(group) %>%
-      select(-.data$`new-at-risk`) %>%
-      surge_plot()
+    surge_plot(model_output(), group)
   })
 
   # Surge conditions tab ====
 
   output$surge_condition_table <- renderTable({
-    model_output() %>%
-      surge_summary(condition) %>%
-      surge_table("Condition")
+    surge_table(model_output(), condition, "Condition")
   })
 
   output$surge_condition_plot <- renderPlotly({
-    model_output() %>%
-      surge_summary(condition) %>%
-      surge_plot()
+    surge_plot(model_output(), condition)
   })
 
   # Surge service tab ====
 
   output$surge_service_table <- renderTable({
-    model_output() %>%
-      surge_summary(treatment) %>%
-      surge_table("Treatment")
+    surge_table(model_output(), treatment, "Treatment")
   })
 
   output$surge_service_plot <- renderPlotly({
-    model_output() %>%
-      surge_summary(treatment) %>%
-      surge_plot()
+    surge_plot(model_output(), treatment)
   })
 
   # Bubble plot tab ====

@@ -1,0 +1,12 @@
+name: MH_surge_modelling_test
+title: MH_surge_modelling_test
+username:
+account: tom-jemmett
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2793490
+bundleId: 3620255
+url: https://tom-jemmett.shinyapps.io/MH_surge_modelling_test/
+when: 1599859344.72596
+asMultiple: FALSE
+asStatic: FALSE

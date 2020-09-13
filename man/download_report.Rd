@@ -4,16 +4,14 @@
 \alias{download_report}
 \title{Download Report}
 \usage{
-download_report(services, model_output, appointments, demand)
+download_report(model_output, params, services)
 }
 \arguments{
-\item{services}{the services to generate this report for}
-
 \item{model_output}{output from \code{run_model()} and \code{get_model_output()}}
 
-\item{appointments}{output from \code{get_appointments()}}
+\item{params}{the current `params` object used to model the data}
 
-\item{demand}{the current value of `params$demand`}
+\item{services}{the services to generate this report for - ignored if "All" is selected for \code{download_choice}}
 }
 \value{
 a function that accepts a file name to save the report to
