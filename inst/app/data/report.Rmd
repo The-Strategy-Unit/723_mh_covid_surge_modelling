@@ -28,7 +28,7 @@ appointments <- get_appointments(params)
 ```
 
 ```{r, echo=FALSE, message=FALSE, results="asis", fig.width=18, fig.height=11}
-map(services, function(service) {
+purrr::walk(services, function(service) {
   cat("# ", service, "\n\n", sep = "")
 
   a <- referrals_plot_ggplot(model_output, service)
