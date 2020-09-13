@@ -54,7 +54,7 @@ referrals_plot_ggplot <- function(model_output, treatment) {
   if (nrow(df) < 1) return(NULL)
 
   df %>%
-    ggplot(aes(date, value)) +
+    ggplot(aes(.data$date, .data$value)) +
     theme_bw() +
     geom_line(colour = "red") +
     scale_x_date(name = "Month",

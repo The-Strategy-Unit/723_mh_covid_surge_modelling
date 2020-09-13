@@ -69,7 +69,7 @@ combined_plot_ggplot <- function(model_output, treatment, params) {
   if (nrow(df) < 1) return(NULL)
 
   df %>%
-    ggplot(aes(date, value, group = type, colour = type)) +
+    ggplot(aes(.data$date, .data$value, group = .data$type, colour = .data$type)) +
     theme_bw() +
     geom_line() +
     scale_x_date(name = "Month",

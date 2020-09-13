@@ -60,7 +60,7 @@ demand_plot_ggplot <- function(model_output, appointments, treatment) {
   if (nrow(df) < 1) return(NULL)
 
   df %>%
-    ggplot(aes(date, no_appointments)) +
+    ggplot(aes(.data$date, .data$no_appointments)) +
     theme_bw() +
     geom_line(colour = "green") +
     scale_x_date(name = "Month",

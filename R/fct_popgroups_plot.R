@@ -17,8 +17,8 @@ popgroups_plot_data <- function(model_output, treatment) {
     summarise(across(.data$value, ~round(sum(.x), 0)), .groups = "drop") %>%
     filter(.data$value != 0) %>%
     mutate(across(.data$group, fct_reorder, .data$value)) %>%
-    rename(`# Referrals` = .data$value) %>%
-    arrange(-`# Referrals`)
+    arrange(-.data$value) %>%
+    rename(`# Referrals` = .data$value)
 }
 
 #' Population Groups Plot

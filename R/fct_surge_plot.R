@@ -11,7 +11,7 @@
 #' @importFrom dplyr %>% filter mutate across rename
 surge_plot_data <- function(model_output, column) {
   model_output %>%
-    filter(type != "new-at-risk") %>%
+    filter(.data$type != "new-at-risk") %>%
     surge_summary({{column}}) %>%
     mutate(across(.data$`new-referral`, ~.x - .data$`new-treatment`)) %>%
     rename("Received treatment" = .data$`new-treatment`,
