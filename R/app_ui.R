@@ -140,68 +140,82 @@ app_ui <- function(request) {
 
   # Results Tab ----
 
+  results_services <- box(
+    width = 2,
+    selectInput(
+      "services",
+      "Service",
+      choices = NULL
+    )
+  )
+
+  results_value_boxes <- box(
+    width = 5,
+    valueBoxOutput("total_referrals"),
+    valueBoxOutput("total_demand"),
+    valueBoxOutput("total_newpatients")
+  )
+
+  results_popgroups <- box(
+    title = "Population group source of 'surge'",
+    solidHeader = TRUE,
+    status = "primary",
+    width = 5,
+    withSpinner(
+      plotlyOutput(
+        "results_popgroups"
+      )
+    )
+  )
+
+  results_referrals_plot <- box(
+    withSpinner(
+      plotlyOutput(
+        "referrals_plot"
+      )
+    )
+  )
+
+  results_demand_plot <- box(
+    withSpinner(
+      plotlyOutput(
+        "demand_plot"
+      )
+    )
+  )
+
+  results_graph <- box(
+    withSpinner(
+      plotlyOutput(
+        "graph",
+        height = "600px"
+      )
+    ),
+    width = 12
+  )
+
+  results_combined_plot <- box(
+    withSpinner(
+      plotlyOutput(
+        "combined_plot",
+        height = "600px"
+      )
+    ),
+    width = 12
+  )
+
   body_results <- tabItem(
     "results",
     fluidRow(
-      box(
-        width = 2,
-        selectInput(
-          "services",
-          "Service",
-          choices = NULL
-        )
-      ),
-      box(
-        width = 5,
-        valueBoxOutput("total_referrals"),
-        valueBoxOutput("total_demand"),
-        valueBoxOutput("total_newpatients")
-      ),
-      box(
-        width = 5,
-        withSpinner(
-          plotlyOutput(
-            "results_popgroups"
-          )
-        ),
-        title = "Population group source of 'surge'",
-        solidHeader = TRUE,
-        status = "primary"
-      )
+      results_services,
+      results_value_boxes,
+      results_popgroups
     ),
     fluidRow(
-      box(
-        withSpinner(
-          plotlyOutput(
-            "referrals_plot"
-          )
-        )
-      ),
-      box(
-        withSpinner(
-          plotlyOutput(
-            "demand_plot"
-          )
-        )
-      ),
-      box(
-        withSpinner(
-          plotlyOutput(
-            "graph",
-            height = "600px"
-          )
-        ),
-        width = 12
-      ),
-      box(
-        withSpinner(
-          plotlyOutput(
-            "combined_plot",
-            height = "600px"
-          )
-        ),
-        width = 12
-      )
+      results_referrals_plot,
+      results_demand_plot,
+      results_combined_plot,
+      results_graph
     )
   )
 
