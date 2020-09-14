@@ -12,6 +12,8 @@ app_ui <- function(request) {
 
   params_upload_params <- box(
     title = "Upload parameters",
+    solidHeader = TRUE,
+    status = "primary",
     width = 12,
     fileInput(
       "user_upload_xlsx",
@@ -24,6 +26,8 @@ app_ui <- function(request) {
 
   params_population_groups <- box(
     title = "Population Groups",
+    solidHeader = TRUE,
+    status = "primary",
     width = 12,
     selectInput(
       "popn_subgroup",
@@ -55,12 +59,16 @@ app_ui <- function(request) {
 
   params_group_to_cond <- box(
     title = "Condition group of sub-group population",
+    solidHeader = TRUE,
+    status = "primary",
     width = 12,
     div(id = "div_slider_cond_pcnt")
   )
 
   params_cond_to_treat <- box(
     title = "People being treated of condition group",
+    solidHeader = TRUE,
+    status = "primary",
     width = 12,
     selectInput(
       "sliders_select_cond",
@@ -72,6 +80,8 @@ app_ui <- function(request) {
 
   params_demand <- box(
     title = "Treatment",
+    solidHeader = TRUE,
+    status = "primary",
     width = 12,
     selectInput(
       "treatment_type",
