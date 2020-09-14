@@ -7,10 +7,26 @@
 #' @import shinycssloaders
 #' @importFrom shinyjs useShinyjs
 #' @importFrom plotly plotlyOutput
+#' @importFrom purrr partial
 #' @noRd
 app_ui <- function(request) {
 
-  params_population_groups <- box(
+  primary_box <- partial(box, solidHeader = TRUE, status = "primary")
+
+  # Params Tab ----
+  params_upload_params <- primary_box(
+    title = "Upload parameters",
+    width = 12,
+    fileInput(
+      "user_upload_xlsx",
+      label = NULL,
+      multiple = FALSE,
+      accept = ".xlsx",
+      placeholder = "Previously downloaded parameters"
+    )
+  )
+
+  params_population_groups <- primary_box(
     title = "Population Groups",
     width = 12,
     selectInput(
@@ -41,13 +57,13 @@ app_ui <- function(request) {
     )
   )
 
-  params_group_to_cond <- box(
+  params_group_to_cond <- primary_box(
     title = "Condition group of sub-group population",
     width = 12,
     div(id = "div_slider_cond_pcnt")
   )
 
-  params_cond_to_treat <- box(
+  params_cond_to_treat <- primary_box(
     title = "People being treated of condition group",
     width = 12,
     selectInput(
@@ -58,7 +74,7 @@ app_ui <- function(request) {
     div(id = "div_slider_treatmentpathway"),
   )
 
-  params_demand <- box(
+  params_demand <- primary_box(
     title = "Treatment",
     width = 12,
     selectInput(
@@ -90,7 +106,12 @@ app_ui <- function(request) {
       "slider_treat_pcnt",
       "Treating Percentage",
       min = 0, max = 100, value = 0, step = 0.01, post = "%"
-    ),
+    )
+  )
+
+  params_downloads <- primary_box(
+    title = "Download's",
+    width = 12,
     downloadButton(
       "download_params",
       "Download current parameters"
@@ -106,89 +127,112 @@ app_ui <- function(request) {
     fluidRow(
       column(
         3,
-        box(
-          title = "Upload parameters",
-          width = 12,
-          fileInput(
-            "user_upload_xlsx",
-            label = NULL,
-            multiple = FALSE,
-            accept = ".xlsx",
-            placeholder = "Previously downloaded parameters"
-          )
-        ),
+        params_upload_params,
         params_population_groups
       ),
       column(3, params_group_to_cond),
       column(3, params_cond_to_treat),
-      column(3, params_demand)
+      column(
+        3,
+        params_demand,
+        params_downloads
+      )
     )
   )
 
-  body_report <- tabItem(
-    "results",
-    fluidRow(
-      box(
-        width = 2,
-        selectInput(
-          "services",
-          "Service",
-          choices = NULL
-        )
-      ),
-      box(
-        width = 5,
-        valueBoxOutput("total_referrals"),
-        valueBoxOutput("total_demand"),
-        valueBoxOutput("total_newpatients")
-      ),
-      box(
-        width = 5,
-        withSpinner(
-          plotlyOutput(
-            "results_popgroups"
-          )
-        ),
-        title = "Population group source of 'surge'",
-        solidHeader = TRUE,
-        status = "primary"
-      )
+  # Results Tab ----
+
+  results_services <- primary_box(
+    title = "Service",
+    width = 2,
+    selectInput(
+      "services",
+      "Service",
+      choices = NULL
     ),
-    fluidRow(
-      box(
-        withSpinner(
-          plotlyOutput(
-            "referrals_plot"
-          )
-        )
-      ),
-      box(
-        withSpinner(
-          plotlyOutput(
-            "demand_plot"
-          )
-        )
-      ),
-      box(
-        withSpinner(
-          plotlyOutput(
-            "graph",
-            height = "600px"
-          )
-        ),
-        width = 12
-      ),
-      box(
-        withSpinner(
-          plotlyOutput(
-            "combined_plot",
-            height = "600px"
-          )
-        ),
-        width = 12
+    radioButtons(
+      "download_choice",
+      "Download option",
+      c("Selected" = "selected", "All" = "all"),
+      inline = TRUE
+    ),
+    downloadButton("download_results")
+  )
+
+  results_value_boxes <- primary_box(
+    title = "Summary",
+    width = 5,
+    valueBoxOutput("total_referrals"),
+    valueBoxOutput("total_demand"),
+    valueBoxOutput("total_newpatients")
+  )
+
+  results_popgroups <- primary_box(
+    title = "Population group source of 'surge'",
+    width = 5,
+    withSpinner(
+      plotlyOutput(
+        "results_popgroups"
       )
     )
   )
+
+  results_referrals_plot <- primary_box(
+    title = "Modelled Referrals",
+    withSpinner(
+      plotlyOutput(
+        "referrals_plot"
+      )
+    )
+  )
+
+  results_demand_plot <- primary_box(
+    title = "Modelled Demand",
+    withSpinner(
+      plotlyOutput(
+        "demand_plot"
+      )
+    )
+  )
+
+  results_combined_plot <- primary_box(
+    title = "Combined Modelled and Projected Patients in Service",
+    withSpinner(
+      plotlyOutput(
+        "combined_plot",
+        height = "600px"
+      )
+    ),
+    width = 12
+  )
+
+  results_graph <- primary_box(
+    title = "Flows from population groups to conditions to services",
+    withSpinner(
+      plotlyOutput(
+        "graph",
+        height = "600px"
+      )
+    ),
+    width = 12
+  )
+
+  body_results <- tabItem(
+    "results",
+    fluidRow(
+      results_services,
+      results_value_boxes,
+      results_popgroups
+    ),
+    fluidRow(
+      results_referrals_plot,
+      results_demand_plot,
+      results_combined_plot,
+      results_graph
+    )
+  )
+
+  # Surge Subpopulation Tab ----
 
   body_surgesubpopn <- tabItem(
     "surgetab_subpopn",
@@ -205,8 +249,9 @@ app_ui <- function(request) {
         )
       )
     )
-
   )
+
+  # Surge Condition Tab ----
 
   body_surgecondition <- tabItem(
     "surgetab_condition",
@@ -224,6 +269,8 @@ app_ui <- function(request) {
       )
     )
   )
+
+  # Surge Treatment Tab ----
 
   body_surgetreatment <- tabItem(
     "surgetab_service",
@@ -250,47 +297,63 @@ app_ui <- function(request) {
     )
   )
 
-  body_graph <- tabItem(
-    "graphpage",
-    fluidRow(
-      box(
-        selectInput(
-          "graphpage_select_groups",
-          "Filter Groups",
-          choices = NA,
-          multiple = TRUE
-        ),
-        width = 4
-      ),
-      box(
-        selectInput(
-          "graphpage_select_conditions",
-          "Filter Conditions",
-          choices = NA,
-          multiple = TRUE
-        ),
-        width = 4
-      ),
-      box(
-        selectInput(
-          "graphpage_select_treatments",
-          "Filter Treatments",
-          choices = NA,
-          multiple = TRUE
-        ),
-        width = 4
-      ),
-      box(
-        withSpinner(
-          plotlyOutput(
-            "graphpage_graph",
-            height = "600px"
-          )
-        ),
-        width = 12
+  # Surge Graph Tab ----
+
+  graph_groups <- primary_box(
+    title = "Filter Groups",
+    width = 4,
+    selectInput(
+      "graphpage_select_groups",
+      label = NULL,
+      choices = NA,
+      multiple = TRUE
+    )
+  )
+
+  graph_conditions <- primary_box(
+    title = "Filter Conditions",
+    width = 4,
+    selectInput(
+      "graphpage_select_conditions",
+      label = NULL,
+      choices = NA,
+      multiple = TRUE
+    )
+  )
+
+  graph_services <- primary_box(
+    title = "Filter Services",
+    width = 4,
+    selectInput(
+      "graphpage_select_treatments",
+      label = NULL,
+      choices = NA,
+      multiple = TRUE
+    )
+  )
+
+  graph_graph <- primary_box(
+    title = "Flows from population groups to conditions to services",
+    width = 12,
+    withSpinner(
+      plotlyOutput(
+        "graphpage_graph",
+        height = "600px"
       )
     )
   )
+
+  body_graph <- tabItem(
+    "graphpage",
+    fluidRow(
+      graph_groups,
+      graph_conditions,
+      graph_services,
+      graph_graph
+    )
+  )
+
+  # Render Page ----
 
   tagList(
     # Leave this function for adding external resources
@@ -338,7 +401,7 @@ app_ui <- function(request) {
       dashboardBody(
         tabItems(
           body_params,
-          body_report,
+          body_results,
           body_surgesubpopn,
           body_surgecondition,
           body_surgetreatment,

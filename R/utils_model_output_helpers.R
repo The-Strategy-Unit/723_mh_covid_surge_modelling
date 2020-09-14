@@ -92,16 +92,19 @@ surge_summary <- function(model_output, column) {
 #'
 #' Helper function to take output from \code{surge_summary} and produce a table of data for display in the surge tabs.
 #'
-#' @param surge_data output from \code{surge_summary}
-#' @param group_name the name of the "group" used, e.g. group, condition, treatment
+#' @param model_output output from \code{run_model()} and \code{get_model_output()}
+#' @param column the column in `model_output` to calculate the summary for, either "group", "condition" or "treatment"
+#' @param column_name what to name the \code{column} in the new table
 #'
 #' @return a tibble with more descriptive column names
 #'
 #' @importFrom dplyr %>% rename
 #' @import rlang
-surge_table <- function(surge_data, group_name) {
-  df <- surge_data %>%
-    rename({{group_name}} := .data$`group`,
+surge_table <- function(model_output, column, column_name) {
+  column <- enquo(column)
+  df <- model_output %>%
+    surge_summary({{column}}) %>%
+    rename({{column_name}} := .data$`group`,
            "Total symptomatic over period referrals" = .data$`new-referral`,
            "Total receiving services over period" = .data$`new-treatment`)
 

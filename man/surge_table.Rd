@@ -4,12 +4,14 @@
 \alias{surge_table}
 \title{Surge Table}
 \usage{
-surge_table(surge_data, group_name)
+surge_table(model_output, column, column_name)
 }
 \arguments{
-\item{surge_data}{output from \code{surge_summary}}
+\item{model_output}{output from \code{run_model()} and \code{get_model_output()}}
 
-\item{group_name}{the name of the "group" used, e.g. group, condition, treatment}
+\item{column}{the column in `model_output` to calculate the summary for, either "group", "condition" or "treatment"}
+
+\item{column_name}{what to name the \code{column} in the new table}
 }
 \value{
 a tibble with more descriptive column names
