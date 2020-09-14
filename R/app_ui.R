@@ -10,6 +10,7 @@
 #' @noRd
 app_ui <- function(request) {
 
+  # Params Tab ----
   params_upload_params <- box(
     title = "Upload parameters",
     solidHeader = TRUE,
@@ -137,7 +138,9 @@ app_ui <- function(request) {
     )
   )
 
-  body_report <- tabItem(
+  # Results Tab ----
+
+  body_results <- tabItem(
     "results",
     fluidRow(
       box(
@@ -202,6 +205,8 @@ app_ui <- function(request) {
     )
   )
 
+  # Surge Subpopulation Tab ----
+
   body_surgesubpopn <- tabItem(
     "surgetab_subpopn",
     fluidRow(
@@ -217,8 +222,9 @@ app_ui <- function(request) {
         )
       )
     )
-
   )
+
+  # Surge Condition Tab ----
 
   body_surgecondition <- tabItem(
     "surgetab_condition",
@@ -237,6 +243,8 @@ app_ui <- function(request) {
     )
   )
 
+  # Surge Treatment Tab ----
+
   body_surgetreatment <- tabItem(
     "surgetab_service",
     fluidRow(
@@ -254,6 +262,8 @@ app_ui <- function(request) {
     )
   )
 
+  # Surge Bubbleplot Tab ----
+
   body_bubbleplot <- tabItem(
     "bubbleplot",
     plotlyOutput(
@@ -261,6 +271,8 @@ app_ui <- function(request) {
       height = "900px"
     )
   )
+
+  # Surge Graph Tab ----
 
   body_graph <- tabItem(
     "graphpage",
@@ -303,6 +315,8 @@ app_ui <- function(request) {
       )
     )
   )
+
+  # Render Page ----
 
   tagList(
     # Leave this function for adding external resources
@@ -350,7 +364,7 @@ app_ui <- function(request) {
       dashboardBody(
         tabItems(
           body_params,
-          body_report,
+          body_results,
           body_surgesubpopn,
           body_surgecondition,
           body_surgetreatment,
