@@ -10,6 +10,18 @@
 #' @noRd
 app_ui <- function(request) {
 
+  params_upload_params <- box(
+    title = "Upload parameters",
+    width = 12,
+    fileInput(
+      "user_upload_xlsx",
+      label = NULL,
+      multiple = FALSE,
+      accept = ".xlsx",
+      placeholder = "Previously downloaded parameters"
+    )
+  )
+
   params_population_groups <- box(
     title = "Population Groups",
     width = 12,
@@ -106,17 +118,7 @@ app_ui <- function(request) {
     fluidRow(
       column(
         3,
-        box(
-          title = "Upload parameters",
-          width = 12,
-          fileInput(
-            "user_upload_xlsx",
-            label = NULL,
-            multiple = FALSE,
-            accept = ".xlsx",
-            placeholder = "Previously downloaded parameters"
-          )
-        ),
+        params_upload_params,
         params_population_groups
       ),
       column(3, params_group_to_cond),
