@@ -7,14 +7,15 @@
 #' @import shinycssloaders
 #' @importFrom shinyjs useShinyjs
 #' @importFrom plotly plotlyOutput
+#' @importFrom purrr partial
 #' @noRd
 app_ui <- function(request) {
 
+  primary_box <- partial(box, solidHeader = TRUE, status = "primary")
+
   # Params Tab ----
-  params_upload_params <- box(
+  params_upload_params <- primary_box(
     title = "Upload parameters",
-    solidHeader = TRUE,
-    status = "primary",
     width = 12,
     fileInput(
       "user_upload_xlsx",
@@ -25,10 +26,8 @@ app_ui <- function(request) {
     )
   )
 
-  params_population_groups <- box(
+  params_population_groups <- primary_box(
     title = "Population Groups",
-    solidHeader = TRUE,
-    status = "primary",
     width = 12,
     selectInput(
       "popn_subgroup",
@@ -58,18 +57,14 @@ app_ui <- function(request) {
     )
   )
 
-  params_group_to_cond <- box(
+  params_group_to_cond <- primary_box(
     title = "Condition group of sub-group population",
-    solidHeader = TRUE,
-    status = "primary",
     width = 12,
     div(id = "div_slider_cond_pcnt")
   )
 
-  params_cond_to_treat <- box(
+  params_cond_to_treat <- primary_box(
     title = "People being treated of condition group",
-    solidHeader = TRUE,
-    status = "primary",
     width = 12,
     selectInput(
       "sliders_select_cond",
@@ -79,10 +74,8 @@ app_ui <- function(request) {
     div(id = "div_slider_treatmentpathway"),
   )
 
-  params_demand <- box(
+  params_demand <- primary_box(
     title = "Treatment",
-    solidHeader = TRUE,
-    status = "primary",
     width = 12,
     selectInput(
       "treatment_type",
