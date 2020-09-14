@@ -106,7 +106,12 @@ app_ui <- function(request) {
       "slider_treat_pcnt",
       "Treating Percentage",
       min = 0, max = 100, value = 0, step = 0.01, post = "%"
-    ),
+    )
+  )
+
+  params_downloads <- primary_box(
+    title = "Download's",
+    width = 12,
     downloadButton(
       "download_params",
       "Download current parameters"
@@ -127,7 +132,11 @@ app_ui <- function(request) {
       ),
       column(3, params_group_to_cond),
       column(3, params_cond_to_treat),
-      column(3, params_demand)
+      column(
+        3,
+        params_demand,
+        params_downloads
+      )
     )
   )
 
