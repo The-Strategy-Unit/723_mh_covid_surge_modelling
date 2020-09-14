@@ -16,12 +16,12 @@ Imports:
     igraph,
     lubridate,
     methods,
-    pkgload,
     packcircles,
     plotly,
     purrr,
     readxl,
     rlang,
+    rmarkdown,
     shiny,
     shinycssloaders,
     shinydashboard,
@@ -32,8 +32,13 @@ Suggests:
     here,
     mockery,
     processx,
+    pkgload,
     testthat,
-    usethis
+    usethis,
+    grid,
+    gridExtra,
+    patchwork,
+    tibble
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1

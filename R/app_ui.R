@@ -149,7 +149,14 @@ app_ui <- function(request) {
       "services",
       "Service",
       choices = NULL
-    )
+    ),
+    radioButtons(
+      "download_choice",
+      "Download option",
+      c("Selected" = "selected", "All" = "all"),
+      inline = TRUE
+    ),
+    downloadButton("download_results")
   )
 
   results_value_boxes <- primary_box(
@@ -189,7 +196,7 @@ app_ui <- function(request) {
   )
 
   results_combined_plot <- primary_box(
-    title = "Combined Modelled and Projected Referrals",
+    title = "Combined Modelled and Projected Patients in Service",
     withSpinner(
       plotlyOutput(
         "combined_plot",

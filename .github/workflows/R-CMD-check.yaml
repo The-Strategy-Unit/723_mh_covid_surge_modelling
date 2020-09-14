@@ -26,6 +26,7 @@ jobs:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
       _R_CHECK_SYSTEM_CLOCK_: 0
+      _R_CHECK_EXCESSIVE_IMPORTS_: 30
 
     steps:
       - uses: actions/checkout@v2
