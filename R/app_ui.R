@@ -196,7 +196,7 @@ app_ui <- function(request) {
   )
 
   results_combined_plot <- primary_box(
-    title = "Combined Modelled and Projected Referrals",
+    title = "Combined Modelled and Projected Patients in Service",
     withSpinner(
       plotlyOutput(
         "combined_plot",
