@@ -133,7 +133,8 @@ app_ui <- function(request) {
 
   # Results Tab ----
 
-  results_services <- box(
+  results_services <- primary_box(
+    title = "Service",
     width = 2,
     selectInput(
       "services",
@@ -142,17 +143,16 @@ app_ui <- function(request) {
     )
   )
 
-  results_value_boxes <- box(
+  results_value_boxes <- primary_box(
+    title = "Summary",
     width = 5,
     valueBoxOutput("total_referrals"),
     valueBoxOutput("total_demand"),
     valueBoxOutput("total_newpatients")
   )
 
-  results_popgroups <- box(
+  results_popgroups <- primary_box(
     title = "Population group source of 'surge'",
-    solidHeader = TRUE,
-    status = "primary",
     width = 5,
     withSpinner(
       plotlyOutput(
@@ -161,7 +161,8 @@ app_ui <- function(request) {
     )
   )
 
-  results_referrals_plot <- box(
+  results_referrals_plot <- primary_box(
+    title = "Modelled Referrals",
     withSpinner(
       plotlyOutput(
         "referrals_plot"
@@ -169,7 +170,8 @@ app_ui <- function(request) {
     )
   )
 
-  results_demand_plot <- box(
+  results_demand_plot <- primary_box(
+    title = "Modelled Demand",
     withSpinner(
       plotlyOutput(
         "demand_plot"
@@ -177,20 +179,22 @@ app_ui <- function(request) {
     )
   )
 
-  results_graph <- box(
+  results_combined_plot <- primary_box(
+    title = "Combined Modelled and Projected Referrals",
     withSpinner(
       plotlyOutput(
-        "graph",
+        "combined_plot",
         height = "600px"
       )
     ),
     width = 12
   )
 
-  results_combined_plot <- box(
+  results_graph <- primary_box(
+    title = "Flows from population groups to conditions to services",
     withSpinner(
       plotlyOutput(
-        "combined_plot",
+        "graph",
         height = "600px"
       )
     ),
@@ -281,45 +285,57 @@ app_ui <- function(request) {
 
   # Surge Graph Tab ----
 
+  graph_groups <- primary_box(
+    title = "Filter Groups",
+    width = 4,
+    selectInput(
+      "graphpage_select_groups",
+      label = NULL,
+      choices = NA,
+      multiple = TRUE
+    )
+  )
+
+  graph_conditions <- primary_box(
+    title = "Filter Conditions",
+    width = 4,
+    selectInput(
+      "graphpage_select_conditions",
+      label = NULL,
+      choices = NA,
+      multiple = TRUE
+    )
+  )
+
+  graph_services <- primary_box(
+    title = "Filter Services",
+    width = 4,
+    selectInput(
+      "graphpage_select_treatments",
+      label = NULL,
+      choices = NA,
+      multiple = TRUE
+    )
+  )
+
+  graph_graph <- primary_box(
+    title = "Flows from population groups to conditions to services",
+    width = 12,
+    withSpinner(
+      plotlyOutput(
+        "graphpage_graph",
+        height = "600px"
+      )
+    )
+  )
+
   body_graph <- tabItem(
     "graphpage",
     fluidRow(
-      box(
-        selectInput(
-          "graphpage_select_groups",
-          "Filter Groups",
-          choices = NA,
-          multiple = TRUE
-        ),
-        width = 4
-      ),
-      box(
-        selectInput(
-          "graphpage_select_conditions",
-          "Filter Conditions",
-          choices = NA,
-          multiple = TRUE
-        ),
-        width = 4
-      ),
-      box(
-        selectInput(
-          "graphpage_select_treatments",
-          "Filter Treatments",
-          choices = NA,
-          multiple = TRUE
-        ),
-        width = 4
-      ),
-      box(
-        withSpinner(
-          plotlyOutput(
-            "graphpage_graph",
-            height = "600px"
-          )
-        ),
-        width = 12
-      )
+      graph_groups,
+      graph_conditions,
+      graph_services,
+      graph_graph
     )
   )
 
