@@ -23,6 +23,7 @@ comma <- function(x) {
 }
 
 #' Where predicate
+#'
 #' reimplements tidyselect::where. This is far simpler but will suffice for our needs
 #'
 #' @param fn a predicate function that should accept a value and return a logical
@@ -30,4 +31,17 @@ comma <- function(x) {
 #' @return a function that applies \code{fn()} with an input \code{(x)} and optional additional arguments
 where <- function(fn) {
   function(x, ...) fn(x, ...)
+}
+
+#' Primary Box
+#'
+#' returns a "box" with set arguments for solidHeader and status
+#'
+#' @param ... arguments passed to [shinydashboard::box()]
+#'
+#' @import shinydashboard
+#'
+#' @md
+primary_box <- function(...) {
+  box(..., solidHeader = TRUE, status = "primary")
 }
