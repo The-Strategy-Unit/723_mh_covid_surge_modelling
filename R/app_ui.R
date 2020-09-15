@@ -139,94 +139,9 @@ app_ui <- function(request) {
 
   # Results Tab ----
 
-  results_services <- primary_box(
-    title = "Service",
-    width = 2,
-    selectInput(
-      "services",
-      "Service",
-      choices = NULL
-    ),
-    radioButtons(
-      "download_choice",
-      "Download option",
-      c("Selected" = "selected", "All" = "all"),
-      inline = TRUE
-    ),
-    downloadButton("download_results")
-  )
-
-  results_value_boxes <- primary_box(
-    title = "Summary",
-    width = 5,
-    valueBoxOutput("total_referrals"),
-    valueBoxOutput("total_demand"),
-    valueBoxOutput("total_newpatients")
-  )
-
-  results_popgroups <- primary_box(
-    title = "Population group source of 'surge'",
-    width = 5,
-    withSpinner(
-      plotlyOutput(
-        "results_popgroups"
-      )
-    )
-  )
-
-  results_referrals_plot <- primary_box(
-    title = "Modelled Referrals",
-    withSpinner(
-      plotlyOutput(
-        "referrals_plot"
-      )
-    )
-  )
-
-  results_demand_plot <- primary_box(
-    title = "Modelled Demand",
-    withSpinner(
-      plotlyOutput(
-        "demand_plot"
-      )
-    )
-  )
-
-  results_combined_plot <- primary_box(
-    title = "Combined Modelled and Projected Patients in Service",
-    withSpinner(
-      plotlyOutput(
-        "combined_plot",
-        height = "600px"
-      )
-    ),
-    width = 12
-  )
-
-  results_graph <- primary_box(
-    title = "Flows from population groups to conditions to services",
-    withSpinner(
-      plotlyOutput(
-        "graph",
-        height = "600px"
-      )
-    ),
-    width = 12
-  )
-
   body_results <- tabItem(
     "results",
-    fluidRow(
-      results_services,
-      results_value_boxes,
-      results_popgroups
-    ),
-    fluidRow(
-      results_referrals_plot,
-      results_demand_plot,
-      results_combined_plot,
-      results_graph
-    )
+    results_ui("results_page")
   )
 
   # Surge Subpopulation Tab ----

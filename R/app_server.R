@@ -60,7 +60,6 @@ app_server <- function(input, output, session) {
     updateSelectInput(session, "popn_subgroup", choices = population_groups())
     updateSelectInput(session, "subpopulation_curve", choices = curves())
     updateSelectInput(session, "treatment_type", choices = treatments())
-    updateSelectInput(session, "services", choices = treatments())
   })
 
   # params_population_groups ====
@@ -330,59 +329,7 @@ app_server <- function(input, output, session) {
 
   # Results tab ====
 
-  output$referrals_plot <- renderPlotly({
-    referrals_plot(model_output(), input$services)
-  })
-
-  output$demand_plot <- renderPlotly({
-    demand_plot(model_output(), appointments(), input$services)
-  })
-
-  output$graph <- renderPlotly({
-    create_graph(model_output(), treatments = input$services)
-  })
-
-  output$combined_plot <- renderPlotly({
-    combined_plot(model_output(), input$services, reactiveValuesToList(params))
-  })
-
-  # Output boxes
-
-  tribble(
-    ~output_id,          ~value_type,     ~text,
-    "total_referrals",   "new-referral",  "Total 'surge' referrals",
-    "total_demand",      "treatment",     "Total additional demand per contact type",
-    "total_newpatients", "new-treatment", "Total new patients in service"
-  ) %>%
-    pmap(function(output_id, value_type, text) {
-      output[[output_id]] <- renderValueBox({
-        value <- model_output() %>%
-          model_totals(value_type, input$services)
-
-        valueBox(value, text)
-      })
-    })
-
-  output$results_popgroups <- renderPlotly({
-    popgroups_plot(model_output(), input$services)
-  })
-
-  download_report_services <- reactive({
-    if (input$download_choice == "all") {
-      names(params$treatments)
-    } else {
-      input$services
-    }
-  })
-
-  # Download Option ----
-
-  output$download_results <- downloadHandler(
-    filename = "report.pdf",
-    content = download_report(model_output(),
-                              reactiveValuesToList(params),
-                              download_report_services())
-  )
+  results_server("results_page", model_output, appointments, treatments, params)
 
   # Surge Tabs ----
 
