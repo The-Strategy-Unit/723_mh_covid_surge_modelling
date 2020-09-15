@@ -148,57 +148,21 @@ app_ui <- function(request) {
 
   body_surgesubpopn <- tabItem(
     "surgetab_subpopn",
-    fluidRow(
-      box(
-        tableOutput("surge_subpopn_table")
-      ),
-      box(
-        withSpinner(
-          plotlyOutput(
-            "surge_subpopn_plot",
-            height = "600px"
-          )
-        )
-      )
-    )
+    surgetab_ui("surge_subpopn")
   )
 
   # Surge Condition Tab ----
 
   body_surgecondition <- tabItem(
     "surgetab_condition",
-    fluidRow(
-      box(
-        tableOutput("surge_condition_table")
-      ),
-      box(
-        withSpinner(
-          plotlyOutput(
-            "surge_condition_plot",
-            height = "600px"
-          )
-        )
-      )
-    )
+    surgetab_ui("surge_condition")
   )
 
   # Surge Treatment Tab ----
 
   body_surgetreatment <- tabItem(
     "surgetab_service",
-    fluidRow(
-      box(
-        tableOutput("surge_service_table")
-      ),
-      box(
-        withSpinner(
-          plotlyOutput(
-            "surge_service_plot",
-            height = "600px"
-          )
-        )
-      )
-    )
+    surgetab_ui("surge_service")
   )
 
   # Surge Bubbleplot Tab ----
