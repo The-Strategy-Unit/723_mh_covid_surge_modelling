@@ -7,11 +7,8 @@
 #' @import shinycssloaders
 #' @importFrom shinyjs useShinyjs
 #' @importFrom plotly plotlyOutput
-#' @importFrom purrr partial
 #' @noRd
 app_ui <- function(request) {
-
-  primary_box <- partial(box, solidHeader = TRUE, status = "primary")
 
   # Params Tab ----
   params_upload_params <- primary_box(

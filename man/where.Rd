@@ -2,8 +2,7 @@
 % Please edit documentation in R/fct_helpers.R
 \name{where}
 \alias{where}
-\title{Where predicate
-reimplements tidyselect::where. This is far simpler but will suffice for our needs}
+\title{Where predicate}
 \usage{
 where(fn)
 }
@@ -14,6 +13,5 @@ where(fn)
 a function that applies \code{fn()} with an input \code{(x)} and optional additional arguments
 }
 \description{
-Where predicate
 reimplements tidyselect::where. This is far simpler but will suffice for our needs
 }
