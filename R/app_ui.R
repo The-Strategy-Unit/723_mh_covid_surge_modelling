@@ -144,28 +144,27 @@ app_ui <- function(request) {
     results_ui("results_page")
   )
 
-  # Surge Subpopulation Tab ----
+  # Surge Tabs ----
 
+  # Subpopulation
   body_surgesubpopn <- tabItem(
     "surgetab_subpopn",
     surgetab_ui("surge_subpopn")
   )
 
-  # Surge Condition Tab ----
-
+  # Condition
   body_surgecondition <- tabItem(
     "surgetab_condition",
     surgetab_ui("surge_condition")
   )
 
-  # Surge Treatment Tab ----
-
+  # Treatment
   body_surgetreatment <- tabItem(
     "surgetab_service",
     surgetab_ui("surge_service")
   )
 
-  # Surge Bubbleplot Tab ----
+  # Bubbleplot Tab ----
 
   body_bubbleplot <- tabItem(
     "bubbleplot",
@@ -175,7 +174,7 @@ app_ui <- function(request) {
     )
   )
 
-  # Surge Graph Tab ----
+  # Graph Tab ----
 
   graph_groups <- primary_box(
     title = "Filter Groups",
