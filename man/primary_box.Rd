@@ -6,6 +6,9 @@
 \usage{
 primary_box(...)
 }
+\arguments{
+\item{...}{arguments passed to \code{\link[shinydashboard:box]{shinydashboard::box()}}}
+}
 \description{
 returns a "box" with set arguments for solidHeader and status
 }
