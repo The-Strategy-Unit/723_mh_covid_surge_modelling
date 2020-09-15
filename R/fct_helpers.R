@@ -36,8 +36,7 @@ where <- function(fn) {
 #' Primary Box
 #'
 #' returns a "box" with set arguments for solidHeader and status
-#'
-#' @importFrom shinydashboard box
+#' @import shinydashboard
 primary_box <- function(...) {
   box(..., solidHeader = TRUE, status = "primary")
 }
