@@ -138,34 +138,17 @@ app_ui <- function(request) {
   )
 
   # Results Tab ----
-
-  body_results <- tabItem(
-    "results",
-    results_ui("results_page")
-  )
+  body_results <- tabItem("results", results_ui("results_page"))
 
   # Surge Tabs ----
-
   # Subpopulation
-  body_surgesubpopn <- tabItem(
-    "surgetab_subpopn",
-    surgetab_ui("surge_subpopn")
-  )
-
+  body_surgesubpopn <- tabItem("surgetab_subpopn", surgetab_ui("surge_subpopn"))
   # Condition
-  body_surgecondition <- tabItem(
-    "surgetab_condition",
-    surgetab_ui("surge_condition")
-  )
-
+  body_surgecondition <- tabItem("surgetab_condition", surgetab_ui("surge_condition"))
   # Treatment
-  body_surgetreatment <- tabItem(
-    "surgetab_service",
-    surgetab_ui("surge_service")
-  )
+  body_surgetreatment <- tabItem("surgetab_service", surgetab_ui("surge_service"))
 
   # Bubbleplot Tab ----
-
   body_bubbleplot <- tabItem(
     "bubbleplot",
     plotlyOutput(
@@ -175,60 +158,7 @@ app_ui <- function(request) {
   )
 
   # Graph Tab ----
-
-  graph_groups <- primary_box(
-    title = "Filter Groups",
-    width = 4,
-    selectInput(
-      "graphpage_select_groups",
-      label = NULL,
-      choices = NA,
-      multiple = TRUE
-    )
-  )
-
-  graph_conditions <- primary_box(
-    title = "Filter Conditions",
-    width = 4,
-    selectInput(
-      "graphpage_select_conditions",
-      label = NULL,
-      choices = NA,
-      multiple = TRUE
-    )
-  )
-
-  graph_services <- primary_box(
-    title = "Filter Services",
-    width = 4,
-    selectInput(
-      "graphpage_select_treatments",
-      label = NULL,
-      choices = NA,
-      multiple = TRUE
-    )
-  )
-
-  graph_graph <- primary_box(
-    title = "Flows from population groups to conditions to services",
-    width = 12,
-    withSpinner(
-      plotlyOutput(
-        "graphpage_graph",
-        height = "600px"
-      )
-    )
-  )
-
-  body_graph <- tabItem(
-    "graphpage",
-    fluidRow(
-      graph_groups,
-      graph_conditions,
-      graph_services,
-      graph_graph
-    )
-  )
+  body_graph <- tabItem("graph", graph_ui("graph_page"))
 
   # Render Page ----
 
@@ -271,7 +201,7 @@ app_ui <- function(request) {
           ),
           menuItem(
             "Graph",
-            tabName = "graphpage"
+            tabName = "graph"
           )
         )
       ),

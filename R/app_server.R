@@ -352,28 +352,6 @@ app_server <- function(input, output, session) {
 
   # graphpage ====
 
-  observe({
-    updateSelectInput(session,
-                      "graphpage_select_groups",
-                      choices = population_groups(),
-                      selected = population_groups())
-
-    updateSelectInput(session,
-                      "graphpage_select_conditions",
-                      choices = all_conditions(),
-                      selected = all_conditions())
-
-    updateSelectInput(session,
-                      "graphpage_select_treatments",
-                      choices = treatments(),
-                      selected = treatments())
-  })
-
-  output$graphpage_graph <- renderPlotly({
-    create_graph(model_output(),
-                 input$graphpage_select_groups,
-                 input$graphpage_select_conditions,
-                 input$graphpage_select_treatments)
-  })
+  graph_server("graph_page", model_output, population_groups, all_conditions, treatments)
 
 }
