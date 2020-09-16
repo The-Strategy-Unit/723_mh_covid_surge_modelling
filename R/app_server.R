@@ -333,35 +333,14 @@ app_server <- function(input, output, session) {
 
   # Surge Tabs ----
 
-  # Surge subpopn tab ====
+  # Surge subpopn tab
+  surgetab_server("surge_subpopn", model_output, group, "Subpopulation group")
 
-  output$surge_subpopn_table <- renderTable({
-    surge_table(model_output(), group, "Subpopulation group")
-  })
+  # Surge conditions tab
+  surgetab_server("surge_condition", model_output, condition, "Condition")
 
-  output$surge_subpopn_plot <- renderPlotly({
-    surge_plot(model_output(), group)
-  })
-
-  # Surge conditions tab ====
-
-  output$surge_condition_table <- renderTable({
-    surge_table(model_output(), condition, "Condition")
-  })
-
-  output$surge_condition_plot <- renderPlotly({
-    surge_plot(model_output(), condition)
-  })
-
-  # Surge service tab ====
-
-  output$surge_service_table <- renderTable({
-    surge_table(model_output(), treatment, "Treatment")
-  })
-
-  output$surge_service_plot <- renderPlotly({
-    surge_plot(model_output(), treatment)
-  })
+  # Surge service tab
+  surgetab_server("surge_service", model_output, treatment, "Treatment")
 
   # Bubble plot tab ====
 
