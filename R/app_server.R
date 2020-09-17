@@ -347,7 +347,7 @@ app_server <- function(input, output, session) {
 
   # Results Tab ----
 
-  results_server("results_page", model_output, appointments, treatments, params)
+  results_server("results_page", model_output, params)
 
   # Surge Tabs ----
 

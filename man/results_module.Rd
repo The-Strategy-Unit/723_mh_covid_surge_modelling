@@ -8,7 +8,7 @@
 \usage{
 results_ui(id)
 
-results_server(id, model_output, appointments, treatments, params)
+results_server(id, model_output, params)
 }
 \arguments{
 \item{id}{An ID string that uniquely identifies an instance of this module}
