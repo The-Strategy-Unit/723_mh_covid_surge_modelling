@@ -21,7 +21,10 @@ app_server <- function(input, output, session) {
   models <- lift_dl(reactiveValues)(models)
   params <- lift_dl(reactiveValues)(params)
 
+  # Params Tab ----
+
   redraw_dropdowns <- reactiveVal()
+  redraw_groups <- reactiveVal()
   redraw_treatments <- reactiveVal()
   redraw_g2c <- reactiveVal()
   redraw_c2t <- reactiveVal()
@@ -30,7 +33,7 @@ app_server <- function(input, output, session) {
   div_slider_cond_pcnt_obs <- list()
   div_slider_treatpath_obs <- list()
 
-  ## New params
+  # Upload new params
 
   observeEvent(input$user_upload_xlsx, {
     new_params <- extract_params_from_excel(input$user_upload_xlsx$datapath)
@@ -46,12 +49,13 @@ app_server <- function(input, output, session) {
 
     u <- counter$get()
     redraw_dropdowns(u)
+    redraw_groups(u)
     redraw_treatments(u)
     redraw_g2c(u)
     redraw_c2t(u)
   })
 
-  # Update main select options ====
+  # Update main select options
 
   observe({
     # trigger update of selects, even if the choices haven't changed
@@ -66,21 +70,58 @@ app_server <- function(input, output, session) {
 
   # popn_subgroup (selectInput)
   observeEvent(input$popn_subgroup, {
-    redraw_g2c(counter$get())
+    redraw_groups(counter$get())
   })
 
-  observeEvent(redraw_g2c(), {
+  observeEvent(redraw_groups(), {
     sg <- req(isolate(input$popn_subgroup))
-
     px <- isolate(params)$groups[[sg]]
-
     conditions <- names(px$conditions)
-    updateSelectInput(session, "sliders_select_cond", choices = conditions)
-    redraw_c2t(counter$get())
 
+    updateSelectInput(session, "sliders_select_cond", choices = conditions)
     updateNumericInput(session, "subpopulation_size", value = px$size)
     updateNumericInput(session, "subpopulation_pcnt", value = px$pcnt)
     updateSliderInput(session, "subpopulation_curve", value = px$curve)
+
+    redraw_g2c(counter$get())
+  })
+
+  # subpopulation_size (numericInput)
+  observeEvent(input$subpopulation_size, {
+    sg <- req(input$popn_subgroup)
+    params$groups[[sg]]$size <- input$subpopulation_size
+  })
+
+  # subpopulation_pcnt (numericInput)
+  observeEvent(input$subpopulation_pcnt, {
+    sg <- req(input$popn_subgroup)
+    params$groups[[sg]]$pcnt <- input$subpopulation_pcnt
+  })
+
+  # subpopulation_size_pcnt (textOutput)
+  output$subpopulation_size_pcnt <- renderText({
+    paste0("Modelled population: ", comma(input$subpopulation_size * input$subpopulation_pcnt / 100))
+  })
+
+  # subpopulation_curve (selectInput)
+  observeEvent(input$subpopulation_curve, {
+    sg <- req(input$popn_subgroup)
+    params$groups[[sg]]$curve <- input$subpopulation_curve
+  })
+
+  # subpopulation_curve_plot (plotlyOutput)
+  output$subpopulation_curve_plot <- renderPlotly({
+    subpopulation_curve_plot(params$curves[[input$subpopulation_curve]],
+                             input$subpopulation_size,
+                             input$subpopulation_pcnt)
+  })
+
+  # params_group_to_cond ====
+
+  observeEvent(redraw_g2c(), {
+    sg <- req(isolate(input$popn_subgroup))
+    px <- isolate(params)$groups[[sg]]
+    conditions <- names(px$conditions)
 
     # update the condition percentage sliders
     # first, remove the previous elements
@@ -166,37 +207,11 @@ app_server <- function(input, output, session) {
     })
 
     insertUI("#div_slider_cond_pcnt", "beforeEnd", nmh_slider)
+
+    redraw_c2t(counter$get())
   })
 
-  # subpopulation_size (numericInput)
-  observeEvent(input$subpopulation_size, {
-    sg <- req(input$popn_subgroup)
-    params$groups[[sg]]$size <- input$subpopulation_size
-  })
-
-  # subpopulation_pcnt (numericInput)
-  observeEvent(input$subpopulation_pcnt, {
-    sg <- req(input$popn_subgroup)
-    params$groups[[sg]]$pcnt <- input$subpopulation_pcnt
-  })
-
-  output$subpopulation_size_pcnt <- renderText({
-    paste0("Modelled population: ", comma(input$subpopulation_size * input$subpopulation_pcnt / 100))
-  })
-
-  # subpopulation_curve (selectInput)
-  observeEvent(input$subpopulation_curve, {
-    sg <- req(input$popn_subgroup)
-    params$groups[[sg]]$curve <- input$subpopulation_curve
-  })
-
-  output$subpopulation_curve_plot <- renderPlotly({
-    subpopulation_curve_plot(params$curves[[input$subpopulation_curve]],
-                             input$subpopulation_size,
-                             input$subpopulation_pcnt)
-  })
-
-  # params_group_to_cond ====
+  # params_cond_to_treat ====
 
   # sliders_select_cond (selectInput)
   observeEvent(input$sliders_select_cond, {
@@ -284,10 +299,13 @@ app_server <- function(input, output, session) {
     params$treatments[[ttype]]$decay <- input$slider_decay / 100
   })
 
+  # slider_treat_pcnt (sliderInput)
   observeEvent(input$slider_treat_pcnt, {
     ttype <- req(input$treatment_type)
     params$treatments[[ttype]]$treat_pcnt <- input$slider_treat_pcnt / 100
   })
+
+  # params_downloads ====
 
   # download_params (downloadButton)
   output$download_params <- downloadHandler(
@@ -306,7 +324,7 @@ app_server <- function(input, output, session) {
     "text/csv"
   )
 
-  # Model ====
+  # Model ----
 
   observe({
     # only run current selected population group
@@ -327,7 +345,7 @@ app_server <- function(input, output, session) {
       get_appointments()
   })
 
-  # Results tab ====
+  # Results Tab ----
 
   results_server("results_page", model_output, appointments, treatments, params)
 
@@ -342,7 +360,7 @@ app_server <- function(input, output, session) {
   # Surge service tab
   surgetab_server("surge_service", model_output, treatment, "Treatment")
 
-  # Bubble plot tab ====
+  # Bubble Plot Tab ----
 
   output$bubble_plot_baselinepopn <- renderPlotly({
     params %>%
@@ -350,7 +368,7 @@ app_server <- function(input, output, session) {
       bubble_plot()
   })
 
-  # graphpage ====
+  # Graph Tab ----
 
   graph_server("graph_page", model_output, population_groups, all_conditions, treatments)
 
