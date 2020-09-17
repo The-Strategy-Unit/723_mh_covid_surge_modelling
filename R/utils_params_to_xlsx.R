@@ -30,8 +30,7 @@ params_to_xlsx <- function(params, file) {
   xl$c2t <- params$groups %>%
     map("conditions") %>%
     map_depth(2, "treatments") %>%
-    map_depth(3, bind_cols) %>%
-    map_depth(2, bind_rows, .id = "treatment") %>%
+    map_depth(2, ~tibble("treatment" = names(.x), "split" = .x)) %>%
     map(bind_rows, .id = "condition") %>%
     bind_rows(.id = "group")
 
