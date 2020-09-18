@@ -5,7 +5,6 @@
 #' @import shiny
 #' @import shinydashboard
 #' @importFrom dplyr %>%
-#' @importFrom plotly renderPlotly
 #' @importFrom purrr lift_dl
 #' @noRd
 app_server <- function(input, output, session) {
@@ -39,11 +38,9 @@ app_server <- function(input, output, session) {
   # Surge service tab
   surgetab_server("surge_service", model_output, .data$treatment, "Treatment")
 
-  # Bubble Plot Tab ----
+  # Treemap Tab ----
 
-  output$bubble_plot_baselinepopn <- renderPlotly({
-    bubble_plot(params)
-  })
+  treemap_server("treemap_page", params)
 
   # Graph Tab ----
 
