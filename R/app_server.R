@@ -326,16 +326,38 @@ app_server <- function(input, output, session) {
   output$download_params <- downloadHandler(
     "params.xlsx",
     function(file) {
-      params %>%
-        reactiveValuesToList() %>%
-        params_to_xlsx(file)
+      params_to_xlsx(params, file)
     }
   )
 
   # download_output (downloadButton)
   output$download_output <- downloadHandler(
     paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv"),
-    download_output(model_output(), reactiveValuesToList(params)),
+    # download_output(model_output(), params),
+    function(file) {
+      appointments <- get_appointments(params)
+
+      df <- model_output() %>%
+        filter(day(.data$date) == 1) %>%
+        group_by(.data$date,
+                 .data$type,
+                 .data$group,
+                 .data$condition,
+                 .data$treatment) %>%
+        summarise(across(.data$value, sum), .groups = "drop")
+
+      bind_rows(
+        df,
+        # add the demand data
+        df %>%
+          filter(.data$type == "treatment") %>%
+          inner_join(appointments, by = "treatment") %>%
+          mutate(type = "demand",
+                 value = .data$value * .data$average_monthly_appointments,
+                 average_monthly_appointments = NULL)
+      ) %>%
+        write.csv(file, row.names = FALSE)
+    },
     "text/csv"
   )
 
@@ -357,9 +379,7 @@ app_server <- function(input, output, session) {
   # Bubble Plot Tab ----
 
   output$bubble_plot_baselinepopn <- renderPlotly({
-    params %>%
-      reactiveValuesToList() %>%
-      bubble_plot()
+    bubble_plot(params)
   })
 
   # Graph Tab ----
