@@ -224,6 +224,8 @@ subpopulation_curve_plot <- function(curve, size, pcnt) {
 #'
 #' @return a plotly chart
 treatment_split_plot <- function(treatments) {
+  if (length(treatments) < 1 | is.null(treatments)) return(NULL)
+
   tibble(treatment = names(treatments),
          split = treatments) %>%
     mutate(across(.data$split, ~ .x / sum(.x)),
