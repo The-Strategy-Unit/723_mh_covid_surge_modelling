@@ -11,6 +11,7 @@
 #' @importFrom shinyjs disabled
 #' @noRd
 app_server <- function(input, output, session) {
+
   counter <- methods::new("Counter")
 
   population_groups <- reactiveVal(population_groups)
@@ -19,6 +20,14 @@ app_server <- function(input, output, session) {
   curves <- reactiveVal(names(params$curves))
 
   params <- lift_dl(reactiveValues)(params)
+
+  # Model ----
+
+  model_output <- reactive({
+    params %>%
+      run_all_models(24, sim_time) %>%
+      get_model_output()
+  })
 
   # Params Tab ----
 
@@ -41,7 +50,7 @@ app_server <- function(input, output, session) {
     u <- counter$get()
 
     population_groups(names(new_params$groups))
-    all_conditions(get_all_conditions(params))
+    all_conditions(get_all_conditions(new_params))
     treatments(names(new_params$treatments))
     curves(names(new_params$curves))
     redraw_dropdowns(u)
@@ -263,20 +272,21 @@ app_server <- function(input, output, session) {
 
   # treatment_type (selectInput)
   observeEvent(input$treatment_type, {
-    golem::cat_dev("updated input$treatment_type\n")
-
     redraw_treatments(counter$get())
   })
 
   observeEvent(redraw_treatments(), {
-    golem::cat_dev("redraw_treatments \"", input$treatment_type, "\"\n", sep = "")
-
-    tx <- params$treatments[[req(input$treatment_type)]]
-    updateSliderInput(session, "treatment_appointments", value = tx$demand)
-    updateSliderInput(session, "slider_success", value = tx$success * 100)
-    updateSliderInput(session, "slider_tx_months", value = tx$months)
-    updateSliderInput(session, "slider_decay", value = tx$decay * 100)
-    updateSliderInput(session, "slider_treat_pcnt", value = tx$treat_pcnt * 100)
+    # resolves issue #90: if a new params file is uploaded, and the first treatment is renamed, then the value of
+    # input$treatment_type will be the first value from the old params file. This handles this issue by skipping this
+    # section (redraw_treatments() is called again and this code succeeds then)
+    if (req(input$treatment_type) %in% names(params$treatments)) {
+      tx <- params$treatments[[req(input$treatment_type)]]
+      updateSliderInput(session, "treatment_appointments", value = tx$demand)
+      updateSliderInput(session, "slider_success", value = tx$success * 100)
+      updateSliderInput(session, "slider_tx_months", value = tx$months)
+      updateSliderInput(session, "slider_decay", value = tx$decay * 100)
+      updateSliderInput(session, "slider_treat_pcnt", value = tx$treat_pcnt * 100)
+    }
   })
 
   # treatment_appointments (sliderInput)
@@ -324,23 +334,9 @@ app_server <- function(input, output, session) {
   # download_output (downloadButton)
   output$download_output <- downloadHandler(
     paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv"),
-    download_output(model_output(), appointments()),
+    download_output(model_output(), reactiveValuesToList(params)),
     "text/csv"
   )
-
-  # Model ----
-
-  model_output <- reactive({
-    params %>%
-      run_all_models(24, sim_time) %>%
-      get_model_output()
-  })
-
-  appointments <- reactive({
-    params %>%
-      reactiveValuesToList() %>%
-      get_appointments()
-  })
 
   # Results Tab ----
 
