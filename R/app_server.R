@@ -12,7 +12,6 @@
 #' @noRd
 app_server <- function(input, output, session) {
 
-  counter <- methods::new("Counter")
 
   population_groups <- reactiveVal(population_groups)
   all_conditions <- reactiveVal(get_all_conditions(params))
@@ -30,6 +29,8 @@ app_server <- function(input, output, session) {
   })
 
   # Params Tab ----
+
+  counter <- methods::new("Counter")
 
   redraw_dropdowns <- reactiveVal()
   redraw_groups <- reactiveVal()
