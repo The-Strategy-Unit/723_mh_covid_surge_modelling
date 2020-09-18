@@ -8,12 +8,12 @@
 \usage{
 graph_ui(id)
 
-graph_server(id, model_output, population_groups, all_conditions, treatments)
+graph_server(id, params, model_output)
 }
 \arguments{
 \item{id}{An ID string that uniquely identifies an instance of this module}
 
-\item{model_output, population_groups, all_conditions, treatments}{reactive objects passed in from the main server}
+\item{params, model_output}{reactive objects passed in from the main server}
 }
 \description{
 A shiny module that renders all of the content for the graph page.
