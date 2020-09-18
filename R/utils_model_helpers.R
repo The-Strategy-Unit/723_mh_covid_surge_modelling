@@ -52,25 +52,22 @@ get_model_potential_functions <- function(params) {
     map(approxfun, x = seq_len(24) - 1, rule = 2)
 }
 
-#' Run Single Model
+#' Run All Models
 #'
-#' Run's the model for a single population group
+#' Run's the model for all of the population group
 #'
 #' @param params the current `params` object used to model the data
-#' @param groups a character vector of the population group to model
 #' @param months an integer of the number of months to run the simulation for
 #' @param sim_time a numeric for the time interval to run the model at, e.g. every 1/5th of a month
 #'
-#' @return the output of \code{run_model()} for the selected population group
+#' @return the output of \code{run_model()}
 #'
 #' @importFrom purrr modify_at
-run_single_model <- function(params, groups, months, sim_time) {
-  cat("running_single_model:", groups)
+run_all_models <- function(params, months, sim_time) {
+  cat("running_all_model: ")
 
-  p <- modify_at(params, "groups", ~.x[groups])
-
-  m <- get_model_params(p)
-  g <- get_model_potential_functions(p)
+  m <- get_model_params(params)
+  g <- get_model_potential_functions(params)
   s <- seq(0, months - 1, by = sim_time)
 
   ret <- run_model(m, g, s)

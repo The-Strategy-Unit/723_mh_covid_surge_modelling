@@ -18,7 +18,6 @@ app_server <- function(input, output, session) {
   treatments <- reactiveVal(treatments)
   curves <- reactiveVal(names(params$curves))
 
-  models <- lift_dl(reactiveValues)(models)
   params <- lift_dl(reactiveValues)(params)
 
   # Params Tab ----
@@ -38,21 +37,22 @@ app_server <- function(input, output, session) {
   observeEvent(input$user_upload_xlsx, {
     new_params <- extract_params_from_excel(input$user_upload_xlsx$datapath)
 
-    params$groups <- new_params$groups
-    params$treatments <- new_params$treatments
-    params$curves <- new_params$curves
+    # if the treatment selected is the first one, and this is replaced, the values don't update correctly
+    u <- counter$get()
 
     population_groups(names(new_params$groups))
     all_conditions(get_all_conditions(params))
     treatments(names(new_params$treatments))
     curves(names(new_params$curves))
-
-    u <- counter$get()
     redraw_dropdowns(u)
-    redraw_groups(u)
+
+    params$groups <- new_params$groups
+    params$treatments <- new_params$treatments
+    params$curves <- new_params$curves
+    params$demand <- new_params$demand
+
     redraw_treatments(u)
-    redraw_g2c(u)
-    redraw_c2t(u)
+    redraw_groups(u)
   })
 
   # Update main select options
@@ -263,10 +263,14 @@ app_server <- function(input, output, session) {
 
   # treatment_type (selectInput)
   observeEvent(input$treatment_type, {
+    golem::cat_dev("updated input$treatment_type\n")
+
     redraw_treatments(counter$get())
   })
 
   observeEvent(redraw_treatments(), {
+    golem::cat_dev("redraw_treatments \"", input$treatment_type, "\"\n", sep = "")
+
     tx <- params$treatments[[req(input$treatment_type)]]
     updateSliderInput(session, "treatment_appointments", value = tx$demand)
     updateSliderInput(session, "slider_success", value = tx$success * 100)
@@ -326,16 +330,9 @@ app_server <- function(input, output, session) {
 
   # Model ----
 
-  observe({
-    # only run current selected population group
-    ps <- req(input$popn_subgroup)
-    px <- reactiveValuesToList(params)
-    models[[ps]] <- run_single_model(px, ps, 24, sim_time)
-  })
-
   model_output <- reactive({
-    models %>%
-      reactiveValuesToList() %>%
+    params %>%
+      run_all_models(24, sim_time) %>%
       get_model_output()
   })
 
@@ -347,7 +344,7 @@ app_server <- function(input, output, session) {
 
   # Results Tab ----
 
-  results_server("results_page", model_output, appointments, treatments, params)
+  results_server("results_page", model_output, params)
 
   # Surge Tabs ----
 
