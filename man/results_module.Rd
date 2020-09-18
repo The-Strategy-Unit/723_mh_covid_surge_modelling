@@ -13,7 +13,7 @@ results_server(id, model_output, params)
 \arguments{
 \item{id}{An ID string that uniquely identifies an instance of this module}
 
-\item{model_output, appointments, treatments, params}{reactive objects passed in from the main server}
+\item{model_output, params}{reactive objects passed in from the main server}
 }
 \description{
 A shiny module that renders all of the content for the results page.

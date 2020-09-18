@@ -4,7 +4,7 @@
 \alias{run_all_models}
 \title{Run All Models}
 \usage{
-run_all_models(params, months, simtime)
+run_all_models(params, months, sim_time)
 }
 \arguments{
 \item{params}{the current `params` object used to model the data}

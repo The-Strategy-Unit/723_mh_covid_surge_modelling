@@ -5,9 +5,7 @@
 #' @name results_module
 #'
 #' @param id An ID string that uniquely identifies an instance of this module
-#' @param model_output,appointments,treatments,params reactive objects passed in from the main server
-#'
-#'
+#' @param model_output,params reactive objects passed in from the main server
 
 #' @rdname results_module
 #' @import shiny

@@ -63,7 +63,7 @@ get_model_potential_functions <- function(params) {
 #' @return the output of \code{run_model()}
 #'
 #' @importFrom purrr modify_at
-run_all_models <- function(params, months, simtime) {
+run_all_models <- function(params, months, sim_time) {
   cat("running_all_model: ")
 
   m <- get_model_params(params)
