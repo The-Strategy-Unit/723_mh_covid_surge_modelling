@@ -63,8 +63,9 @@ get_model_potential_functions <- function(params) {
 #' @return the output of \code{run_model()}
 #'
 #' @importFrom purrr modify_at
+#' @importFrom golem cat_dev
 run_all_models <- function(params, months, sim_time) {
-  cat("running_all_model: ")
+  cat_dev("run_all_models(): ")
 
   m <- get_model_params(params)
   g <- get_model_potential_functions(params)
@@ -72,7 +73,7 @@ run_all_models <- function(params, months, sim_time) {
 
   ret <- run_model(m, g, s)
 
-  cat(" done\n")
+  cat_dev(" done\n")
 
   ret
 }

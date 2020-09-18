@@ -5,7 +5,7 @@
 #' @name graph_module
 #'
 #' @param id An ID string that uniquely identifies an instance of this module
-#' @param model_output,population_groups,all_conditions,treatments reactive objects passed in from the main server
+#' @param params,model_output reactive objects passed in from the main server
 
 #' @rdname graph_module
 #' @import shiny
@@ -67,12 +67,22 @@ graph_ui <- function(id) {
 #' @rdname graph_module
 #' @import shiny
 #' @importFrom plotly renderPlotly
-graph_server <- function(id, model_output, population_groups, all_conditions, treatments) {
+graph_server <- function(id, params, model_output) {
   moduleServer(id, function(input, output, session) {
-    stopifnot("model_output is not a reactive" = is.reactive(model_output),
-              "population_groups is not a reactive" = is.reactive(population_groups),
-              "all_conditions is not a reactive" = is.reactive(all_conditions),
-              "treatments is not a reactive" = is.reactive(treatments))
+    stopifnot("params is not a reactiveValues" = is.reactivevalues(params),
+              "model_output is not a reactive" = is.reactive(model_output))
+
+    population_groups <- reactive({
+      names(params$groups)
+    })
+
+    all_conditions <- reactive({
+      get_all_conditions(params)
+    })
+
+    treatments <- reactive({
+      names(params$treatments)
+    })
 
     observe({
       updateSelectInput(session,
