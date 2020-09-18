@@ -3,7 +3,7 @@
 #' Download the model output as a csv in order to be used with other applications
 #'
 #' @param model_output output from \code{run_model()} and \code{get_model_output()}
-#' @param appointments output from \code{get_appointments()}
+#' @param params the current `params` object used to model the data
 #'
 #' @return a function that accepts a file name to save the results to
 #'
@@ -11,11 +11,11 @@
 #' @importFrom lubridate day
 #' @import rlang
 #' @importFrom utils write.csv
-download_output <- function(model_output, appointments) {
-  # make sure to "force" the model_output and appointments so that the values are available when called from the
-  # returned function
+download_output <- function(model_output, params) {
+  # make sure to "force" the model_output so that the values are available when called from the returned function
   force(model_output)
-  force(appointments)
+
+  appointments <- get_appointments(params)
 
   function(file) {
     df <- model_output %>%

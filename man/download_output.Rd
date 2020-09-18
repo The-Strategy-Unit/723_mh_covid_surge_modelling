@@ -4,12 +4,12 @@
 \alias{download_output}
 \title{Download Model Output}
 \usage{
-download_output(model_output, appointments)
+download_output(model_output, params)
 }
 \arguments{
 \item{model_output}{output from \code{run_model()} and \code{get_model_output()}}
 
-\item{appointments}{output from \code{get_appointments()}}
+\item{params}{the current `params` object used to model the data}
 }
 \value{
 a function that accepts a file name to save the results to

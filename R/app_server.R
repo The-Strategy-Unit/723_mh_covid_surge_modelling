@@ -11,6 +11,7 @@
 #' @importFrom shinyjs disabled
 #' @noRd
 app_server <- function(input, output, session) {
+
   counter <- methods::new("Counter")
 
   population_groups <- reactiveVal(population_groups)
@@ -19,6 +20,14 @@ app_server <- function(input, output, session) {
   curves <- reactiveVal(names(params$curves))
 
   params <- lift_dl(reactiveValues)(params)
+
+  # Model ----
+
+  model_output <- reactive({
+    params %>%
+      run_all_models(24, sim_time) %>%
+      get_model_output()
+  })
 
   # Params Tab ----
 
@@ -324,23 +333,9 @@ app_server <- function(input, output, session) {
   # download_output (downloadButton)
   output$download_output <- downloadHandler(
     paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv"),
-    download_output(model_output(), appointments()),
+    download_output(model_output(), reactiveValuesToList(params)),
     "text/csv"
   )
-
-  # Model ----
-
-  model_output <- reactive({
-    params %>%
-      run_all_models(24, sim_time) %>%
-      get_model_output()
-  })
-
-  appointments <- reactive({
-    params %>%
-      reactiveValuesToList() %>%
-      get_appointments()
-  })
 
   # Results Tab ----
 
