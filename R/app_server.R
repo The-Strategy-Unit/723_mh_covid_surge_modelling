@@ -263,10 +263,14 @@ app_server <- function(input, output, session) {
 
   # treatment_type (selectInput)
   observeEvent(input$treatment_type, {
+    golem::cat_dev("updated input$treatment_type\n")
+
     redraw_treatments(counter$get())
   })
 
   observeEvent(redraw_treatments(), {
+    golem::cat_dev("redraw_treatments \"", input$treatment_type, "\"\n", sep = "")
+
     tx <- params$treatments[[req(input$treatment_type)]]
     updateSliderInput(session, "treatment_appointments", value = tx$demand)
     updateSliderInput(session, "slider_success", value = tx$success * 100)
