@@ -12,8 +12,8 @@ download_output(model_output, params)
 \item{params}{the current `params` object used to model the data}
 }
 \value{
-a function that accepts a file name to save the results to
+a data frame
 }
 \description{
-Download the model output as a csv in order to be used with other applications
+Prepares a data frame of the model output that can be downloaded as a csv in order to be used with other applications
 }
