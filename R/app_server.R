@@ -4,11 +4,9 @@
 #'     DO NOT REMOVE.
 #' @import shiny
 #' @import shinydashboard
-#' @importFrom dplyr %>% select tibble tribble
-#' @importFrom purrr map walk walk2 pmap map_dbl lift_dl modify_at set_names discard
+#' @importFrom dplyr %>%
 #' @importFrom plotly renderPlotly
-#' @importFrom utils write.csv
-#' @importFrom shinyjs disabled
+#' @importFrom purrr lift_dl
 #' @noRd
 app_server <- function(input, output, session) {
 

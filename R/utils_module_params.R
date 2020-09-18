@@ -138,8 +138,10 @@ params_ui <- function(id) {
 
 #' @rdname params_module
 #' @import shiny
+#' @importFrom shinyjs disabled
 #' @importFrom dplyr %>%
 #' @importFrom purrr walk discard map_dbl map
+#' @importFrom utils write.csv
 params_server <- function(id, params, model_output) {
   moduleServer(id, function(input, output, session) {
     counter <- methods::new("Counter")
