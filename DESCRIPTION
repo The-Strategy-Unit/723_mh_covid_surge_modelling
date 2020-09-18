@@ -10,7 +10,6 @@ Imports:
     deSolve,
     dplyr,
     forcats,
-    ggplot2,
     golem,
     htmltools,
     igraph,
