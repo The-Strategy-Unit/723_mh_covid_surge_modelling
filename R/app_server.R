@@ -12,7 +12,6 @@
 #' @noRd
 app_server <- function(input, output, session) {
 
-  counter <- methods::new("Counter")
 
   population_groups <- reactiveVal(population_groups)
   all_conditions <- reactiveVal(get_all_conditions(params))
@@ -30,6 +29,8 @@ app_server <- function(input, output, session) {
   })
 
   # Params Tab ----
+
+  counter <- methods::new("Counter")
 
   redraw_dropdowns <- reactiveVal()
   redraw_groups <- reactiveVal()
@@ -325,16 +326,17 @@ app_server <- function(input, output, session) {
   output$download_params <- downloadHandler(
     "params.xlsx",
     function(file) {
-      params %>%
-        reactiveValuesToList() %>%
-        params_to_xlsx(file)
+      params_to_xlsx(params, file)
     }
   )
 
   # download_output (downloadButton)
   output$download_output <- downloadHandler(
-    paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv"),
-    download_output(model_output(), reactiveValuesToList(params)),
+    function() paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".csv"),
+    function(file) {
+      download_output(model_output(), params) %>%
+        write.csv(file, row.names = FALSE)
+    },
     "text/csv"
   )
 
@@ -356,9 +358,7 @@ app_server <- function(input, output, session) {
   # Bubble Plot Tab ----
 
   output$bubble_plot_baselinepopn <- renderPlotly({
-    params %>%
-      reactiveValuesToList() %>%
-      bubble_plot()
+    bubble_plot(params)
   })
 
   # Graph Tab ----
