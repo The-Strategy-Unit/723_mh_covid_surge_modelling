@@ -2,12 +2,9 @@
 % Please edit documentation in R/fct_combined_plot.R
 \name{combined_plot}
 \alias{combined_plot}
-\alias{combined_plot_ggplot}
 \title{Combined Plot}
 \usage{
 combined_plot(model_output, treatment, params)
-
-combined_plot_ggplot(model_output, treatment, params)
 }
 \arguments{
 \item{model_output}{output from \code{run_model()} and \code{get_model_output()}}
@@ -18,8 +15,6 @@ combined_plot_ggplot(model_output, treatment, params)
 }
 \value{
 a plotly chart
-
-a ggplot2 chart
 }
 \description{
 Generates a plot that shows the actual demand data, along with the suppressed activity figures, and the model output.

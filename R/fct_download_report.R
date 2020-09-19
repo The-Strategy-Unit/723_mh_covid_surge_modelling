@@ -8,11 +8,8 @@
 #'
 #' @return a function that accepts a file name to save the report to
 #'
-#' @import ggplot2
 #' @import rlang
 #' @importFrom rmarkdown render
-#' @importFrom dplyr %>% filter group_by summarise across bind_rows inner_join mutate rename pull
-#' @importFrom tidyr pivot_longer
 download_report <- function(model_output, params, services) {
   report_rmd <- app_sys("app/data/report.Rmd")
 
