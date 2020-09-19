@@ -44,22 +44,3 @@ referrals_plot <- function(model_output, treatment) {
            yaxis = list(title = "New Referrals")) %>%
     config(displayModeBar = FALSE)
 }
-
-#' @rdname referrals_plot
-#' @import ggplot2
-#' @return a ggplot2 chart
-referrals_plot_ggplot <- function(model_output, treatment) {
-  df <- referrals_plot_data(model_output, treatment)
-
-  if (nrow(df) < 1) return(NULL)
-
-  df %>%
-    ggplot(aes(.data$date, .data$value)) +
-    theme_bw() +
-    geom_line(colour = "red") +
-    scale_x_date(name = "Month",
-                 date_breaks = "3 months",
-                 date_labels =  "%b %Y") +
-    labs(y = "New Referrals",
-         title = "Additional Patients Receiving Service")
-}

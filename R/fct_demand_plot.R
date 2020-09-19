@@ -50,22 +50,3 @@ demand_plot <- function(model_output, appointments, treatment) {
            yaxis = list(title = "Demand")) %>%
     config(displayModeBar = FALSE)
 }
-
-#' @rdname demand_plot
-#' @import ggplot2
-#' @return a ggplot2 chart
-demand_plot_ggplot <- function(model_output, appointments, treatment) {
-  df <- demand_plot_data(model_output, appointments, treatment)
-
-  if (nrow(df) < 1) return(NULL)
-
-  df %>%
-    ggplot(aes(.data$date, .data$no_appointments)) +
-    theme_bw() +
-    geom_line(colour = "green") +
-    scale_x_date(name = "Month",
-                 date_breaks = "3 months",
-                 date_labels =  "%b %Y") +
-    labs(y = "Demand",
-         title = "Typical Additional Contact Volumes per Appointment Type")
-}
