@@ -146,20 +146,17 @@ params_server <- function(id, params, model_output) {
   moduleServer(id, function(input, output, session) {
     counter <- methods::new("Counter")
 
-    population_groups <- reactive({
-      names(params$groups)
-    })
+    population_groups <- reactiveVal() # names(params$groups)
+    treatments <- reactiveVal() # names(params$treatments)
+    curves <- reactiveVal() # names(params$curves)
 
-    all_conditions <- reactive({
-      get_all_conditions(params)
-    })
-
-    treatments <- reactive({
-      names(params$treatments)
-    })
-
-    curves <- reactive({
-      names(params$curves)
+    # initialise reactiveVals on load
+    params_server_init <- observe({
+      population_groups(names(params$groups))
+      treatments(names(params$treatments))
+      curves(names(params$curves))
+      # remove initialiser
+      params_server_init$destroy()
     })
 
     redraw_dropdowns <- reactiveVal()
@@ -186,6 +183,10 @@ params_server <- function(id, params, model_output) {
       params$treatments <- new_params$treatments
       params$curves <- new_params$curves
       params$demand <- new_params$demand
+
+      population_groups(names(new_params$groups))
+      treatments(names(new_params$treatments))
+      curves(names(new_params$curves))
 
       redraw_treatments(u)
       redraw_groups(u)
