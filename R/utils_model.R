@@ -2,10 +2,9 @@
 #'
 #' Performs the Systems Dynamics modelling on the given parameter values.
 #'
-#' @param params the value returned from \code{get_model_params()} from the current `params`
-#' @param new_potential the value returned from \code{get_model_potential_functions()} from the current `params`
-#' @param simtime the points at which we should try to solve the function at. Defaults to 0 to 18 (months), solving at
-#'   intervals of 1 / 30 (e.g. each day in the month)
+#' @param params the current `params` object used to model the data
+#' @param months an integer of the number of months to run the simulation for
+#' @param sim_time a numeric for the time interval to run the model at, e.g. every 1/5th of a month
 #'
 #' @return a tibble of the results of running the model
 #'
@@ -13,15 +12,19 @@
 #' @importFrom deSolve ode
 #' @importFrom dplyr %>% rename_with all_of tibble as_tibble
 #' @importFrom tidyr pivot_longer separate
-run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30)) {
-  # ensure params are ordered
-  params <- params[, sort(colnames(params))]
+run_model <- function(params, months, sim_time) {
+
+  model_params <- get_model_params(params)
+  new_potential <- get_model_potential_functions(params)
+
+  # ensure model_params are ordered
+  model_params <- model_params[, sort(colnames(model_params))]
   # update decay values: the values are currently expressed as log values, so we need to exponentiate these values.
   # we also need to take the complement so we get the amount that move from a->b at each time period
-  params["decay", ] <- 1 - exp(params["decay", ])
+  model_params["decay", ] <- 1 - exp(model_params["decay", ])
 
-  # get the names of the treatments from the params matrix column names
-  treatments <- colnames(params)
+  # get the names of the treatments from the model_params matrix column names
+  treatments <- colnames(model_params)
 
   # get the names of the initial groups from the start of the treatment names
   all_initials <- treatments %>%
@@ -51,7 +54,7 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30)) 
   stopifnot("new_potential does not match initials" =
               all(names(new_potential) == initials))
 
-  model <- function(time, stocks, params, new_potential, initial_treatment_map) {
+  model <- function(time, stocks, model_params, new_potential, initial_treatment_map) {
     # get each of the new potentials for each of the initial groups
     f_new_potential <- map_dbl(new_potential, ~.x(time))
 
@@ -59,15 +62,15 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30)) 
     initials_matrix <- initial_treatment_map %*% matrix(stocks[initials], ncol = 1)
 
     # flow from initial groups to treatments
-    f_referrals <- initials_matrix[, 1] * params["pcnt", ]
-    f_pot_treat <- f_referrals * params["treat", ]
+    f_referrals <- initials_matrix[, 1] * model_params["pcnt", ]
+    f_pot_treat <- f_referrals * model_params["treat", ]
     # flow from initial groups to no needs
-    f_no_needs  <- stocks[initials] * (1 - matrix(params["pcnt", ], nrow = 1) %*% initial_treatment_map)[1, ]
+    f_no_needs  <- stocks[initials] * (1 - matrix(model_params["pcnt", ], nrow = 1) %*% initial_treatment_map)[1, ]
 
     # flow from treatment groups back to initials
-    f_treat_pot      <- stocks[treatments] * (1 - params["success", ]) * params["decay", ]
+    f_treat_pot      <- stocks[treatments] * (1 - model_params["success", ]) * model_params["decay", ]
     # flow from treatment groups to no further mh needs
-    f_treat_no_needs <- stocks[treatments] * (0 + params["success", ]) * params["decay", ]
+    f_treat_no_needs <- stocks[treatments] * (0 + model_params["success", ]) * model_params["decay", ]
 
     # convert the flows from treatment groups to be based on initial stocks, not treatment stocks
     f_pot_treat_initials <- (matrix(f_pot_treat, nrow = 1) %*% initial_treatment_map)[1, ]
@@ -90,7 +93,11 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30)) 
   }
 
   # run the model and return the results in a long tidy format
-  ode(stocks, simtime, model, params, "euler",
+  ode(stocks,
+      seq(0, months - 1, sim_time),
+      model,
+      model_params,
+      "euler",
       new_potential = new_potential,
       initial_treatment_map = initial_treatment_map) %>%
     as.data.frame() %>%
