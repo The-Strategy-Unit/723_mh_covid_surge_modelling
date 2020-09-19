@@ -16,6 +16,9 @@
 run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30)) {
   # ensure params are ordered
   params <- params[, sort(colnames(params))]
+  # update decay values: the values are currently expressed as log values, so we need to exponentiate these values.
+  # we also need to take the complement so we get the amount that move from a->b at each time period
+  params["decay", ] <- 1 - exp(params["decay", ])
 
   # get the names of the treatments from the params matrix column names
   treatments <- colnames(params)
@@ -55,7 +58,6 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30)) 
     # expand the initials stocks for each of the treatments
     initials_matrix <- initial_treatment_map %*% matrix(stocks[initials], ncol = 1)
 
-
     # flow from initial groups to treatments
     f_referrals <- initials_matrix[, 1] * params["pcnt", ]
     f_pot_treat <- f_referrals * params["treat", ]
@@ -63,9 +65,9 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30)) 
     f_no_needs  <- stocks[initials] * (1 - matrix(params["pcnt", ], nrow = 1) %*% initial_treatment_map)[1, ]
 
     # flow from treatment groups back to initials
-    f_treat_pot      <- stocks[treatments] * (1 - params["success", ]) * exp(params["decay", ])
+    f_treat_pot      <- stocks[treatments] * (1 - params["success", ]) * params["decay", ]
     # flow from treatment groups to no further mh needs
-    f_treat_no_needs <- stocks[treatments] * (0 + params["success", ]) * exp(params["decay", ])
+    f_treat_no_needs <- stocks[treatments] * (0 + params["success", ]) * params["decay", ]
 
     # convert the flows from treatment groups to be based on initial stocks, not treatment stocks
     f_pot_treat_initials <- (matrix(f_pot_treat, nrow = 1) %*% initial_treatment_map)[1, ]
