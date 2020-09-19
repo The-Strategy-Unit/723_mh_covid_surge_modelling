@@ -51,7 +51,7 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30)) 
   stopifnot("new_potential does not match initials" =
               all(names(new_potential) == initials))
 
-  model <- function(time, stocks, params) {
+  model <- function(time, stocks, params, new_potential, initial_treatment_map) {
     # get each of the new potentials for each of the initial groups
     f_new_potential <- map_dbl(new_potential, ~.x(time))
 
@@ -90,7 +90,9 @@ run_model <- function(params, new_potential, simtime = seq(0, 18, by = 1 / 30)) 
   }
 
   # run the model and return the results in a long tidy format
-  ode(stocks, simtime, model, params, "euler") %>%
+  ode(stocks, simtime, model, params, "euler",
+      new_potential = new_potential,
+      initial_treatment_map = initial_treatment_map) %>%
     as.data.frame() %>%
     as_tibble() %>%
     rename_with(~paste0("at-risk|", .x), .cols = all_of(initials)) %>%
