@@ -53,8 +53,10 @@ combined_plot <- function(model_output, treatment, params) {
             mode = "lines",
             x = ~date,
             y = ~value,
+            hovertemplate = "%{y:.0f}",
             color = ~type) %>%
     layout(showlegend = TRUE,
+           hovermode = "x unified",
            xaxis = list(title = "Month"),
            yaxis = list(title = "# Referrals")) %>%
     config(displayModeBar = FALSE)
