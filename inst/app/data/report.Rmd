@@ -9,25 +9,29 @@ title: "\\vspace{-3cm} Modelled Results by Service"
 ---
 
 ```{r setup, echo = FALSE}
-knitr::opts_chunk$set(
-	echo = FALSE,
-	message = FALSE,
-	warning = FALSE
-)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 library(tibble)
 library(patchwork)
 library(gridExtra)
 library(grid)
 library(ggplot2)
 
-# model_output, appointments and demand should be set in the environment before running this report
-stopifnot("model_output does not exist" = exists("model_output"),
-          "params does not exist" = exists("params"),
-          "services does not exist" = exists("services"))
+# params must be set in the environment before running this report: load it if not
+if (!(exists("params") && setequal(names(params), c("groups", "treatments", "curves", "demand")))) {
+  devtools::load_all()
+}
 
-# you can recreate these variables using the code below. Note: this is the model params, not the Rmd params
-# model_output <- get_model_output(models)
-# services <- names(params$treatments)
+# model_output/services should exist in the environment, but recreate them if not
+
+if (!exists("model_output")) {
+  model_output <- params %>%
+    run_model(24, 0.2) %>%
+    get_model_output()
+}
+
+if (!exists("services")) {
+  services <- names(params$treatments)
+}
 
 appointments <- get_appointments(params)
 ```
