@@ -51,29 +51,3 @@ get_model_potential_functions <- function(params) {
     map(~params$curves[[.x$curve]] * .x$size * .x$pcnt / 100) %>%
     map(approxfun, x = seq_len(24) - 1, rule = 2)
 }
-
-#' Run All Models
-#'
-#' Run's the model for all of the population group
-#'
-#' @param params the current `params` object used to model the data
-#' @param months an integer of the number of months to run the simulation for
-#' @param sim_time a numeric for the time interval to run the model at, e.g. every 1/5th of a month
-#'
-#' @return the output of \code{run_model()}
-#'
-#' @importFrom purrr modify_at
-#' @importFrom golem cat_dev
-run_all_models <- function(params, months, sim_time) {
-  cat_dev("run_all_models(): ")
-
-  m <- get_model_params(params)
-  g <- get_model_potential_functions(params)
-  s <- seq(0, months - 1, by = sim_time)
-
-  ret <- run_model(m, g, s)
-
-  cat_dev(" done\n")
-
-  ret
-}

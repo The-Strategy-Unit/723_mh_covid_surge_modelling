@@ -4,15 +4,14 @@
 \alias{run_model}
 \title{Run Model}
 \usage{
-run_model(params, new_potential, simtime = seq(0, 18, by = 1/30))
+run_model(params, months, sim_time)
 }
 \arguments{
-\item{params}{the value returned from \code{get_model_params()} from the current `params`}
+\item{params}{the current `params` object used to model the data}
 
-\item{new_potential}{the value returned from \code{get_model_potential_functions()} from the current `params`}
+\item{months}{an integer of the number of months to run the simulation for}
 
-\item{simtime}{the points at which we should try to solve the function at. Defaults to 0 to 18 (months), solving at
-intervals of 1 / 30 (e.g. each day in the month)}
+\item{sim_time}{a numeric for the time interval to run the model at, e.g. every 1/5th of a month}
 }
 \value{
 a tibble of the results of running the model
