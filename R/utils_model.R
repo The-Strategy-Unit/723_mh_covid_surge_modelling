@@ -15,7 +15,7 @@
 run_model <- function(params, months, sim_time) {
 
   model_params <- get_model_params(params)
-  new_potential <- get_model_potential_functions(params)
+  potential_functions <- get_model_potential_functions(params)
 
   # ensure model_params are ordered
   model_params <- model_params[, sort(colnames(model_params))]
@@ -32,8 +32,8 @@ run_model <- function(params, months, sim_time) {
     map_chr(1)
   initials <- unique(all_initials)
 
-  # reorders the new_potential object to be same order as the initials
-  new_potential <- new_potential[initials]
+  # reorders the potential_functions object to be same order as the initials
+  potential_functions <- potential_functions[initials]
 
   # set up the stocks for the no mh needs group, each of the initial groups, and each of the stocks
   stocks <- c("no-mh-needs", initials, treatments) %>%
@@ -47,16 +47,16 @@ run_model <- function(params, months, sim_time) {
     flatten_dbl() %>%
     matrix(ncol = length(initials), byrow = TRUE)
 
-  # verify that there is a new_potential function for each of the initial groups
-  stopifnot("new_potential length does not match initials length" =
-              length(new_potential) == length(initials))
+  # verify that there is a potential_functions function for each of the initial groups
+  stopifnot("potential_functions length does not match initials length" =
+              length(potential_functions) == length(initials))
 
-  stopifnot("new_potential does not match initials" =
-              all(names(new_potential) == initials))
+  stopifnot("potential_functions does not match initials" =
+              all(names(potential_functions) == initials))
 
-  model <- function(time, stocks, model_params, initials, treatments, new_potential, initial_treatment_map) {
+  model <- function(time, stocks, model_params, initials, treatments, potential_functions, initial_treatment_map) {
     # get each of the new potentials for each of the initial groups
-    f_new_potential <- map_dbl(new_potential, ~.x(time))
+    f_new_potential <- map_dbl(potential_functions, ~.x(time))
 
     # expand the initials stocks for each of the treatments
     initials_matrix <- initial_treatment_map %*% matrix(stocks[initials], ncol = 1)
@@ -100,7 +100,7 @@ run_model <- function(params, months, sim_time) {
       "euler",
       initials = initials,
       treatments = treatments,
-      new_potential = new_potential,
+      potential_functions = potential_functions,
       initial_treatment_map = initial_treatment_map) %>%
     as.data.frame() %>%
     as_tibble() %>%
