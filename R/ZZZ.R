@@ -3,7 +3,7 @@
 #' @importFrom dplyr %>%
 #' @importFrom purrr modify_at map
 .onLoad <- function(libname, pkgname) { # nolint
-  sim_time <<- as.numeric(Sys.getenv("SIM_TIME", 1))
+  sim_time <<- as.numeric(Sys.getenv("SIM_TIME", 0.2))
 
   params <<- app_sys("app/data/params.xlsx") %>%
     extract_params_from_excel() %>%
