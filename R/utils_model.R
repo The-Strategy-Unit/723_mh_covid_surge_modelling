@@ -8,10 +8,10 @@
 #'
 #' @return a tibble of the results of running the model
 #'
-#' @importFrom purrr set_names map_chr map_dbl map
+#' @importFrom purrr set_names map_chr map_dbl map map_dfr
 #' @importFrom deSolve ode
-#' @importFrom dplyr %>% rename_with all_of tibble as_tibble
-#' @importFrom tidyr pivot_longer separate
+#' @importFrom dplyr %>% rename_with all_of tibble as_tibble relocate select inner_join
+#' @importFrom tidyr pivot_longer unite
 run_model <- function(params, months, sim_time) {
 
   model_params <- get_model_params(params)
@@ -93,19 +93,34 @@ run_model <- function(params, months, sim_time) {
   }
 
   # run the model and return the results in a long tidy format
-  ode(stocks,
-      seq(0, months - 1, sim_time),
-      model,
-      model_params,
-      "euler",
-      initials = initials,
-      treatments = treatments,
-      potential_functions = potential_functions,
-      initial_treatment_map = initial_treatment_map) %>%
+  res <- ode(stocks,
+             seq(0, months - 1, sim_time),
+             model,
+             model_params,
+             "euler",
+             initials = initials,
+             treatments = treatments,
+             potential_functions = potential_functions,
+             initial_treatment_map = initial_treatment_map) %>%
     as.data.frame() %>%
     as_tibble() %>%
     rename_with(~paste0("at-risk|", .x), .cols = all_of(initials)) %>%
     rename_with(~paste0("treatment|", .x), .cols = all_of(treatments)) %>%
-    pivot_longer(-.data$time) %>%
-    separate(.data$name, c("type", "group", "condition", "treatment"), "\\|", fill = "right")
+    pivot_longer(-.data$time)
+
+  # this is SIGNIFICANTLY quicker than using separate
+  cols <- unique(res$name) %>%
+    strsplit("\\|") %>%
+    map(as.list) %>%
+    map_dfr(~set_names(.x, c("type", "group", "condition", "treatment")[seq_along(.x)])) %>%
+    unite("name",
+          .data$type,
+          .data$group,
+          .data$condition,
+          .data$treatment, sep = "|", remove = FALSE, na.rm = TRUE)
+
+  res %>%
+    inner_join(cols, by = "name") %>%
+    relocate(.data$value, .after = everything()) %>%
+    select(-.data$name)
 }
