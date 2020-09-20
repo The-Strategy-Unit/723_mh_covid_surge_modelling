@@ -54,7 +54,7 @@ run_model <- function(params, months, sim_time) {
   stopifnot("new_potential does not match initials" =
               all(names(new_potential) == initials))
 
-  model <- function(time, stocks, model_params, new_potential, initial_treatment_map) {
+  model <- function(time, stocks, model_params, initials, treatments, new_potential, initial_treatment_map) {
     # get each of the new potentials for each of the initial groups
     f_new_potential <- map_dbl(new_potential, ~.x(time))
 
@@ -98,6 +98,8 @@ run_model <- function(params, months, sim_time) {
       model,
       model_params,
       "euler",
+      initials = initials,
+      treatments = treatments,
       new_potential = new_potential,
       initial_treatment_map = initial_treatment_map) %>%
     as.data.frame() %>%
