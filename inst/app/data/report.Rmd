@@ -18,6 +18,7 @@ library(tibble)
 library(patchwork)
 library(gridExtra)
 library(grid)
+library(ggplot2)
 
 # model_output, appointments and demand should be set in the environment before running this report
 stopifnot("model_output does not exist" = exists("model_output"),
@@ -86,8 +87,8 @@ combined_plot_ggplot <- function(model_output, treatment, params) {
 }
 ```
 
-```{r output, results="asis", fig.width=18, fig.height=11}
-purrr::walk(services, function(service) {
+```{r generate_plot}
+generate_plot <- function(service) {
   cat("# ", service, "\n\n", sep = "")
 
   a <- referrals_plot_ggplot(model_output, service)
@@ -123,5 +124,9 @@ purrr::walk(services, function(service) {
 
   plot(p)
   cat("\n\n")
-})
+}
+```
+
+```{r output, results="asis", fig.width=18, fig.height=11}
+purrr::walk(services, generate_plot)
 ```
