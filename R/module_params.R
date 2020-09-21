@@ -149,9 +149,9 @@ params_server <- function(id, params, model_output) {
   moduleServer(id, function(input, output, session) {
     counter <- methods::new("Counter")
 
-    population_groups <- reactiveVal() # names(params$groups)
-    treatments <- reactiveVal() # names(params$treatments)
-    curves <- reactiveVal() # names(params$curves)
+    population_groups <- reactiveVal()
+    treatments <- reactiveVal()
+    curves <- reactiveVal()
 
     # initialise reactiveVals on load
     params_server_init <- observe({
