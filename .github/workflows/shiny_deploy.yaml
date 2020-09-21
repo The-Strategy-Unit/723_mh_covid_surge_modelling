@@ -51,5 +51,7 @@ jobs:
           setAccountInfo(name = Sys.getenv("SHINYAPPS_NAME"),
                          token = Sys.getenv("SHINYAPPS_TOKEN"),
                          secret = Sys.getenv("SHINYAPPS_SECRET"))
-          deployApp(forceUpdate = TRUE)
+          deployApp(account = "strategyunit",
+                    appName = "MH_Surge_Modelling",
+                    forceUpdate = TRUE)
         shell: Rscript {0}
