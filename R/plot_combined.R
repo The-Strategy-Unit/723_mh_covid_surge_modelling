@@ -61,23 +61,3 @@ combined_plot <- function(model_output, treatment, params) {
            yaxis = list(title = "# Referrals")) %>%
     config(displayModeBar = FALSE)
 }
-
-#' @rdname combined_plot
-#' @import ggplot2
-#' @return a ggplot2 chart
-combined_plot_ggplot <- function(model_output, treatment, params) {
-  df <- combined_plot_data(model_output, treatment, params)
-
-  if (nrow(df) < 1) return(NULL)
-
-  df %>%
-    ggplot(aes(.data$date, .data$value, group = .data$type, colour = .data$type)) +
-    theme_bw() +
-    geom_line() +
-    scale_x_date(name = "Month",
-                 date_breaks = "3 months",
-                 date_labels =  "%b %Y") +
-    labs(title = "Referrals") +
-    scale_colour_discrete(name = "Type") +
-    theme(legend.position = "bottom")
-}

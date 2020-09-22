@@ -14,21 +14,85 @@ library(tibble)
 library(patchwork)
 library(gridExtra)
 library(grid)
+library(ggplot2)
 
-# model_output, appointments and demand should be set in the environment before running this report
-stopifnot("model_output does not exist" = exists("model_output"),
-          "params does not exist" = exists("params"),
-          "services does not exist" = exists("services"))
+# params must be set in the environment before running this report: load it if not
+if (!(exists("params") && setequal(names(params), c("groups", "treatments", "curves", "demand")))) {
+  devtools::load_all()
+}
 
-# you can recreate these variables using the code below. Note: this is the model params, not the Rmd params
-# model_output <- get_model_output(models)
-# services <- names(params$treatments)
+# model_output/services should exist in the environment, but recreate them if not
+
+if (!exists("model_output")) {
+  model_output <- params %>%
+    run_model(24, 0.2) %>%
+    get_model_output()
+}
+
+if (!exists("services")) {
+  services <- names(params$treatments)
+}
 
 appointments <- get_appointments(params)
 ```
 
-```{r, echo=FALSE, message=FALSE, results="asis", fig.width=18, fig.height=11}
-purrr::walk(services, function(service) {
+```{r referrals plot}
+referrals_plot_ggplot <- function(model_output, treatment) {
+  df <- referrals_plot_data(model_output, treatment)
+
+  if (nrow(df) < 1) return(NULL)
+
+  df %>%
+    ggplot(aes(.data$date, .data$value)) +
+    theme_bw() +
+    geom_line(colour = "red") +
+    scale_x_date(name = "Month",
+                 date_breaks = "3 months",
+                 date_labels =  "%b %Y") +
+    labs(y = "New Referrals",
+         title = "Additional Patients Receiving Service")
+}
+```
+
+```{r demand plot}
+demand_plot_ggplot <- function(model_output, appointments, treatment) {
+  df <- demand_plot_data(model_output, appointments, treatment)
+
+  if (nrow(df) < 1) return(NULL)
+
+  df %>%
+    ggplot(aes(.data$date, .data$no_appointments)) +
+    theme_bw() +
+    geom_line(colour = "green") +
+    scale_x_date(name = "Month",
+                 date_breaks = "3 months",
+                 date_labels =  "%b %Y") +
+    labs(y = "Demand",
+         title = "Typical Additional Contact Volumes per Appointment Type")
+}
+```
+
+```{r combined plot}
+combined_plot_ggplot <- function(model_output, treatment, params) {
+  df <- combined_plot_data(model_output, treatment, params)
+
+  if (nrow(df) < 1) return(NULL)
+
+  df %>%
+    ggplot(aes(.data$date, .data$value, group = .data$type, colour = .data$type)) +
+    theme_bw() +
+    geom_line() +
+    scale_x_date(name = "Month",
+                 date_breaks = "3 months",
+                 date_labels =  "%b %Y") +
+    labs(title = "Referrals") +
+    scale_colour_discrete(name = "Type") +
+    theme(legend.position = "bottom")
+}
+```
+
+```{r generate_plot}
+generate_plot <- function(service) {
   cat("# ", service, "\n\n", sep = "")
 
   a <- referrals_plot_ggplot(model_output, service)
@@ -64,5 +128,9 @@ purrr::walk(services, function(service) {
 
   plot(p)
   cat("\n\n")
-})
+}
+```
+
+```{r output, results="asis", fig.width=18, fig.height=11}
+purrr::walk(services, generate_plot)
 ```

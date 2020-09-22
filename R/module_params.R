@@ -143,12 +143,15 @@ params_ui <- function(id) {
 #' @importFrom purrr walk discard map_dbl map
 #' @importFrom utils write.csv
 params_server <- function(id, params, model_output) {
+  stopifnot("params must be a reactive values" = is.reactivevalues(params),
+            "model_output must be a reactive" = is.reactive(model_output))
+
   moduleServer(id, function(input, output, session) {
     counter <- methods::new("Counter")
 
-    population_groups <- reactiveVal() # names(params$groups)
-    treatments <- reactiveVal() # names(params$treatments)
-    curves <- reactiveVal() # names(params$curves)
+    population_groups <- reactiveVal()
+    treatments <- reactiveVal()
+    curves <- reactiveVal()
 
     # initialise reactiveVals on load
     params_server_init <- observe({

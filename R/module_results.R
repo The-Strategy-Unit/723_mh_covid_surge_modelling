@@ -107,10 +107,10 @@ results_ui <- function(id) {
 #' @import shinydashboard
 #' @importFrom dplyr %>% tribble
 #' @importFrom purrr pmap
-results_server <- function(id, model_output, params) {
+results_server <- function(id, params, model_output) {
   moduleServer(id, function(input, output, session) {
-    stopifnot("model_output must be a reactive" = is.reactive(model_output),
-              "params must be a reactive values" = is.reactivevalues(params))
+    stopifnot("params must be a reactive values" = is.reactivevalues(params),
+              "model_output must be a reactive" = is.reactive(model_output))
 
     appointments <- reactive({
       params %>%
