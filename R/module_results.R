@@ -48,7 +48,7 @@ results_ui <- function(id) {
   )
 
   results_referrals_plot <- primary_box(
-    title = "Modelled Referrals",
+    title = "Modelled referrals",
     withSpinner(
       plotlyOutput(
         NS(id, "referrals_plot")
@@ -57,7 +57,7 @@ results_ui <- function(id) {
   )
 
   results_demand_plot <- primary_box(
-    title = "Modelled Demand",
+    title = "Modelled demand",
     withSpinner(
       plotlyOutput(
         NS(id, "demand_plot")
@@ -66,7 +66,7 @@ results_ui <- function(id) {
   )
 
   results_combined_plot <- primary_box(
-    title = "Combined Modelled and Projected Patients in Service",
+    title = "Combined modelled and projected referrals to service",
     withSpinner(
       plotlyOutput(
         NS(id, "combined_plot"),
@@ -77,7 +77,7 @@ results_ui <- function(id) {
   )
 
   results_graph <- primary_box(
-    title = "Flows from population groups to conditions to services",
+    title = "Flows from population groups to conditions to service",
     withSpinner(
       plotlyOutput(
         NS(id, "graph"),
@@ -163,19 +163,23 @@ results_server <- function(id, params, model_output) {
       popgroups_plot(model_output(), input$services)
     })
 
-    download_report_services <- reactive({
-      if (input$download_choice == "all") {
-        names(params$treatments)
-      } else {
-        input$services
-      }
-    })
-
     output$download_results <- downloadHandler(
       filename = "report.pdf",
-      content = download_report(model_output(),
-                                reactiveValuesToList(params),
-                                download_report_services())
+      content = function(file) {
+        model_output <- model_output()
+        params <- reactiveValuesToList(params)
+        services <- if (input$download_choice == "all") {
+          names(params$treatments)
+        } else {
+          input$services
+        }
+
+        rmarkdown::render(
+          app_sys("app/data/report.Rmd"),
+          output_file = file,
+          envir = current_env()
+        )
+      }
     )
   })
 }

@@ -13,7 +13,7 @@
 #' @importFrom lubridate ymd
 combined_plot_data <- function(model_output, treatment, params) {
   df <- model_output %>%
-    summarise_model_output("treatment", {{treatment}}) %>%
+    summarise_model_output("new-referral", {{treatment}}) %>%
     mutate(type = "surge") %>%
     bind_rows(
       params$demand[[treatment]] %>%
