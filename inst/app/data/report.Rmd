@@ -8,7 +8,7 @@ geometry: margin=1in
 title: "\\vspace{-3cm} Modelled Results by Service"
 ---
 
-```{r setup, echo = FALSE}
+```{r setup, echo = FALSE, include = FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 library(tibble)
 library(patchwork)
@@ -36,7 +36,7 @@ if (!exists("services")) {
 appointments <- get_appointments(params)
 ```
 
-```{r referrals plot}
+```{r referrals plot, include = FALSE}
 referrals_plot_ggplot <- function(model_output, treatment) {
   df <- referrals_plot_data(model_output, treatment)
 
@@ -54,7 +54,7 @@ referrals_plot_ggplot <- function(model_output, treatment) {
 }
 ```
 
-```{r demand plot}
+```{r demand plot, include = FALSE}
 demand_plot_ggplot <- function(model_output, appointments, treatment) {
   df <- demand_plot_data(model_output, appointments, treatment)
 
@@ -72,7 +72,7 @@ demand_plot_ggplot <- function(model_output, appointments, treatment) {
 }
 ```
 
-```{r combined plot}
+```{r combined plot, include = FALSE}
 combined_plot_ggplot <- function(model_output, treatment, params) {
   df <- combined_plot_data(model_output, treatment, params)
 
@@ -91,7 +91,7 @@ combined_plot_ggplot <- function(model_output, treatment, params) {
 }
 ```
 
-```{r generate_plot}
+```{r generate_plot, include = FALSE}
 generate_plot <- function(service) {
   cat("# ", service, "\n\n", sep = "")
 
@@ -131,6 +131,6 @@ generate_plot <- function(service) {
 }
 ```
 
-```{r output, results="asis", fig.width=18, fig.height=11}
+```{r output, echo=FALSE, fig.height=11, fig.width=18, results="asis"}
 purrr::walk(services, generate_plot)
 ```
