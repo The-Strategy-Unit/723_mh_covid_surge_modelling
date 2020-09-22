@@ -163,19 +163,23 @@ results_server <- function(id, params, model_output) {
       popgroups_plot(model_output(), input$services)
     })
 
-    download_report_services <- reactive({
-      if (input$download_choice == "all") {
-        names(params$treatments)
-      } else {
-        input$services
-      }
-    })
-
     output$download_results <- downloadHandler(
       filename = "report.pdf",
-      content = download_report(model_output(),
-                                reactiveValuesToList(params),
-                                download_report_services())
+      content = function(file) {
+        model_output <- model_output()
+        params <- reactiveValuesToList(params)
+        services <- if (input$download_choice == "all") {
+          names(params$treatments)
+        } else {
+          input$services
+        }
+
+        rmarkdown::render(
+          app_sys("app/data/report.Rmd"),
+          output_file = file,
+          envir = current_env()
+        )
+      }
     )
   })
 }
