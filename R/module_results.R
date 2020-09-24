@@ -120,13 +120,7 @@ results_server <- function(id, params, model_output) {
 
     # ensure that if you alter some of the treatment params we only update the treatments list when a change to the
     # names of treatments occurs
-    treatments <- reactiveVal()
-    observe({
-      tx <- names(params$treatments)
-      if (!setequal(tx, treatments())) {
-        treatments(tx)
-      }
-    })
+    treatments <- reactive_changes(names(params$treatments))
 
     observe({
       updateSelectInput(session, "services", choices = treatments())
