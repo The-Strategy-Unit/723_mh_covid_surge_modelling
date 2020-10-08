@@ -14,9 +14,11 @@ app_server <- function(input, output, session) {
   # Model ----
 
   model_output <- reactive({
+    start_month <- min(params$demand[[1]]$month)
+
     params %>%
       run_model(sim_time) %>%
-      get_model_output()
+      get_model_output(start_month)
   })
 
   # Params Tab ----

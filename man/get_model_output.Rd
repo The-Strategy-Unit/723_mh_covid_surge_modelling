@@ -4,10 +4,12 @@
 \alias{get_model_output}
 \title{Get model output}
 \usage{
-get_model_output(models)
+get_model_output(models, start_month)
 }
 \arguments{
 \item{models}{the model output list}
+
+\item{start_month}{what is month 0? should be a date object that is the first of the month}
 }
 \value{
 a tibble
