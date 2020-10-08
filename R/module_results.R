@@ -169,8 +169,9 @@ results_server <- function(id, params, model_output) {
             sum() %>%
             round()
 
-          denom <- params$demand[[input$services]] %>% filter(
-            month %in% c(
+          denom <- params$demand[[input$services]] %>% 
+            filter(
+              month %in% c(
               "2020-05-01",
               "2020-06-01",
               "2020-07-01",
@@ -182,11 +183,12 @@ results_server <- function(id, params, model_output) {
               "2021-01-01",
               "2021-02-01",
               "2021-03-01",
-              "2021-04-01"
-            )
-          ) %>% pull("underlying") %>% sum()
+              "2021-04-01")
+          ) %>% 
+            pull("underlying") %>% 
+            sum()
 
-          figure <- round((numer/denom)*100, 1)
+          figure <- round((numer / denom) * 100, 1)
 
           value <- paste0(
             if (is.infinite(figure)) "NA*" else figure, "%")
