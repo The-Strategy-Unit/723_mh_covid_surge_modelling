@@ -49,5 +49,5 @@ get_model_params <- function(params) {
 get_model_potential_functions <- function(params) {
   params$groups %>%
     map(~params$curves[[.x$curve]] * .x$size * .x$pcnt / 100) %>%
-    map(approxfun, x = seq_len(24) - 1, rule = 2)
+    map(approxfun, x = seq_len(nrow(bind_cols(params$curves))) - 1, rule = 2)
 }

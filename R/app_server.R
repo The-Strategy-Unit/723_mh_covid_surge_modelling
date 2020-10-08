@@ -15,7 +15,7 @@ app_server <- function(input, output, session) {
 
   model_output <- reactive({
     params %>%
-      run_model(24, sim_time) %>%
+      run_model(nrow(bind_cols(params$curves)), sim_time) %>%
       get_model_output()
   })
 

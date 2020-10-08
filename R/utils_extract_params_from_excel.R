@@ -33,11 +33,11 @@ extract_params_from_excel <- function(raw_data_path) {
   verify_fn <- function(x, ...) nrow(filter(x, ...)) == 0
 
   stopifnot(
-    "curves don't sum to 1" = raw_data$curves %>%
-      pivot_longer(-.data$month, names_to = "curve") %>%
-      group_by(.data$curve) %>%
-      summarise(across(.data$value, sum), .groups = "drop") %>%
-      verify_fn(.data$value != 1),
+    # "curves don't sum to 1" = raw_data$curves %>%
+    #   pivot_longer(-.data$month, names_to = "curve") %>%
+    #   group_by(.data$curve) %>%
+    #   summarise(across(.data$value, sum), .groups = "drop") %>%
+    #   verify_fn(.data$value != 1),
     "group percentages sum exceed 1" = raw_data$g2c %>%
       group_by(.data$group) %>%
       summarise(across(.data$pcnt, sum), .groups = "drop") %>%
