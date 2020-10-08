@@ -161,7 +161,7 @@ results_server <- function(id, params, model_output) {
               model_totals(value_type, input$services)
           } else {
             denominator <- params$demand[[input$services]] %>%
-              filter(month < min(month) %m+% months(12)) %>%
+              filter(.data$month < min(.data$month) %m+% months(12)) %>%
               pull("underlying") %>%
               sum()
 

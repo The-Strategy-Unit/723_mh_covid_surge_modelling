@@ -10,6 +10,7 @@
 #' @importFrom readxl excel_sheets read_excel
 #' @importFrom dplyr %>% group_by summarise across anti_join select group_nest
 #' @importFrom tidyr pivot_longer
+#' @importFrom lubridate ymd
 #' @import rlang
 extract_params_from_excel <- function(raw_data_path) {
   sheet_names <- excel_sheets(raw_data_path) %>%
@@ -121,7 +122,7 @@ extract_params_from_excel <- function(raw_data_path) {
     summarise(across(.data$value, list), .groups = "drop")
 
   demand <- raw_data$demand %>%
-    mutate(across(month, ymd)) %>%
+    mutate(across(.data$month, ymd)) %>%
     group_nest(.data$service)
 
   list(
