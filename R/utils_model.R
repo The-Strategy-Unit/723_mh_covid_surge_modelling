@@ -3,7 +3,6 @@
 #' Performs the Systems Dynamics modelling on the given parameter values.
 #'
 #' @param params the current `params` object used to model the data
-#' @param months an integer of the number of months to run the simulation for
 #' @param sim_time a numeric for the time interval to run the model at, e.g. every 1/5th of a month
 #'
 #' @return a tibble of the results of running the model
@@ -12,10 +11,11 @@
 #' @importFrom deSolve ode
 #' @importFrom dplyr %>% rename_with all_of tibble as_tibble relocate select inner_join
 #' @importFrom tidyr pivot_longer unite
-run_model <- function(params, months, sim_time) {
+run_model <- function(params, sim_time) {
+  months <- length(params$curves[[1]])
 
   model_params <- get_model_params(params)
-  potential_functions <- get_model_potential_functions(params)
+  potential_functions <- get_model_potential_functions(params, months)
 
   # ensure model_params are ordered
   model_params <- model_params[, sort(colnames(model_params))]

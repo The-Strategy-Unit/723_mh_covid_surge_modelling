@@ -4,10 +4,12 @@
 \alias{get_model_potential_functions}
 \title{Get Model Potential Functions}
 \usage{
-get_model_potential_functions(params)
+get_model_potential_functions(params, months)
 }
 \arguments{
 \item{params}{the current `params` object used to model the data}
+
+\item{months}{the number of months to run the model for}
 }
 \value{
 a list of functions for each of the population groups
