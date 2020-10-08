@@ -151,48 +151,31 @@ results_server <- function(id, params, model_output) {
       "total_referrals",   "new-referral",  "Total 'surge' referrals",
       "total_demand",      "treatment",     "Total additional demand per contact type",
       "total_newpatients", "new-treatment", "Total new patients in service",
-      "percentage_surgedemand", "ignore", " surge demand"
+      "percentage_surgedemand", NA, "Surge Demand"
     ) %>%
       pmap(function(output_id, value_type, text) {
 
         output[[output_id]] <- renderValueBox({
+          value <- if (!is.na(value_type)) {
+            model_output() %>%
+              model_totals(value_type, input$services)
+          } else {
+            denominator <- params$demand[[input$services]] %>%
+              filter(month < min(month) %m+% months(12)) %>%
+              pull("underlying") %>%
+              sum()
 
-          if (value_type != "ignore") {
-          value <- model_output() %>%
-            model_totals(value_type, input$services)
-          } else if (value_type == "ignore") {
-          numer <- model_output() %>%
-            filter(.data$type == "new-referral",
-                   .data$treatment == input$services
-                   ) %>%
-            pull(.data$value) %>%
-            sum() %>%
-            round()
+            if (denominator == 0) {
+              "NA*"
+            } else {
+              numerator <- model_output() %>%
+                filter(.data$type == "new-referral",
+                       .data$treatment == input$services) %>%
+                pull(.data$value) %>%
+                sum()
 
-          denom <- params$demand[[input$services]] %>% 
-            filter(
-              month %in% c(
-              "2020-05-01",
-              "2020-06-01",
-              "2020-07-01",
-              "2020-08-01",
-              "2020-09-01",
-              "2020-10-01",
-              "2020-11-01",
-              "2020-12-01",
-              "2021-01-01",
-              "2021-02-01",
-              "2021-03-01",
-              "2021-04-01")
-          ) %>% 
-            pull("underlying") %>% 
-            sum()
-
-          figure <- round((numer / denom) * 100, 1)
-
-          value <- paste0(
-            if (is.infinite(figure)) "NA*" else figure, "%")
-
+              sprintf("%.1f%%", numerator / denominator * 100)
+            }
           }
 
           valueBox(value, text)
