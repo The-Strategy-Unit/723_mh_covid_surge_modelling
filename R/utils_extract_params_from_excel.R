@@ -121,6 +121,7 @@ extract_params_from_excel <- function(raw_data_path) {
     summarise(across(.data$value, list), .groups = "drop")
 
   demand <- raw_data$demand %>%
+    mutate(across(month, ymd)) %>%
     group_nest(.data$service)
 
   list(
