@@ -21,6 +21,11 @@ params_ui <- function(id) {
       multiple = FALSE,
       accept = ".xlsx",
       placeholder = "Previously downloaded parameters"
+    ),
+    actionLink(
+      NS(id, "upload_params_help"),
+      "",
+      icon("question")
     )
   )
 
@@ -52,6 +57,11 @@ params_ui <- function(id) {
     plotlyOutput(
       NS(id, "subpopulation_curve_plot"),
       height = "100px"
+    ),
+    actionLink(
+      NS(id, "population_group_help"),
+      "",
+      icon("question")
     )
   )
 
@@ -142,6 +152,7 @@ params_ui <- function(id) {
 #' @importFrom dplyr %>%
 #' @importFrom purrr walk discard map_dbl map
 #' @importFrom utils write.csv
+#' @importFrom shinyWidgets ask_confirmation
 params_server <- function(id, params, model_output) {
   stopifnot("params must be a reactive values" = is.reactivevalues(params),
             "model_output must be a reactive" = is.reactive(model_output))
@@ -469,5 +480,58 @@ params_server <- function(id, params, model_output) {
       },
       "text/csv"
     )
+
+    # help ====
+    observeEvent(input$upload_params_help, {
+      ask_confirmation(
+        "upload_params_help_box",
+        "Upload parameters",
+        "Upload a previously downloaded set of parameters. File must be an excel file.",
+        "question",
+        "ok",
+        closeOnClickOutside = TRUE,
+        showCloseButton = FALSE
+      )
+    })
+
+    observeEvent(input$population_group_help, {
+      ask_confirmation(
+        "population_group_help_box",
+        "Population groups",
+        tags$ul(
+          tags$li(
+            strong("Choose Subgroup:"),
+            "The population has been split into subgroups who each have their own conditions and treatments"
+          ),
+          tags$li(
+            strong("Subpopulation Figure:"),
+            "The total amount of people in the subgroup. The sum of all of the subpopulation figures should equal your",
+            "geographies population."
+          ),
+          tags$li(
+            strong("% in subgroup:"),
+            "The % of the subgroup figure that we will be modelling. Not everyone in the subgroup will suffer from",
+            "Mental Health conditions due to COVID-19, this % controls for that."
+          ),
+          tags$li(
+            strong("Modelled Population:"),
+            "The subpopulation figure multiplied by the % in subgroup: this is how many people will be used in the",
+            "model."
+          ),
+          tags$li(
+            strong("Choose Scenario:"),
+            "The model runs over a number of months. These scenarios alter how many of the modelled population enter",
+            "the model each month."
+          )
+
+        ),
+        "question",
+        "ok",
+        closeOnClickOutside = TRUE,
+        showCloseButton = FALSE,
+        html = TRUE
+      )
+    })
+
   })
 }

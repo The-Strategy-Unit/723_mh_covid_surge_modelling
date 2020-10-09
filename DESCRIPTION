@@ -25,7 +25,8 @@ Imports:
     shinydashboard,
     shinyjs,
     tidyr,
-    writexl
+    writexl,
+    shinyWidgets
 Suggests:
     here,
     mockery,
