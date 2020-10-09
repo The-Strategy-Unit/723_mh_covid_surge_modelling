@@ -40,14 +40,15 @@ get_model_params <- function(params) {
 #' Takes the current params and generates the functions that simulate when the populations enter the model
 #'
 #' @param params the current `params` object used to model the data
+#' @param months the number of months to run the model for
 #'
 #' @return a list of functions for each of the population groups
 #'
 #' @importFrom dplyr %>%
 #' @importFrom purrr map
 #' @importFrom stats approxfun
-get_model_potential_functions <- function(params) {
+get_model_potential_functions <- function(params, months) {
   params$groups %>%
     map(~params$curves[[.x$curve]] * .x$size * .x$pcnt / 100) %>%
-    map(approxfun, x = seq_len(24) - 1, rule = 2)
+    map(approxfun, x = seq_len(months) - 1, rule = 2)
 }

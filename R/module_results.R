@@ -35,8 +35,8 @@ results_ui <- function(id) {
     valueBoxOutput(NS(id, "total_referrals")),
     valueBoxOutput(NS(id, "total_demand")),
     valueBoxOutput(NS(id, "total_newpatients")),
-    valueBoxOutput(NS(id, "percentage_surgedemand")),
-    "* If NA value, underlying demand data was not given"
+    valueBoxOutput(NS(id, "pcnt_surgedemand")),
+    textOutput(NS(id, "pcnt_surgedemand_note"))
   )
 
   results_popgroups <- primary_box(
@@ -150,54 +150,47 @@ results_server <- function(id, params, model_output) {
       ~output_id,          ~value_type,     ~text,
       "total_referrals",   "new-referral",  "Total 'surge' referrals",
       "total_demand",      "treatment",     "Total additional demand per contact type",
-      "total_newpatients", "new-treatment", "Total new patients in service",
-      "percentage_surgedemand", "ignore", " surge demand"
+      "total_newpatients", "new-treatment", "Total new patients in service"
     ) %>%
       pmap(function(output_id, value_type, text) {
-
         output[[output_id]] <- renderValueBox({
-
-          if (value_type != "ignore") {
           value <- model_output() %>%
             model_totals(value_type, input$services)
-          } else if (value_type == "ignore") {
-          numer <- model_output() %>%
-            filter(.data$type == "new-referral",
-                   .data$treatment == input$services
-                   ) %>%
-            pull(.data$value) %>%
-            sum() %>%
-            round()
-
-          denom <- params$demand[[input$services]] %>% 
-            filter(
-              month %in% c(
-              "2020-05-01",
-              "2020-06-01",
-              "2020-07-01",
-              "2020-08-01",
-              "2020-09-01",
-              "2020-10-01",
-              "2020-11-01",
-              "2020-12-01",
-              "2021-01-01",
-              "2021-02-01",
-              "2021-03-01",
-              "2021-04-01")
-          ) %>% 
-            pull("underlying") %>% 
-            sum()
-
-          figure <- round((numer / denom) * 100, 1)
-
-          value <- paste0(
-            if (is.infinite(figure)) "NA*" else figure, "%")
-
-          }
-
           valueBox(value, text)
         })
       })
+
+    pcnt_surgedemand_denominator <- reactive({
+      params$demand[[input$services]] %>%
+        filter(.data$month < min(.data$month) %m+% months(12)) %>%
+        pull("underlying") %>%
+        sum()
+    })
+
+    output$pcnt_surgedemand <- renderValueBox({
+      denominator <- pcnt_surgedemand_denominator()
+
+      value <- if (denominator == 0) {
+        "NA*"
+      } else {
+        numerator <- model_output() %>%
+          filter(.data$type == "new-referral",
+                 .data$treatment == input$services) %>%
+          pull(.data$value) %>%
+          sum()
+
+        sprintf("%.1f%%", numerator / denominator * 100)
+      }
+      valueBox(value, "Surge Demand")
+    })
+
+    output$pcnt_surgedemand_note <- renderText({
+      if (pcnt_surgedemand_denominator() == 0) {
+        "* underlying demand data not available"
+      } else {
+        ""
+      }
+    })
 
     output$results_popgroups <- renderPlotly({
       popgroups_plot(model_output(), input$services)

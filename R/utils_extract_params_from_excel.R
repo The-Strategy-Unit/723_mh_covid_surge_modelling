@@ -10,6 +10,7 @@
 #' @importFrom readxl excel_sheets read_excel
 #' @importFrom dplyr %>% group_by summarise across anti_join select group_nest
 #' @importFrom tidyr pivot_longer
+#' @importFrom lubridate ymd
 #' @import rlang
 extract_params_from_excel <- function(raw_data_path) {
   sheet_names <- excel_sheets(raw_data_path) %>%
@@ -37,7 +38,7 @@ extract_params_from_excel <- function(raw_data_path) {
       pivot_longer(-.data$month, names_to = "curve") %>%
       group_by(.data$curve) %>%
       summarise(across(.data$value, sum), .groups = "drop") %>%
-      verify_fn(.data$value != 1),
+      verify_fn(!near(.data$value, 1)),
     "group percentages sum exceed 1" = raw_data$g2c %>%
       group_by(.data$group) %>%
       summarise(across(.data$pcnt, sum), .groups = "drop") %>%
@@ -121,6 +122,7 @@ extract_params_from_excel <- function(raw_data_path) {
     summarise(across(.data$value, list), .groups = "drop")
 
   demand <- raw_data$demand %>%
+    mutate(across(.data$month, ymd)) %>%
     group_nest(.data$service)
 
   list(

@@ -4,12 +4,10 @@
 \alias{run_model}
 \title{Run Model}
 \usage{
-run_model(params, months, sim_time)
+run_model(params, sim_time)
 }
 \arguments{
 \item{params}{the current `params` object used to model the data}
-
-\item{months}{an integer of the number of months to run the simulation for}
 
 \item{sim_time}{a numeric for the time interval to run the model at, e.g. every 1/5th of a month}
 }

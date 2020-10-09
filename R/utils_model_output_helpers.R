@@ -3,18 +3,20 @@
 #' Takes models list and returns a dataframe of the model results
 #'
 #' @param models the model output list
+#' @param start_month what is month 0? should be a date object that is the first of the month
 #'
 #' @importFrom dplyr %>% bind_rows mutate select everything
-#' @importFrom lubridate %m+% ymd days
+#' @importFrom lubridate %m+% day days
 #'
 #' @return a tibble
-get_model_output <- function(models) {
+get_model_output <- function(models, start_month) {
+  stopifnot("start_month should be the first of the month" = day(start_month) == 1)
   models %>%
     # combine models
     bind_rows() %>%
     # add in a date column relating to the time value
     # we need to add in separately the month's and days
-    mutate(date = ymd(20200501) %m+%
+    mutate(date = start_month %m+%
              months(as.integer(floor(.data$time))) %m+%
              days(as.integer((.data$time - floor(.data$time)) * 30))) %>%
     select(.data$time, .data$date, everything())

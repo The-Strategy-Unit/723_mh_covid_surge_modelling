@@ -9,7 +9,7 @@
 #'
 #' @return a reactiveVal
 reactive_changes <- function(expr) {
-  env = parent.frame()
+  env <- parent.frame()
   expr <- enquo(expr)
   rv <- reactiveVal()
   observe({
