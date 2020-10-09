@@ -26,8 +26,8 @@ extract_params_from_excel <- function(raw_data_path) {
 
   # make sure to ignore any "unknown" sheets
   raw_data <- sheet_names[expected_sheets] %>%
-    # users shouldn't be able to upload more than 1000 rows of data
-    map(read_excel, path = raw_data_path, n_max = 1000)
+    # users shouldn't be able to upload more than 10000 rows of data
+    map(read_excel, path = raw_data_path, n_max = 10000)
 
   # verify data ====
 
