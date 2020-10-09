@@ -35,8 +35,8 @@ results_ui <- function(id) {
     valueBoxOutput(NS(id, "total_referrals")),
     valueBoxOutput(NS(id, "total_demand")),
     valueBoxOutput(NS(id, "total_newpatients")),
-    valueBoxOutput(NS(id, "percentage_surgedemand")),
-    textOutput(NS(id, "percentage_surgedemand_note"))
+    valueBoxOutput(NS(id, "pcnt_surgedemand")),
+    textOutput(NS(id, "pcnt_surgedemand_note"))
   )
 
   results_popgroups <- primary_box(
@@ -160,15 +160,15 @@ results_server <- function(id, params, model_output) {
         })
       })
 
-    percentage_surgedemand_denominator <- reactive({
+    pcnt_surgedemand_denominator <- reactive({
       params$demand[[input$services]] %>%
         filter(.data$month < min(.data$month) %m+% months(12)) %>%
         pull("underlying") %>%
         sum()
     })
 
-    output$percentage_surgedemand <- renderValueBox({
-      denominator <- percentage_surgedemand_denominator()
+    output$pcnt_surgedemand <- renderValueBox({
+      denominator <- pcnt_surgedemand_denominator()
 
       value <- if (denominator == 0) {
         "NA*"
@@ -184,8 +184,8 @@ results_server <- function(id, params, model_output) {
       valueBox(value, "Surge Demand")
     })
 
-    output$percentage_surgedemand_note <- renderText({
-      if (percentage_surgedemand_denominator() == 0) {
+    output$pcnt_surgedemand_note <- renderText({
+      if (pcnt_surgedemand_denominator() == 0) {
         "* underlying demand data not available"
       } else {
         ""
