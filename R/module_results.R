@@ -36,7 +36,7 @@ results_ui <- function(id) {
     valueBoxOutput(NS(id, "total_demand")),
     valueBoxOutput(NS(id, "total_newpatients")),
     valueBoxOutput(NS(id, "percentage_surgedemand")),
-    "* If NA value, underlying demand data was not given"
+    textOutput(NS(id, "percentage_surgedemand_note"))
   )
 
   results_popgroups <- primary_box(
@@ -150,37 +150,47 @@ results_server <- function(id, params, model_output) {
       ~output_id,          ~value_type,     ~text,
       "total_referrals",   "new-referral",  "Total 'surge' referrals",
       "total_demand",      "treatment",     "Total additional demand per contact type",
-      "total_newpatients", "new-treatment", "Total new patients in service",
-      "percentage_surgedemand", NA, "Surge Demand"
+      "total_newpatients", "new-treatment", "Total new patients in service"
     ) %>%
       pmap(function(output_id, value_type, text) {
-
         output[[output_id]] <- renderValueBox({
-          value <- if (!is.na(value_type)) {
-            model_output() %>%
-              model_totals(value_type, input$services)
-          } else {
-            denominator <- params$demand[[input$services]] %>%
-              filter(.data$month < min(.data$month) %m+% months(12)) %>%
-              pull("underlying") %>%
-              sum()
-
-            if (denominator == 0) {
-              "NA*"
-            } else {
-              numerator <- model_output() %>%
-                filter(.data$type == "new-referral",
-                       .data$treatment == input$services) %>%
-                pull(.data$value) %>%
-                sum()
-
-              sprintf("%.1f%%", numerator / denominator * 100)
-            }
-          }
-
+          value <- model_output() %>%
+            model_totals(value_type, input$services)
           valueBox(value, text)
         })
       })
+
+    percentage_surgedemand_denominator <- reactive({
+      params$demand[[input$services]] %>%
+        filter(.data$month < min(.data$month) %m+% months(12)) %>%
+        pull("underlying") %>%
+        sum()
+    })
+
+    output$percentage_surgedemand <- renderValueBox({
+      denominator <- percentage_surgedemand_denominator()
+
+      value <- if (denominator == 0) {
+        "NA*"
+      } else {
+        numerator <- model_output() %>%
+          filter(.data$type == "new-referral",
+                 .data$treatment == input$services) %>%
+          pull(.data$value) %>%
+          sum()
+
+        sprintf("%.1f%%", numerator / denominator * 100)
+      }
+      valueBox(value, "Surge Demand")
+    })
+
+    output$percentage_surgedemand_note <- renderText({
+      if (percentage_surgedemand_denominator() == 0) {
+        "* underlying demand data not available"
+      } else {
+        ""
+      }
+    })
 
     output$results_popgroups <- renderPlotly({
       popgroups_plot(model_output(), input$services)
