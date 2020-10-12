@@ -13,6 +13,7 @@ Imports:
     golem,
     htmltools,
     igraph,
+    jsonlite,
     lubridate,
     methods,
     plotly,
