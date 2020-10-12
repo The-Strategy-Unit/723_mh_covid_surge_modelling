@@ -170,7 +170,8 @@ params_ui <- function(id) {
 #' @import shiny
 #' @importFrom shinyjs disabled
 #' @importFrom dplyr %>%
-#' @importFrom purrr walk discard map_dbl map
+#' @importFrom purrr walk discard map_dbl map iwalk
+#' @importFrom jsonlite read_json
 #' @importFrom utils write.csv
 #' @importFrom shinyWidgets ask_confirmation
 params_server <- function(id, params, model_output) {
@@ -502,134 +503,35 @@ params_server <- function(id, params, model_output) {
     )
 
     # help ====
-    helpbox_helper <- function(event, title, ...) {
-      observeEvent(input[[event]], {
-        ask_confirmation(
-          paste0(event, "_box"),
-          title,
-          tagList(...),
-          "question",
-          "ok",
-          closeOnClickOutside = TRUE,
-          showCloseButton = FALSE,
-          html = TRUE
-        )
+
+    # load in the params help file
+    app_sys("app/data/params_help.json") %>%
+      read_json(TRUE) %>%
+      iwalk(function(data, input_name) {
+        # extract the text field. each line of text is converted to a paragraph. if that paragraph starts with a ":",
+        # then we put the text before the ":" in bold text, followed by the rest of the text.
+        text <- data$text %>%
+          strsplit(": ") %>%
+          map(~if (length(.x) >= 2) {
+            tags$p(tags$strong(.x[[1]]), paste(.x[-1], collapse = " "))
+          } else {
+            tags$p(.x)
+          })
+
+        # observe the event of the help button being pressed, and show an ask_confirmation
+        observeEvent(input[[input_name]], {
+          ask_confirmation(
+            paste0(input_name, "_box"),
+            data$title,
+            tagList(text),
+            "question",
+            "ok",
+            closeOnClickOutside = TRUE,
+            showCloseButton = FALSE,
+            html = TRUE
+          )
+        })
       })
-    }
 
-    helpbox_helper(
-      "upload_params_help",
-      "Upload parameters",
-      "Upload a previously downloaded set of parameters. File must be an excel file."
-    )
-
-    helpbox_helper(
-      "population_group_help",
-      "Population groups",
-      tags$ul(
-        tags$li(
-          strong("Choose Subgroup:"),
-          "The population has been split into subgroups who each have their own conditions and treatments"
-        ),
-        tags$li(
-          strong("Subpopulation Figure:"),
-          "The total amount of people in the subgroup. The sum of all of the subpopulation figures should equal your",
-          "geographies population."
-        ),
-        tags$li(
-          strong("% in subgroup:"),
-          "The % of the subgroup figure that we will be modelling. Not everyone in the subgroup will suffer from",
-          "Mental Health conditions due to COVID-19, this % controls for that."
-        ),
-        tags$li(
-          strong("Modelled Population:"),
-          "The subpopulation figure multiplied by the % in subgroup: this is how many people will be used in the",
-          "model."
-        ),
-        tags$li(
-          strong("Choose Scenario:"),
-          "The model runs over a number of months. These scenarios alter how many of the modelled population enter",
-          "the model each month."
-        )
-      )
-    )
-
-    helpbox_helper(
-      "group_to_cond_params_help",
-      "Conditions to Treatments",
-      tags$p(
-        "These are the conditions that the currently selected population subgroup may develop.",
-      ),
-      tags$p(
-        "Increasing any of the sliders increases the amount of people from this subgroup that suffer from the",
-        "condition, but decreases the amount of people who do not suffer from any mental heath conditions at all."
-      ),
-      tags$p(
-        "All of the sliders add up to 100%, if you increases a condition too far then all of the other conditions",
-        "will automatically reduce to maintain the 100%."
-      )
-    )
-
-    helpbox_helper(
-      "cond_to_treat_params_help",
-      "People being treated of condition group",
-      tags$p(
-        "For the currently selected population subgroup, and a selected condition, how many people are treated by",
-        "each service?"
-      ),
-      tags$p(
-        "Each service is listed, and changes as you change the condition. Each service then has a 'split' box,",
-        "which contains a number. This number represents how many people would go to that service out of the total",
-        "amount of people when the splits are summed."
-      ),
-      tags$p(
-        "As you alter these boxes the bar chart below shows what these splits will result in percentages."
-      )
-    )
-
-    helpbox_helper(
-      "treatment_params_help",
-      "Treatment",
-      tags$p("These parameters alter treatments and are the same regardless of population groups."),
-      tags$ul(
-        tags$li(
-          tags$strong("Treatment type:"),
-          "Select a treatment to alter the parameters for."
-        ),
-        tags$li(
-          tags$strong("Average demand per person:"),
-          "On average, how much demand does 1 person in treatment generate per month?"
-        ),
-        tags$li(
-          tags$strong("Success % of treatment:"),
-          "How likely is it that someone who has this treatment is successfully treated and no longer has any mental",
-          "health needs? (defined as not suffering again from a condition for 18 months)"
-        ),
-        tags$li(
-          tags$strong("Decay Months and Decay Percentage:"),
-          "Each month some patients leave the treatment group. These two parameters control this. Set the months and",
-          "percentage together so at x months y percentage of people would remain in the treatment group."
-        ),
-        tags$li(
-          tags$strong("Treating Percentage:"),
-          "This is the percentage of people who if referred to this service would receive treatment."
-        )
-      )
-    )
-
-    helpbox_helper(
-      "download_params_help",
-      "Downloads",
-      tags$ul(
-        tags$li(
-          tags$strong("Download Model Parameters"),
-          "Download the currently set parameters. You can then upload these again when you revisit this tool."
-        ),
-        tags$li(
-          tags$strong("Download Model Outputs"),
-          "Download the results of running the model with the current set of parameters as csv file"
-        )
-      )
-    )
   })
 }
