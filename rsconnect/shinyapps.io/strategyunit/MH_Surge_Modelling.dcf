@@ -5,6 +5,8 @@ account: strategyunit
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2851306
-bundleId: 3651756
+bundleId: 3722049
 url: https://strategyunit.shinyapps.io/MH_Surge_Modelling/
-when: 1600680507.7821
+when: 1602273457.34612
+asMultiple: FALSE
+asStatic: FALSE
