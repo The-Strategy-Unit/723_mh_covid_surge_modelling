@@ -2,17 +2,17 @@
   "upload_params_help": {
     "title": "Upload parameters",
     "text": [
-      "Upload a previously downloaded set of parameters. File must be an excel file."
+      "Upload a previously downloaded set of parameters. File must be an excel file in exactly the same format as the downloaded file."
     ]
   },
   "population_group_help": {
     "title": "Population groups",
     "text": [
-      "Choose Subgroup: The population has been split into subgroups who each have their own conditions and treatments",
-      "Subpopulation Figure: The total amount of people in the subgroup. The sum of all of the subpopulation figures should equal your geographies population.",
-      "% in subgroup: The % of the subgroup figure that we will be modelling. Not everyone in the subgroup will suffer from Mental Health conditions due to COVID-19, this % controls for that.",
-      "Modelled Population: The subpopulation figure multiplied by the % in subgroup. This is how many people will be used in the model.",
-      "Choose Scenario: The model runs over a number of months. These scenarios alter how many of the modelled population enter the model each month."
+      "Choose Subgroup: The population has been segmented into subgroups who each have their own potential covid-effects (conditions) and treatments",
+      "Sub-population Figure: The total amount of people in the subgroup at a point in time. The sum of all of the subpopulation figures should equal your geographies total population.",
+      "% in subgroup: The % of the subgroup figure that we will be modelling. Not everyone in the subgroup will suffer from Mental Health conditions due to COVID-19, this % controls for that - a 'Susceptibility' or 'Resillience' factor.",
+      "Modelled Population: The subpopulation figure multiplied by the % in subgroup. This is how many people will be available to introduce into the model in month 1.",
+      "Choose Scenario: The model runs over a number of months. These scenarios alter how many of the modelled population enter the model each month and should reflect how best you think the pandemic effects will occur over time."
     ]
   },
   "group_to_cond_params_help": {
@@ -20,33 +20,35 @@
     "text": [
       "These are the conditions that the currently selected population subgroup may develop.",
       "Increasing any of the sliders increases the amount of people from this subgroup that suffer from the condition, but decreases the amount of people who do not suffer from any mental heath conditions at all.",
-      "All of the sliders add up to 100%, if you increases a condition too far then all of the other conditions will automatically reduce to maintain the 100%."
+      "All of the sliders add up to 100%, if you increases a condition too far then all of the other conditions will automatically reduce to maintain the 100% total.",
+      "If you believe the effects in this default model won't occur then set the value to 0%."
     ]
   },
   "cond_to_treat_params_help": {
     "title": "People being treated of condition group",
     "text": [
-      "For the currently selected population subgroup, and a selected condition, how many people are treated by each service?",
+      "For the currently selected population subgroup, and a selected condition, how many people (from a typical population of 100) are treated by each service?",
       "Each service is listed, and changes as you change the condition. Each service then has a 'split' box, which contains a number. This number represents how many people would go to that service out of the total amount of people when the splits are summed.",
+      "If you believe the service would not treat any patients of this population & condition type then set the value to 0.",
       "As you alter these boxes the bar chart below shows what these splits will result in percentages."
     ]
   },
   "treatment_params_help": {
     "title": "Treatment",
     "text": [
-      "These parameters alter treatments and are the same regardless of population groups.",
-      "Treatment type: Select a treatment to alter the parameters for.",
-      "Average demand per person: On average, how much demand does 1 person in treatment generate per month?",
-      "Success % of treatment: How likely is it that someone who has this treatment is successfully treated and no longer has any mental health needs? (defined as not suffering again from a condition for 18 months)",
-      "Decay Months and Decay Percentage: Each month some patients leave the treatment group. These two parameters control this. Set the months and percentage together so at x months y percentage of people would remain in the treatment group.",
-      "Treating Percentage: This is the percentage of people who if referred to this service would receive treatment."
-    ]
+      "These parameters alter service 'behaviours' and are the same regardless of population groups.",
+      "Treatment type: Select a service to alter the parameters for.",
+      "Treating Percentage: This is the percentage of people who if referred to this service would likely receive treatment.",
+      "Success % of treatment: How likely is it that someone who has this treatment no longer has any mental health needs? (defined as not suffering acutely again from a condition for 12 months)",
+      "Decay Months and Decay Percentage: Each month some patients will leave the treatment group - completing treatment or dropping out. These two parameters control this. Set the months and percentage together so typically at x months y percentage of people would remain in the treatment group. If it is a triage or pass-through service set these values as 1 and 100.",
+      "Average demand per person: On average, how much demand does 1 person in treatment generate per month?"
+     ]
   },
   "download_params_help": {
     "title": "Download's",
     "text": [
-      "Download current parameters: Download the currently set parameters. You can then upload these again when you revisit this tool.",
-      "Download model outputs: Download the results of running the model with the current set of parameters as a csv file."
+      "Download current parameters: Download the currently set parameters. You can then upload these again when you revisit this tool which will default to our national model values.",
+      "Download model outputs: Download the results of running the model with the current set of parameters as a time-stamped csv file."
     ]
   }
 }

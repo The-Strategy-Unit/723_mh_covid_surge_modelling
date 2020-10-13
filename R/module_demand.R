@@ -29,7 +29,7 @@ demand_ui <- function(id) {
   )
 }
 
-#' @rdname results_module
+#' @rdname demand_module
 #' @import shiny
 #' @import shinydashboard
 #' @importFrom dplyr %>% mutate
