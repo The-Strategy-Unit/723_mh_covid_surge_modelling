@@ -27,7 +27,8 @@ app_ui <- function(request) {
           ),
           menuItem(
             "Demand",
-            tabName = "demand"
+            tabName = "demand",
+            icon = icon("history")
           ),
           menuItem(
             "Results",
@@ -35,16 +36,20 @@ app_ui <- function(request) {
             icon = icon("th")
           ),
           menuItem(
-            "Surge Demand - Population Group",
-            tabName = "surgetab_subpopn"
-          ),
-          menuItem(
-            "Surge Demand - Condition",
-            tabName = "surgetab_condition"
-          ),
-          menuItem(
-            "Surge Demand - Service",
-            tabName = "surgetab_service"
+            "Surge Demand",
+            startExpanded = TRUE,
+            menuSubItem(
+              "Population Group",
+              tabName = "surgetab_subpopn"
+            ),
+            menuSubItem(
+              "Condition",
+              tabName = "surgetab_condition"
+            ),
+            menuSubItem(
+              "Service",
+              tabName = "surgetab_service"
+            )
           ),
           menuItem(
             "Treemap",
