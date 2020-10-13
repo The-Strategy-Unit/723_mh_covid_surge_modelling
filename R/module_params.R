@@ -12,6 +12,7 @@
 #' @import shinydashboard
 #' @import shinycssloaders
 params_ui <- function(id) {
+  # upload ====
   params_upload_params <- primary_box(
     title = "Upload parameters",
     width = 12,
@@ -29,6 +30,7 @@ params_ui <- function(id) {
     )
   )
 
+  # population groups ====
   params_population_groups <- primary_box(
     title = "Population Groups",
     width = 12,
@@ -65,6 +67,7 @@ params_ui <- function(id) {
     )
   )
 
+  # group to conditions ====
   params_group_to_cond <- primary_box(
     title = "Condition group of sub-group population",
     width = 12,
@@ -76,6 +79,7 @@ params_ui <- function(id) {
     )
   )
 
+  # condition to treatments ====
   params_cond_to_treat <- primary_box(
     title = "People being treated of condition group",
     width = 12,
@@ -92,6 +96,7 @@ params_ui <- function(id) {
     )
   )
 
+  # demand ====
   params_demand <- primary_box(
     title = "Treatment",
     width = 12,
@@ -132,6 +137,7 @@ params_ui <- function(id) {
     )
   )
 
+  # downloads ====
   params_downloads <- primary_box(
     title = "Download's",
     width = 12,
@@ -139,10 +145,12 @@ params_ui <- function(id) {
       NS(id, "download_params"),
       "Download current parameters"
     ),
+    tags$br(),
     downloadButton(
       NS(id, "download_output"),
       "Download model output"
     ),
+    tags$br(),
     actionLink(
       NS(id, "download_params_help"),
       "",
@@ -204,7 +212,7 @@ params_server <- function(id, params, model_output) {
     div_slider_cond_pcnt_obs <- list()
     div_slider_treatpath_obs <- list()
 
-    # Upload new params
+    # upload ====
 
     observeEvent(input$user_upload_xlsx, {
       new_params <- extract_params_from_excel(input$user_upload_xlsx$datapath)
@@ -238,9 +246,8 @@ params_server <- function(id, params, model_output) {
       updateSelectInput(session, "treatment_type", choices = treatments())
     })
 
-    # population_groups ====
+    # population groups ====
 
-    # popn_subgroup (selectInput)
     observeEvent(input$popn_subgroup, {
       redraw_groups(counter$get())
     })
@@ -258,7 +265,6 @@ params_server <- function(id, params, model_output) {
       redraw_g2c(counter$get())
     })
 
-    # subpopulation_size (numericInput)
     observeEvent(input$subpopulation_size, {
       sg <- req(input$popn_subgroup)
       params$groups[[sg]]$size <- input$subpopulation_size
@@ -288,7 +294,7 @@ params_server <- function(id, params, model_output) {
                                input$subpopulation_pcnt)
     })
 
-    # group_to_cond ====
+    # group to conditions ====
 
     observeEvent(redraw_g2c(), {
       sg <- req(isolate(input$popn_subgroup))
@@ -303,7 +309,6 @@ params_server <- function(id, params, model_output) {
       walk(div_slider_cond_pcnt_obs, ~.x$destroy())
       div_slider_cond_pcnt_obs <<- list()
       removeUI("#div_slider_cond_pcnt > *", TRUE, TRUE)
-      # now, add the new sliders
 
       # create the no mental health group slider
       nmh_slider <- disabled(
@@ -314,6 +319,8 @@ params_server <- function(id, params, model_output) {
           min = 0, max = 100, step = 0.01, post = "%"
         )
       )
+
+      # now, add the new sliders
 
       # loop over the conditions (and the corresponding max values)
       walk(conditions, function(i) {
@@ -383,9 +390,8 @@ params_server <- function(id, params, model_output) {
       redraw_c2t(counter$get())
     })
 
-    # cond_to_treat ====
+    # condition to treatments ====
 
-    # sliders_select_cond (selectInput)
     observeEvent(input$sliders_select_cond, {
       redraw_c2t(counter$get())
     })
@@ -433,7 +439,6 @@ params_server <- function(id, params, model_output) {
 
     # demand ====
 
-    # treatment_type (selectInput)
     observeEvent(input$treatment_type, {
       redraw_treatments(counter$get())
     })
@@ -452,31 +457,26 @@ params_server <- function(id, params, model_output) {
       }
     })
 
-    # treatment_appointments (sliderInput)
     observeEvent(input$treatment_appointments, {
       ttype <- req(input$treatment_type)
       params$treatments[[ttype]]$demand <- input$treatment_appointments
     })
 
-    # slider_success (sliderInput)
     observeEvent(input$slider_success, {
       ttype <- req(input$treatment_type)
       params$treatments[[ttype]]$success <- input$slider_success / 100
     })
 
-    # slider_tx_months (sliderInput)
     observeEvent(input$slider_tx_months, {
       ttype <- req(input$treatment_type)
       params$treatments[[ttype]]$months <- input$slider_tx_months
     })
 
-    # slider_decay (sliderInput)
     observeEvent(input$slider_decay, {
       ttype <- req(input$treatment_type)
       params$treatments[[ttype]]$decay <- input$slider_decay / 100
     })
 
-    # slider_treat_pcnt (sliderInput)
     observeEvent(input$slider_treat_pcnt, {
       ttype <- req(input$treatment_type)
       params$treatments[[ttype]]$treat_pcnt <- input$slider_treat_pcnt / 100

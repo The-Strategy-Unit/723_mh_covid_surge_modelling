@@ -43,10 +43,10 @@
     ]
   },
   "download_params_help": {
-    "title": "Downloads",
+    "title": "Download's",
     "text": [
-      "Download Model Parameters: Download the currently set parameters. You can then upload these again when you revisit this tool.",
-      "Download Model Outputs: Download the results of running the model with the current set of parameters as a csv file."
+      "Download current parameters: Download the currently set parameters. You can then upload these again when you revisit this tool.",
+      "Download model outputs: Download the results of running the model with the current set of parameters as a csv file."
     ]
   }
 }
