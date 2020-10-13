@@ -29,7 +29,7 @@
     "text": [
       "For the currently selected population subgroup, and a selected condition, how many people (from a typical population of 100) are treated by each service?",
       "Each service is listed, and changes as you change the condition. Each service then has a 'split' box, which contains a number. This number represents how many people would go to that service out of the total amount of people when the splits are summed.",
-      "If you believe the service would not treat any patients of this population & condition type then set the value to 0."
+      "If you believe the service would not treat any patients of this population & condition type then set the value to 0.",
       "As you alter these boxes the bar chart below shows what these splits will result in percentages."
     ]
   },
