@@ -15,15 +15,15 @@ demand_ui <- function(id) {
   # a drop down for the service
   # a line per month with the following:
   # - underlying demand numeric input
-  # - surpressed demand numeric input
+  # - suppressed demand numeric input
 
   tagList(
     fluidRow(
-      selectInput(NS(id, "service"), "Service", NULL),
       primary_box(
         title = "Demand",
-        div(id = "demand-data"),
-        width = 12
+        width = 12,
+        selectInput(NS(id, "service"), "Service", NULL),
+        div(id = "demand-data")
       )
     )
   )
@@ -33,7 +33,7 @@ demand_ui <- function(id) {
 #' @import shiny
 #' @import shinydashboard
 #' @importFrom dplyr %>% mutate
-#' @importFrom purrr walk pwalk
+#' @importFrom purrr walk pmap
 demand_server <-  function(id, params) {
   moduleServer(id, function(input, output, session) {
     # need to be able to hook into upload event from params
@@ -49,30 +49,25 @@ demand_server <-  function(id, params) {
       # update the demand-data div
       demand <- params$demand[[input$service]]
 
+      # ensures we have rows of data
       req(demand)
 
       walk(demand_observables, ~.x$destroy())
       demand_observables <<- list()
       removeUI("#demand-data > *", TRUE, TRUE)
 
-      demand %>%
+      table_rows <- demand %>%
         mutate(month_ix = row_number()) %>%
-        pwalk(function(month, underlying, suppressed, month_ix) {
+        pmap(function(month, underlying, suppressed, month_ix) {
           month_fmt <- format(month, "%b-%y")
 
-          m_text <- div(style="display: inline-block;vertical-align:top; width: 25%;",
-                        month_fmt)
+          m_text <- div(month_fmt)
 
           u_name <- paste0(month_fmt, "-underlying")
-          u_input <- div(style="display: inline-block;vertical-align:top; width: 25%;",
-                         numericInput(NS(id, u_name), NULL, underlying, min = 0, step = 1))
+          u_input <- numericInput(NS(id, u_name), NULL, underlying, min = 0, step = 1)
 
           s_name <- paste0(month_fmt, "-suppressed")
-          s_input <- div(style="display: inline-block;vertical-align:top; width: 25%;",
-                         numericInput(NS(id, s_name), NULL, suppressed, min = 0, step = 1))
-
-          demand_row <- fluidRow(m_text, u_input, s_input)
-          insertUI("#demand-data", "beforeEnd", demand_row)
+          s_input <- numericInput(NS(id, s_name), NULL, suppressed, min = 0, step = 1)
 
           demand_observables[[u_name]] <<- observeEvent(input[[u_name]], {
             params$demand[[input$service]]$underlying[[month_ix]] <- input[[u_name]]
@@ -82,7 +77,20 @@ demand_server <-  function(id, params) {
             params$demand[[input$service]]$suppressed[[month_ix]] <- input[[s_name]]
           })
 
+          tags$tr(
+            tags$td(m_text, style = "padding: 10px;"),
+            tags$td(u_input, style = "padding: 10px;"),
+            tags$td(s_input, style = "padding: 10px;")
+          )
         })
+
+      table_header <- tags$tr(
+        tags$th("Month"),
+        tags$th("Underlying"),
+        tags$th("Suppressed")
+      )
+
+      insertUI("#demand-data", "beforeEnd", tags$table(tagList(table_header, table_rows)))
     })
   })
 }
