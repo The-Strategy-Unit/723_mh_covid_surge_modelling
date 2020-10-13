@@ -5,7 +5,6 @@
 #' @param treatments a named vector of the splits for the treatments
 #'
 #' @importFrom dplyr tibble mutate across arrange desc
-#' @importFrom forcats fct_reorder
 #' @importFrom plotly plot_ly layout config
 #' @import rlang
 #'
