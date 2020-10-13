@@ -3,9 +3,12 @@
 \name{demand_module}
 \alias{demand_module}
 \alias{demand_ui}
+\alias{demand_server}
 \title{Demand Module}
 \usage{
 demand_ui(id)
+
+demand_server(id, params)
 }
 \arguments{
 \item{id}{An ID string that uniquely identifies an instance of this module}
