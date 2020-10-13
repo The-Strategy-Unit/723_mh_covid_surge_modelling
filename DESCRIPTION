@@ -6,16 +6,16 @@ Description: PKG_DESC.
 License: MIT + file LICENSE
 Depends: R (>= 4.0)
 Imports: 
+    methods,
+    stats,
     config,
     deSolve,
     dplyr,
-    forcats,
     golem,
     htmltools,
     igraph,
     jsonlite,
     lubridate,
-    methods,
     plotly,
     purrr,
     readxl,

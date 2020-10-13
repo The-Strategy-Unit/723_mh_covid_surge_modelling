@@ -8,7 +8,6 @@
 #' @return a summarised version of \code{model_output}
 #'
 #' @importFrom dplyr %>% filter group_by summarise across mutate rename
-#' @importFrom forcats fct_reorder
 popgroups_plot_data <- function(model_output, treatment) {
   model_output %>%
     group_by(.data$group) %>%
