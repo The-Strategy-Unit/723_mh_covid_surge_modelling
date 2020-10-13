@@ -5,7 +5,8 @@
 #' @name params_module
 #'
 #' @param id An ID string that uniquely identifies an instance of this module
-#' @param params,model_output, reactive objects passed in from the main server
+#' @param params,model_output reactive objects passed in from the main server
+#' @param upload_event a reactiveVal that is updated when a file is uploaded
 
 #' @rdname params_module
 #' @import shiny
@@ -182,7 +183,7 @@ params_ui <- function(id) {
 #' @importFrom jsonlite read_json
 #' @importFrom utils write.csv
 #' @importFrom shinyWidgets ask_confirmation
-params_server <- function(id, params, model_output) {
+params_server <- function(id, params, model_output, upload_event) {
   stopifnot("params must be a reactive values" = is.reactivevalues(params),
             "model_output must be a reactive" = is.reactive(model_output))
 
@@ -220,6 +221,7 @@ params_server <- function(id, params, model_output) {
       # if the treatment selected is the first one, and this is replaced, the values don't update correctly
       u <- counter$get()
 
+      upload_event(u)
       redraw_dropdowns(u)
 
       params$groups <- new_params$groups
