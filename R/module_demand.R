@@ -6,6 +6,7 @@
 #'
 #' @param id An ID string that uniquely identifies an instance of this module
 #' @param params reactive object passed in from the main server
+#' @param upload_event a reactiveVal that is updated when a file is uploaded
 
 #' @rdname demand_module
 #' @import shiny
@@ -34,13 +35,14 @@ demand_ui <- function(id) {
 #' @import shinydashboard
 #' @importFrom dplyr %>% mutate
 #' @importFrom purrr walk pmap
-demand_server <-  function(id, params) {
+demand_server <-  function(id, params, upload_event) {
   moduleServer(id, function(input, output, session) {
-    # need to be able to hook into upload event from params
     services <- reactive_changes(names(params$demand))
 
-    observeEvent(services, {
-      updateSelectInput(session, "service", choices = names(params$demand))
+    observe({
+      # event fired from params module when a file is uploaded
+      force(upload_event())
+      updateSelectInput(session, "service", choices = services())
     })
 
     demand_observables <- list()

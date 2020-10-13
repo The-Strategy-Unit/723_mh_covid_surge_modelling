@@ -8,12 +8,14 @@
 \usage{
 demand_ui(id)
 
-demand_server(id, params)
+demand_server(id, params, upload_event)
 }
 \arguments{
 \item{id}{An ID string that uniquely identifies an instance of this module}
 
 \item{params}{reactive object passed in from the main server}
+
+\item{upload_event}{a reactiveVal that is updated when a file is uploaded}
 }
 \description{
 A shiny module that renders all of the content for the demand page.
