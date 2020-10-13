@@ -26,6 +26,10 @@ app_ui <- function(request) {
             selected = TRUE
           ),
           menuItem(
+            "Demand",
+            tabName = "demand"
+          ),
+          menuItem(
             "Results",
             tabName = "results",
             icon = icon("th")
@@ -55,6 +59,7 @@ app_ui <- function(request) {
       dashboardBody(
         tabItems(
           tabItem("params", params_ui("params_page")),
+          tabItem("demand", demand_ui("demand_page")),
           tabItem("results", results_ui("results_page")),
           tabItem("surgetab_subpopn", surgetab_ui("surge_subpopn")),
           tabItem("surgetab_condition", surgetab_ui("surge_condition")),

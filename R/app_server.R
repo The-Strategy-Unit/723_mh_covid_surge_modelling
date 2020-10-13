@@ -25,6 +25,10 @@ app_server <- function(input, output, session) {
 
   params_server("params_page", params, model_output)
 
+  # Demand Tab ----
+
+  demand_server("demand_page", params)
+
   # Results Tab ----
 
   results_server("results_page", params, model_output)
