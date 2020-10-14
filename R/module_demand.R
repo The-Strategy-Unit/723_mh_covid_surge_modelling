@@ -80,9 +80,9 @@ demand_server <-  function(id, params, upload_event) {
           })
 
           tags$tr(
-            tags$td(m_text, style = "padding: 10px;"),
-            tags$td(u_input, style = "padding: 10px;"),
-            tags$td(s_input, style = "padding: 10px;")
+            tags$td(m_text, style = "padding: 0px 5px 0px 0px;"),
+            tags$td(u_input, style = "padding: 0px 2px 0px 2px;"),
+            tags$td(s_input, style = "padding: 0px 0px 1px 2px;")
           )
         })
 
