@@ -89,7 +89,7 @@ params_ui <- function(id) {
       "Condition",
       choices = NULL
     ),
-    div(id = "div_slider_treatmentpathway"),
+    div(id = "div_treat_split"),
     actionLink(
       NS(id, "cond_to_treat_params_help"),
       "",
@@ -211,7 +211,7 @@ params_server <- function(id, params, model_output, upload_event) {
 
     # store observers so we can destroy them
     div_slider_cond_pcnt_obs <- list()
-    div_slider_treatpath_obs <- list()
+    div_treat_split_obs <- list()
 
     # upload ====
 
@@ -305,8 +305,8 @@ params_server <- function(id, params, model_output, upload_event) {
 
       # update the condition percentage sliders
       # first, remove the previous elements
-      walk(div_slider_treatpath_obs, ~.x$destroy())
-      div_slider_treatpath_obs <<- list()
+      walk(div_treat_split_obs, ~.x$destroy())
+      div_treat_split_obs <<- list()
 
       walk(div_slider_cond_pcnt_obs, ~.x$destroy())
       div_slider_cond_pcnt_obs <<- list()
@@ -403,40 +403,68 @@ params_server <- function(id, params, model_output, upload_event) {
       ssc <- input$sliders_select_cond
 
       # first, remove the previous elements
-      walk(div_slider_treatpath_obs, ~.x$destroy())
-      div_slider_treatpath_obs <<- list()
-      removeUI("#div_slider_treatmentpathway > *", TRUE, TRUE)
+      walk(div_treat_split_obs, ~.x$destroy())
+      div_treat_split_obs <<- list()
+      removeUI("#div_treat_split > *", TRUE, TRUE)
 
       # now, add the new sliders
       px <- params$groups[[sg]]$conditions[[ssc]]
 
-      treatments_pathways <- names(px$treatments)
+      table_rows <- names(px$treatments) %>%
+        # loop over the treatments
+        map(function(i) {
+          # slider names can't have spaces, replace with _
+          ix <- gsub(" ", "_", i)
 
-      # loop over the treatments
-      walk(treatments_pathways, function(i) {
-        # slider names can't have spaces, replace with _
-        ix <- gsub(" ", "_", i)
-        split_name <- paste0("numeric_treatpath_split_", ix)
+          split_input_name <- paste0("numeric_treat_split_", ix)
+          split_input <- numericInput(NS(id, split_input_name), NULL, value = px$treatments[[i]], width = "75px")
 
-        split <- numericInput(
-          NS(id, split_name),
-          label = paste("split", i),
-          value = px$treatments[[i]]
-        )
+          split_pcnt_name <- paste0("pcnt_treat_split", ix)
+          split_pcnt <- textOutput(NS(id, split_pcnt_name), inline = TRUE)
 
-        insertUI("#div_slider_treatmentpathway", "beforeEnd", split)
+          div_treat_split_obs[[split_input_name]] <<- observeEvent(input[[split_input_name]], {
+            v <- input[[split_input_name]]
+            params$groups[[sg]]$conditions[[ssc]]$treatments[[i]] <- v
+          })
 
-        div_slider_treatpath_obs[[split_name]] <<- observeEvent(input[[split_name]], {
-          v <- input[[split_name]]
-          params$groups[[sg]]$conditions[[ssc]]$treatments[[i]] <- v
+          output[[split_pcnt_name]] <- renderText({
+            n <- params$groups[[sg]]$conditions[[ssc]]$treatments[[i]]
+            d <- sum(params$groups[[sg]]$conditions[[ssc]]$treatments)
+
+            sprintf("%.1f%%", n / d * 100)
+          })
+
+          tags$tr(
+            tags$td(i, style = "padding: 0px 5px 0px 0px;"),
+            tags$td(split_input, style = "padding: 0px 5px 0px 0px;"),
+            tags$td(split_pcnt, style = "padding: 0px 5px 0px 0px;")
+          )
         })
-      })
+
+      table_header <- tags$tr(
+        tags$th("Treatment", style = "padding: 0px 5px 0px 0px;"),
+        tags$th("Split", style = "padding: 0px 5px 0px 0px;"),
+        tags$th("Split %", style = "padding: 0px 5px 0px 0px;")
+      )
 
       treat_split_plot <- plotlyOutput(NS(id, "treat_split_plot"))
-      insertUI("#div_slider_treatmentpathway", "beforeEnd", treat_split_plot)
       output$treat_split_plot <- renderPlotly({
         treatment_split_plot(params$groups[[sg]]$conditions[[ssc]]$treatments)
       })
+
+      insertUI(
+        "#div_treat_split",
+        "beforeEnd",
+        tagList(
+          tags$table(
+            tagList(
+              table_header,
+              table_rows
+            )
+          ),
+          treat_split_plot
+        )
+      )
     })
 
     # demand ====
