@@ -419,7 +419,7 @@ params_server <- function(id, params, model_output, upload_event) {
           split_input_name <- paste0("numeric_treat_split_", ix)
           split_input <- numericInput(NS(id, split_input_name), NULL, value = px$treatments[[i]], width = "75px")
 
-          split_pcnt_name <- paste0("pcnt_treat_split", ix)
+          split_pcnt_name <- paste0("pcnt_treat_split_", ix)
           split_pcnt <- textOutput(NS(id, split_pcnt_name), inline = TRUE)
 
           div_treat_split_obs[[split_input_name]] <<- observeEvent(input[[split_input_name]], {
@@ -428,6 +428,11 @@ params_server <- function(id, params, model_output, upload_event) {
           })
 
           output[[split_pcnt_name]] <- renderText({
+            # the render function hangs around after output has been removed.
+            req(sg  %in% names(params$groups),
+                ssc %in% names(params$groups[[sg]]$conditions),
+                i   %in% names(params$groups[[sg]]$conditions[[ssc]]$treatments))
+
             n <- params$groups[[sg]]$conditions[[ssc]]$treatments[[i]]
             d <- sum(params$groups[[sg]]$conditions[[ssc]]$treatments)
 
