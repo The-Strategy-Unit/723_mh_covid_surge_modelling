@@ -1,0 +1,64 @@
+home:
+  links:
+  - text: Run Application
+    href: https://strategyunit.shinyapps.io/mh_surge_modelling
+  - text: The Strategy Unit Homepage
+    href: https://www.strategyunitwm.nhs.uk/
+
+reference:
+- title: "app files"
+  desc: >
+    Functions for the main shiny UI and Server
+- contents:
+  - app_ui
+  - app_server
+  - run_app
+- title: "modules"
+  desc: >
+    Each page of the application has it's own module
+- contents:
+  - ends_with("\\_ui")
+  - ends_with("\\_server")
+- title: "plot functions"
+  desc: >
+    Functions for producing the data for plots and the plots for the application front end
+- contents:
+  - ends_with("\\_plot")
+  - ends_with("\\_plot_data")
+  - create_graph
+- title: "model functions"
+  desc: >
+    Functions for running the Systems Dynamics model
+- contents:
+  - run_model
+  - get_model_params
+  - get_model_potential_functions
+- title: "parameter processing"
+  desc: >
+    Functions for processing and creating parameter excel files
+- contents:
+  - extract_params_from_excel
+  - params_to_xlsx
+- title: "ui helpers"
+  desc: >
+    Functions for helping to display outputs in the UI
+- contents:
+  - download_output
+  - get_all_conditions
+  - get_appointments
+  - get_model_output
+  - model_totals
+  - summarise_model_output
+  - surge_summary
+  - surge_table
+- title: "other utilities"
+  desc: >
+    Other functions and utilities required by the application
+- contents:
+  - comma
+  - Counter-class
+  - fct_reorder
+  - half_life_factor
+  - primary_box
+  - reactive_changes
+  - where
