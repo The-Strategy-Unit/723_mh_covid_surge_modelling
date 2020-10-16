@@ -1,7 +1,12 @@
 Package: mhSurgeModelling
 Title: Mental Health Covid-19 Surge Modelling
 Version: 0.0.1
-Authors@R: person('Tom', 'Jemmett', email = 'thomas.jemmett@nhs.net', role = c('cre', 'aut'))
+Authors@R: c(
+    person('Tom', 'Jemmett', email = 'thomas.jemmett@nhs.net', role = c('cre', 'aut')),
+    person('Victor', 'Yu', email = 'victor.yu@nhs.net', role = 'aut'),
+    person('Andrew', 'Hood', email = 'andrewhood@nhs.net', role = 'aut'),
+    person('The Strategy Unit', email = 'strategy.unit@nhs.net', role = 'cph')
+    )
 Description: PKG_DESC.
 License: MIT + file LICENSE
 Depends: R (>= 4.0)
