@@ -15,9 +15,13 @@ status](https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/workfl
 This package is a Shiny application to model the surge in mental health
 needs caused by the COVID-19 pandemic.
 
-Data has been sourced from literature reviews and expert opinions. The
-model itself uses a Systems Dynamics approach to estimate the likely
-surge in demand to services.
+The model framework has been guided by literature reviews and expert opinions.
+Data on population groups is sourced from both routine and local data and 
+variables for the model are based on a mixture of Trust returns and extracts
+from MHSDS and IAPT datasets within NCDR (NHSE, hosted by AGEM CSU).
+
+The model itself uses a Systems Dynamic Simulation approach to estimate the
+likely surge in demand to services over time.
 
 ## Usage
 
@@ -41,7 +45,7 @@ are structured in the following way:
     “page” has it’s own module. These files contain both the `ui` and
     `server` functions for that module
 
-  - `plot_*.R` files contain the code to produce the data for plots and
+  - `plot_*.R` files contain the code to produce the data for plots and 
     the corresponding plot function. All plots for the application are
     generated using the [`{plotly}`](https://plotly.com/r/) package
 
