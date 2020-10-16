@@ -21,9 +21,9 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-This package is a Shiny application to model the surge in mental health needs caused by the COVID-19 pandemic.
+This package is a Shiny application to model the surge in mental health needs caused by the COVID-19 pandemic. It is hosted at [strategyunit.shinyapps.io/MH\_Surge\_Modelling](https://strategyunit.shinyapps.io/MH_Surge_Modelling/ "MH Surge Modelling | The Strategy Unit on shinyapps.io").
 
-Data has been sourced from literature reviews and expert opinions. The model itself uses a Systems Dynamics approach to estimate the likely surge in demand to services.
+The model framework has been guided by literature reviews and expert opinions. Data on population groups is sourced from both routine and local data and variables for the model are based on a mixture of Trust returns and extracts from [MHSDS](https://data.england.nhs.uk/ncdr/database/NHSE_MH_V3_YTD/ "Mental health data (MHSDS v3)") and [IAPT](https://data.england.nhs.uk/ncdr/database/NHSE_IAPT/ "Improving access to psychological therapies (IAPT)") datasets within [NCDR](https://data.england.nhs.uk/ncdr/about/ "National Commissioning Data Repository (NCDR)").
 
 ## Usage
 
