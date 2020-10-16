@@ -76,7 +76,7 @@
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p>This package is a Shiny application to model the surge in mental health needs caused by the COVID-19 pandemic. It is hosted at <a href="https://strategyunit.shinyapps.io/MH_Surge_Modelling/" title="MH Surge Modelling | The Strategy Unit on shinyapps.io">strategyunit.shinyapps.io/MH_Surge_Modelling</a>.</p>
+<p>This package is a Shiny application to model the surge in mental health needs caused by the COVID-19 pandemic. It is hosted at <a href="https://strategyunit.shinyapps.io/MH_Surge_Modelling/" title="MH Surge Modelling | The Strategy Unit on shinyapps.io">strategyunit.shinyapps.io/MH_Surge_Modelling</a>. Documentation for the code is available at <a href="https://the-strategy-unit.github.io/723_mh_covid_surge_modelling/index.html%20%7C" title="MH Surge Modelling Documentation">the-strategy-unit.github.io/723_mh_covid_surge_modelling</a>.</p>
 <p>The model framework has been guided by literature reviews and expert opinions. Data on population groups is sourced from both routine and local data and variables for the model are based on a mixture of Trust returns and extracts from <a href="https://data.england.nhs.uk/ncdr/database/NHSE_MH_V3_YTD/" title="Mental health data (MHSDS v3)">MHSDS</a> and <a href="https://data.england.nhs.uk/ncdr/database/NHSE_IAPT/" title="Improving access to psychological therapies (IAPT)">IAPT</a> datasets within <a href="https://data.england.nhs.uk/ncdr/about/" title="National Commissioning Data Repository (NCDR)">NCDR</a>.</p>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -97,6 +97,12 @@
 <li><p><code>utils_*.R</code> files contain the functions and utilities that are required by the application</p></li>
 <li><p><code>ZZZ.R</code> contains extra code, such as what variables to load into the global environment at start up</p></li>
 </ul>
+<p>Data files required at runtime by the application are stored in the <code>inst/app/data</code> folder:</p>
+<ul>
+<li><p><code>params_help.json</code> contains the help text used on the <code>params</code> page</p></li>
+<li><p><code>params.xlsx</code> is the default parameters file for Mersey Care</p></li>
+<li><p><code>report.Rmd</code> is a RMarkdown report used to generate a <code>.pdf</code> download from the application</p></li>
+</ul>
 </div>
 <div id="contributing" class="section level2">
 <h2 class="hasAnchor">
@@ -113,6 +119,10 @@
 <li>Browse source code at <br><a href="https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/">https://​github.com/​The-Strategy-Unit/​723_mh_covid_surge_modelling/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/issues">https://​github.com/​The-Strategy-Unit/​723_mh_covid_surge_modelling/​issues</a>
+</li>
+<li>Run Application at <br><a href="https://strategyunit.shinyapps.io/mh_surge_modelling">https://​strategyunit.shinyapps.io/​mh_surge_modelling</a>
+</li>
+<li>The Strategy Unit Homepage at <br><a href="https://www.strategyunitwm.nhs.uk/">https://​www.strategyunitwm.nhs.uk/​</a>
 </li>
 </ul>
 </div>
@@ -133,6 +143,9 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Tom Jemmett <br><small class="roles"> Maintainer, author </small>  </li>
+<li>Victor Yu <br><small class="roles"> Author </small>  </li>
+<li>Andrew Hood <br><small class="roles"> Author </small>  </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
@@ -148,7 +161,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Tom Jemmett.</p>
+  <p>Developed by Tom Jemmett, Victor Yu, Andrew Hood.</p>
 </div>
 
 <div class="pkgdown">
