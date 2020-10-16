@@ -2,9 +2,12 @@
 % Please edit documentation in R/plot_popgroups.R
 \name{popgroups_plot}
 \alias{popgroups_plot}
+\alias{popgroups_plot_data}
 \title{Population Groups Plot}
 \usage{
 popgroups_plot(model_output, treatment)
+
+popgroups_plot_data(model_output, treatment)
 }
 \arguments{
 \item{model_output}{output from \code{run_model()} and \code{get_model_output()}}
@@ -12,7 +15,9 @@ popgroups_plot(model_output, treatment)
 \item{treatment}{a name of a treatment to filter by}
 }
 \value{
-a plotly chart
+\code{popgroups_plot()}: a plotly chart
+
+\code{popgroups_plot_data()} a summarised version of \code{model_output}
 }
 \description{
 Generates a plot that shows the size of the population groups for a given treatment.

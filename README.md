@@ -15,6 +15,8 @@ status](https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/workfl
 This package is a Shiny application to model the surge in mental health
 needs caused by the COVID-19 pandemic. It is hosted at
 [strategyunit.shinyapps.io/MH\_Surge\_Modelling](https://strategyunit.shinyapps.io/MH_Surge_Modelling/ "MH Surge Modelling | The Strategy Unit on shinyapps.io").
+Documentation for the code is available at
+[the-strategy-unit.github.io/723\_mh\_covid\_surge\_modelling](https://the-strategy-unit.github.io/723_mh_covid_surge_modelling/index.html%20%7C "MH Surge Modelling Documentation").
 
 The model framework has been guided by literature reviews and expert
 opinions. Data on population groups is sourced from both routine and
@@ -57,6 +59,16 @@ are structured in the following way:
 
   - `ZZZ.R` contains extra code, such as what variables to load into the
     global environment at start up
+
+Data files required at runtime by the application are stored in the
+`inst/app/data` folder:
+
+  - `params_help.json` contains the help text used on the `params` page
+
+  - `params.xlsx` is the default parameters file for Mersey Care
+
+  - `report.Rmd` is a RMarkdown report used to generate a `.pdf`
+    download from the application
 
 ## Contributing
 

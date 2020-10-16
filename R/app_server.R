@@ -6,7 +6,6 @@
 #' @import shinydashboard
 #' @importFrom dplyr %>%
 #' @importFrom purrr lift_dl
-#' @noRd
 app_server <- function(input, output, session) {
 
   params <- lift_dl(reactiveValues)(params)

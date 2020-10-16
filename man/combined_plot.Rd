@@ -2,9 +2,12 @@
 % Please edit documentation in R/plot_combined.R
 \name{combined_plot}
 \alias{combined_plot}
+\alias{combined_plot_data}
 \title{Combined Plot}
 \usage{
 combined_plot(model_output, treatment, params)
+
+combined_plot_data(model_output, treatment, params)
 }
 \arguments{
 \item{model_output}{output from \code{run_model()} and \code{get_model_output()}}
@@ -14,7 +17,9 @@ combined_plot(model_output, treatment, params)
 \item{params}{the current `params` object used to model the data}
 }
 \value{
-a plotly chart
+\code{combined_plot()}: a plotly chart
+
+\code{combined_plot_data()}: a summarised version of \code{model_output}
 }
 \description{
 Generates a plot that shows the actual demand data, along with the suppressed activity figures, and the model output.
