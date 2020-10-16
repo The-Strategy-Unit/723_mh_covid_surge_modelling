@@ -2,9 +2,12 @@
 % Please edit documentation in R/plot_surge.R
 \name{surge_plot}
 \alias{surge_plot}
+\alias{surge_plot_data}
 \title{Surge Plot}
 \usage{
 surge_plot(model_output, column)
+
+surge_plot_data(model_output, column)
 }
 \arguments{
 \item{model_output}{output from \code{run_model()} and \code{get_model_output()}}
@@ -12,7 +15,9 @@ surge_plot(model_output, column)
 \item{column}{the column in `model_output` to calculate the summary for, either "group", "condition" or "treatment"}
 }
 \value{
-a plotly chart
+\code{surge_plot()}: a plotly chart
+
+\code{surge_plot_data()}: a summarised version of \code{model_output}
 }
 \description{
 Generates a plot that shows the amount of people who were referred and treated, and referred but not treated, as

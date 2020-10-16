@@ -1,25 +1,3 @@
-#' Population Groups Plot Data
-#'
-#' Prepares the data for \code{popgroups_plot()}
-#'
-#' @param model_output output from \code{run_model()} and \code{get_model_output()}
-#' @param treatment a name of a treatment to filter by
-#'
-#' @return a summarised version of \code{model_output}
-#'
-#' @importFrom dplyr %>% filter group_by summarise across mutate rename
-popgroups_plot_data <- function(model_output, treatment) {
-  model_output %>%
-    group_by(.data$group) %>%
-    filter(day(.data$date) == 1) %>%
-    summarise_model_output("new-referral", treatment) %>%
-    summarise(across(.data$value, ~round(sum(.x), 0)), .groups = "drop") %>%
-    filter(.data$value != 0) %>%
-    mutate(across(.data$group, fct_reorder, .data$value)) %>%
-    arrange(-.data$value) %>%
-    rename(`# Referrals` = .data$value)
-}
-
 #' Population Groups Plot
 #'
 #' Generates a plot that shows the size of the population groups for a given treatment.
@@ -27,7 +5,7 @@ popgroups_plot_data <- function(model_output, treatment) {
 #' @param model_output output from \code{run_model()} and \code{get_model_output()}
 #' @param treatment a name of a treatment to filter by
 #'
-#' @return a plotly chart
+#' @return \code{popgroups_plot()}: a plotly chart
 #'
 #' @importFrom dplyr %>%
 #' @importFrom plotly plot_ly layout config
@@ -47,4 +25,21 @@ popgroups_plot <- function(model_output, treatment) {
     layout(xaxis = list(title = "# Referrals"),
            yaxis = list(title = "")) %>%
     config(displayModeBar = FALSE)
+}
+
+#' @rdname popgroups_plot
+#'
+#' @return \code{popgroups_plot_data()} a summarised version of \code{model_output}
+#'
+#' @importFrom dplyr %>% filter group_by summarise across mutate rename
+popgroups_plot_data <- function(model_output, treatment) {
+  model_output %>%
+    group_by(.data$group) %>%
+    filter(day(.data$date) == 1) %>%
+    summarise_model_output("new-referral", treatment) %>%
+    summarise(across(.data$value, ~round(sum(.x), 0)), .groups = "drop") %>%
+    filter(.data$value != 0) %>%
+    mutate(across(.data$group, fct_reorder, .data$value)) %>%
+    arrange(-.data$value) %>%
+    rename(`# Referrals` = .data$value)
 }
