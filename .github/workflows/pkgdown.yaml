@@ -17,7 +17,8 @@ jobs:
 
     env:
       GITHUB_PAT: ${{ secrets.GH_TOKEN }}
-
+      RSPM: ${{ matrix.config.rspm }}
+      
     steps:
       - uses: actions/checkout@v2
 
