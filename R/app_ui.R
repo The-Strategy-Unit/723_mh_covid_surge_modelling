@@ -7,7 +7,6 @@
 #' @import shinycssloaders
 #' @importFrom shinyjs useShinyjs
 #' @importFrom plotly plotlyOutput
-#' @noRd
 app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
