@@ -48,7 +48,7 @@ All of the population groups, conditions and services are combined and run toget
 ## How to use the model
 
 ```{r setup}
-library(magrittr)
+library(dplyr)
 library(mhSurgeModelling)
 ```
 
@@ -60,7 +60,11 @@ m <- params %>%
   # get_model_output is a helper function to convert the "time" variable to a date
   get_model_output(start_month = lubridate::ymd("2020-05-01"))
 
-head(m) %>%
+# show some rows of data as an example
+m %>%
+  tidyr::drop_na() %>%
+  filter(time == 6) %>%
+  head() %>%
   knitr::kable()
 ```
 
