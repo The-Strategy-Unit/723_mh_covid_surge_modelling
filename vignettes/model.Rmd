@@ -1,0 +1,79 @@
+---
+title: "Model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Our 'system' of impacts is a high-level simplification of the following components:
+
+1.  Populations at risk (of covid-19 impacts)
+2.  Covid-19 related stressors (direct or indirect)
+3.  Symptoms, conditions and presentations
+4.  Mental health services
+
+Using a [systems dynamic](https://www.systemdynamics.org/what-is-sd) approach our aim is to map the flows between and through these different stocks and simulate the potential impacts and demand over a 2 year period.A conceptual model was agreed with Mersey Care and a design workshop enabled us to map local service provision against the likely effects of the COVID-19 pandemic and associated lockdown policies.
+
+## "Pathway" Variables
+
+Whilst our system model is highly simplified, we need to apply variables that make the pathways within them behave as close to reality as possible. The diagram below shows one example of how this has been deployed and explains the nature of each variable that determines a flow rate or direction. The final model has multiple impacts and multiple service lines flowing from each population.
+
+![Example of a single pathway](model-pathway.jpg "Model Pathway")
+
+1.  A judgement on the likely inflow rate of patients to becoming symptomatic.
+
+2.  Determined where possible by published evidence e.g. 16% of unemployed people will experience depression. Effectively the number of referrals
+
+3.  Based on empirical data from MHSDS and IAPT datasets, the historic % of referrals that are offered a service.
+
+4.  As agreed with Mersey Care reference group, the %'s of each condition that are likely to flow to each service line. Effectively the patients 'in service'.
+
+5.  A decay function to move people out of services. Based on MHSDS data --the month that 50% of patients are discharged.
+
+6.  Based on empirical data from MHSDS and IAPT datasets, the re-referral rates (\<12 months of service discharge) or 'reliable improvement' for each service line.
+
+7.  Based on Mersey Care PAS system, an average contact rate per patient per month per service. Used to convert patient throughputs to operational information.
+
+All of the population groups, conditions and services are combined and run together.
+
+## How to use the model
+
+```{r setup}
+library(magrittr)
+library(mhSurgeModelling)
+```
+
+Loading the package should attach a variable called params. We can run the model using the `run_model()` function. This takes two arguments, `params` and `sim_time`. This value determins how often the model should be evaluated at. If you set `sim_time = 1` you will have a row for each month. Setting it to smaller values allows you to draw smoother charts, but it does not give a value that can be intepreted for individual days in the month.
+
+```{r run_model}
+m <- params %>%
+  run_model(1) %>%
+  # get_model_output is a helper function to convert the "time" variable to a date
+  get_model_output(start_month = lubridate::ymd("2020-05-01"))
+
+head(m) %>%
+  knitr::kable()
+```
+
+Running the model returns a tibble, with one row for each population group, condition and service for each point in time and "type". The "type"'s are:
+
+-   stocks
+
+    -   *`at-risk`*: the people who have entered the model (1. in the diagram above) and could move into a `treatment` group, or into the `no-mh-needs` group
+    -   *`treatment`*: the number of people who have been moved from the `at-risk` group
+    -   *`no-mh-needs`*: the people who have been assigned to the "no mental health needs" group, e.g. people who have flowed through and out of the model
+
+-   flows
+
+    -   *`new-at-risk`*: the number of people who have moved into the `at-risk` group this month
+    -   *`new-referral`*: the number of people who were referred because of a condition this month
+    -   *`new-treatment`*: the number of people who started treatment this month
