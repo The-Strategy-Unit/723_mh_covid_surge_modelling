@@ -72,12 +72,12 @@ Running the model returns a tibble, with one row for each population group, cond
 
 -   stocks
 
-    -   *`at-risk`*: the people who have entered the model (1. in the diagram above) and could move into a `treatment` group, or into the `no-mh-needs` group
-    -   *`treatment`*: the number of people who have been moved from the `at-risk` group
-    -   *`no-mh-needs`*: the people who have been assigned to the "no mental health needs" group, e.g. people who have flowed through and out of the model
+    -   **`at-risk`**: the people who have entered the model (1. in the diagram above) and could move into a `treatment` group, or into the `no-mh-needs` group
+    -   **`treatment`**: the number of people who have been moved from the `at-risk` group
+    -   **`no-mh-needs`**: the people who have been assigned to the "no mental health needs" group, e.g. people who have flowed through and out of the model
 
 -   flows
 
-    -   *`new-at-risk`*: the number of people who have moved into the `at-risk` group this month
-    -   *`new-referral`*: the number of people who were referred because of a condition this month
-    -   *`new-treatment`*: the number of people who started treatment this month
+    -   **`new-at-risk`**: the number of people who have moved into the `at-risk` group this month
+    -   **`new-referral`**: the number of people who were referred because of a condition this month
+    -   **`new-treatment`**: the number of people who started treatment this month
