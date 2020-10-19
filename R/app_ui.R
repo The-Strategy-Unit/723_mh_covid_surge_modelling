@@ -49,14 +49,6 @@ app_ui <- function(request) {
               "Service",
               tabName = "surgetab_service"
             )
-          ),
-          menuItem(
-            "Treemap",
-            tabName = "treemap"
-          ),
-          menuItem(
-            "Graph",
-            tabName = "graph"
           )
         )
       ),
@@ -67,9 +59,7 @@ app_ui <- function(request) {
           tabItem("results", results_ui("results_page")),
           tabItem("surgetab_subpopn", surgetab_ui("surge_subpopn")),
           tabItem("surgetab_condition", surgetab_ui("surge_condition")),
-          tabItem("surgetab_service", surgetab_ui("surge_service")),
-          tabItem("treemap", treemap_ui("treemap_page")),
-          tabItem("graph", graph_ui("graph_page"))
+          tabItem("surgetab_service", surgetab_ui("surge_service"))
         )
       ),
       useShinyjs()
