@@ -21,13 +21,14 @@
       "These are the conditions that the currently selected population subgroup may develop.",
       "Increasing any of the sliders increases the amount of people from this subgroup that suffer from the condition, but decreases the amount of people who do not suffer from any mental heath conditions at all.",
       "All of the sliders add up to 100%, if you increases a condition too far then all of the other conditions will automatically reduce to maintain the 100% total.",
-      "If you believe the effects in this default model won't occur then set the value to 0%."
+      "If you believe the effects in this default model won't occur then set the value to 0%.",
+      "For our modelling, we have assumed the average person presents with 2 concurrent psychiatric morbidities. Therefore we have halved the effects noted in the published literature which didn’t account for comorbidity. Please bear this in mind when entering your own values or comparing default values to other evidence."
     ]
   },
   "cond_to_treat_params_help": {
     "title": "People being treated of condition group",
     "text": [
-      "For the currently selected population subgroup, and a selected condition, how many people (from a typical population of 100) are treated by each service?",
+      "For the currently selected population group and condition, how many people from a typical population of e.g. 100 or 1000 might be referred to each service? The model only allows for one person to be seen by one service during each pathway ‘event’.",
       "Each service is listed, and changes as you change the condition. Each service then has a 'split' box, which contains a number. This number represents how many people would go to that service out of the total amount of people when the splits are summed.",
       "If you believe the service would not treat any patients of this population & condition type then set the value to 0.",
       "As you alter these boxes the bar chart below shows what these splits will result in percentages."
@@ -39,8 +40,8 @@
       "These parameters alter service 'behaviours' and are the same regardless of population groups.",
       "Treatment type: Select a service to alter the parameters for.",
       "Treating Percentage: This is the percentage of people who if referred to this service would likely receive treatment.",
+      "Each month some patients will leave the service, either completing treatment or dropping out. These two parameters control this. Set the months and percentage together so typically at x months y percentage of people would remain in the treatment group. If using an average month figure we would suggest a % of 50. If it is a triage or pass-through service (e.g. SPA, 24/7 phone line) set these values as 1 and 100 respectively to ensure the model moves the patients all out for the next simulated period.”. Also change demand sentence to “On average, how many clinical/therapeutic contacts does 1 person in this service tend to generate per month? If an inpatient service then this would be the median/average Length of Stay to reflect bed days (capped at 30 per month).",
       "Success % of treatment: How likely is it that someone who has this treatment no longer has any mental health needs? (defined as not suffering acutely again from a condition for 12 months)",
-      "Decay Months and Decay Percentage: Each month some patients will leave the treatment group - completing treatment or dropping out. These two parameters control this. Set the months and percentage together so typically at x months y percentage of people would remain in the treatment group. If it is a triage or pass-through service set these values as 1 and 100.",
       "Average demand per person: On average, how much demand does 1 person in treatment generate per month?"
      ]
   },
