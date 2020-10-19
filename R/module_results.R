@@ -11,6 +11,7 @@
 #' @import shiny
 #' @import shinydashboard
 #' @import shinycssloaders
+#' @importFrom plotly renderPlotly
 results_ui <- function(id) {
   results_services <- primary_box(
     title = "Service",

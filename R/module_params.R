@@ -183,6 +183,7 @@ params_ui <- function(id) {
 #' @importFrom jsonlite read_json
 #' @importFrom utils write.csv
 #' @importFrom shinyWidgets ask_confirmation
+#' @importFrom plotly renderPlotly
 params_server <- function(id, params, model_output, upload_event) {
   stopifnot("params must be a reactive values" = is.reactivevalues(params),
             "model_output must be a reactive" = is.reactive(model_output))

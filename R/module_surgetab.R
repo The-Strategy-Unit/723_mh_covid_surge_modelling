@@ -32,6 +32,7 @@ surgetab_ui <- function(id) {
 
 #' @rdname surgetab_module
 #' @import shiny
+#' @importFrom plotly renderPlotly
 surgetab_server <- function(id, model_output, column, title) {
   moduleServer(id, function(input, output, session) {
     output$surge_table <- renderTable({
