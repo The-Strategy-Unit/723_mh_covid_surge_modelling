@@ -14,9 +14,9 @@ status](https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/workfl
 
 This package is a Shiny application to model the surge in mental health
 needs caused by the COVID-19 pandemic. It is hosted at
-[strategyunit.shinyapps.io/MH\_Surge\_Modelling](https://strategyunit.shinyapps.io/MH_Surge_Modelling/ "MH Surge Modelling | The Strategy Unit on shinyapps.io").
+[strategyunit.shinyapps.io/MH\_Surge\_Modelling](https://strategyunit.shinyapps.io/MH_Surge_Modelling/).
 Documentation for the code is available at
-[the-strategy-unit.github.io/723\_mh\_covid\_surge\_modelling](https://the-strategy-unit.github.io/723_mh_covid_surge_modelling/index.html%20%7C "MH Surge Modelling Documentation").
+[the-strategy-unit.github.io/723\_mh\_covid\_surge\_modelling](https://the-strategy-unit.github.io/723_mh_covid_surge_modelling/index.html).
 
 The model framework has been guided by literature reviews and expert
 opinions. Data on population groups is sourced from both routine and
@@ -70,6 +70,44 @@ Data files required at runtime by the application are stored in the
   - `report.Rmd` is a RMarkdown report used to generate a `.pdf`
     download from the application
 
+## Developing
+
+If you wish to run this locally, first make a [fork in
+GitHub](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo).
+You can then
+[clone](https://happygitwithr.com/rstudio-git-github.html#clone-the-new-github-repository-to-your-computer-via-rstudio)
+the repository directly in RStudio.
+
+Once you have the repository cloned, you need to make sure that you have
+all of the package’s dependencies installed:
+
+``` r
+remotes::install_deps(dependencies = TRUE)
+```
+
+Once the dependencies are installed the quickest way to run the
+application is to run the script `dev/run_dev.R`.
+
+``` r
+source("dev/run_dev.R", echo = TRUE)
+```
+
+As this is a package you need to follow package development practices;
+reading the [r-pkgs](https://r-pkgs.org/index.html) book is a great
+start. In particular, make sure any dependecies on other packages are
+stated in the `DESCRIPTION` file and any functions that you are
+importing are described using [roxygen2](https://roxygen2.r-lib.org/).
+
+The `devtools` package is very useful to use during development. You can
+load the package to test code quickly using `devtools::load_all()`, and
+documentation can be re-created using `devtools::document()`. It is
+worth running the latter anytime you change code, especially when adding
+new functions or imports.
+
+It is also worth regularly running
+[r-cmd-check](https://r-pkgs.org/r-cmd-check.html) to quickly identify
+issues.
+
 ## Contributing
 
 Contributions are welcome, but please note that this tool was developed
@@ -77,3 +115,21 @@ for a specific project, so we may not be able to accept all changes.
 Please file an
 [issue](https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/issues/new)
 to discuss any bugs or changes before filing a pull request.
+
+## Deployment
+
+This package has been configured to use
+[CI/CD](https://en.wikipedia.org/wiki/CI/CD) with [GitHub
+Actions](https://github.com/features/actions). There are currently 4
+actions:
+
+  - [lintr](https://github.com/jimhester/lintr) runs static code
+    analysis to check for syntactical errors and code styling issues.
+    This runs on all commits.
+  - [r-cmd-check](https://r-pkgs.org/r-cmd-check.html) runs R CMD CHECK.
+    This runs on all commits.
+  - shiny deploy runs only on successful PR’s to master and deploys the
+    [application](https://strategyunit.shinyapps.io/MH_Surge_Modelling/).
+  - [pkgdown](https://pkgdown.r-lib.org/) runs only on successful PR’s
+    to master and deploys the
+    [documentation](https://the-strategy-unit.github.io/723_mh_covid_surge_modelling/index.html).
