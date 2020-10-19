@@ -45,6 +45,7 @@ results_ui <- function(id) {
     valueBoxOutput(NS(id, "total_demand")),
     valueBoxOutput(NS(id, "total_newpatients")),
     valueBoxOutput(NS(id, "pcnt_surgedemand")),
+    tableOutput(NS(id, "pct_surgedemand_table")),
     textOutput(NS(id, "pcnt_surgedemand_note"))
   )
 
@@ -68,7 +69,7 @@ results_ui <- function(id) {
   )
 
   results_demand_plot <- primary_box(
-    title = "Modelled demand",
+    title = "Modelled service contacts (demand)",
     withSpinner(
       plotlyOutput(
         NS(id, "demand_plot")
@@ -116,6 +117,7 @@ results_ui <- function(id) {
 #' @rdname results_module
 #' @import shiny
 #' @import shinydashboard
+#' @importFrom lubridate year month
 #' @importFrom dplyr %>% tribble
 #' @importFrom purrr pmap
 results_server <- function(id, params, model_output) {
@@ -219,7 +221,26 @@ results_server <- function(id, params, model_output) {
 
         sprintf("%.1f%%", numerator / denominator * 100)
       }
-      valueBox(value, "Surge Demand")
+      valueBox(value, "Cumulative surge demand")
+    })
+
+    output$pct_surgedemand_table <- renderTable({
+      date_to_n_months <- function(d) {
+        as.integer(year(d) * 12L + month(d))
+      }
+      denominator <- pcnt_surgedemand_denominator()
+
+      value <- if (denominator == 0) {
+        NULL
+      } else {
+        model_output() %>%
+          filter(.data$type == "new-referral",
+                 .data$treatment == input$services) %>%
+          mutate(d1 = date_to_n_months(.data$date),
+                 d2 = date_to_n_months(min(.data$date))) %>%
+          group_by(Year = paste("Y", (.data$d1 - .data$d2) %/% 12L + 1)) %>%
+          summarise(Surge = sprintf("%.1f%%", sum(.data$value) / denominator * 100))
+      }
     })
 
     output$pcnt_surgedemand_note <- renderText({
