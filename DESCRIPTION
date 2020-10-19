@@ -44,9 +44,11 @@ Suggests:
     grid,
     gridExtra,
     patchwork,
-    tibble
+    tibble,
+    knitr
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 URL: https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling
 BugReports: https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/issues
+VignetteBuilder: knitr

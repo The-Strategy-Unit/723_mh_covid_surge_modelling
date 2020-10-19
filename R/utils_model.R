@@ -7,6 +7,8 @@
 #'
 #' @return a tibble of the results of running the model
 #'
+#' @export
+#'
 #' @importFrom purrr set_names map_chr map_dbl map map_dfr
 #' @importFrom deSolve ode
 #' @importFrom dplyr %>% rename_with all_of tibble as_tibble relocate select inner_join

@@ -9,6 +9,8 @@
 #' @importFrom lubridate %m+% day days
 #'
 #' @return a tibble
+#'
+#' @export
 get_model_output <- function(models, start_month) {
   stopifnot("start_month should be the first of the month" = day(start_month) == 1)
   models %>%
