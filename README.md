@@ -108,6 +108,11 @@ It is also worth regularly running
 [r-cmd-check](https://r-pkgs.org/r-cmd-check.html) to quickly identify
 issues.
 
+The package documentation is built using
+[pkgdown](https://pkgdown.r-lib.org/). This is done automatically on
+[deployment](#deployment), but you can view locally by running
+`pkgdown::build_site()`.
+
 ## Contributing
 
 Contributions are welcome, but please note that this tool was developed
