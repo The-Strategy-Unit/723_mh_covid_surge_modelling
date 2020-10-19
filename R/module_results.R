@@ -11,6 +11,7 @@
 #' @import shiny
 #' @import shinydashboard
 #' @import shinycssloaders
+#' @importFrom plotly renderPlotly
 results_ui <- function(id) {
   results_services <- primary_box(
     title = "Service",
@@ -23,10 +24,18 @@ results_ui <- function(id) {
     radioButtons(
       NS(id, "download_choice"),
       "Download option",
-      c("Selected" = "selected", "All" = "all"),
+      c("Selected Service" = "selected", "All Services" = "all"),
       inline = TRUE
     ),
-    downloadButton(NS(id, "download_results"))
+    downloadButton(
+      NS(id, "download_report"),
+      "Download report (.pdf)"),
+    tags$br(),
+    tags$br(),
+    downloadButton(
+      NS(id, "download_output"),
+      "Download model output (.csv)"
+    )
   )
 
   results_value_boxes <- primary_box(
@@ -36,6 +45,7 @@ results_ui <- function(id) {
     valueBoxOutput(NS(id, "total_demand")),
     valueBoxOutput(NS(id, "total_newpatients")),
     valueBoxOutput(NS(id, "pcnt_surgedemand")),
+    tableOutput(NS(id, "pct_surgedemand_table")),
     textOutput(NS(id, "pcnt_surgedemand_note"))
   )
 
@@ -59,7 +69,7 @@ results_ui <- function(id) {
   )
 
   results_demand_plot <- primary_box(
-    title = "Modelled demand",
+    title = "Modelled service contacts (demand)",
     withSpinner(
       plotlyOutput(
         NS(id, "demand_plot")
@@ -107,12 +117,42 @@ results_ui <- function(id) {
 #' @rdname results_module
 #' @import shiny
 #' @import shinydashboard
+#' @importFrom lubridate year month
 #' @importFrom dplyr %>% tribble
 #' @importFrom purrr pmap
 results_server <- function(id, params, model_output) {
   moduleServer(id, function(input, output, session) {
     stopifnot("params must be a reactive values" = is.reactivevalues(params),
               "model_output must be a reactive" = is.reactive(model_output))
+
+
+    output$download_report <- downloadHandler(
+      filename = "report.pdf",
+      content = function(file) {
+        model_output <- model_output()
+        params <- reactiveValuesToList(params)
+        services <- if (input$download_choice == "all") {
+          names(params$treatments)
+        } else {
+          input$services
+        }
+
+        rmarkdown::render(
+          app_sys("app/data/report.Rmd"),
+          output_file = file,
+          envir = current_env()
+        )
+      }
+    )
+
+    output$download_output <- downloadHandler(
+      function() paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".csv"),
+      function(file) {
+        download_output(model_output(), params) %>%
+          write.csv(file, row.names = FALSE)
+      },
+      "text/csv"
+    )
 
     appointments <- reactive({
       params %>%
@@ -181,7 +221,26 @@ results_server <- function(id, params, model_output) {
 
         sprintf("%.1f%%", numerator / denominator * 100)
       }
-      valueBox(value, "Surge Demand")
+      valueBox(value, "Cumulative surge demand")
+    })
+
+    output$pct_surgedemand_table <- renderTable({
+      date_to_n_months <- function(d) {
+        as.integer(year(d) * 12L + month(d))
+      }
+      denominator <- pcnt_surgedemand_denominator()
+
+      value <- if (denominator == 0) {
+        NULL
+      } else {
+        model_output() %>%
+          filter(.data$type == "new-referral",
+                 .data$treatment == input$services) %>%
+          mutate(d1 = date_to_n_months(.data$date),
+                 d2 = date_to_n_months(min(.data$date))) %>%
+          group_by(Year = paste("Y", (.data$d1 - .data$d2) %/% 12L + 1)) %>%
+          summarise(Surge = sprintf("%.1f%%", sum(.data$value) / denominator * 100))
+      }
     })
 
     output$pcnt_surgedemand_note <- renderText({
@@ -195,24 +254,5 @@ results_server <- function(id, params, model_output) {
     output$results_popgroups <- renderPlotly({
       popgroups_plot(model_output(), input$services)
     })
-
-    output$download_results <- downloadHandler(
-      filename = "report.pdf",
-      content = function(file) {
-        model_output <- model_output()
-        params <- reactiveValuesToList(params)
-        services <- if (input$download_choice == "all") {
-          names(params$treatments)
-        } else {
-          input$services
-        }
-
-        rmarkdown::render(
-          app_sys("app/data/report.Rmd"),
-          output_file = file,
-          envir = current_env()
-        )
-      }
-    )
   })
 }

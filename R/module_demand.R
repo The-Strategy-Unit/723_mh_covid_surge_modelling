@@ -23,6 +23,11 @@ demand_ui <- function(id) {
       primary_box(
         title = "Demand",
         width = 12,
+        tags$p(
+          "If you want to plot the surge model outputs alongside your own projections for underlying demand and",
+          "catch-up of suppressed referrals then please enter the data by month here. Alternatively, this can be",
+          "uploaded in the 'demand' tab of the whole model parameter file."
+        ),
         selectInput(NS(id, "service"), "Service", NULL),
         div(id = "demand-data")
       )

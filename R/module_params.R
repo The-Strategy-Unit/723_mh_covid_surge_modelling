@@ -47,7 +47,7 @@ params_ui <- function(id) {
     ),
     sliderInput(
       NS(id, "subpopulation_pcnt"),
-      "% in subgroup",
+      "Susceptibility and Resilience adjustment (see help notes)",
       value = 100, min = 0, max = 100, step = 1,
       post = "%"
     ),
@@ -70,7 +70,7 @@ params_ui <- function(id) {
 
   # group to conditions ====
   params_group_to_cond <- primary_box(
-    title = "Condition group of sub-group population",
+    title = "Impacts on population sub-group",
     width = 12,
     div(id = "div_slider_cond_pcnt"),
     actionLink(
@@ -82,7 +82,7 @@ params_ui <- function(id) {
 
   # condition to treatments ====
   params_cond_to_treat <- primary_box(
-    title = "People being treated of condition group",
+    title = "Referral/Service flows for impacts",
     width = 12,
     selectInput(
       NS(id, "sliders_select_cond"),
@@ -99,7 +99,7 @@ params_ui <- function(id) {
 
   # demand ====
   params_demand <- primary_box(
-    title = "Treatment",
+    title = "Service variables",
     width = 12,
     selectInput(
       NS(id, "treatment_type"),
@@ -107,29 +107,29 @@ params_ui <- function(id) {
       choices = NULL
     ),
     sliderInput(
-      NS(id, "treatment_appointments"),
-      "Average demand per person",
-      min = 0, max = 10, step = .01, value = 0
-    ),
-    sliderInput(
-      NS(id, "slider_success"),
-      "Success % of Treatment",
+      NS(id, "slider_treat_pcnt"),
+      "Referrals typically receiving a service",
       min = 0, max = 100, value = 0, step = 0.01, post = "%"
     ),
     sliderInput(
       NS(id, "slider_tx_months"),
-      "Decay Months",
+      "Months in service (a)",
       min = 0, max = 24, value = 1, step = 0.1
     ),
     sliderInput(
       NS(id, "slider_decay"),
-      "Decay Percentage",
+      "Percentage discharged by month (a)",
       min = 0, max = 100, value = 0, step = 0.01, post = "%"
     ),
     sliderInput(
-      NS(id, "slider_treat_pcnt"),
-      "Treating Percentage",
+      NS(id, "slider_success"),
+      "Percentage of patients recovering",
       min = 0, max = 100, value = 0, step = 0.01, post = "%"
+    ),
+    sliderInput(
+      NS(id, "treatment_appointments"),
+      "Average contacts per person per month",
+      min = 0, max = 10, step = .01, value = 0
     ),
     actionLink(
       NS(id, "treatment_params_help"),
@@ -145,11 +145,6 @@ params_ui <- function(id) {
     downloadButton(
       NS(id, "download_params"),
       "Download current parameters"
-    ),
-    tags$br(),
-    downloadButton(
-      NS(id, "download_output"),
-      "Download model output"
     ),
     tags$br(),
     actionLink(
@@ -183,6 +178,7 @@ params_ui <- function(id) {
 #' @importFrom jsonlite read_json
 #' @importFrom utils write.csv
 #' @importFrom shinyWidgets ask_confirmation
+#' @importFrom plotly renderPlotly
 params_server <- function(id, params, model_output, upload_event) {
   stopifnot("params must be a reactive values" = is.reactivevalues(params),
             "model_output must be a reactive" = is.reactive(model_output))
@@ -525,16 +521,6 @@ params_server <- function(id, params, model_output, upload_event) {
       function(file) {
         params_to_xlsx(params, file)
       }
-    )
-
-    # download_output (downloadButton)
-    output$download_output <- downloadHandler(
-      function() paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".csv"),
-      function(file) {
-        download_output(model_output(), params) %>%
-          write.csv(file, row.names = FALSE)
-      },
-      "text/csv"
     )
 
     # help ====

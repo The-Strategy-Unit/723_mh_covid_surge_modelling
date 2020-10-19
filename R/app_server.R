@@ -44,12 +44,4 @@ app_server <- function(input, output, session) {
   # Surge service tab
   surgetab_server("surge_service", model_output, .data$treatment, "Treatment")
 
-  # Treemap Tab ----
-
-  treemap_server("treemap_page", params)
-
-  # Graph Tab ----
-
-  graph_server("graph_page", params, model_output)
-
 }
