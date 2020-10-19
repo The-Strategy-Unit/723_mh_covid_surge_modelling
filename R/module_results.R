@@ -24,10 +24,18 @@ results_ui <- function(id) {
     radioButtons(
       NS(id, "download_choice"),
       "Download option",
-      c("Selected" = "selected", "All" = "all"),
+      c("Selected Service" = "selected", "All Services" = "all"),
       inline = TRUE
     ),
-    downloadButton(NS(id, "download_results"))
+    downloadButton(
+      NS(id, "download_report"),
+      "Download report (.pdf)"),
+    tags$br(),
+    tags$br(),
+    downloadButton(
+      NS(id, "download_output"),
+      "Download model output (.csv)"
+    )
   )
 
   results_value_boxes <- primary_box(
@@ -115,6 +123,35 @@ results_server <- function(id, params, model_output) {
     stopifnot("params must be a reactive values" = is.reactivevalues(params),
               "model_output must be a reactive" = is.reactive(model_output))
 
+
+    output$download_report <- downloadHandler(
+      filename = "report.pdf",
+      content = function(file) {
+        model_output <- model_output()
+        params <- reactiveValuesToList(params)
+        services <- if (input$download_choice == "all") {
+          names(params$treatments)
+        } else {
+          input$services
+        }
+
+        rmarkdown::render(
+          app_sys("app/data/report.Rmd"),
+          output_file = file,
+          envir = current_env()
+        )
+      }
+    )
+
+    output$download_output <- downloadHandler(
+      function() paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".csv"),
+      function(file) {
+        download_output(model_output(), params) %>%
+          write.csv(file, row.names = FALSE)
+      },
+      "text/csv"
+    )
+
     appointments <- reactive({
       params %>%
         reactiveValuesToList() %>%
@@ -196,24 +233,5 @@ results_server <- function(id, params, model_output) {
     output$results_popgroups <- renderPlotly({
       popgroups_plot(model_output(), input$services)
     })
-
-    output$download_results <- downloadHandler(
-      filename = "report.pdf",
-      content = function(file) {
-        model_output <- model_output()
-        params <- reactiveValuesToList(params)
-        services <- if (input$download_choice == "all") {
-          names(params$treatments)
-        } else {
-          input$services
-        }
-
-        rmarkdown::render(
-          app_sys("app/data/report.Rmd"),
-          output_file = file,
-          envir = current_env()
-        )
-      }
-    )
   })
 }

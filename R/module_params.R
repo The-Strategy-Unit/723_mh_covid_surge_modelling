@@ -147,11 +147,6 @@ params_ui <- function(id) {
       "Download current parameters"
     ),
     tags$br(),
-    downloadButton(
-      NS(id, "download_output"),
-      "Download model output"
-    ),
-    tags$br(),
     actionLink(
       NS(id, "download_params_help"),
       "",
@@ -526,16 +521,6 @@ params_server <- function(id, params, model_output, upload_event) {
       function(file) {
         params_to_xlsx(params, file)
       }
-    )
-
-    # download_output (downloadButton)
-    output$download_output <- downloadHandler(
-      function() paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".csv"),
-      function(file) {
-        download_output(model_output(), params) %>%
-          write.csv(file, row.names = FALSE)
-      },
-      "text/csv"
     )
 
     # help ====

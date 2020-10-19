@@ -47,8 +47,7 @@
   "download_params_help": {
     "title": "Download's",
     "text": [
-      "Download current parameters: Download the currently set parameters. You can then upload these again when you revisit this tool which will default to our national model values.",
-      "Download model outputs: Download the results of running the model with the current set of parameters as a time-stamped csv file."
+      "Download current parameters: Download the currently set parameters. You can then upload these again when you revisit this tool which will default to our national model values."
     ]
   }
 }
