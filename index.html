@@ -46,6 +46,18 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/model.html">Model</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="news/index.html">Changelog</a>
 </li>
@@ -76,7 +88,7 @@
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p>This package is a Shiny application to model the surge in mental health needs caused by the COVID-19 pandemic. It is hosted at <a href="https://strategyunit.shinyapps.io/MH_Surge_Modelling/" title="MH Surge Modelling | The Strategy Unit on shinyapps.io">strategyunit.shinyapps.io/MH_Surge_Modelling</a>. Documentation for the code is available at <a href="https://the-strategy-unit.github.io/723_mh_covid_surge_modelling/index.html%20%7C" title="MH Surge Modelling Documentation">the-strategy-unit.github.io/723_mh_covid_surge_modelling</a>.</p>
+<p>This package is a Shiny application to model the surge in mental health needs caused by the COVID-19 pandemic. It is hosted at <a href="https://strategyunit.shinyapps.io/MH_Surge_Modelling/">strategyunit.shinyapps.io/MH_Surge_Modelling</a>. Documentation for the code is available at <a href="https://the-strategy-unit.github.io/723_mh_covid_surge_modelling/index.html">the-strategy-unit.github.io/723_mh_covid_surge_modelling</a>.</p>
 <p>The model framework has been guided by literature reviews and expert opinions. Data on population groups is sourced from both routine and local data and variables for the model are based on a mixture of Trust returns and extracts from <a href="https://data.england.nhs.uk/ncdr/database/NHSE_MH_V3_YTD/" title="Mental health data (MHSDS v3)">MHSDS</a> and <a href="https://data.england.nhs.uk/ncdr/database/NHSE_IAPT/" title="Improving access to psychological therapies (IAPT)">IAPT</a> datasets within <a href="https://data.england.nhs.uk/ncdr/about/" title="National Commissioning Data Repository (NCDR)">NCDR</a>.</p>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -104,10 +116,39 @@
 <li><p><code>report.Rmd</code> is a RMarkdown report used to generate a <code>.pdf</code> download from the application</p></li>
 </ul>
 </div>
+<div id="developing" class="section level2">
+<h2 class="hasAnchor">
+<a href="#developing" class="anchor"></a>Developing</h2>
+<p>If you wish to run this locally, first make a <a href="https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo">fork in GitHub</a>. You can then <a href="https://happygitwithr.com/rstudio-git-github.html#clone-the-new-github-repository-to-your-computer-via-rstudio">clone</a> the repository directly in RStudio.</p>
+<p>Once you have the repository cloned, you need to make sure that you have all of the package’s dependencies installed:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_deps.html">install_deps</a></span><span class="op">(</span>dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<p>Once the dependencies are installed the quickest way to run the application is to run the script <code>dev/run_dev.R</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"dev/run_dev.R"</span>, echo <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<p>As this is a package you need to follow package development practices; reading the <a href="https://r-pkgs.org/index.html">r-pkgs</a> book is a great start. In particular, make sure any dependecies on other packages are stated in the <code>DESCRIPTION</code> file and any functions that you are importing are described using <a href="https://roxygen2.r-lib.org/">roxygen2</a>.</p>
+<p>The <code>devtools</code> package is very useful to use during development. You can load the package to test code quickly using <code>devtools::load_all()</code>, and documentation can be re-created using <code>devtools::document()</code>. It is worth running the latter anytime you change code, especially when adding new functions or imports.</p>
+<p>It is also worth regularly running <a href="https://r-pkgs.org/r-cmd-check.html">r-cmd-check</a> to quickly identify issues.</p>
+<p>The package documentation is built using <a href="https://pkgdown.r-lib.org/">pkgdown</a>. This is done automatically on <a href="#deployment">deployment</a>, but you can view locally by running <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code>.</p>
+</div>
 <div id="contributing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#contributing" class="anchor"></a>Contributing</h2>
 <p>Contributions are welcome, but please note that this tool was developed for a specific project, so we may not be able to accept all changes. Please file an <a href="https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/issues/new">issue</a> to discuss any bugs or changes before filing a pull request.</p>
+</div>
+<div id="deployment" class="section level2">
+<h2 class="hasAnchor">
+<a href="#deployment" class="anchor"></a>Deployment</h2>
+<p>This package has been configured to use <a href="https://en.wikipedia.org/wiki/CI/CD">CI/CD</a> with <a href="https://github.com/features/actions">GitHub Actions</a>. There are currently 4 actions:</p>
+<ul>
+<li>
+<a href="https://github.com/jimhester/lintr">lintr</a> runs static code analysis to check for syntactical errors and code styling issues. This runs on all commits.</li>
+<li>
+<a href="https://r-pkgs.org/r-cmd-check.html">r-cmd-check</a> runs R CMD CHECK. This runs on all commits.</li>
+<li>shiny deploy runs only on successful PR’s to master and deploys the <a href="https://strategyunit.shinyapps.io/MH_Surge_Modelling/">application</a>.</li>
+<li>
+<a href="https://pkgdown.r-lib.org/">pkgdown</a> runs only on successful PR’s to master and deploys the <a href="https://the-strategy-unit.github.io/723_mh_covid_surge_modelling/index.html">documentation</a>.</li>
+</ul>
 </div>
 </div>
   </div>
