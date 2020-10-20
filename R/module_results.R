@@ -214,7 +214,8 @@ results_server <- function(id, params, model_output) {
         "NA*"
       } else {
         numerator <- model_output() %>%
-          filter(.data$type == "new-referral",
+          filter(day(.data$date) == 1,
+                 .data$type == "new-referral",
                  .data$treatment == input$services) %>%
           pull(.data$value) %>%
           sum()
@@ -234,7 +235,8 @@ results_server <- function(id, params, model_output) {
         NULL
       } else {
         model_output() %>%
-          filter(.data$type == "new-referral",
+          filter(day(.data$date) == 1,
+                 .data$type == "new-referral",
                  .data$treatment == input$services) %>%
           mutate(d1 = date_to_n_months(.data$date),
                  d2 = date_to_n_months(min(.data$date))) %>%
