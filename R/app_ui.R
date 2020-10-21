@@ -8,7 +8,7 @@
 #' @importFrom shinyjs useShinyjs
 #' @importFrom plotly plotlyOutput
 app_ui <- function(request) {
-  tagList(
+  ui <- tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # List the first level UI elements here
@@ -65,6 +65,7 @@ app_ui <- function(request) {
       useShinyjs()
     )
   )
+  replace_bootstrap_cols(ui, from = "sm", to = "lg")
 }
 
 #' Add external Resources to the Application
