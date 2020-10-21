@@ -48,13 +48,14 @@ demand_server <-  function(id, params, upload_event) {
       # event fired from params module when a file is uploaded
       force(upload_event())
       updateSelectInput(session, "service", choices = services())
-    })
+    }, priority = -1)
 
     demand_observables <- list()
 
     observeEvent(input$service, {
       # update the demand-data div
-      demand <- params$demand[[input$service]]
+      service <- req(input$service)
+      demand <- params$demand[[service]]
 
       # ensures we have rows of data
       req(demand)
