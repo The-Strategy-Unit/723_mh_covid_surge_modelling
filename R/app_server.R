@@ -21,6 +21,10 @@ app_server <- function(input, output, session) {
       get_model_output(start_month)
   })
 
+  # Home Tag ----
+
+  home_server("home_page")
+
   # Params Tab ----
 
   params_server("params_page", params, model_output, upload_event)

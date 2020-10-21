@@ -8,21 +8,26 @@
 #' @importFrom shinyjs useShinyjs
 #' @importFrom plotly plotlyOutput
 app_ui <- function(request) {
-  ui <- tagList(
+  tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # List the first level UI elements here
     dashboardPage(
       dashboardHeader(
-        title = "Mersey Care MH Surge Modelling"
+        title = "MH Surge Modelling"
       ),
       dashboardSidebar(
         sidebarMenu(
           menuItem(
+            "Home",
+            tabName = "home",
+            icon = icon("home"),
+            selected = TRUE
+          ),
+          menuItem(
             "Parameters",
             tabName = "params",
-            icon = icon("dashboard"),
-            selected = TRUE
+            icon = icon("dashboard")
           ),
           menuItem(
             "Demand",
@@ -54,6 +59,7 @@ app_ui <- function(request) {
       ),
       dashboardBody(
         tabItems(
+          tabItem("home", home_ui("home_page")),
           tabItem("params", params_ui("params_page")),
           tabItem("demand", demand_ui("demand_page")),
           tabItem("results", results_ui("results_page")),
@@ -64,8 +70,8 @@ app_ui <- function(request) {
       ),
       useShinyjs()
     )
-  )
-  replace_bootstrap_cols(ui, from = "sm", to = "lg")
+  ) %>%
+    replace_bootstrap_cols(from = "sm", to = "lg")
 }
 
 #' Add external Resources to the Application
