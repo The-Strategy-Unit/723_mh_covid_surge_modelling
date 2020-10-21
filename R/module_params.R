@@ -7,6 +7,7 @@
 #' @param id An ID string that uniquely identifies an instance of this module
 #' @param params,model_output reactive objects passed in from the main server
 #' @param upload_event a reactiveVal that is updated when a file is uploaded
+#' @param params_file_path a reactiveVal that contains the path to the current params file
 
 #' @rdname params_module
 #' @import shiny
@@ -179,7 +180,7 @@ params_ui <- function(id) {
 #' @importFrom utils write.csv
 #' @importFrom shinyWidgets ask_confirmation
 #' @importFrom plotly renderPlotly
-params_server <- function(id, params, model_output, upload_event) {
+params_server <- function(id, params, model_output, upload_event, params_file_path) {
   stopifnot("params must be a reactive values" = is.reactivevalues(params),
             "model_output must be a reactive" = is.reactive(model_output))
 
@@ -212,7 +213,12 @@ params_server <- function(id, params, model_output, upload_event) {
     # upload ====
 
     observeEvent(input$user_upload_xlsx, {
-      new_params <- extract_params_from_excel(input$user_upload_xlsx$datapath)
+      params_file_path(input$user_upload_xlsx$datapath)
+    })
+
+    observeEvent(params_file_path(), {
+      path <- req(params_file_path())
+      new_params <- extract_params_from_excel(path)
 
       # if the treatment selected is the first one, and this is replaced, the values don't update correctly
       u <- counter$get()

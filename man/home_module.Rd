@@ -3,12 +3,17 @@
 \name{home_module}
 \alias{home_module}
 \alias{home_ui}
+\alias{home_server}
 \title{Home Module}
 \usage{
 home_ui(id)
+
+home_server(id, params_file_path)
 }
 \arguments{
 \item{id}{An ID string that uniquely identifies an instance of this module}
+
+\item{params_file_path}{a reactiveVal that contains the path to the current params file}
 }
 \description{
 A shiny module that renders all of the content for the home page.

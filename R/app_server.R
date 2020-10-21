@@ -10,6 +10,7 @@ app_server <- function(input, output, session) {
 
   params <- lift_dl(reactiveValues)(params)
   upload_event <- reactiveVal()
+  params_file_path <- reactiveVal()
 
   # Model ----
 
@@ -23,11 +24,11 @@ app_server <- function(input, output, session) {
 
   # Home Tag ----
 
-  home_server("home_page")
+  home_server("home_page", params_file_path)
 
   # Params Tab ----
 
-  params_server("params_page", params, model_output, upload_event)
+  params_server("params_page", params, model_output, upload_event, params_file_path)
 
   # Demand Tab ----
 
