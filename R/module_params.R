@@ -187,20 +187,6 @@ params_server <- function(id, params, model_output, upload_event, params_file_pa
   moduleServer(id, function(input, output, session) {
     counter <- methods::new("Counter")
 
-    population_groups <- reactiveVal()
-    treatments <- reactiveVal()
-    curves <- reactiveVal()
-
-    # initialise reactiveVals on load
-    params_server_init <- observe({
-      population_groups(names(params$groups))
-      treatments(names(params$treatments))
-      curves(names(params$curves))
-      # remove initialiser
-      params_server_init$destroy()
-    })
-
-    redraw_dropdowns <- reactiveVal()
     redraw_groups <- reactiveVal()
     redraw_treatments <- reactiveVal()
     redraw_g2c <- reactiveVal()
@@ -213,7 +199,8 @@ params_server <- function(id, params, model_output, upload_event, params_file_pa
     # upload ====
 
     observeEvent(input$user_upload_xlsx, {
-      params_file_path(input$user_upload_xlsx$datapath)
+      x <- req(input$user_upload_xlsx)
+      params_file_path(x$datapath)
     })
 
     observeEvent(params_file_path(), {
@@ -224,35 +211,27 @@ params_server <- function(id, params, model_output, upload_event, params_file_pa
       u <- counter$get()
 
       upload_event(u)
-      redraw_dropdowns(u)
 
       params$groups <- new_params$groups
       params$treatments <- new_params$treatments
       params$curves <- new_params$curves
       params$demand <- new_params$demand
 
-      population_groups(names(new_params$groups))
-      treatments(names(new_params$treatments))
-      curves(names(new_params$curves))
-
       redraw_treatments(u)
       redraw_groups(u)
-    })
 
-    # Update main select options
-
-    observe({
-      # trigger update of selects, even if the choices haven't changed
-      force(redraw_dropdowns())
-
-      updateSelectInput(session, "popn_subgroup", choices = population_groups())
-      updateSelectInput(session, "subpopulation_curve", choices = curves())
-      updateSelectInput(session, "treatment_type", choices = treatments())
+      updateSelectInput(session, "popn_subgroup", choices = names(new_params$groups))
+      updateSelectInput(session,
+                        "subpopulation_curve",
+                        choices = names(new_params$curves),
+                        selected = new_params$groups[[1]]$curve)
+      updateSelectInput(session, "treatment_type", choices = names(new_params$treatments))
     })
 
     # population groups ====
 
     observeEvent(input$popn_subgroup, {
+      req(input$popn_subgroup)
       redraw_groups(counter$get())
     })
 
