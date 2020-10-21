@@ -27,6 +27,16 @@ home_ui <- function(id) {
     })()
 
   tagList(
+    tags$a(
+      href = "https://www.strategyunitwm.nhs.uk/",
+      tags$img(
+        src = "https://www.strategyunitwm.nhs.uk/themes/custom/ie_bootstrap/logo.svg",
+        title = "The Strategy Unit",
+        alt = "The Strategy Unit Logo",
+        align = "right",
+        height="80"
+      )
+    ),
     tags$h1("Mental Health Surge Modelling"),
     tags$p(
       "A description of the application..."
