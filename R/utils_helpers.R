@@ -45,3 +45,38 @@ where <- function(fn) {
 primary_box <- function(...) {
   box(..., solidHeader = TRUE, status = "primary")
 }
+
+#' Replace bootstrap grid columns
+#'
+#' By default shiny uses col-sm-* classes. We want to be able to replace these with a different column type, e.g.
+#' col-xl-*. This function recursively iterates through shiny UI elements and replaces the classes of shiny.tag objects.
+#'
+#' @param x an object we want to iterate through, initialy should be a shiny.tag.list
+#' @param from the column type we want to replace, defaults to "." (all)
+#' @param to the column type we want to replace
+replace_bootstrap_cols <- function(x,
+                                   from = c(".", "xs", "sm", "md", "lg", "xl"),
+                                   to = c("xs", "sm", "md", "lg", "xl")) {
+  match.arg(from)
+  match.arg(to)
+
+  if (inherits(x, "shiny.tag.list") || inherits(x, "list")) {
+    for (i in seq_along(x)) {
+      if (!is.null(x[[i]])) {
+        x[[i]] <- replace_bootstrap_cols(x[[i]], from, to)
+      }
+    }
+  } else if (inherits(x, "shiny.tag")) {
+    if (!is.null(x$attribs$class)) {
+      x$attribs$class <- gsub(paste0("col\\-", from, "+\\-"),
+                              paste0("col-", to, "-"),
+                              x$attribs$class)
+    }
+    for (i in seq_along(x$children)) {
+      if (!is.null(x$children[[i]])) {
+        x$children[[i]] <- replace_bootstrap_cols(x$children[[i]], from, to)
+      }
+    }
+  }
+  x
+}
