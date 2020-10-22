@@ -16,10 +16,14 @@
 #' @import shinycssloaders
 surgetab_ui <- function(id) {
   fluidRow(
-    box(
+    primary_box(
+      title = "Surge Table",
+      width = 6,
       tableOutput(NS(id, "surge_table"))
     ),
-    box(
+    primary_box(
+      title = "Surge Chart",
+      width = 6,
       withSpinner(
         plotlyOutput(
           NS(id, "surge_plot"),
