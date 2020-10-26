@@ -20,12 +20,13 @@ demand_plot <- function(model_output, appointments, treatment) {
           mode = "lines",
           x = ~date,
           y = ~no_appointments,
+          name = "Demand",
           line = list(color = "#587FC1"),
-          hovertemplate = paste("<b>Month</b>: %{x}",
-                                "<b>Demand</b>: %{y:.0f}",
-                                "<extra></extra>",
-                                sep = "<br>")) %>%
+          text = ~comma(no_appointments),
+          hoverinfo = "text",
+          hovertemplate = "%{text}") %>%
     layout(showlegend = FALSE,
+           hovermode = "x unified",
            xaxis = list(title = "Month"),
            yaxis = list(title = "Demand")) %>%
     config(displayModeBar = FALSE)
