@@ -40,7 +40,20 @@ home_ui <- function(id) {
     ),
     tags$h1("Mental Health Surge Modelling"),
     tags$p(
-      "A description of the application..."
+      "This is a system dynamic simulation of the potential impacts of covid-19 on mental health services in England.",
+      "The model was developed and designed initially with and for staff at Mersey Care NHS Foundation Trust and",
+      "subsequently as part of the",
+      tags$a("national analytical Collaboration for Covid-19",
+             href = "https://www.strategyunitwm.nhs.uk/covid19-and-coronavirus"),
+      "."
+    ),
+    tags$p(
+      "The application applies evidence-based effects to segmented populations, then maps the flows of referrals and",
+      "service use to a basket of likely service destinations."
+    ),
+    tags$p(
+      "The tool can support areas to estimate effects for their own population and services by either adapting the",
+      "default data and parameters (e.g. England) or uploading their own to run within the model."
     ),
     primary_box(
       title = "Select parameters",
