@@ -8,14 +8,26 @@
 #' @importFrom shinyjs useShinyjs
 #' @importFrom plotly plotlyOutput
 app_ui <- function(request) {
+  # hack the header
+  header <- dashboardHeader(
+    title = "MH Surge Modelling"
+  )
+
+  header$children[[3]]$children[[3]]$children[[1]] <- tags$img(
+    src = "https://www.strategyunitwm.nhs.uk/themes/custom/ie_bootstrap/logo.svg",
+    title = "The Strategy Unit",
+    alt = "The Strategy Unit Logo",
+    align = "right",
+    height = "40"
+  )
+
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
+    tags$link(rel="stylesheet", type="text/css", href="www/skin-su.css"),
     # List the first level UI elements here
     dashboardPage(
-      dashboardHeader(
-        title = "MH Surge Modelling"
-      ),
+      header,
       dashboardSidebar(
         sidebarMenu(
           menuItem(
