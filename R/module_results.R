@@ -60,7 +60,7 @@ results_ui <- function(id) {
   )
 
   results_referrals_plot <- primary_box(
-    title = "Modelled referrals",
+    title = "Modelled referrals and treatments",
     withSpinner(
       plotlyOutput(
         NS(id, "referrals_plot")
