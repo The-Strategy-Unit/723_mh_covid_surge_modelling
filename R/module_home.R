@@ -34,7 +34,7 @@ home_ui <- function(id) {
         title = "The Strategy Unit",
         alt = "The Strategy Unit Logo",
         align = "right",
-        height="80"
+        height = "80"
       )
     ),
     tags$h1("Mental Health Surge Modelling"),
