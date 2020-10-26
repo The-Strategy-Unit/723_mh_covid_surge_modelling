@@ -41,6 +41,7 @@ results_ui <- function(id) {
   results_value_boxes <- primary_box(
     title = "Summary",
     width = 5,
+    id = "results_value_boxes",
     valueBoxOutput(NS(id, "total_referrals")),
     valueBoxOutput(NS(id, "total_demand")),
     valueBoxOutput(NS(id, "total_newpatients")),
