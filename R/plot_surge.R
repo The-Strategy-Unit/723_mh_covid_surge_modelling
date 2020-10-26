@@ -22,10 +22,14 @@ surge_plot <- function(model_output, column) {
           text = paste0("<b>Received treatment</b><br>",
                         comma(df[["Received treatment"]])),
           hoverinfo = "text",
+          marker = list(color = "#F8BF07",
+                        line = list(color = "#2c2825", width = 1.5)),
           type = "bar",
           name = "Received treatment") %>%
     add_trace(x = ~df[["Referred, but not treated"]],
               name = "Referred, but not treated",
+              marker = list(color = "#586FC1",
+                            line = list(color = "#2c2825", width = 1.5)),
               text = paste0("<b>Referred, but not treated</b><br>",
                             comma(df[["Referred, but not treated"]]))) %>%
     layout(xaxis = list(title = "Total Referrals / Treatments"),

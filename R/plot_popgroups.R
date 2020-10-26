@@ -20,8 +20,8 @@ popgroups_plot <- function(model_output, treatment) {
           text = df$`# Referrals`,
           textposition = "auto",
           type = "bar",
-          marker = list(color = "rgb(158,202,225)",
-                        line = list(color = "rgb(8,48,107)", width = 1.5))) %>%
+          marker = list(color = "#587FC1",
+                        line = list(color = "#2c2825", width = 1.5))) %>%
     layout(xaxis = list(title = "# Referrals"),
            yaxis = list(title = "")) %>%
     config(displayModeBar = FALSE)

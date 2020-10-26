@@ -19,6 +19,8 @@ treatment_split_plot <- function(treatments) {
     arrange(desc(.data$split)) %>%
     plot_ly(x = ~split,
             y = ~treatment,
+            marker = list(color = "#586FC1",
+                          line = list(color = "#2c2825", width = 1.5)),
             type =  "bar") %>%
     layout(xaxis = list(tickformat = "%",
                         title = FALSE),

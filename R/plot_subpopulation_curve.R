@@ -18,6 +18,7 @@ subpopulation_curve_plot <- function(curve, size, pcnt) {
           type = "scatter",
           mode = "lines",
           text = paste0("month ", x, ": ", comma(y)),
+          line = list(color = "#F8BF07"),
           hoverinfo = "text",
           line = list(shape = "spline")) %>%
     layout(xaxis = list(visible = FALSE,

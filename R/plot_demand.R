@@ -20,6 +20,7 @@ demand_plot <- function(model_output, appointments, treatment) {
           mode = "lines",
           x = ~date,
           y = ~no_appointments,
+          line = list(color = "#587FC1"),
           hovertemplate = paste("<b>Month</b>: %{x}",
                                 "<b>Demand</b>: %{y:.0f}",
                                 "<extra></extra>",

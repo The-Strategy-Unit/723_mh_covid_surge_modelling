@@ -102,7 +102,8 @@ create_graph <- function(model_output,
     # create the points
     list(
       type = "line",
-      line = list(color = "#030303", width = 1),
+      marker = list(color = "#587FC1"),
+      line = list(color = "#2c2825", width = 1),
       # ensure th
       layer = "below",
       x0 = xs[v0],

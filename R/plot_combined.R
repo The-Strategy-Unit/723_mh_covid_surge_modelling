@@ -21,6 +21,7 @@ combined_plot <- function(model_output, treatment, params) {
             x = ~date,
             y = ~value,
             hovertemplate = "%{y:.0f}",
+            colors = c("#F8BF07", "#587FC1", "#EC6555", "#686F73"),
             color = ~type) %>%
     layout(showlegend = TRUE,
            hovermode = "x unified",
