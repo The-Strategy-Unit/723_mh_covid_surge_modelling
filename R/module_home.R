@@ -11,6 +11,7 @@
 #' @import shiny
 #' @import shinydashboard
 #' @import shinycssloaders
+#' @importFrom shinyjs hidden
 #' @importFrom dplyr %>%
 #' @importFrom purrr set_names
 home_ui <- function(id) {
@@ -41,10 +42,23 @@ home_ui <- function(id) {
     tags$p(
       "A description of the application..."
     ),
-    selectInput(
-      NS(id, "default_params"),
-      "Default Parameters",
-      files
+    primary_box(
+      title = "Select parameters",
+      width = 12,
+      selectInput(
+        NS(id, "params_select"),
+        "Default Parameters",
+        c(files, Custom = "custom")
+      ),
+      hidden(
+        fileInput(
+          NS(id, "user_upload_xlsx"),
+          label = NULL,
+          multiple = FALSE,
+          accept = ".xlsx",
+          placeholder = "Previously downloaded parameters"
+        )
+      )
     )
   )
 }
@@ -52,8 +66,20 @@ home_ui <- function(id) {
 #' @rdname home_module
 home_server <- function(id, params_file_path) {
   moduleServer(id, function(input, output, session) {
-    observeEvent(input$default_params, {
-      params_file_path(input$default_params)
+    observeEvent(input$params_select, {
+      ps <- req(input$params_select)
+
+      if (ps == "custom") {
+        shinyjs::show("user_upload_xlsx")
+      } else {
+        shinyjs::hide("user_upload_xlsx")
+        params_file_path(input$params_select)
+      }
+    })
+
+    observeEvent(input$user_upload_xlsx, {
+      x <- req(input$user_upload_xlsx)
+      params_file_path(x$datapath)
     })
   })
 }

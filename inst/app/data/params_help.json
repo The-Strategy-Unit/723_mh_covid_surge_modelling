@@ -1,10 +1,4 @@
 {
-  "upload_params_help": {
-    "title": "Upload parameters",
-    "text": [
-      "Upload a previously downloaded set of parameters. File must be an excel file in exactly the same format as the downloaded file."
-    ]
-  },
   "population_group_help": {
     "title": "Population groups",
     "text": [
@@ -44,11 +38,5 @@
       "Success % of treatment: How likely is it that someone who has this treatment no longer has any mental health needs? (defined as not suffering acutely again from a condition for 12 months)",
       "Average demand per person: On average, how much demand does 1 person in treatment generate per month?"
      ]
-  },
-  "download_params_help": {
-    "title": "Download's",
-    "text": [
-      "Download current parameters: Download the currently set parameters. You can then upload these again when you revisit this tool which will default to our national model values."
-    ]
   }
 }

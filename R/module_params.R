@@ -14,24 +14,6 @@
 #' @import shinydashboard
 #' @import shinycssloaders
 params_ui <- function(id) {
-  # upload ====
-  params_upload_params <- primary_box(
-    title = "Upload parameters",
-    width = 12,
-    fileInput(
-      NS(id, "user_upload_xlsx"),
-      label = NULL,
-      multiple = FALSE,
-      accept = ".xlsx",
-      placeholder = "Previously downloaded parameters"
-    ),
-    actionLink(
-      NS(id, "upload_params_help"),
-      "",
-      icon("question")
-    )
-  )
-
   # population groups ====
   params_population_groups <- primary_box(
     title = "Population Groups",
@@ -141,33 +123,19 @@ params_ui <- function(id) {
 
   # downloads ====
   params_downloads <- primary_box(
-    title = "Download's",
+    title = "Download Parameters",
     width = 12,
     downloadButton(
       NS(id, "download_params"),
       "Download current parameters"
-    ),
-    tags$br(),
-    actionLink(
-      NS(id, "download_params_help"),
-      "",
-      icon("question")
     )
   )
 
   fluidRow(
-    column(
-      3,
-      params_upload_params,
-      params_population_groups
-    ),
+    column(3, params_population_groups),
     column(3, params_group_to_cond),
     column(3, params_cond_to_treat),
-    column(
-      3,
-      params_demand,
-      params_downloads
-    )
+    column(3, params_demand, params_downloads)
   )
 }
 
@@ -195,13 +163,6 @@ params_server <- function(id, params, model_output, upload_event, params_file_pa
     # store observers so we can destroy them
     div_slider_cond_pcnt_obs <- list()
     div_treat_split_obs <- list()
-
-    # upload ====
-
-    observeEvent(input$user_upload_xlsx, {
-      x <- req(input$user_upload_xlsx)
-      params_file_path(x$datapath)
-    })
 
     observeEvent(params_file_path(), {
       path <- req(params_file_path())
