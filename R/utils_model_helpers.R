@@ -21,7 +21,7 @@ get_model_params <- function(params) {
               inner_join(params$treatments %>%
                            map_dfr(bind_cols, .id = "treatment"),
                          by = "treatment") %>%
-              mutate(across(.data$decay, ~half_life_factor(.data$months, .x))) %>%
+              mutate(across(.data$decay, ~half_life_factor(.data$months, 1 - .x))) %>%
               select(-.data$months, -.data$demand),
         .id = "group") %>%
     rename(treat = .data$treat_pcnt) %>%
