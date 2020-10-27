@@ -55,7 +55,7 @@ params_ui <- function(id) {
   params_group_to_cond <- primary_box(
     title = "Impacts on population sub-group",
     width = 12,
-    div(id = "div_slider_cond_pcnt"),
+    g2c_ui("g2c"),
     actionLink(
       NS(id, "group_to_cond_params_help"),
       "",
@@ -152,13 +152,18 @@ params_server <- function(id, params, model_output, upload_event, params_file_pa
   stopifnot("params must be a reactive values" = is.reactivevalues(params),
             "model_output must be a reactive" = is.reactive(model_output))
 
-  moduleServer(id, function(input, output, session) {
-    counter <- methods::new("Counter")
+  counter <- methods::new("Counter")
 
-    redraw_groups <- reactiveVal()
-    redraw_treatments <- reactiveVal()
-    redraw_g2c <- reactiveVal()
-    redraw_c2t <- reactiveVal()
+  redraw_groups <- reactiveVal()
+  redraw_treatments <- reactiveVal()
+  redraw_g2c <- reactiveVal()
+  redraw_c2t <- reactiveVal()
+
+  popn_subgroup <- reactiveVal()
+
+  g2c_server("g2c", params, redraw_g2c, redraw_c2t, counter, popn_subgroup)
+
+  moduleServer(id, function(input, output, session) {
 
     # store observers so we can destroy them
     div_slider_cond_pcnt_obs <- list()
@@ -193,6 +198,7 @@ params_server <- function(id, params, model_output, upload_event, params_file_pa
 
     observeEvent(input$popn_subgroup, {
       req(input$popn_subgroup)
+      popn_subgroup(input$popn_subgroup)
       redraw_groups(counter$get())
     })
 
@@ -239,100 +245,7 @@ params_server <- function(id, params, model_output, upload_event, params_file_pa
     })
 
     # group to conditions ====
-
-    observeEvent(redraw_g2c(), {
-      sg <- req(isolate(input$popn_subgroup))
-      px <- isolate(params)$groups[[sg]]
-      conditions <- names(px$conditions)
-
-      # update the condition percentage sliders
-      # first, remove the previous elements
-      walk(div_treat_split_obs, ~.x$destroy())
-      div_treat_split_obs <<- list()
-
-      walk(div_slider_cond_pcnt_obs, ~.x$destroy())
-      div_slider_cond_pcnt_obs <<- list()
-      removeUI("#div_slider_cond_pcnt > *", TRUE, TRUE)
-
-      # create the no mental health group slider
-      nmh_slider <- disabled(
-        sliderInput(
-          NS(id, "slider_cond_pcnt_no_mh_needs"),
-          "No Mental Health Needs",
-          value = (1 - map_dbl(px$conditions, "pcnt") %>% sum()) * 100,
-          min = 0, max = 100, step = 0.01, post = "%"
-        )
-      )
-
-      # now, add the new sliders
-
-      # loop over the conditions (and the corresponding max values)
-      walk(conditions, function(i) {
-        # slider names can't have spaces, replace with _
-        slider_name <- gsub(" ", "_", paste0("slider_cond_pcnt_", i))
-        slider <- sliderInput(
-          NS(id, slider_name), label = i,
-          value = px$conditions[[i]]$pcnt * 100,
-          min = 0, max = 100, step = 0.01, post = "%"
-        )
-        insertUI("#div_slider_cond_pcnt", "beforeEnd", slider)
-
-        div_slider_cond_pcnt_obs[[slider_name]] <<- observeEvent(input[[slider_name]], {
-          # can't use the px element here: must use full params
-          params$groups[[sg]]$conditions[[i]]$pcnt <- input[[slider_name]] / 100
-
-          # if we have exceeded 100%, reduce each slider evenly to maintain 100%
-          isolate({
-            # if we are going to reduce a slider by more than its current amount, reduce all the sliders by that amount
-            # and then start again with the remaining sliders
-            current_conditions <- params$groups[[sg]]$conditions %>%
-              names() %>%
-              discard(~.x == i)
-
-            repeat {
-              # check that we do not exceed 100% for conditions
-              pcnt_sum <- params$groups[[sg]]$conditions %>%
-                map_dbl("pcnt") %>%
-                sum()
-              # break out the loop
-              if (pcnt_sum <= 1) break
-
-              # get the pcnt's for the "current" conditions
-              current_pcnts <- params$groups[[sg]]$conditions[current_conditions] %>%
-                map_dbl("pcnt")
-
-              # find the smallest percentage currently
-              min_pcnt <- min(current_pcnts)
-              # what is(are) the smallest group(s)?
-              j <- names(which(current_pcnts == min_pcnt))
-              # find the target reduction (either the minimum percentage present, or an equal split of the amount of the
-              # sum over 100%)
-              tgt_pcnt <- min(min_pcnt, (pcnt_sum - 1) / length(current_conditions))
-
-              # now, reduce the pcnts by the target
-              map(current_conditions, function(k) {
-                v <- params$groups[[sg]]$conditions[[k]]$pcnt - tgt_pcnt
-                params$groups[[sg]]$conditions[[k]]$pcnt <- v
-                updateSliderInput(session,
-                                  gsub(" ", "_", paste0("slider_cond_pcnt_", k)),
-                                  value = v * 100)
-              })
-
-              # remove the smallest group(s) j and loop
-              current_conditions <- current_conditions[!current_conditions %in% j]
-            }
-
-            updateSliderInput(session,
-                              "slider_cond_pcnt_no_mh_needs",
-                              value = (1 - pcnt_sum) * 100)
-          })
-        })
-      })
-
-      insertUI("#div_slider_cond_pcnt", "beforeEnd", nmh_slider)
-
-      redraw_c2t(counter$get())
-    })
+    # handled outside of moduleServer
 
     # condition to treatments ====
 
