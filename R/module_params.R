@@ -67,12 +67,7 @@ params_ui <- function(id) {
   params_cond_to_treat <- primary_box(
     title = "Referral/Service flows for impacts",
     width = 12,
-    selectInput(
-      NS(id, "sliders_select_cond"),
-      "Condition",
-      choices = NULL
-    ),
-    div(id = "div_treat_split"),
+    c2t_ui("c2t"),
     actionLink(
       NS(id, "cond_to_treat_params_help"),
       "",
@@ -160,8 +155,10 @@ params_server <- function(id, params, model_output, upload_event, params_file_pa
   redraw_c2t <- reactiveVal()
 
   popn_subgroup <- reactiveVal()
+  conditions <- reactiveVal()
 
   g2c_server("g2c", params, redraw_g2c, redraw_c2t, counter, popn_subgroup)
+  c2t_server("c2t", params, redraw_c2t, counter, popn_subgroup, conditions)
 
   moduleServer(id, function(input, output, session) {
 
@@ -205,9 +202,8 @@ params_server <- function(id, params, model_output, upload_event, params_file_pa
     observeEvent(redraw_groups(), {
       sg <- req(isolate(input$popn_subgroup))
       px <- isolate(params)$groups[[sg]]
-      conditions <- names(px$conditions)
+      conditions(names(px$conditions))
 
-      updateSelectInput(session, "sliders_select_cond", choices = conditions)
       updateNumericInput(session, "subpopulation_size", value = px$size)
       updateNumericInput(session, "subpopulation_pcnt", value = px$pcnt)
       updateSliderInput(session, "subpopulation_curve", value = px$curve)
@@ -245,87 +241,10 @@ params_server <- function(id, params, model_output, upload_event, params_file_pa
     })
 
     # group to conditions ====
-    # handled outside of moduleServer
+      # handled in module_g2c.R
 
     # condition to treatments ====
-
-    observeEvent(input$sliders_select_cond, {
-      redraw_c2t(counter$get())
-    })
-
-    observeEvent(redraw_c2t(), {
-      sg <- req(input$popn_subgroup)
-      ssc <- input$sliders_select_cond
-
-      # first, remove the previous elements
-      walk(div_treat_split_obs, ~.x$destroy())
-      div_treat_split_obs <<- list()
-      removeUI("#div_treat_split > *", TRUE, TRUE)
-
-      # now, add the new sliders
-      px <- params$groups[[sg]]$conditions[[ssc]]
-
-      table_rows <- names(px$treatments) %>%
-        # loop over the treatments
-        map(function(i) {
-          # slider names can't have spaces, replace with _
-          ix <- gsub(" ", "_", i)
-
-          split_input_name <- paste0("numeric_treat_split_", ix)
-          split_input <- numericInput(NS(id, split_input_name), NULL, value = px$treatments[[i]], width = "75px")
-
-          split_pcnt_name <- paste0("pcnt_treat_split_", ix)
-          split_pcnt <- textOutput(NS(id, split_pcnt_name), inline = TRUE)
-
-          div_treat_split_obs[[split_input_name]] <<- observeEvent(input[[split_input_name]], {
-            v <- input[[split_input_name]]
-            params$groups[[sg]]$conditions[[ssc]]$treatments[[i]] <- v
-          })
-
-          output[[split_pcnt_name]] <- renderText({
-            # the render function hangs around after output has been removed.
-            req(sg  %in% names(params$groups),
-                ssc %in% names(params$groups[[sg]]$conditions),
-                i   %in% names(params$groups[[sg]]$conditions[[ssc]]$treatments))
-
-            n <- params$groups[[sg]]$conditions[[ssc]]$treatments[[i]]
-            d <- sum(params$groups[[sg]]$conditions[[ssc]]$treatments)
-
-            sprintf("%.1f%%", n / d * 100)
-          })
-
-          tags$tr(
-            tags$td(i, style = "padding: 0px 5px 0px 0px;"),
-            tags$td(split_input, style = "padding: 0px 5px 0px 0px;"),
-            tags$td(split_pcnt, style = "padding: 0px 5px 0px 0px;")
-          )
-        })
-
-      table_header <- tags$tr(
-        tags$th("Treatment", style = "padding: 0px 5px 0px 0px;"),
-        tags$th("Split", style = "padding: 0px 5px 0px 0px;"),
-        tags$th("Split %", style = "padding: 0px 5px 0px 0px;")
-      )
-
-      treat_split_plot <- plotlyOutput(NS(id, "treat_split_plot"))
-      output$treat_split_plot <- renderPlotly({
-        treatment_split_plot(params$groups[[sg]]$conditions[[ssc]]$treatments)
-      })
-
-      insertUI(
-        "#div_treat_split",
-        "beforeEnd",
-        tagList(
-          tags$table(
-            tagList(
-              table_header,
-              table_rows
-            )
-          ),
-          treat_split_plot
-        )
-      )
-    })
+      # handled in module_c2t.R
 
     # demand ====
 
