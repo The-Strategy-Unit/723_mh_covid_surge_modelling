@@ -19,7 +19,7 @@ c2t_ui <- function(id) {
       "Condition",
       choices = NULL
     ),
-    tags$div(id = NS(id, "container"))
+    uiOutput(NS(id, "container"))
   )
 }
 
@@ -32,8 +32,6 @@ c2t_server <- function(id, params, redraw_c2t, counter, popn_subgroup, condition
   moduleServer(id, function(input, output, session) {
     observers <- list()
 
-    container_id <- paste0("#", NS(id, "container"))
-
     observeEvent(conditions(), {
       req(conditions())
       updateSelectInput(session, "sliders_select_cond", choices = conditions())
@@ -43,66 +41,68 @@ c2t_server <- function(id, params, redraw_c2t, counter, popn_subgroup, condition
       redraw_c2t(counter$get())
     })
 
-    observeEvent(redraw_c2t(), {
+    output[["container"]] <- renderUI({
+      force(redraw_c2t())
       sg <- req(popn_subgroup())
-      ssc <- req(input$sliders_select_cond)
+      isolate({
+        ssc <- req(input$sliders_select_cond)
 
-      # first, remove the previous elements
-      walk(observers, ~.x$destroy())
-      removeUI(paste(container_id, "> *"), TRUE, TRUE)
+        # destroy previous observers
+        walk(observers, ~.x$destroy())
 
-      # now, add the new sliders
-      px <- params$groups[[sg]]$conditions[[ssc]]
+        # now, add the new sliders
+        px <- params$groups[[sg]]$conditions[[ssc]]
 
-      x <- px$treatments %>%
-        names() %>%
-        # loop over the treatments
-        map(function(i) {
-          # slider names can't have spaces, replace with _
-          ix <- gsub(" ", "_", i)
+        table_style <- "padding: 0px 5px 0px 0px;"
+        x <- px$treatments %>%
+          names() %>%
+          # loop over the treatments
+          map(function(i) {
+            # slider names can't have spaces, replace with _
+            ix <- gsub(" ", "_", i)
 
-          split_input_name <- paste0("numeric_treat_split_", ix)
-          split_input <- numericInput(NS(id, split_input_name), NULL, value = px$treatments[[i]], width = "75px")
+            split_input_name <- paste0("numeric_treat_split_", ix)
+            split_input <- numericInput(NS(id, split_input_name), NULL, value = px$treatments[[i]], width = "75px")
 
-          split_pcnt_name <- paste0("pcnt_treat_split_", ix)
-          split_pcnt <- textOutput(NS(id, split_pcnt_name), inline = TRUE)
+            split_pcnt_name <- paste0("pcnt_treat_split_", ix)
+            split_pcnt <- textOutput(NS(id, split_pcnt_name), inline = TRUE)
 
-          output[[split_pcnt_name]] <- renderText({
-            # the render function hangs around after output has been removed.
-            req(sg  %in% names(params$groups),
-                ssc %in% names(params$groups[[sg]]$conditions),
-                i   %in% names(params$groups[[sg]]$conditions[[ssc]]$treatments))
+            output[[split_pcnt_name]] <- renderText({
+              # the render function hangs around after output has been removed.
+              req(sg  %in% names(params$groups),
+                  ssc %in% names(params$groups[[sg]]$conditions),
+                  i   %in% names(params$groups[[sg]]$conditions[[ssc]]$treatments))
 
-            n <- params$groups[[sg]]$conditions[[ssc]]$treatments[[i]]
-            d <- sum(params$groups[[sg]]$conditions[[ssc]]$treatments)
+              n <- params$groups[[sg]]$conditions[[ssc]]$treatments[[i]]
+              d <- sum(params$groups[[sg]]$conditions[[ssc]]$treatments)
 
-            sprintf("%.1f%%", n / d * 100)
-          })
+              sprintf("%.1f%%", n / d * 100)
+            })
 
-          list(
-            table_rows = list(i, split_input, split_pcnt) %>%
-              map(tags$td, style = "padding: 0px 5px 0px 0px;") %>%
-              tags$tr(),
-            observers = observeEvent(input[[split_input_name]], {
+            observers <- observeEvent(input[[split_input_name]], {
               v <- input[[split_input_name]]
               params$groups[[sg]]$conditions[[ssc]]$treatments[[i]] <- v
             })
-          )
-        }) %>%
-        transpose()
 
-      table_header <- list("Treatment", "Split", "Split %") %>%
-        map(tags$th, style = "padding: 0px 5px 0px 0px;") %>%
-        tags$tr()
+            tr <- list(i, split_input, split_pcnt) %>%
+              map(tags$td, style = table_style) %>%
+              tags$tr()
 
-      treat_split_plot <- plotlyOutput(NS(id, "treat_split_plot"))
-      output$treat_split_plot <- renderPlotly({
-        treatment_split_plot(params$groups[[sg]]$conditions[[ssc]]$treatments)
-      })
+            list(table_rows = tr, observers = observers)
+          }) %>%
+          transpose()
 
-      insertUI(
-        container_id,
-        "beforeEnd",
+        observers <<- x$observers
+
+        table_header <- list("Treatment", "Split", "Split %") %>%
+          map(tags$th, style = table_style) %>%
+          tags$tr()
+
+        treat_split_plot <- plotlyOutput(NS(id, "treat_split_plot"))
+        output$treat_split_plot <- renderPlotly({
+          treatment_split_plot(params$groups[[sg]]$conditions[[ssc]]$treatments)
+        })
+
         tagList(
           tags$table(
             tagList(
@@ -111,11 +111,9 @@ c2t_server <- function(id, params, redraw_c2t, counter, popn_subgroup, condition
             )
           ),
           treat_split_plot
-        ),
-        immediate = TRUE
-      )
+        )
+      })
 
-      observers <<- x$observers
     })
 
   })
