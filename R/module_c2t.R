@@ -47,17 +47,15 @@ c2t_server <- function(id, params, redraw_c2t, counter, popn_subgroup, condition
       sg <- req(popn_subgroup())
       ssc <- req(input$sliders_select_cond)
 
-      # browser()
-
       # first, remove the previous elements
       walk(observers, ~.x$destroy())
-      observers <<- list()
       removeUI(paste(container_id, "> *"), TRUE, TRUE)
 
       # now, add the new sliders
       px <- params$groups[[sg]]$conditions[[ssc]]
 
-      table_rows <- names(px$treatments) %>%
+      x <- px$treatments %>%
+        names() %>%
         # loop over the treatments
         map(function(i) {
           # slider names can't have spaces, replace with _
@@ -68,11 +66,6 @@ c2t_server <- function(id, params, redraw_c2t, counter, popn_subgroup, condition
 
           split_pcnt_name <- paste0("pcnt_treat_split_", ix)
           split_pcnt <- textOutput(NS(id, split_pcnt_name), inline = TRUE)
-
-          observers[[split_input_name]] <<- observeEvent(input[[split_input_name]], {
-            v <- input[[split_input_name]]
-            params$groups[[sg]]$conditions[[ssc]]$treatments[[i]] <- v
-          })
 
           output[[split_pcnt_name]] <- renderText({
             # the render function hangs around after output has been removed.
@@ -86,18 +79,21 @@ c2t_server <- function(id, params, redraw_c2t, counter, popn_subgroup, condition
             sprintf("%.1f%%", n / d * 100)
           })
 
-          tags$tr(
-            tags$td(i, style = "padding: 0px 5px 0px 0px;"),
-            tags$td(split_input, style = "padding: 0px 5px 0px 0px;"),
-            tags$td(split_pcnt, style = "padding: 0px 5px 0px 0px;")
+          list(
+            table_rows = list(i, split_input, split_pcnt) %>%
+              map(tags$td, style = "padding: 0px 5px 0px 0px;") %>%
+              tags$tr(),
+            observers = observeEvent(input[[split_input_name]], {
+              v <- input[[split_input_name]]
+              params$groups[[sg]]$conditions[[ssc]]$treatments[[i]] <- v
+            })
           )
-        })
+        }) %>%
+        transpose()
 
-      table_header <- tags$tr(
-        tags$th("Treatment", style = "padding: 0px 5px 0px 0px;"),
-        tags$th("Split", style = "padding: 0px 5px 0px 0px;"),
-        tags$th("Split %", style = "padding: 0px 5px 0px 0px;")
-      )
+      table_header <- list("Treatment", "Split", "Split %") %>%
+        map(tags$th, style = "padding: 0px 5px 0px 0px;") %>%
+        tags$tr()
 
       treat_split_plot <- plotlyOutput(NS(id, "treat_split_plot"))
       output$treat_split_plot <- renderPlotly({
@@ -111,13 +107,15 @@ c2t_server <- function(id, params, redraw_c2t, counter, popn_subgroup, condition
           tags$table(
             tagList(
               table_header,
-              table_rows
+              x$table_rows
             )
           ),
           treat_split_plot
         ),
         immediate = TRUE
       )
+
+      observers <<- x$observers
     })
 
   })
