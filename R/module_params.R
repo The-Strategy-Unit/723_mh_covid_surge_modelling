@@ -162,10 +162,6 @@ params_server <- function(id, params, model_output, upload_event, params_file_pa
 
   moduleServer(id, function(input, output, session) {
 
-    # store observers so we can destroy them
-    div_slider_cond_pcnt_obs <- list()
-    div_treat_split_obs <- list()
-
     observeEvent(params_file_path(), {
       path <- req(params_file_path())
       new_params <- extract_params_from_excel(path)
