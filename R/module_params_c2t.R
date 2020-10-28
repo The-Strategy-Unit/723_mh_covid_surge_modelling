@@ -41,7 +41,7 @@ c2t_server <- function(id, params, redraw_c2t, counter, popn_subgroup, condition
       redraw_c2t(counter$get())
     })
 
-    output[["container"]] <- renderUI({
+    output$container <- renderUI({
       force(redraw_c2t())
       sg <- req(popn_subgroup())
       isolate({
