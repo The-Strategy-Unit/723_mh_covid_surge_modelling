@@ -25,13 +25,13 @@ referrals_plot <- function(model_output, treatment) {
           hovertemplate = "%{text}",
           line = list(color = "#f8bf07")) %>%
     add_trace(y = ~Treatments,
-              name = "Treatments",
+              name = "Referred & Treated",
               text = ~comma(Treatments),
               line = list(color = "#587FC1")) %>%
     layout(showlegend = FALSE,
            hovermode = "x unified",
            xaxis = list(title = "Month"),
-           yaxis = list(title = "New Referrals/Treatments")) %>%
+           yaxis = list(title = "New Referrals")) %>%
     config(displayModeBar = FALSE)
 }
 
