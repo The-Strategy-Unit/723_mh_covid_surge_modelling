@@ -18,9 +18,7 @@ home_ui <- function(id) {
   files <- app_sys("app/data") %>%
     dir("^params\\_.*\\.xlsx$", full.names = TRUE) %>%
     (function(f) {
-      n <- f %>%
-        gsub("^.*\\/params\\_(.*)\\.xlsx$", "\\1", .) %>%
-        gsub("\\-", " ", .)
+      n <- gsub("\\-", " ", gsub("^.*\\/params\\_(.*)\\.xlsx$", "\\1", f))
       f <- set_names(f, n)
 
       # reorder to make sure England is first
