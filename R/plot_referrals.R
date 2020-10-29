@@ -48,5 +48,5 @@ referrals_plot_data <- function(model_output, treatment) {
             model_output = model_output,
             treatment = treatment,
             .id = "type") %>%
-    pivot_wider(names_from = type, values_from = value)
+    pivot_wider(names_from = .data$type, values_from = .data$value)
 }
