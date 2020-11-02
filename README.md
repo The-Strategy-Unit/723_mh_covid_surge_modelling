@@ -10,6 +10,8 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 [![R build
 status](https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/workflows/R-CMD-check/badge.svg)](https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/actions)
 
+[![Codecov test
+coverage](https://codecov.io/gh/The-Strategy-Unit/723_mh_covid_surge_modelling/branch/master/graph/badge.svg)](https://codecov.io/gh/The-Strategy-Unit/723_mh_covid_surge_modelling?branch=master)
 <!-- badges: end -->
 
 This package is a Shiny application to model the surge in mental health
