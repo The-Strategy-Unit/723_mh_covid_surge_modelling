@@ -34,3 +34,9 @@ test_that("it calls the passed summary function", {
   expect_call(m, 1, FUN(X[[i]], arg = 1))
 })
 
+test_that("it errors if the summary function doesn't return a single value per group", {
+  f <- factor(c("a", "a", "a", "b", "b", "b", "c", "c", "c"))
+  v <- c(1, 2, 30, 1, 1, 2, 2, 3, 4)
+
+  expect_error(fct_reorder(f, v, .fun = identity))
+})
