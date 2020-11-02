@@ -6,31 +6,12 @@
 #'
 #' @param id An ID string that uniquely identifies an instance of this module
 #' @param params,model_output reactive objects passed in from the main server
-#' @param upload_event a reactiveVal that is updated when a file is uploaded
 
 #' @rdname params_module
 #' @import shiny
 #' @import shinydashboard
 #' @import shinycssloaders
 params_ui <- function(id) {
-  # upload ====
-  params_upload_params <- primary_box(
-    title = "Upload parameters",
-    width = 12,
-    fileInput(
-      NS(id, "user_upload_xlsx"),
-      label = NULL,
-      multiple = FALSE,
-      accept = ".xlsx",
-      placeholder = "Previously downloaded parameters"
-    ),
-    actionLink(
-      NS(id, "upload_params_help"),
-      "",
-      icon("question")
-    )
-  )
-
   # population groups ====
   params_population_groups <- primary_box(
     title = "Population Groups",
@@ -72,7 +53,7 @@ params_ui <- function(id) {
   params_group_to_cond <- primary_box(
     title = "Impacts on population sub-group",
     width = 12,
-    div(id = "div_slider_cond_pcnt"),
+    g2c_ui("g2c"),
     actionLink(
       NS(id, "group_to_cond_params_help"),
       "",
@@ -84,12 +65,7 @@ params_ui <- function(id) {
   params_cond_to_treat <- primary_box(
     title = "Referral/Service flows for impacts",
     width = 12,
-    selectInput(
-      NS(id, "sliders_select_cond"),
-      "Condition",
-      choices = NULL
-    ),
-    div(id = "div_treat_split"),
+    c2t_ui("c2t"),
     actionLink(
       NS(id, "cond_to_treat_params_help"),
       "",
@@ -140,33 +116,19 @@ params_ui <- function(id) {
 
   # downloads ====
   params_downloads <- primary_box(
-    title = "Download's",
+    title = "Download Parameters",
     width = 12,
     downloadButton(
       NS(id, "download_params"),
       "Download current parameters"
-    ),
-    tags$br(),
-    actionLink(
-      NS(id, "download_params_help"),
-      "",
-      icon("question")
     )
   )
 
   fluidRow(
-    column(
-      3,
-      params_upload_params,
-      params_population_groups
-    ),
+    column(3, params_population_groups),
     column(3, params_group_to_cond),
     column(3, params_cond_to_treat),
-    column(
-      3,
-      params_demand,
-      params_downloads
-    )
+    column(3, params_demand, params_downloads)
   )
 }
 
@@ -179,83 +141,80 @@ params_ui <- function(id) {
 #' @importFrom utils write.csv
 #' @importFrom shinyWidgets ask_confirmation
 #' @importFrom plotly renderPlotly
-params_server <- function(id, params, model_output, upload_event) {
+#'
+#' @return a list of reactives
+params_server <- function(id, params, model_output) {
   stopifnot("params must be a reactive values" = is.reactivevalues(params),
             "model_output must be a reactive" = is.reactive(model_output))
 
+  counter <- methods::new("Counter")
+
+  redraw_groups <- reactiveVal()
+  redraw_treatments <- reactiveVal()
+  redraw_g2c <- reactiveVal()
+  redraw_c2t <- reactiveVal()
+
+  popn_subgroup <- reactiveVal()
+  conditions <- reactiveVal()
+
+  g2c_server("g2c", params, redraw_g2c, redraw_c2t, counter, popn_subgroup)
+  c2t_server("c2t", params, redraw_c2t, counter, popn_subgroup, conditions)
+
+  upload_event <- reactiveValues(
+    counter = 0,
+    success = FALSE,
+    msg = ""
+  )
+  params_file_path <- reactiveVal()
+
   moduleServer(id, function(input, output, session) {
-    counter <- methods::new("Counter")
 
-    population_groups <- reactiveVal()
-    treatments <- reactiveVal()
-    curves <- reactiveVal()
-
-    # initialise reactiveVals on load
-    params_server_init <- observe({
-      population_groups(names(params$groups))
-      treatments(names(params$treatments))
-      curves(names(params$curves))
-      # remove initialiser
-      params_server_init$destroy()
-    })
-
-    redraw_dropdowns <- reactiveVal()
-    redraw_groups <- reactiveVal()
-    redraw_treatments <- reactiveVal()
-    redraw_g2c <- reactiveVal()
-    redraw_c2t <- reactiveVal()
-
-    # store observers so we can destroy them
-    div_slider_cond_pcnt_obs <- list()
-    div_treat_split_obs <- list()
-
-    # upload ====
-
-    observeEvent(input$user_upload_xlsx, {
-      new_params <- extract_params_from_excel(input$user_upload_xlsx$datapath)
-
+    observeEvent(params_file_path(), {
       # if the treatment selected is the first one, and this is replaced, the values don't update correctly
       u <- counter$get()
 
-      upload_event(u)
-      redraw_dropdowns(u)
+      path <- req(params_file_path())
 
-      params$groups <- new_params$groups
-      params$treatments <- new_params$treatments
-      params$curves <- new_params$curves
-      params$demand <- new_params$demand
+      tryCatch({
+        new_params <- extract_params_from_excel(path)
 
-      population_groups(names(new_params$groups))
-      treatments(names(new_params$treatments))
-      curves(names(new_params$curves))
+        upload_event$success <- TRUE
+        upload_event$msg <- "Success"
 
-      redraw_treatments(u)
-      redraw_groups(u)
-    })
+        params$groups <- new_params$groups
+        params$treatments <- new_params$treatments
+        params$curves <- new_params$curves
+        params$demand <- new_params$demand
 
-    # Update main select options
+        redraw_treatments(u)
+        redraw_groups(u)
 
-    observe({
-      # trigger update of selects, even if the choices haven't changed
-      force(redraw_dropdowns())
-
-      updateSelectInput(session, "popn_subgroup", choices = population_groups())
-      updateSelectInput(session, "subpopulation_curve", choices = curves())
-      updateSelectInput(session, "treatment_type", choices = treatments())
+        updateSelectInput(session, "popn_subgroup", choices = names(new_params$groups))
+        updateSelectInput(session,
+                          "subpopulation_curve",
+                          choices = names(new_params$curves),
+                          selected = new_params$groups[[1]]$curve)
+        updateSelectInput(session, "treatment_type", choices = names(new_params$treatments))
+      }, error = function(e) {
+        upload_event$success <- FALSE
+        upload_event$msg <- e$message
+      })
+      upload_event$counter <- u
     })
 
     # population groups ====
 
     observeEvent(input$popn_subgroup, {
+      req(input$popn_subgroup)
+      popn_subgroup(input$popn_subgroup)
       redraw_groups(counter$get())
     })
 
     observeEvent(redraw_groups(), {
       sg <- req(isolate(input$popn_subgroup))
       px <- isolate(params)$groups[[sg]]
-      conditions <- names(px$conditions)
+      conditions(names(px$conditions))
 
-      updateSelectInput(session, "sliders_select_cond", choices = conditions)
       updateNumericInput(session, "subpopulation_size", value = px$size)
       updateNumericInput(session, "subpopulation_pcnt", value = px$pcnt)
       updateSliderInput(session, "subpopulation_curve", value = px$curve)
@@ -293,180 +252,10 @@ params_server <- function(id, params, model_output, upload_event) {
     })
 
     # group to conditions ====
-
-    observeEvent(redraw_g2c(), {
-      sg <- req(isolate(input$popn_subgroup))
-      px <- isolate(params)$groups[[sg]]
-      conditions <- names(px$conditions)
-
-      # update the condition percentage sliders
-      # first, remove the previous elements
-      walk(div_treat_split_obs, ~.x$destroy())
-      div_treat_split_obs <<- list()
-
-      walk(div_slider_cond_pcnt_obs, ~.x$destroy())
-      div_slider_cond_pcnt_obs <<- list()
-      removeUI("#div_slider_cond_pcnt > *", TRUE, TRUE)
-
-      # create the no mental health group slider
-      nmh_slider <- disabled(
-        sliderInput(
-          NS(id, "slider_cond_pcnt_no_mh_needs"),
-          "No Mental Health Needs",
-          value = (1 - map_dbl(px$conditions, "pcnt") %>% sum()) * 100,
-          min = 0, max = 100, step = 0.01, post = "%"
-        )
-      )
-
-      # now, add the new sliders
-
-      # loop over the conditions (and the corresponding max values)
-      walk(conditions, function(i) {
-        # slider names can't have spaces, replace with _
-        slider_name <- gsub(" ", "_", paste0("slider_cond_pcnt_", i))
-        slider <- sliderInput(
-          NS(id, slider_name), label = i,
-          value = px$conditions[[i]]$pcnt * 100,
-          min = 0, max = 100, step = 0.01, post = "%"
-        )
-        insertUI("#div_slider_cond_pcnt", "beforeEnd", slider)
-
-        div_slider_cond_pcnt_obs[[slider_name]] <<- observeEvent(input[[slider_name]], {
-          # can't use the px element here: must use full params
-          params$groups[[sg]]$conditions[[i]]$pcnt <- input[[slider_name]] / 100
-
-          # if we have exceeded 100%, reduce each slider evenly to maintain 100%
-          isolate({
-            # if we are going to reduce a slider by more than its current amount, reduce all the sliders by that amount
-            # and then start again with the remaining sliders
-            current_conditions <- params$groups[[sg]]$conditions %>%
-              names() %>%
-              discard(~.x == i)
-
-            repeat {
-              # check that we do not exceed 100% for conditions
-              pcnt_sum <- params$groups[[sg]]$conditions %>%
-                map_dbl("pcnt") %>%
-                sum()
-              # break out the loop
-              if (pcnt_sum <= 1) break
-
-              # get the pcnt's for the "current" conditions
-              current_pcnts <- params$groups[[sg]]$conditions[current_conditions] %>%
-                map_dbl("pcnt")
-
-              # find the smallest percentage currently
-              min_pcnt <- min(current_pcnts)
-              # what is(are) the smallest group(s)?
-              j <- names(which(current_pcnts == min_pcnt))
-              # find the target reduction (either the minimum percentage present, or an equal split of the amount of the
-              # sum over 100%)
-              tgt_pcnt <- min(min_pcnt, (pcnt_sum - 1) / length(current_conditions))
-
-              # now, reduce the pcnts by the target
-              map(current_conditions, function(k) {
-                v <- params$groups[[sg]]$conditions[[k]]$pcnt - tgt_pcnt
-                params$groups[[sg]]$conditions[[k]]$pcnt <- v
-                updateSliderInput(session,
-                                  gsub(" ", "_", paste0("slider_cond_pcnt_", k)),
-                                  value = v * 100)
-              })
-
-              # remove the smallest group(s) j and loop
-              current_conditions <- current_conditions[!current_conditions %in% j]
-            }
-
-            updateSliderInput(session,
-                              "slider_cond_pcnt_no_mh_needs",
-                              value = (1 - pcnt_sum) * 100)
-          })
-        })
-      })
-
-      insertUI("#div_slider_cond_pcnt", "beforeEnd", nmh_slider)
-
-      redraw_c2t(counter$get())
-    })
+      # handled in module_g2c.R
 
     # condition to treatments ====
-
-    observeEvent(input$sliders_select_cond, {
-      redraw_c2t(counter$get())
-    })
-
-    observeEvent(redraw_c2t(), {
-      sg <- req(input$popn_subgroup)
-      ssc <- input$sliders_select_cond
-
-      # first, remove the previous elements
-      walk(div_treat_split_obs, ~.x$destroy())
-      div_treat_split_obs <<- list()
-      removeUI("#div_treat_split > *", TRUE, TRUE)
-
-      # now, add the new sliders
-      px <- params$groups[[sg]]$conditions[[ssc]]
-
-      table_rows <- names(px$treatments) %>%
-        # loop over the treatments
-        map(function(i) {
-          # slider names can't have spaces, replace with _
-          ix <- gsub(" ", "_", i)
-
-          split_input_name <- paste0("numeric_treat_split_", ix)
-          split_input <- numericInput(NS(id, split_input_name), NULL, value = px$treatments[[i]], width = "75px")
-
-          split_pcnt_name <- paste0("pcnt_treat_split_", ix)
-          split_pcnt <- textOutput(NS(id, split_pcnt_name), inline = TRUE)
-
-          div_treat_split_obs[[split_input_name]] <<- observeEvent(input[[split_input_name]], {
-            v <- input[[split_input_name]]
-            params$groups[[sg]]$conditions[[ssc]]$treatments[[i]] <- v
-          })
-
-          output[[split_pcnt_name]] <- renderText({
-            # the render function hangs around after output has been removed.
-            req(sg  %in% names(params$groups),
-                ssc %in% names(params$groups[[sg]]$conditions),
-                i   %in% names(params$groups[[sg]]$conditions[[ssc]]$treatments))
-
-            n <- params$groups[[sg]]$conditions[[ssc]]$treatments[[i]]
-            d <- sum(params$groups[[sg]]$conditions[[ssc]]$treatments)
-
-            sprintf("%.1f%%", n / d * 100)
-          })
-
-          tags$tr(
-            tags$td(i, style = "padding: 0px 5px 0px 0px;"),
-            tags$td(split_input, style = "padding: 0px 5px 0px 0px;"),
-            tags$td(split_pcnt, style = "padding: 0px 5px 0px 0px;")
-          )
-        })
-
-      table_header <- tags$tr(
-        tags$th("Treatment", style = "padding: 0px 5px 0px 0px;"),
-        tags$th("Split", style = "padding: 0px 5px 0px 0px;"),
-        tags$th("Split %", style = "padding: 0px 5px 0px 0px;")
-      )
-
-      treat_split_plot <- plotlyOutput(NS(id, "treat_split_plot"))
-      output$treat_split_plot <- renderPlotly({
-        treatment_split_plot(params$groups[[sg]]$conditions[[ssc]]$treatments)
-      })
-
-      insertUI(
-        "#div_treat_split",
-        "beforeEnd",
-        tagList(
-          tags$table(
-            tagList(
-              table_header,
-              table_rows
-            )
-          ),
-          treat_split_plot
-        )
-      )
-    })
+      # handled in module_c2t.R
 
     # demand ====
 
@@ -554,5 +343,9 @@ params_server <- function(id, params, model_output, upload_event) {
         })
       })
 
+      list(
+        upload_event = upload_event,
+        params_file_path = params_file_path
+      )
   })
 }

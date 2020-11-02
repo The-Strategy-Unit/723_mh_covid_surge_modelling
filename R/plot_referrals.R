@@ -18,13 +18,18 @@ referrals_plot <- function(model_output, treatment) {
           type = "scatter",
           mode = "lines",
           x = ~date,
-          y = ~value,
-          hovertext = NULL,
-          hovertemplate = paste("<b>Month</b>: %{x}",
-                                "<b>Referrals</b>: %{y:.0f}",
-                                "<extra></extra>",
-                                sep = "<br>")) %>%
+          y = ~Referrals,
+          name = "Referrals",
+          text = ~comma(Referrals),
+          hoverinfo = "text",
+          hovertemplate = "%{text}",
+          line = list(color = "#f8bf07")) %>%
+    add_trace(y = ~Treatments,
+              name = "Referred & Treated",
+              text = ~comma(Treatments),
+              line = list(color = "#587FC1")) %>%
     layout(showlegend = FALSE,
+           hovermode = "x unified",
            xaxis = list(title = "Month"),
            yaxis = list(title = "New Referrals")) %>%
     config(displayModeBar = FALSE)
@@ -35,7 +40,13 @@ referrals_plot <- function(model_output, treatment) {
 #' @return \code{referrals_plot_data()}: a summarised version of \code{model_output}
 #'
 #' @importFrom dplyr %>%
+#' @importFrom purrr map_dfr
 referrals_plot_data <- function(model_output, treatment) {
-  model_output %>%
-    summarise_model_output("new-referral", treatment)
+  c("Referrals" = "new-referral",
+    "Treatments" = "new-treatment") %>%
+    map_dfr(summarise_model_output,
+            model_output = model_output,
+            treatment = treatment,
+            .id = "type") %>%
+    pivot_wider(names_from = .data$type, values_from = .data$value)
 }

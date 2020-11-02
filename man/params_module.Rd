@@ -8,14 +8,15 @@
 \usage{
 params_ui(id)
 
-params_server(id, params, model_output, upload_event)
+params_server(id, params, model_output)
 }
 \arguments{
 \item{id}{An ID string that uniquely identifies an instance of this module}
 
 \item{params, model_output}{reactive objects passed in from the main server}
-
-\item{upload_event}{a reactiveVal that is updated when a file is uploaded}
+}
+\value{
+a list of reactives
 }
 \description{
 A shiny module that renders all of the content for the params page.

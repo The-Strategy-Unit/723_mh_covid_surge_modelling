@@ -41,6 +41,7 @@ results_ui <- function(id) {
   results_value_boxes <- primary_box(
     title = "Summary",
     width = 5,
+    id = "results_value_boxes",
     valueBoxOutput(NS(id, "total_referrals")),
     valueBoxOutput(NS(id, "total_demand")),
     valueBoxOutput(NS(id, "total_newpatients")),
@@ -60,7 +61,7 @@ results_ui <- function(id) {
   )
 
   results_referrals_plot <- primary_box(
-    title = "Modelled referrals",
+    title = "Modelled referrals and treatments",
     withSpinner(
       plotlyOutput(
         NS(id, "referrals_plot")
