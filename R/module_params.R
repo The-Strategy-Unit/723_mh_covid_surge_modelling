@@ -6,8 +6,6 @@
 #'
 #' @param id An ID string that uniquely identifies an instance of this module
 #' @param params,model_output reactive objects passed in from the main server
-#' @param upload_event a reactiveVal that is updated when a file is uploaded
-#' @param params_file_path a reactiveVal that contains the path to the current params file
 
 #' @rdname params_module
 #' @import shiny
@@ -143,7 +141,9 @@ params_ui <- function(id) {
 #' @importFrom utils write.csv
 #' @importFrom shinyWidgets ask_confirmation
 #' @importFrom plotly renderPlotly
-params_server <- function(id, params, model_output, upload_event, params_file_path) {
+#'
+#' @return a list of reactives
+params_server <- function(id, params, model_output) {
   stopifnot("params must be a reactive values" = is.reactivevalues(params),
             "model_output must be a reactive" = is.reactive(model_output))
 
@@ -160,31 +160,46 @@ params_server <- function(id, params, model_output, upload_event, params_file_pa
   g2c_server("g2c", params, redraw_g2c, redraw_c2t, counter, popn_subgroup)
   c2t_server("c2t", params, redraw_c2t, counter, popn_subgroup, conditions)
 
+  upload_event <- reactiveValues(
+    counter = 0,
+    success = FALSE,
+    msg = ""
+  )
+  params_file_path <- reactiveVal()
+
   moduleServer(id, function(input, output, session) {
 
     observeEvent(params_file_path(), {
-      path <- req(params_file_path())
-      new_params <- extract_params_from_excel(path)
-
       # if the treatment selected is the first one, and this is replaced, the values don't update correctly
       u <- counter$get()
 
-      upload_event(u)
+      path <- req(params_file_path())
 
-      params$groups <- new_params$groups
-      params$treatments <- new_params$treatments
-      params$curves <- new_params$curves
-      params$demand <- new_params$demand
+      tryCatch({
+        new_params <- extract_params_from_excel(path)
 
-      redraw_treatments(u)
-      redraw_groups(u)
+        upload_event$success <- TRUE
+        upload_event$msg <- "Success"
 
-      updateSelectInput(session, "popn_subgroup", choices = names(new_params$groups))
-      updateSelectInput(session,
-                        "subpopulation_curve",
-                        choices = names(new_params$curves),
-                        selected = new_params$groups[[1]]$curve)
-      updateSelectInput(session, "treatment_type", choices = names(new_params$treatments))
+        params$groups <- new_params$groups
+        params$treatments <- new_params$treatments
+        params$curves <- new_params$curves
+        params$demand <- new_params$demand
+
+        redraw_treatments(u)
+        redraw_groups(u)
+
+        updateSelectInput(session, "popn_subgroup", choices = names(new_params$groups))
+        updateSelectInput(session,
+                          "subpopulation_curve",
+                          choices = names(new_params$curves),
+                          selected = new_params$groups[[1]]$curve)
+        updateSelectInput(session, "treatment_type", choices = names(new_params$treatments))
+      }, error = function(e) {
+        upload_event$success <- FALSE
+        upload_event$msg <- e$message
+      })
+      upload_event$counter <- u
     })
 
     # population groups ====
@@ -328,5 +343,9 @@ params_server <- function(id, params, model_output, upload_event, params_file_pa
         })
       })
 
+      list(
+        upload_event = upload_event,
+        params_file_path = params_file_path
+      )
   })
 }

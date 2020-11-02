@@ -8,12 +8,14 @@
 \usage{
 home_ui(id)
 
-home_server(id, params_file_path)
+home_server(id, params_file_path, upload_event)
 }
 \arguments{
 \item{id}{An ID string that uniquely identifies an instance of this module}
 
 \item{params_file_path}{a reactiveVal that contains the path to the current params file}
+
+\item{upload_event}{a reactiveValues that is updated when a file is uploaded}
 }
 \description{
 A shiny module that renders all of the content for the home page.

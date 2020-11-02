@@ -9,8 +9,6 @@
 app_server <- function(input, output, session) {
 
   params <- lift_dl(reactiveValues)(params)
-  upload_event <- reactiveVal()
-  params_file_path <- reactiveVal()
 
   # Model ----
 
@@ -22,17 +20,17 @@ app_server <- function(input, output, session) {
       get_model_output(start_month)
   })
 
-  # Home Tag ----
-
-  home_server("home_page", params_file_path)
-
   # Params Tab ----
 
-  params_server("params_page", params, model_output, upload_event, params_file_path)
+  params_page <- params_server("params_page", params, model_output)
+
+  # Home Tag ----
+
+  home_server("home_page", params_page$params_file_path, params_page$upload_event)
 
   # Demand Tab ----
 
-  demand_server("demand_page", params, upload_event)
+  demand_server("demand_page", params, params_page$upload_event)
 
   # Results Tab ----
 

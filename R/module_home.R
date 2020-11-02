@@ -6,6 +6,7 @@
 #'
 #' @param id An ID string that uniquely identifies an instance of this module
 #' @param params_file_path a reactiveVal that contains the path to the current params file
+#' @param upload_event a reactiveValues that is updated when a file is uploaded
 
 #' @rdname home_module
 #' @import shiny
@@ -68,29 +69,46 @@ home_ui <- function(id) {
           multiple = FALSE,
           accept = ".xlsx",
           placeholder = "Previously downloaded parameters"
-        )
+        ),
+        uiOutput(NS(id, "user_upload_xlsx_msg"))
       )
     )
   )
 }
 
 #' @rdname home_module
-home_server <- function(id, params_file_path) {
+home_server <- function(id, params_file_path, upload_event) {
   moduleServer(id, function(input, output, session) {
     observeEvent(input$params_select, {
       ps <- req(input$params_select)
 
       if (ps == "custom") {
         shinyjs::show("user_upload_xlsx")
+        # don't immediately show the upload msg, only show after an upload has occurred
       } else {
         shinyjs::hide("user_upload_xlsx")
+        shinyjs::hide("user_upload_xlsx_msg")
         params_file_path(input$params_select)
       }
     })
 
     observeEvent(input$user_upload_xlsx, {
       x <- req(input$user_upload_xlsx)
+      # now a file has been uploaded, show the msg
+      shinyjs::show("user_upload_xlsx_msg")
       params_file_path(x$datapath)
+    })
+
+    output$user_upload_xlsx_msg <- renderUI({
+      if (upload_event$success) {
+        tags$span(upload_event$msg)
+      } else {
+        tags$span(
+          tags$strong("Error: "),
+          upload_event$msg,
+          style = "color: red"
+        )
+      }
     })
   })
 }

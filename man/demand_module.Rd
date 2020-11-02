@@ -15,7 +15,7 @@ demand_server(id, params, upload_event)
 
 \item{params}{reactive object passed in from the main server}
 
-\item{upload_event}{a reactiveVal that is updated when a file is uploaded}
+\item{upload_event}{a reactiveValues that is updated when a file is uploaded}
 }
 \description{
 A shiny module that renders all of the content for the demand page.
