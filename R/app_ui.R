@@ -24,7 +24,7 @@ app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
-    tags$link(rel="stylesheet", type="text/css", href="www/skin-su.css"),
+    tags$link(rel = "stylesheet", type = "text/css", href = "www/skin-su.css"),
     # List the first level UI elements here
     dashboardPage(
       header,

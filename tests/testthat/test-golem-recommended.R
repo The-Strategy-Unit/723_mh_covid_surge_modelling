@@ -32,7 +32,7 @@ test_that("app launches", {
     )
   )
   for (i in 1:100) {
-    if (x$is_alive()) break()
+    if (x$is_alive()) break ()
     Sys.sleep(0.1)
   }
   expect_true(x$is_alive())

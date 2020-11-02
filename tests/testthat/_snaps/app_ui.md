@@ -130,6 +130,7 @@
                             <div class="progress-bar"></div>
                           </div>
                         </div>
+                        <div class="shiny-html-output shinyjs-hide" id="home_page-user_upload_xlsx_msg"></div>
                       </div>
                     </div>
                   </div>
