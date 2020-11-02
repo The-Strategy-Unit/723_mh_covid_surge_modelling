@@ -14,7 +14,7 @@ params_c2t_server_args <- function() {
 }
 
 test_that("UI is created correctly", {
-  expect_snapshot(c2t_ui)
+  expect_snapshot(c2t_ui("c2t_ui"))
 })
 
 test_that("updating conditions updates the dropdown", {

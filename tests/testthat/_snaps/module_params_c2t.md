@@ -1,19 +1,16 @@
 # UI is created correctly
 
     Code
-      c2t_ui
+      c2t_ui("c2t_ui")
     Output
-      function(id) {
-        tagList(
-          selectInput(
-            NS(id, "sliders_select_cond"),
-            "Condition",
-            choices = NULL
-          ),
-          uiOutput(NS(id, "container"))
-        )
-      }
-      <environment: namespace:mhSurgeModelling>
+      <div class="form-group shiny-input-container">
+        <label class="control-label" for="c2t_ui-sliders_select_cond">Condition</label>
+        <div>
+          <select id="c2t_ui-sliders_select_cond"></select>
+          <script type="application/json" data-for="c2t_ui-sliders_select_cond" data-nonempty="">{}</script>
+        </div>
+      </div>
+      <div id="c2t_ui-container" class="shiny-html-output"></div>
 
 # changing the dropdown updates the container
 
