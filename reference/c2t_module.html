@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Params Module — params_module • mhSurgeModelling</title>
+<title>Conditions to Treatments Module — c2t_module • mhSurgeModelling</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Params Module — params_module" />
-<meta property="og:description" content="A shiny module that renders all of the content for the params page." />
+<meta property="og:title" content="Conditions to Treatments Module — c2t_module" />
+<meta property="og:description" content="A shiny module that renders all of the content for the c2t section in the params page" />
 
 
 
@@ -123,18 +123,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Params Module</h1>
-    <small class="dont-index">Source: <a href='https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/blob/master/R/module_params.R'><code>R/module_params.R</code></a></small>
-    <div class="hidden name"><code>params_module.Rd</code></div>
+    <h1>Conditions to Treatments Module</h1>
+    <small class="dont-index">Source: <a href='https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/blob/master/R/module_params_c2t.R'><code>R/module_params_c2t.R</code></a></small>
+    <div class="hidden name"><code>c2t_module.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A shiny module that renders all of the content for the params page.</p>
+    <p>A shiny module that renders all of the content for the c2t section in the params page</p>
     </div>
 
-    <pre class="usage"><span class='fu'>params_ui</span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>c2t_ui</span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
 
-<span class='fu'>params_server</span><span class='op'>(</span><span class='va'>id</span>, <span class='va'>params</span>, <span class='va'>model_output</span><span class='op'>)</span></pre>
+<span class='fu'>c2t_server</span><span class='op'>(</span><span class='va'>id</span>, <span class='va'>params</span>, <span class='va'>redraw_c2t</span>, <span class='va'>counter</span>, <span class='va'>popn_subgroup</span>, <span class='va'>conditions</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,14 +144,15 @@
       <td><p>An ID string that uniquely identifies an instance of this module</p></td>
     </tr>
     <tr>
-      <th>params, model_output</th>
-      <td><p>reactive objects passed in from the main server</p></td>
+      <th>params, redraw_c2t, popn_subgroup, conditions</th>
+      <td><p>reactive objects passed in from the params page</p></td>
+    </tr>
+    <tr>
+      <th>counter</th>
+      <td><p>the counter object from the params page</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>a list of reactives</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

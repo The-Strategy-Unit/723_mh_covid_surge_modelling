@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Params Module — params_module • mhSurgeModelling</title>
+<title>Home Module — home_module • mhSurgeModelling</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Params Module — params_module" />
-<meta property="og:description" content="A shiny module that renders all of the content for the params page." />
+<meta property="og:title" content="Home Module — home_module" />
+<meta property="og:description" content="A shiny module that renders all of the content for the home page." />
 
 
 
@@ -123,18 +123,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Params Module</h1>
-    <small class="dont-index">Source: <a href='https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/blob/master/R/module_params.R'><code>R/module_params.R</code></a></small>
-    <div class="hidden name"><code>params_module.Rd</code></div>
+    <h1>Home Module</h1>
+    <small class="dont-index">Source: <a href='https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/blob/master/R/module_home.R'><code>R/module_home.R</code></a></small>
+    <div class="hidden name"><code>home_module.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A shiny module that renders all of the content for the params page.</p>
+    <p>A shiny module that renders all of the content for the home page.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>params_ui</span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>home_ui</span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
 
-<span class='fu'>params_server</span><span class='op'>(</span><span class='va'>id</span>, <span class='va'>params</span>, <span class='va'>model_output</span><span class='op'>)</span></pre>
+<span class='fu'>home_server</span><span class='op'>(</span><span class='va'>id</span>, <span class='va'>params_file_path</span>, <span class='va'>upload_event</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,14 +144,15 @@
       <td><p>An ID string that uniquely identifies an instance of this module</p></td>
     </tr>
     <tr>
-      <th>params, model_output</th>
-      <td><p>reactive objects passed in from the main server</p></td>
+      <th>params_file_path</th>
+      <td><p>a reactiveVal that contains the path to the current params file</p></td>
+    </tr>
+    <tr>
+      <th>upload_event</th>
+      <td><p>a reactiveValues that is updated when a file is uploaded</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>a list of reactives</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
