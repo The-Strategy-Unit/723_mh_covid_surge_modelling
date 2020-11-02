@@ -1,10 +1,12 @@
 library(testthat)
 
 test_that("it loads params variable", {
+  mhSurgeModelling:::.onLoad()
   expect_true(exists("params"))
 })
 
 test_that("it loads sim_time variable", {
+  mhSurgeModelling:::.onLoad()
   expect_true(exists("sim_time"))
 })
 
