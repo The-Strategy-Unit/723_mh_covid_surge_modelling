@@ -79,16 +79,15 @@ c2t_server <- function(id, params, redraw_c2t, counter, popn_subgroup, condition
               sprintf("%.1f%%", n / d * 100)
             })
 
-            observers <- observeEvent(input[[split_input_name]], {
-              v <- input[[split_input_name]]
-              params$groups[[sg]]$conditions[[ssc]]$treatments[[i]] <- v
-            })
-
-            tr <- list(i, split_input, split_pcnt) %>%
-              map(tags$td, style = table_style) %>%
-              tags$tr()
-
-            list(table_rows = tr, observers = observers)
+            list(
+              table_rows = list(i, split_input, split_pcnt) %>%
+                map(tags$td, style = table_style) %>%
+                tags$tr(),
+              observers = observeEvent(input[[split_input_name]], {
+                v <- input[[split_input_name]]
+                params$groups[[sg]]$conditions[[ssc]]$treatments[[i]] <- v
+              })
+            )
           }) %>%
           transpose()
 
