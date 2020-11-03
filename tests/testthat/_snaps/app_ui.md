@@ -79,13 +79,13 @@
           <div class="content-wrapper">
             <section class="content">
               <div class="tab-content">
-                <div role="tabpanel" class="tab-pane" id="shiny-tab-home">home_page</div>
-                <div role="tabpanel" class="tab-pane" id="shiny-tab-params">params_page</div>
-                <div role="tabpanel" class="tab-pane" id="shiny-tab-demand">demand_page</div>
-                <div role="tabpanel" class="tab-pane" id="shiny-tab-results">results_page</div>
+                <div role="tabpanel" class="tab-pane" id="shiny-tab-home">home_ui</div>
+                <div role="tabpanel" class="tab-pane" id="shiny-tab-params">params_ui</div>
+                <div role="tabpanel" class="tab-pane" id="shiny-tab-demand">demand_ui</div>
+                <div role="tabpanel" class="tab-pane" id="shiny-tab-results">results_ui</div>
                 <div role="tabpanel" class="tab-pane" id="shiny-tab-surgetab_subpopn">surge_subpopn</div>
-                <div role="tabpanel" class="tab-pane" id="shiny-tab-surgetab_condition">surge_subpopn</div>
-                <div role="tabpanel" class="tab-pane" id="shiny-tab-surgetab_service">surge_subpopn</div>
+                <div role="tabpanel" class="tab-pane" id="shiny-tab-surgetab_condition">surge_condition</div>
+                <div role="tabpanel" class="tab-pane" id="shiny-tab-surgetab_service">surge_service</div>
               </div>
             </section>
           </div>

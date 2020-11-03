@@ -2,11 +2,11 @@ library(testthat)
 library(mockery)
 
 test_that("main ui is generated correctly", {
-  m1 <- mock()
-  m2 <- mock()
-  m3 <- mock()
-  m4 <- mock()
-  m5 <- mock()
+  m1 <- mock("home_ui")
+  m2 <- mock("params_ui")
+  m3 <- mock("demand_ui")
+  m4 <- mock("results_ui")
+  m5 <- mock("surge_subpopn", "surge_condition", "surge_service")
 
   stub(app_ui, "home_ui", m1)
   stub(app_ui, "params_ui", m2)
