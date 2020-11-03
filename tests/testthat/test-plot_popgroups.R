@@ -42,7 +42,8 @@ test_that("popgroups_plot_data returns a tibble", {
 test_that("popgroups_plot_data returns expected data", {
   actual <- popgroups_plot_data(model_output, "IAPT")
 
-  expect_snapshot(actual)
+  expect_length(actual$group, 14)
+  expect_equal(sum(actual$`# Referrals`), 780919, tolerance = 0.5)
 })
 
 test_that("popgroups_plot_data calls summarise_model_output", {
