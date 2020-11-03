@@ -17,7 +17,6 @@ Imports:
     deSolve,
     dplyr,
     golem,
-    htmltools,
     igraph,
     jsonlite,
     lubridate,
