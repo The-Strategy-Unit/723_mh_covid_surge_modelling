@@ -48,8 +48,8 @@ test_that("demand_plot_data returns a tibble", {
 test_that("demand_plot_data returns expected data", {
   actual <- demand_plot_data(model_output, appointments, "IAPT")
 
-  expect_equal(sum(actual$value), 1584609)
-  expect_equal(sum(actual$no_appointments), 2345221)
+  expect_equal(sum(actual$value), 1584609, tolerance = 0.5)
+  expect_equal(sum(actual$no_appointments), 2345221, tolerance = 0.5)
 })
 
 test_that("demand_plot_data calls summarise_model_output", {
