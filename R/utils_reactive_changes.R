@@ -20,5 +20,6 @@ reactive_changes <- function(expr) {
       rv(nv)
     }
   })
+  class(rv) <- c("reactive_changes", class(rv))
   invisible(rv)
 }

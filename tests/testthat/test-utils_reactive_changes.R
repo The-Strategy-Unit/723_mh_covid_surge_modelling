@@ -5,6 +5,7 @@ test_that("it returns a reactiveValue", {
   actual <- reactive_changes(TRUE)
 
   expect_s3_class(actual, "reactiveVal")
+  expect_s3_class(actual, "reactive_changes")
 })
 
 test_that("it updates with changes", {
