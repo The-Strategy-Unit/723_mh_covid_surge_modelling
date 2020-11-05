@@ -40,7 +40,7 @@ test_that("it set's up download handlers correctly", {
   stub(results_server, "downloadHandler", m)
 
   testServer(results_server, args = results_server_args(), {
-    session$setInputs(download_choice = "All")
+    session$setInputs(download_choice = "all")
 
     expect_equal(as.character(output$download_report$html), "download_report")
     expect_equal(as.character(output$download_output$html), "download_output")
@@ -54,12 +54,18 @@ test_that("it set's up download handlers correctly", {
     expect_equal(ma[[1]]$filename, "report.pdf")
     expect_type(ma[[1]]$content, "closure")
 
-    m1c <- mock("rmarkdown::render")
+    m1c <- mock("rmarkdown::render", cycle = TRUE)
     stub(ma[[1]]$content, "rmarkdown::render", m1c)
     stub(ma[[1]]$content, "current_env", "env")
     ma[[1]]$content("file.pdf")
-    expect_called(m1c, 1)
+    session$setInputs(download_choice = "selected")
+    ma[[1]]$content("file.pdf")
+    expect_called(m1c, 2)
     expect_args(m1c, 1,
+                app_sys("app/data/report.Rmd"),
+                output_file = "file.pdf",
+                envir = "env")
+    expect_args(m1c, 2,
                 app_sys("app/data/report.Rmd"),
                 output_file = "file.pdf",
                 envir = "env")
