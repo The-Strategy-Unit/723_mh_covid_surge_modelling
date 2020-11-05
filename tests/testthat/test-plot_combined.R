@@ -83,4 +83,3 @@ test_that("combined_plot_data calls summarise_model_output", {
   expect_called(m, 1)
   expect_args(m, 1, tibble(), "new-referral", "IAPT")
 })
-

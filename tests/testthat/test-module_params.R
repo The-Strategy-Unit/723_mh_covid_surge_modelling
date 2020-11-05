@@ -227,7 +227,7 @@ test_that("subpopulation_size_pcnt is updated correctly", {
                       subpopulation_size = 12345,
                       subpopulation_pcnt = 10)
 
-    expect_equal(output$subpopulation_size_pcnt, 'Modelled population: 1,234')
+    expect_equal(output$subpopulation_size_pcnt, "Modelled population: 1,234")
   })
 })
 

@@ -141,7 +141,7 @@ test_that("changing values in the dynamic ui updates params", {
   stub(g2c_server,
        "reduce_condition_pcnts",
        function(conditions, current_conditions) {
-         for(i in current_conditions) {
+         for (i in current_conditions) {
            conditions[[i]]$pcnt <- 0
          }
          conditions
@@ -171,4 +171,3 @@ test_that("changing values in the dynamic ui updates params", {
     expect_args(m, 7, session, "slider_cond_pcnt_no_mh_needs", value = 99)
   })
 })
-

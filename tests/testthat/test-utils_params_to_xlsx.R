@@ -50,7 +50,7 @@ test_that("it saves the params to file correctly", {
         decay = 3,
         demand = 4,
         treat_pcnt = 5
-      ) ,
+      ),
       b = list(
         success = 6,
         months = 7,

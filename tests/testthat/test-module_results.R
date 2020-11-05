@@ -195,20 +195,6 @@ test_that("popgroups_plot is called correctly", {
 })
 
 test_that("it creates the value boxes correctly", {
-  # tribble(
-  #   ~output_id,          ~value_type,     ~text,
-  #   "total_referrals",   "new-referral",  "Total 'surge' referrals",
-  #   "total_demand",      "treatment",     "Total additional demand per contact type",
-  #   "total_newpatients", "new-treatment", "Total new patients in service"
-  # ) %>%
-  #   pmap(function(output_id, value_type, text) {
-  #     output[[output_id]] <- renderValueBox({
-  #       value <- model_output() %>%
-  #         model_totals(value_type, input$services)
-  #       valueBox(value, text)
-  #     })
-  #   })
-
   mmt <- mock("a", "b", "c")
   stub(results_server, "model_totals", mmt)
 

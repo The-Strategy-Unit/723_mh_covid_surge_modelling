@@ -16,7 +16,7 @@ test_that("get_model_potential_functions returns a list of functions", {
   expect_type(actual, "list")
   expect_length(actual, length(params$groups))
 
-  walk(actual, ~expect_type(.x , "closure"))
+  walk(actual, ~expect_type(.x, "closure"))
 })
 
 test_that("get_model_potential_functions returns a functions that return doubles", {

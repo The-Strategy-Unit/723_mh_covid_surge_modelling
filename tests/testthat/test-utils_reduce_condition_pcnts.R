@@ -11,7 +11,7 @@ test_that("it doesn't alter conditions if the percentages sum to less than 1", {
 })
 
 test_that("it reduces conditions equally if the percentages sum to more than 1", {
-  conditions = list(
+  conditions <- list(
     a = list(pcnt = 0.2),
     b = list(pcnt = 0.2),
     c = list(pcnt = 0.8)
@@ -28,7 +28,7 @@ test_that("it reduces conditions equally if the percentages sum to more than 1",
 })
 
 test_that("it recursively reduces conditions if one condition is less than the reduction amount", {
-  conditions = list(
+  conditions <- list(
     a = list(pcnt = 0.1),
     b = list(pcnt = 0.5),
     c = list(pcnt = 0.8)

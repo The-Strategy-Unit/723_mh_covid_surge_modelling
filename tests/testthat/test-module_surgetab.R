@@ -13,7 +13,7 @@ test_that("it generates the UI correctly", {
 column <- quo(group)
 
 surgetab_server_args <- function() list(
-  model_output = reactive({ "model_output" }),
+  model_output = reactive("model_output"),
   column = column,
   title = "Group"
 )

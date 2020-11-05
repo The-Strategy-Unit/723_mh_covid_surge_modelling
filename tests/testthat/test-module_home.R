@@ -70,15 +70,6 @@ test_that("it handles custom file upload's correctly", {
 })
 
 test_that("it renders upload messages correctly", {
-  # if (upload_event$success) {
-  #   tags$span(upload_event$msg)
-  # } else {
-  #   tags$span(
-  #     tags$strong("Error: "),
-  #     upload_event$msg,
-  #     style = "color: red"
-  #   )
-  # }
   testServer(home_server, args = home_server_args(), {
     upload_event$counter <- 1
     upload_event$success <- TRUE
