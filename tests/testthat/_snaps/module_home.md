@@ -31,9 +31,9 @@
             <div class="form-group shiny-input-container">
               <label class="control-label" for="a-params_select">Default Parameters</label>
               <div>
-                <select id="a-params_select"><option value="C:/Users/thomas.jemmett/dev/R/active_projects/723_mh_covid_surge_modelling/inst/app/data/params_England.xlsx" selected>England</option>
-      <option value="C:/Users/thomas.jemmett/dev/R/active_projects/723_mh_covid_surge_modelling/inst/app/data/params_CWP.xlsx">CWP</option>
-      <option value="C:/Users/thomas.jemmett/dev/R/active_projects/723_mh_covid_surge_modelling/inst/app/data/params_Mersey-Care.xlsx">Mersey Care</option>
+                <select id="a-params_select"><option value="params_a.xlsx" selected>params_a.xlsx</option>
+      <option value="params_b.xlsx">params_b.xlsx</option>
+      <option value="params_c.xlsx">params_c.xlsx</option>
       <option value="custom">Custom</option></select>
                 <script type="application/json" data-for="a-params_select" data-nonempty="">{}</script>
               </div>

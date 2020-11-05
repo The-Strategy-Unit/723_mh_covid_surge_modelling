@@ -4,6 +4,7 @@ library(mockery)
 # ui ----
 
 test_that("it generates the UI correctly", {
+  stub(home_ui, "dir", function(...) c("params_a.xlsx", "params_b.xlsx", "params_c.xlsx"))
   ui <- home_ui("a")
   expect_snapshot(ui)
   expect_s3_class(ui, "shiny.tag.list")
