@@ -85,8 +85,7 @@ g2c_server <- function(id, params, redraw_g2c, redraw_c2t, counter, popn_subgrou
         x <- condition_names %>%
           set_names() %>%
           map(function(i) {
-            # slider names can't have spaces, replace with _
-            slider_name <- gsub(" ", "_", paste0("slider_cond_pcnt_", i))
+            slider_name <- condition_slider_name(i)
 
             list(
               sliders = sliderInput(
