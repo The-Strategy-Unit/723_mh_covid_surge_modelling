@@ -268,7 +268,7 @@ params_server <- function(id, params, model_output) {
       # input$treatment_type will be the first value from the old params file. This handles this issue by skipping this
       # section (redraw_treatments() is called again and this code succeeds then)
       if (req(input$treatment_type) %in% names(params$treatments)) {
-        tx <- params$treatments[[req(input$treatment_type)]]
+        tx <- params$treatments[[input$treatment_type]]
         updateSliderInput(session, "treatment_appointments", value = tx$demand)
         updateSliderInput(session, "slider_success", value = tx$success * 100)
         updateSliderInput(session, "slider_tx_months", value = tx$months)
@@ -343,9 +343,10 @@ params_server <- function(id, params, model_output) {
         })
       })
 
-      list(
-        upload_event = upload_event,
-        params_file_path = params_file_path
-      )
+    # return ====
+    list(
+      upload_event = upload_event,
+      params_file_path = params_file_path
+    )
   })
 }

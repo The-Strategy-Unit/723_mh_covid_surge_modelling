@@ -10,14 +10,16 @@
 #' @return a reactiveVal
 reactive_changes <- function(expr) {
   env <- parent.frame()
+  mask <- new_data_mask(env)
   expr <- enquo(expr)
   rv <- reactiveVal()
   observe({
-    nv <- eval_tidy(expr, env)
+    nv <- eval_tidy(expr, mask)
     ov <- rv()
     if (!(length(nv) == length(rv) && all(nv == ov))) {
       rv(nv)
     }
   })
+  class(rv) <- c("reactive_changes", class(rv))
   invisible(rv)
 }

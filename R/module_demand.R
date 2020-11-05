@@ -29,7 +29,7 @@ demand_ui <- function(id) {
           "uploaded in the 'demand' tab of the whole model parameter file."
         ),
         selectInput(NS(id, "service"), "Service", NULL),
-        div(id = "demand-data")
+        uiOutput(NS(id, "container"))
       )
     )
   )
@@ -55,7 +55,7 @@ demand_server <-  function(id, params, upload_event) {
 
     demand_observables <- list()
 
-    observeEvent(input$service, {
+    output$container <- renderUI({
       # update the demand-data div
       service <- req(input$service)
       demand <- params$demand[[service]]
@@ -65,7 +65,6 @@ demand_server <-  function(id, params, upload_event) {
 
       walk(demand_observables, ~.x$destroy())
       demand_observables <<- list()
-      removeUI("#demand-data > *", TRUE, TRUE)
 
       table_rows <- demand %>%
         mutate(month_ix = row_number()) %>%
@@ -101,7 +100,7 @@ demand_server <-  function(id, params, upload_event) {
         tags$th("Suppressed")
       )
 
-      insertUI("#demand-data", "beforeEnd", tags$table(tagList(table_header, table_rows)))
+      tags$table(tagList(table_header, table_rows))
     })
   })
 }

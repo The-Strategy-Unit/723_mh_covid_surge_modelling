@@ -7,7 +7,6 @@
 #' @importFrom dplyr %>%
 #' @importFrom purrr lift_dl
 app_server <- function(input, output, session) {
-
   params <- lift_dl(reactiveValues)(params)
 
   # Model ----
@@ -47,4 +46,6 @@ app_server <- function(input, output, session) {
   # Surge service tab
   surgetab_server("surge_service", model_output, .data$treatment, "Treatment")
 
+  # return nothing
+  invisible(NULL)
 }

@@ -24,7 +24,7 @@ app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
-    tags$link(rel="stylesheet", type="text/css", href="www/skin-su.css"),
+    tags$link(rel = "stylesheet", type = "text/css", href = "www/skin-su.css"),
     # List the first level UI elements here
     dashboardPage(
       header,
@@ -92,7 +92,6 @@ app_ui <- function(request) {
 #' resources inside the Shiny application.
 #'
 #' @import shiny
-#' @importFrom htmltools tags
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
 #' @noRd
 golem_add_external_resources <- function() {

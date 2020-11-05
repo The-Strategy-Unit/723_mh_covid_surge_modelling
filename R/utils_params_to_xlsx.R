@@ -26,7 +26,6 @@ params_to_xlsx <- function(params, file) {
     map(map_dbl, "pcnt") %>%
     map_dfr(~list(condition = names(.x), pcnt = unname(.x)), .id = "group")
 
-
   xl$c2t <- params$groups %>%
     map("conditions") %>%
     map_depth(2, "treatments") %>%

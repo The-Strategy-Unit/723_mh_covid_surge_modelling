@@ -17,7 +17,6 @@ Imports:
     deSolve,
     dplyr,
     golem,
-    htmltools,
     igraph,
     jsonlite,
     lubridate,
@@ -45,7 +44,9 @@ Suggests:
     gridExtra,
     patchwork,
     tibble,
-    knitr
+    knitr,
+    shinytest,
+    covr
 Remotes:
     ropensci/plotly
 Encoding: UTF-8
@@ -54,3 +55,5 @@ RoxygenNote: 7.1.1
 URL: https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling
 BugReports: https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/issues
 VignetteBuilder: knitr
+Config/testthat/edition: 3
+Config/testthat/parallel: true

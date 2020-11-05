@@ -29,7 +29,8 @@ results_ui <- function(id) {
     ),
     downloadButton(
       NS(id, "download_report"),
-      "Download report (.pdf)"),
+      "Download report (.pdf)"
+    ),
     tags$br(),
     tags$br(),
     downloadButton(
@@ -122,11 +123,10 @@ results_ui <- function(id) {
 #' @importFrom dplyr %>% tribble
 #' @importFrom purrr pmap
 results_server <- function(id, params, model_output) {
+  stopifnot("params must be a reactive values" = is.reactivevalues(params),
+            "model_output must be a reactive" = is.reactive(model_output))
+
   moduleServer(id, function(input, output, session) {
-    stopifnot("params must be a reactive values" = is.reactivevalues(params),
-              "model_output must be a reactive" = is.reactive(model_output))
-
-
     output$download_report <- downloadHandler(
       filename = "report.pdf",
       content = function(file) {
@@ -147,12 +147,12 @@ results_server <- function(id, params, model_output) {
     )
 
     output$download_output <- downloadHandler(
-      function() paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".csv"),
-      function(file) {
+      filename = function() paste0("model_run_", format(Sys.time(), "%Y-%m-%d_%H%M%S"), ".csv"),
+      content = function(file) {
         download_output(model_output(), params) %>%
           write.csv(file, row.names = FALSE)
       },
-      "text/csv"
+      contentType = "text/csv"
     )
 
     appointments <- reactive({

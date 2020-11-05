@@ -53,6 +53,6 @@ combined_plot_data <- function(model_output, treatment, params) {
     df %>%
       filter(day(.data$date) == 1) %>%
       group_by(.data$date) %>%
-      summarise(across(.data$value, sum), type = "total")
+      summarise(across(.data$value, sum), type = "total", .groups = "drop")
   )
 }
