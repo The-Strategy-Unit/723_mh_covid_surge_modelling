@@ -5,7 +5,6 @@ library(mockery)
 
 test_that("it generates the UI correctly", {
   ui <- surgetab_ui("a")
-  expect_snapshot(ui)
   expect_s3_class(ui, "shiny.tag")
 })
 
