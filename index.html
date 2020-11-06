@@ -112,7 +112,7 @@
 <p>Data files required at runtime by the application are stored in the <code>inst/app/data</code> folder:</p>
 <ul>
 <li><p><code>params_help.json</code> contains the help text used on the <code>params</code> page</p></li>
-<li><p><code>params.xlsx</code> is the default parameters file for Mersey Care</p></li>
+<li><p><code>params_*.xlsx</code> files are the default parameters files included with the application</p></li>
 <li><p><code>report.Rmd</code> is a RMarkdown report used to generate a <code>.pdf</code> download from the application</p></li>
 </ul>
 </div>
@@ -139,12 +139,15 @@
 <div id="deployment" class="section level2">
 <h2 class="hasAnchor">
 <a href="#deployment" class="anchor"></a>Deployment</h2>
-<p>This package has been configured to use <a href="https://en.wikipedia.org/wiki/CI/CD">CI/CD</a> with <a href="https://github.com/features/actions">GitHub Actions</a>. There are currently 4 actions:</p>
+<p>This package has been configured to use <a href="https://en.wikipedia.org/wiki/CI/CD">CI/CD</a> with <a href="https://github.com/features/actions">GitHub Actions</a>. There are currently 5 actions:</p>
 <ul>
 <li>
 <a href="https://github.com/jimhester/lintr">lintr</a> runs static code analysis to check for syntactical errors and code styling issues. This runs on all commits.</li>
 <li>
 <a href="https://r-pkgs.org/r-cmd-check.html">r-cmd-check</a> runs R CMD CHECK. This runs on all commits.</li>
+<li>
+<a href="https://covr.r-lib.org/">covr</a> uploads test coverage to <a href="https://app.codecov.io/gh/The-Strategy-Unit/723_mh_covid_surge_modelling/">codecov.io</a>
+</li>
 <li>shiny deploy runs only on successful PR’s to master and deploys the <a href="https://strategyunit.shinyapps.io/MH_Surge_Modelling/">application</a>.</li>
 <li>
 <a href="https://pkgdown.r-lib.org/">pkgdown</a> runs only on successful PR’s to master and deploys the <a href="https://the-strategy-unit.github.io/723_mh_covid_surge_modelling/index.html">documentation</a>.</li>
