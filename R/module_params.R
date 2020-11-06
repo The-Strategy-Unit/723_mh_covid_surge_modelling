@@ -125,9 +125,9 @@ params_ui <- function(id) {
   )
 
   fluidRow(
-    column(3, params_population_groups),
+    column(2, params_population_groups),
     column(3, params_group_to_cond),
-    column(3, params_cond_to_treat),
+    column(4, params_cond_to_treat),
     column(3, params_demand, params_downloads)
   )
 }
