@@ -64,7 +64,7 @@ test_that("it returns expected data", {
 
   actual <- extract_params_from_excel("file.xlsx")
 
-  expected_demand = tibble(
+  expected_demand <- tibble(
     service = rep(c("a", "b", "c"), each = 4),
     month = ymd(rep(c(20200501, 20200601, 20200701, 20200801), 3)),
     underlying = 1:12,
@@ -250,7 +250,7 @@ test_that("it fails if treatments success not between 0 and 1", {
     "treatments",
     tibble(
       treatment = c("a", "b", "c"),
-      success = -(1:3),
+      success = - (1:3),
       months = 4:6,
       decay = 7:9 / 100,
       demand = 10:12 / 100,

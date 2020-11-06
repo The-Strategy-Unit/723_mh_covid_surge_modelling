@@ -69,7 +69,7 @@ extract_params_from_excel <- function(raw_data_path) {
       anti_join(raw_data$treatments, by = "treatment") %>%
       verify_fn(TRUE),
     "unmapped group in g2c" = raw_data$g2c %>%
-      anti_join(raw_data$c2t, by=  "group") %>%
+      anti_join(raw_data$c2t, by = "group") %>%
       verify_fn(TRUE),
     "unmapped condition in g2c" = raw_data$g2c %>%
       anti_join(raw_data$c2t, by = "condition") %>%
