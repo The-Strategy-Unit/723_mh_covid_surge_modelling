@@ -4,7 +4,7 @@
       ui
     Output
       <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <div class="col-sm-12">
             <div class="box box-solid box-primary">
               <div class="box-header">
@@ -58,7 +58,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="col-sm-12">
             <div class="box box-solid box-primary">
               <div class="box-header">
