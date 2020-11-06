@@ -46,7 +46,8 @@ Suggests:
     tibble,
     knitr,
     shinytest,
-    covr
+    covr,
+    forcats
 Remotes:
     ropensci/plotly
 Encoding: UTF-8
