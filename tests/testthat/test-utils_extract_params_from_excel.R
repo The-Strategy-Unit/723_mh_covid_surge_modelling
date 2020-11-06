@@ -342,3 +342,145 @@ test_that("it fails if treatments treat_pcnt not between 0 and 1", {
   stub(extract_params_from_excel, "read_excel", rem)
   expect_error(extract_params_from_excel("file.xlsx"), "treatments treat_pcnt not between 0 and 1")
 })
+
+test_that("it fails if unrecognised curve in groups", {
+  stub(extract_params_from_excel,
+       "excel_sheets",
+       c("curves", "groups", "g2c", "c2t", "treatments", "demand"))
+
+  rem <- fake_read_excel(
+    "groups",
+    tibble(
+      group = c("a", "b", "c"),
+      curve = c("a", "a", "c"),
+      size = c(1, 2, 3),
+      pcnt = c(10, 20, 30)
+    )
+  )
+  stub(extract_params_from_excel, "read_excel", rem)
+  expect_error(extract_params_from_excel("file.xlsx"), "unrecognised curve in groups")
+})
+
+test_that("it fails if unrecognised group in g2c", {
+  stub(extract_params_from_excel,
+       "excel_sheets",
+       c("curves", "groups", "g2c", "c2t", "treatments", "demand"))
+
+  rem <- fake_read_excel(
+    "g2c",
+    tibble(
+      group = c("a", "a", "b", "b", "c", "d"),
+      condition = c("a", "b", "a", "b", "a", "b"),
+      pcnt = c(0.01, 0.02, 0.03, 0.04, 0.05, 0.06)
+    )
+  )
+  stub(extract_params_from_excel, "read_excel", rem)
+  expect_error(extract_params_from_excel("file.xlsx"), "unrecognised group in g2c")
+})
+
+test_that("it fails if unrecognised group in c2t", {
+  stub(extract_params_from_excel,
+       "excel_sheets",
+       c("curves", "groups", "g2c", "c2t", "treatments", "demand"))
+
+  rem <- fake_read_excel(
+    "c2t",
+    tibble(
+      group = rep(c("a", "b", "d"), each = 6),
+      condition = rep(rep(c("a", "b"), each = 3), 3),
+      treatment = rep(c("a", "b", "c"), 6),
+      split = 1:18
+    )
+  )
+  stub(extract_params_from_excel, "read_excel", rem)
+  expect_error(extract_params_from_excel("file.xlsx"), "unrecognised group in c2t")
+})
+
+test_that("it fails if unrecognised condition in c2t", {
+  stub(extract_params_from_excel,
+       "excel_sheets",
+       c("curves", "groups", "g2c", "c2t", "treatments", "demand"))
+
+  rem <- fake_read_excel(
+    "c2t",
+    tibble(
+      group = rep(c("a", "b", "c"), each = 6),
+      condition = rep(rep(c("a", "c"), each = 3), 3),
+      treatment = rep(c("a", "b", "c"), 6),
+      split = 1:18
+    )
+  )
+  stub(extract_params_from_excel, "read_excel", rem)
+  expect_error(extract_params_from_excel("file.xlsx"), "unrecognised condition in c2t")
+})
+
+test_that("it fails if unrecognised treatment in c2t", {
+  stub(extract_params_from_excel,
+       "excel_sheets",
+       c("curves", "groups", "g2c", "c2t", "treatments", "demand"))
+
+  rem <- fake_read_excel(
+    "c2t",
+    tibble(
+      group = rep(c("a", "b", "c"), each = 6),
+      condition = rep(rep(c("a", "b"), each = 3), 3),
+      treatment = rep(c("a", "b", "d"), 6),
+      split = 1:18
+    )
+  )
+  stub(extract_params_from_excel, "read_excel", rem)
+  expect_error(extract_params_from_excel("file.xlsx"), "unrecognised treatment in c2t")
+})
+
+test_that("it fails if unmapped group in g2c", {
+  stub(extract_params_from_excel,
+       "excel_sheets",
+       c("curves", "groups", "g2c", "c2t", "treatments", "demand"))
+
+  rem <- fake_read_excel(
+    "c2t",
+    tibble(
+      group = rep(c("a", "a", "c"), each = 6),
+      condition = rep(rep(c("a", "b"), each = 3), 3),
+      treatment = rep(c("a", "b", "c"), 6),
+      split = 1:18
+    )
+  )
+  stub(extract_params_from_excel, "read_excel", rem)
+  expect_error(extract_params_from_excel("file.xlsx"), "unmapped group in g2c")
+})
+
+test_that("it fails if unmapped condition in g2c", {
+  stub(extract_params_from_excel,
+       "excel_sheets",
+       c("curves", "groups", "g2c", "c2t", "treatments", "demand"))
+
+  rem <- fake_read_excel(
+    "c2t",
+    tibble(
+      group = rep(c("a", "b", "c"), each = 6),
+      condition = rep(rep(c("a", "a"), each = 3), 3),
+      treatment = rep(c("a", "b", "c"), 6),
+      split = 1:18
+    )
+  )
+  stub(extract_params_from_excel, "read_excel", rem)
+  expect_error(extract_params_from_excel("file.xlsx"), "unmapped condition in g2c")
+})
+
+test_that("it fails if unmapped group in groups", {
+  stub(extract_params_from_excel,
+       "excel_sheets",
+       c("curves", "groups", "g2c", "c2t", "treatments", "demand"))
+
+  rem <- fake_read_excel(
+    "g2c",
+    tibble(
+      group = c("a", "a", "a", "a", "c", "c"),
+      condition = c("a", "b", "a", "b", "a", "b"),
+      pcnt = c(0.01, 0.02, 0.03, 0.04, 0.05, 0.06)
+    )
+  )
+  stub(extract_params_from_excel, "read_excel", rem)
+  expect_error(extract_params_from_excel("file.xlsx"), "unmapped group in groups")
+})
