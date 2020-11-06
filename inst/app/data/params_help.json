@@ -3,14 +3,14 @@
     "title": "Population groups",
     "text": [
       "Choose Subgroup: The population has been segmented into subgroups who each have their own potential covid-effects (conditions) and treatments",
-      "Sub-population Figure: The total amount of people in the subgroup at a point in time. The sum of all of the subpopulation figures should equal your geographies total population.",
-      "% in subgroup: The % of the subgroup figure that we will be modelling. Not everyone in the subgroup will suffer from Mental Health conditions due to COVID-19, this % controls for that - a 'Susceptibility' or 'Resillience' factor.",
+      "Subpopulation Figure: The total amount of people in the subgroup at a point in time. The sum of all of the subpopulation figures should equal your geographies total population.",
+      "Susceptibility and Resilience adjustment: The % of the subgroup figure that we will be modelling. Not everyone in the subgroup will suffer from Mental Health conditions due to COVID-19, this % controls for that - a 'Susceptibility' or 'Resillience' factor.",
       "Modelled Population: The subpopulation figure multiplied by the % in subgroup. This is how many people will be available to introduce into the model in month 1.",
       "Choose Scenario: The model runs over a number of months. These scenarios alter how many of the modelled population enter the model each month and should reflect how best you think the pandemic effects will occur over time."
     ]
   },
   "group_to_cond_params_help": {
-    "title": "Conditions to Treatments",
+    "title": "Impacts on population sub-group",
     "text": [
       "These are the conditions that the currently selected population subgroup may develop.",
       "Increasing any of the sliders increases the amount of people from this subgroup that suffer from the condition, but decreases the amount of people who do not suffer from any mental heath conditions at all.",
@@ -20,7 +20,7 @@
     ]
   },
   "cond_to_treat_params_help": {
-    "title": "People being treated of condition group",
+    "title": "Referral/Service flows for impacts",
     "text": [
       "For the currently selected population group and condition, how many people from a typical population of e.g. 100 or 1000 might be referred to each service? The model only allows for one person to be seen by one service during each pathway ‘event’.",
       "Each service is listed, and changes as you change the condition. Each service then has a 'split' box, which contains a number. This number represents how many people would go to that service out of the total amount of people when the splits are summed.",
@@ -29,14 +29,14 @@
     ]
   },
   "treatment_params_help": {
-    "title": "Treatment",
+    "title": "Service variables",
     "text": [
       "These parameters alter service 'behaviours' and are the same regardless of population groups.",
       "Treatment type: Select a service to alter the parameters for.",
-      "Treating percentage: This is the percentage of people who if referred to this service would likely receive treatment.",
-      "Time in service: Each month some patients will leave the service, either completing treatment or dropping out. These two parameters control this. Set the months and percentage together so typically at x months y percentage of people would remain in the treatment group. If using an average month figure we would suggest a % of 50. If it is a triage or pass-through service (e.g. SPA, 24/7 phone line) set these values as 1 and 100 respectively to ensure the model moves the patients all out for the next simulated period.”. Also change demand sentence to “On average, how many clinical/therapeutic contacts does 1 person in this service tend to generate per month? If an inpatient service then this would be the median/average Length of Stay to reflect bed days (capped at 30 per month).",
-      "Success % of treatment: How likely is it that someone who has this treatment no longer has any mental health needs? (defined as not suffering acutely again from a condition for 12 months)",
-      "Average demand per person: On average, how much demand does 1 person in treatment generate per month?"
+      "Referrals typically receiving a service: This is the percentage of people who if referred to this service would likely receive treatment.",
+      "Time in service: Each month some patients will leave the service, either completing treatment or dropping out. These two parameters control this. Set the months and percentage together so typically at x months y percentage of people would remain in the treatment group. If using an average month figure we would suggest a % of 50. If it is a triage or pass-through service (e.g. SPA, 24/7 phone line) set these values as 1 and 100 respectively to ensure the model moves the patients all out for the next simulated period",
+      "Percentage of patients recovering: How likely is it that someone who has this treatment no longer has any mental health needs? (defined as not suffering acutely again from a condition for 12 months)",
+      "Average contacts per person per month: On average, how many clinical/therapeutic contacts does 1 person in this service tend to generate per month? If an inpatient service then this would be the median/average Length of Stay to reflect bed days (capped at 30 per month)."
      ]
   }
 }
