@@ -59,7 +59,7 @@ Data files required at runtime by the application are stored in the `inst/app/da
 
 -   `params_help.json` contains the help text used on the `params` page
 
--   `params.xlsx` is the default parameters file for Mersey Care
+-   `params_*.xlsx` files are the default parameters files included with the application
 
 -   `report.Rmd` is a RMarkdown report used to generate a `.pdf` download from the application
 
@@ -99,12 +99,13 @@ Contributions are welcome, but please note that this tool was developed for a sp
 
 ## Deployment
 
-This package has been configured to use [CI/CD][cicd] with [GitHub Actions][github-actions]. There are currently 4
+This package has been configured to use [CI/CD][cicd] with [GitHub Actions][github-actions]. There are currently 5
 actions:
 
 - [lintr][lintr] runs static code analysis to check for syntactical errors and code styling issues. This runs on all
 commits.
 - [r-cmd-check][r-cmd-check] runs R CMD CHECK. This runs on all commits.
+- [covr][covr] uploads test coverage to [codecov.io][codecov.io]
 - shiny deploy runs only on successful PR's to master and deploys the [application][app]. 
 - [pkgdown][pkgdown] runs only on successful PR's to master and deploys the [documentation][documentation].
 
@@ -127,3 +128,5 @@ commits.
 [github-actions]: https://github.com/features/actions
 [lintr]: https://github.com/jimhester/lintr
 [pkgdown]: https://pkgdown.r-lib.org/
+[covr]: https://covr.r-lib.org/
+[codecov.io]: https://app.codecov.io/gh/The-Strategy-Unit/723_mh_covid_surge_modelling/
