@@ -12,7 +12,7 @@ test_that("get_model_output errors if start_month is not the first of the month"
 })
 
 test_that("get_model_output returns correct model_output", {
-  expect_equal(nrow(model_output), 129078)
+  expect_equal(nrow(model_output), 125883)
   expect_s3_class(model_output, "tbl_df")
   expect_equal(colnames(model_output),
                c("time", "date", "type", "group", "condition", "treatment", "value"))
@@ -26,17 +26,17 @@ test_that("get_appointments returns correct data", {
   actual <- get_appointments(params)
 
   expect_s3_class(actual, "tbl_df")
-  expect_equal(nrow(actual), 37)
-  expect_equal(sum(actual$average_monthly_appointments), 701.4947, tolerance = 1e-3)
+  expect_equal(nrow(actual), 34)
+  expect_equal(sum(actual$average_monthly_appointments), 156.443, tolerance = 1e-3)
 })
 
 # model_totals ----
 
 test_that("model_totals returns the correct data", {
-  expect_equal(model_totals(model_output, "new-referral", "IAPT"), "780,299")
-  expect_equal(model_totals(model_output, "new-treatment", "IAPT"), "483,985")
-  expect_equal(model_totals(model_output, "new-referral", "General Practice"), "366,325")
-  expect_equal(model_totals(model_output, "new-treatment", "General Practice"), "366,325")
+  expect_equal(model_totals(model_output, "new-referral", "IAPT"), "857,314")
+  expect_equal(model_totals(model_output, "new-treatment", "IAPT"), "531,754")
+  expect_equal(model_totals(model_output, "new-referral", "General Practice"), "418,359")
+  expect_equal(model_totals(model_output, "new-treatment", "General Practice"), "418,359")
 })
 
 # surge_summary ----
@@ -45,17 +45,17 @@ test_that("surge_summary returns the correct data", {
   ag <- surge_summary(model_output, group) %>%
     purrr::discard(is.factor) %>%
     map_dbl(sum)
-  expect_equal(ag, c(`new-at-risk` = 10841496, `new-referral` = 2557736, `new-treatment` = 2021654))
+  expect_equal(ag, c(`new-at-risk` = 10841496, `new-referral` = 2556299, `new-treatment` = 2015319))
 
   ac <- surge_summary(model_output, condition) %>%
     purrr::discard(is.factor) %>%
     map_dbl(sum)
-  expect_equal(ac, c(`new-referral` = 2557738, `new-treatment` = 2021655))
+  expect_equal(ac, c(`new-referral` = 2556297, `new-treatment` = 2015320))
 
   at <- surge_summary(model_output, treatment) %>%
     purrr::discard(is.factor) %>%
     map_dbl(sum)
-  expect_equal(at, c(`new-referral` = 2557735, `new-treatment` = 2021656))
+  expect_equal(at, c(`new-referral` = 2556296, `new-treatment` = 2015324))
 })
 
 # surge_table ----
@@ -103,13 +103,13 @@ test_that("surge_table", {
       "Total symptomatic over period referrals",
       "Total receiving services over period")
   )
-  expect_equal(nrow(at), 37)
+  expect_equal(nrow(at), 34)
   expect_equal(
     at %>%
       purrr::discard(is.factor) %>%
       map_dbl(mean),
-    c(`Total symptomatic over period referrals` = 69127.97,
-      `Total receiving services over period` = 54639.35),
+    c(`Total symptomatic over period referrals` = 75185.18,
+      `Total receiving services over period` = 59274.24),
     tolerance = 0.01
   )
 })
@@ -143,7 +143,7 @@ test_that("summarise_model_output returns correct data", {
                              "new-referral",
                              c("General Practice", "IAPT"))$value
     ),
-    32250,
+    35881,
     tolerance = 0.1
   )
 })

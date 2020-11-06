@@ -58,7 +58,7 @@ test_that("changing the drop down updates the observers correctly", {
     popn_subgroup("Children & young people")
 
     session$setInputs("sliders_select_cond" = "Anxiety")
-    expect_length(session$env$observers, 9)
+    expect_length(session$env$observers, 10)
 
     # test that destroy is called properly by replacing the observer with a mock
     mocks <- purrr::imap(session$env$observers, ~mock(.y))
@@ -80,7 +80,7 @@ test_that("changing the drop down updates the observers correctly", {
     popn_subgroup(sg)
     session$setInputs("sliders_select_cond" = sc)
 
-    expect_equal(params$groups[[sg]]$conditions[[sc]]$treatments[[st]], 5)
+    expect_equal(params$groups[[sg]]$conditions[[sc]]$treatments[[st]], 3)
     session$setInputs("numeric_treat_split_24/7_Crisis_Response_Line" = 100)
     expect_equal(params$groups[[sg]]$conditions[[sc]]$treatments[[st]], 100)
   })
@@ -96,12 +96,12 @@ test_that("updating the treat split values updates the text output", {
     popn_subgroup(sg)
     session$setInputs("sliders_select_cond" = sc)
 
-    expect_equal(session$output[["pcnt_treat_split_24/7_Crisis_Response_Line"]], "5.0%")
-    expect_equal(session$output[["pcnt_treat_split_IAPT"]], "36.0%")
+    expect_equal(session$output[["pcnt_treat_split_24/7_Crisis_Response_Line"]], "3.0%")
+    expect_equal(session$output[["pcnt_treat_split_IAPT"]], "39.0%")
 
     session$setInputs("numeric_treat_split_24/7_Crisis_Response_Line" = 10)
-    expect_equal(session$output[["pcnt_treat_split_24/7_Crisis_Response_Line"]], "9.5%")
-    expect_equal(session$output[["pcnt_treat_split_IAPT"]], "34.3%")
+    expect_equal(session$output[["pcnt_treat_split_24/7_Crisis_Response_Line"]], "9.3%")
+    expect_equal(session$output[["pcnt_treat_split_IAPT"]], "36.4%")
   })
 })
 

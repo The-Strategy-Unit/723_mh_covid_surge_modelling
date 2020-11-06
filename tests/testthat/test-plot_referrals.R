@@ -42,8 +42,8 @@ test_that("referrals_plot_data returns a tibble", {
 test_that("referrals_plot_data returns expected data", {
   actual <- referrals_plot_data(model_output, "IAPT")
 
-  expect_equal(sum(actual$Referrals), 780917, tolerance = 1e-6)
-  expect_equal(sum(actual$Treatments), 484368, tolerance = 1e-6)
+  expect_equal(sum(actual$Referrals), 857992, tolerance = 1e-6)
+  expect_equal(sum(actual$Treatments), 532174, tolerance = 1e-6)
 })
 
 test_that("referrals_plot_data calls summarise_model_output", {
