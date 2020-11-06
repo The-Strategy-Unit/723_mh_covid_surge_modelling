@@ -48,25 +48,28 @@ extract_params_from_excel <- function(raw_data_path) {
     "g2c pcnt not between 0 and 1" = raw_data$g2c %>%
       verify_fn(.data$pcnt < 0 | .data$pcnt > 1),
     "treatments success not between 0 and 1" = raw_data$treatments %>%
-      verify_fn(.data$success < 0, .data$success > 1),
+      verify_fn(.data$success < 0 | .data$success > 1),
     "treatments decay not between 0 and 1" = raw_data$treatments %>%
       verify_fn(.data$decay < 0 | .data$decay > 1),
-    "treatments treat_ocnt not between 0 and 1" = raw_data$treatments %>%
+    "treatments treat_pcnt not between 0 and 1" = raw_data$treatments %>%
       verify_fn(.data$treat_pcnt < 0 | .data$treat_pcnt > 1),
     "unrecognised curve in groups" = raw_data$groups %>%
       anti_join(pivot_longer(raw_data$curves, -.data$month, names_to = "curve"), by = "curve") %>%
       verify_fn(TRUE),
-    "unrecongised group in g2c" = raw_data$g2c %>%
+    "unrecognised group in g2c" = raw_data$g2c %>%
+      anti_join(raw_data$groups, by = "group") %>%
+      verify_fn(TRUE),
+    "unrecognised group in c2t" = raw_data$c2t %>%
       anti_join(raw_data$groups, by = "group") %>%
       verify_fn(TRUE),
     "unrecognised condition in c2t" = raw_data$c2t %>%
       anti_join(raw_data$g2c, by = "condition") %>%
       verify_fn(TRUE),
-    "unrecognised treatment in treatments" = raw_data$treatments %>%
-      anti_join(raw_data$c2t, by = "treatment") %>%
-      verify_fn(TRUE),
-    "unmapped treatment in c2t" = raw_data$c2t %>%
+    "unrecognised treatment in c2t" = raw_data$c2t %>%
       anti_join(raw_data$treatments, by = "treatment") %>%
+      verify_fn(TRUE),
+    "unmapped group in g2c" = raw_data$g2c %>%
+      anti_join(raw_data$c2t, by = "group") %>%
       verify_fn(TRUE),
     "unmapped condition in g2c" = raw_data$g2c %>%
       anti_join(raw_data$c2t, by = "condition") %>%
