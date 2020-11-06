@@ -74,14 +74,14 @@ home_ui <- function(id) {
       )
     ),
 
-    tags$h2("Basic instructions – please read before starting:"),
+    tags$h2("Basic instructions - please read before starting:"),
     tags$p(
       "These notes should help you navigate the various tabs and inputs for the model. Additional help notes within",
       "each tab provide extra information on certain elements."
     ),
     tags$h3("Home tab"),
     tags$p(
-      "This is where you choose from a default set of model parameters or to upload your own. If you choose ‘custom’",
+      "This is where you choose from a default set of model parameters or to upload your own. If you choose 'custom'",
       "to upload your own you will be directed to an excel file template which you will need to populate with your",
       "own data, parameters and variables prior to loading."
     ),
@@ -89,7 +89,7 @@ home_ui <- function(id) {
     tags$p(
       "The main control centre for the model, this will be pre-populated with the parameters and variables for the",
       "selection from the Home tab or the details you have uploaded. You can then manually override information for",
-      "population groups, effect sizes, service flows and service behaviours. NB. It is best to apply any changes to",
+      "population groups, effect sizes, service flows and service behaviours. Note: it is best to apply any changes to",
       "all other boxes as you change the population sub-group to keep track of your inputs as some options will",
       "change once you change the population group."
     ),
@@ -104,7 +104,7 @@ home_ui <- function(id) {
     tags$h4("Impacts on population groups"),
     tags$p(
       "This will change for each population group you select in the previous box as determined by our early",
-      "literature search. Change the incidence/prevalence rates (%’s) for each potential impact condition. Please",
+      "literature search. Change the incidence/prevalence rates (%'s) for each potential impact condition. Please",
       "note, we have halved each of the published rates on the basis that on average people tend to present with",
       "around 2 co-morbid psychiatric issues but our model only address problems in a unitary way."
     ),
@@ -118,16 +118,17 @@ home_ui <- function(id) {
     tags$h4("Service variables"),
     tags$p(
       "These options are the same regardless of which service you choose to change and determine the % of referrals",
-      "that might require treatment, the typical times spent in treatment, the likelihood of mental health ‘recovery’",
+      "that might require treatment, the typical times spent in treatment, the likelihood of mental health 'recovery'",
       "and the typical contact volumes per patient per month. For fuller descriptions of these variables please see",
       "the help pop-up at bottom of the box."
     ),
     tags$p(
       "After changing all or even some of your inputs, you may wish to save (by download button) all of the adjusted",
-      "parameters so you can use them again in the future by direct upload. IMPORTANT – the parameters will all revert",
-      "to the national defaults if your browser timeouts (this is currently set at 15 minutes of inactivity); if you",
-      "refresh your browser window or if you go back to the Home tab and change to another pre-set version. You will",
-      "lose all of your changes!"
+      "parameters so you can use them again in the future by direct upload.",
+      tags$strong("IMPORTANT: "),
+      "the parameters will all revert to the national defaults if your browser timeouts (this is currently set at 15",
+      "minutes of inactivity); if you refresh your browser window or if you go back to the Home tab and change to",
+      "another pre-set version. You will lose all of your changes!"
     ),
     tags$h3("Demand tab"),
     tags$p(
