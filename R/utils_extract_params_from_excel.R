@@ -48,7 +48,7 @@ extract_params_from_excel <- function(raw_data_path) {
     "g2c pcnt not between 0 and 1" = raw_data$g2c %>%
       verify_fn(.data$pcnt < 0 | .data$pcnt > 1),
     "treatments success not between 0 and 1" = raw_data$treatments %>%
-      verify_fn(.data$success < 0, .data$success > 1),
+      verify_fn(.data$success < 0 | .data$success > 1),
     "treatments decay not between 0 and 1" = raw_data$treatments %>%
       verify_fn(.data$decay < 0 | .data$decay > 1),
     "treatments treat_pcnt not between 0 and 1" = raw_data$treatments %>%
