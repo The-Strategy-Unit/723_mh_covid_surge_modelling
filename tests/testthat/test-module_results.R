@@ -237,13 +237,13 @@ test_that("pcnt_surgedemand renders correct values", {
     session$setInputs(services = "IAPT")
     expect_equal(
       as.character(output$pcnt_surgedemand$html),
-      value_box_expected("46.2%", "Cumulative surge demand")
+      value_box_expected("50.8%", "Cumulative surge demand")
     )
 
     session$setInputs(services = "24/7 Crisis Response Line")
     expect_equal(
       as.character(output$pcnt_surgedemand$html),
-      value_box_expected("434.8%", "Cumulative surge demand")
+      value_box_expected("297.0%", "Cumulative surge demand")
     )
 
     session$setInputs(services = "General Practice")
