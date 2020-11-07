@@ -1,20 +1,123 @@
 # the model returns expected values
 
     Code
-      run_model(params, 1)
+      data.frame(actual)
     Output
-      # A tibble: 63,828 x 6
-          time type        group                          condition treatment value
-         <dbl> <chr>       <chr>                          <chr>     <chr>     <dbl>
-       1     0 no-mh-needs <NA>                           <NA>      <NA>          0
-       2     0 at-risk     Children & young people        <NA>      <NA>          0
-       3     0 at-risk     Domestic abuse victims         <NA>      <NA>          0
-       4     0 at-risk     Elderly alone                  <NA>      <NA>          0
-       5     0 at-risk     Family of COVID deceased       <NA>      <NA>          0
-       6     0 at-risk     Family of ICU survivors        <NA>      <NA>          0
-       7     0 at-risk     General population             <NA>      <NA>          0
-       8     0 at-risk     Health and care workers        <NA>      <NA>          0
-       9     0 at-risk     ICU survivors                  <NA>      <NA>          0
-      10     0 at-risk     Learning disabilities & autism <NA>      <NA>          0
-      # ... with 63,818 more rows
+          time          type group condition treatment       value
+      1      0   no-mh-needs  <NA>      <NA>      <NA>   0.0000000
+      2      0       at-risk     a      <NA>      <NA>   0.0000000
+      3      0       at-risk     b      <NA>      <NA>   0.0000000
+      4      0     treatment     a         a         a   0.0000000
+      5      0     treatment     a         a         b   0.0000000
+      6      0     treatment     a         b         a   0.0000000
+      7      0     treatment     a         b         b   0.0000000
+      8      0     treatment     b         a         a   0.0000000
+      9      0     treatment     b         a         b   0.0000000
+      10     0     treatment     b         b         a   0.0000000
+      11     0     treatment     b         b         b   0.0000000
+      12     0   new-at-risk     a      <NA>      <NA>  10.0000000
+      13     0   new-at-risk     b      <NA>      <NA>  80.0000000
+      14     0  new-referral     a         a         a   0.0000000
+      15     0  new-referral     a         a         b   0.0000000
+      16     0  new-referral     a         b         a   0.0000000
+      17     0  new-referral     a         b         b   0.0000000
+      18     0  new-referral     b         a         a   0.0000000
+      19     0  new-referral     b         a         b   0.0000000
+      20     0  new-referral     b         b         a   0.0000000
+      21     0  new-referral     b         b         b   0.0000000
+      22     0 new-treatment     a         a         a   0.0000000
+      23     0 new-treatment     a         a         b   0.0000000
+      24     0 new-treatment     a         b         a   0.0000000
+      25     0 new-treatment     a         b         b   0.0000000
+      26     0 new-treatment     b         a         a   0.0000000
+      27     0 new-treatment     b         a         b   0.0000000
+      28     0 new-treatment     b         b         a   0.0000000
+      29     0 new-treatment     b         b         b   0.0000000
+      30     1   no-mh-needs  <NA>      <NA>      <NA>   0.0000000
+      31     1       at-risk     a      <NA>      <NA>  10.0000000
+      32     1       at-risk     b      <NA>      <NA>  80.0000000
+      33     1     treatment     a         a         a   0.0000000
+      34     1     treatment     a         a         b   0.0000000
+      35     1     treatment     a         b         a   0.0000000
+      36     1     treatment     a         b         b   0.0000000
+      37     1     treatment     b         a         a   0.0000000
+      38     1     treatment     b         a         b   0.0000000
+      39     1     treatment     b         b         a   0.0000000
+      40     1     treatment     b         b         b   0.0000000
+      41     1   new-at-risk     a      <NA>      <NA>  20.0000000
+      42     1   new-at-risk     b      <NA>      <NA> 120.0000000
+      43     1  new-referral     a         a         a   0.3333333
+      44     1  new-referral     a         a         b   0.6666667
+      45     1  new-referral     a         b         a   0.8571429
+      46     1  new-referral     a         b         b   1.1428571
+      47     1  new-referral     b         a         a  10.9090909
+      48     1  new-referral     b         a         b  13.0909091
+      49     1  new-referral     b         b         a  14.9333333
+      50     1  new-referral     b         b         b  17.0666667
+      51     1 new-treatment     a         a         a   0.1666667
+      52     1 new-treatment     a         a         b   0.4666667
+      53     1 new-treatment     a         b         a   0.4285714
+      54     1 new-treatment     a         b         b   0.8000000
+      55     1 new-treatment     b         a         a   5.4545455
+      56     1 new-treatment     b         a         b   9.1636364
+      57     1 new-treatment     b         b         a   7.4666667
+      58     1 new-treatment     b         b         b  11.9466667
+      59     2   no-mh-needs  <NA>      <NA>      <NA>  31.0000000
+      60     2       at-risk     a      <NA>      <NA>  21.1380952
+      61     2       at-risk     b      <NA>      <NA> 141.9684848
+      62     2     treatment     a         a         a   0.1666667
+      63     2     treatment     a         a         b   0.4666667
+      64     2     treatment     a         b         a   0.4285714
+      65     2     treatment     a         b         b   0.8000000
+      66     2     treatment     b         a         a   5.4545455
+      67     2     treatment     b         a         b   9.1636364
+      68     2     treatment     b         b         a   7.4666667
+      69     2     treatment     b         b         b  11.9466667
+      70     2   new-at-risk     a      <NA>      <NA>  30.0000000
+      71     2   new-at-risk     b      <NA>      <NA> 120.0000000
+      72     2  new-referral     a         a         a   0.7046032
+      73     2  new-referral     a         a         b   1.4092063
+      74     2  new-referral     a         b         a   1.8118367
+      75     2  new-referral     a         b         b   2.4157823
+      76     2  new-referral     b         a         a  19.3593388
+      77     2  new-referral     b         a         b  23.2312066
+      78     2  new-referral     b         b         a  26.5007838
+      79     2  new-referral     b         b         b  30.2866101
+      80     2 new-treatment     a         a         a   0.3523016
+      81     2 new-treatment     a         a         b   0.9864444
+      82     2 new-treatment     a         b         a   0.9059184
+      83     2 new-treatment     a         b         b   1.6910476
+      84     2 new-treatment     b         a         a   9.6796694
+      85     2 new-treatment     b         a         b  16.2618446
+      86     2 new-treatment     b         b         a  13.2503919
+      87     2 new-treatment     b         b         b  21.2006271
+      88     3   no-mh-needs  <NA>      <NA>      <NA>  93.0771372
+      89     3       at-risk     a      <NA>      <NA>  32.8513245
+      90     3       at-risk     b      <NA>      <NA> 167.1621611
+      91     3     treatment     a         a         a   0.4356349
+      92     3     treatment     a         a         b   1.3164276
+      93     3     treatment     a         b         a   1.1202041
+      94     3     treatment     a         b         b   2.2567330
+      95     3     treatment     b         a         a  12.4069421
+      96     3     treatment     b         a         b  22.7415140
+      97     3     treatment     b         b         a  16.9837253
+      98     3     treatment     b         b         b  29.6481961
+      99     3   new-at-risk     a      <NA>      <NA>  40.0000000
+      100    3   new-at-risk     b      <NA>      <NA>  80.0000000
+      101    3  new-referral     a         a         a   1.0950442
+      102    3  new-referral     a         a         b   2.1900883
+      103    3  new-referral     a         b         a   2.8158278
+      104    3  new-referral     a         b         b   3.7544371
+      105    3  new-referral     b         a         a  22.7948401
+      106    3  new-referral     b         a         b  27.3538082
+      107    3  new-referral     b         b         a  31.2036034
+      108    3  new-referral     b         b         b  35.6612610
+      109    3 new-treatment     a         a         a   0.5475221
+      110    3 new-treatment     a         a         b   1.5330618
+      111    3 new-treatment     a         b         a   1.4079139
+      112    3 new-treatment     a         b         b   2.6281060
+      113    3 new-treatment     b         a         a  11.3974201
+      114    3 new-treatment     b         a         b  19.1476657
+      115    3 new-treatment     b         b         a  15.6018017
+      116    3 new-treatment     b         b         b  24.9628827
 
