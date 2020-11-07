@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This document describes the nature of the open source covid-19 mental health surge model developed by the [Strategy Unit][su]. The model code can be found on [GitHub][gh] and the interactive shiny app can be found [here][app]. 
+This document describes the nature of the open source covid-19 mental health surge model developed by the [Strategy Unit][su]. The model code can be found on [GitHub][gh] and the interactive application can be found [here][app]. 
 
 We welcome contributions and suggestions, but cannot promise to incorporate all in future iterations. You can contact
 us on our [website][su_contact].
@@ -23,11 +23,11 @@ us on our [website][su_contact].
 
 ![Example of a single pathway](model-pathway.jpg "Model Pathway")
 
-Our whole population simulation model is based on a system dynamics approach. The stocks in our model represent a) population risk groups exposed to covid-19 either directly or indirectly; b) the buckets of conditions/symptoms they may develop; c) the services that they may present to and receive treatment from. You can read more in `r vignette("model")`. 
+Our whole population simulation model is based on a system dynamics approach. The stocks in our model represent a) population risk groups exposed to covid-19 either directly or indirectly; b) the buckets of conditions/symptoms they may develop; c) the services that they may present to and receive treatment from. You can read more in `vignette("model")`. 
 
 Initial population stocks have been derived from multiple open access, routine datasets or estimated from contemporaneous literature <<host Alex’s metafile on github and link?>>. 
 
-Effect sizes have been determined with reference to early national and international literature on the covid-19 pandemic and similar previous one-off events or epidemics e.g. SARS, MERS, Boston Marathon lockdown. We accept this has become out-of-date quite quickly. <<host the evidence metafile on github and link?>>  
+Effect sizes have been determined with reference to early national and international literature on the Covid-19 pandemic and similar previous one-off events or epidemics e.g. SARS, MERS, Boston Marathon lockdown. We accept this has become out-of-date quite quickly. <<host the evidence metafile on github and link?>>  
 
 The flow variables in our model are determined by empirical data extracted from the national Mental Health Services Data Set (MHSDS). 
 
