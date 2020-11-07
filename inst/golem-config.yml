@@ -1,6 +1,5 @@
 default:
-  golem_name: mhSurgeModelling
-  golem_version: 0.0.0.9000
+  golem_name: "Mental Health Surge Modelling"
   app_prod: no
 production:
   app_prod: yes
