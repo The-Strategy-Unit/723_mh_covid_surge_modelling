@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Results Module — results_module • mhSurgeModelling</title>
+<title>Help Popups — help_popups • mhSurgeModelling</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Results Module — results_module" />
-<meta property="og:description" content="A shiny module that renders all of the content for the results page." />
+<meta property="og:title" content="Help Popups — help_popups" />
+<meta property="og:description" content="Adds help files to a page" />
 
 
 
@@ -126,29 +126,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Results Module</h1>
-    <small class="dont-index">Source: <a href='https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/blob/master/R/module_results.R'><code>R/module_results.R</code></a></small>
-    <div class="hidden name"><code>results_module.Rd</code></div>
+    <h1>Help Popups</h1>
+    <small class="dont-index">Source: <a href='https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/blob/master/R/utils_help_popups.R'><code>R/utils_help_popups.R</code></a></small>
+    <div class="hidden name"><code>help_popups.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A shiny module that renders all of the content for the results page.</p>
+    <p>Adds help files to a page</p>
     </div>
 
-    <pre class="usage"><span class='fu'>results_ui</span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
-
-<span class='fu'>results_server</span><span class='op'>(</span><span class='va'>id</span>, <span class='va'>params</span>, <span class='va'>model_output</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>help_popups</span><span class='op'>(</span><span class='va'>page</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>id</th>
-      <td><p>An ID string that uniquely identifies an instance of this module</p></td>
-    </tr>
-    <tr>
-      <th>model_output, params</th>
-      <td><p>reactive objects passed in from the main server</p></td>
+      <th>page</th>
+      <td><p>the page to load help file for, stored in inst/app/data/{{page}}_help.json</p></td>
     </tr>
     </table>
 
