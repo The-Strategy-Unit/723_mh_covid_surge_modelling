@@ -4,12 +4,10 @@ library(mockery)
 # ui ----
 
 test_that("it generates the UI correctly", {
-  mh <- mock("documentation")
-  mm <- mock("markdownToHTML")
+  m <- mock("documentation")
 
-  stub(home_ui, "htmlTemplate", mh)
+  stub(home_ui, "md_to_tags", m)
   stub(home_ui, "app_sys", identity)
-  stub(home_ui, "markdownToHTML", mm)
   stub(home_ui, "dir", c("params_a.xlsx", "params_b.xlsx", "params_c.xlsx"))
 
   ui <- home_ui("a")
@@ -17,11 +15,8 @@ test_that("it generates the UI correctly", {
   expect_snapshot(ui)
   expect_s3_class(ui, "shiny.tag.list")
 
-  expect_called(mm, 1)
-  expect_args(mm, 1, "app/data/home_documentation.md", html.fragment = TRUE)
-
-  expect_called(mh, 1)
-  expect_args(mh, 1, text_ = "markdownToHTML", document = FALSE)
+  expect_called(m, 1)
+  expect_args(m, 1, "app/data/home_documentation.md")
 })
 
 # server ----

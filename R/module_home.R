@@ -27,11 +27,6 @@ home_ui <- function(id) {
       c(f[n == "England"], sort(f[n != "England"]))
     })()
 
-  home_documentation <- htmlTemplate(
-    text_ = markdownToHTML(app_sys("app/data/home_documentation.md"), fragment.only = TRUE),
-    document_ = FALSE
-  )
-
   tagList(
     tags$a(
       href = "https://www.strategyunitwm.nhs.uk/",
@@ -79,7 +74,7 @@ home_ui <- function(id) {
         uiOutput(NS(id, "user_upload_xlsx_msg"))
       )
     ),
-    home_documentation
+    md_to_tags(app_sys("app/data/home_documentation.md"))
   )
 }
 
