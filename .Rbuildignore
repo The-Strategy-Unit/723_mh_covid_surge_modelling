@@ -18,3 +18,5 @@ $run_dev.*
 ^pkgdown$
 ^\.github$
 ^codecov\.yml$
+^doc$
+^Meta$

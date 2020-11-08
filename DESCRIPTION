@@ -7,7 +7,9 @@ Authors@R: c(
     person('Andrew', 'Hood', email = 'andrewhood@nhs.net', role = 'aut'),
     person('The Strategy Unit', email = 'strategy.unit@nhs.net', role = 'cph')
     )
-Description: PKG_DESC.
+Description:
+    A shiny application that provides a Systems-Dynamics model of the surge in demand to Mental Health Services caused
+    by the Covid-19 pandemic.
 License: MIT + file LICENSE
 Depends: R (>= 4.0)
 Imports: 
@@ -20,6 +22,7 @@ Imports:
     igraph,
     jsonlite,
     lubridate,
+    markdown,
     plotly,
     purrr,
     readxl,
@@ -46,7 +49,9 @@ Suggests:
     tibble,
     knitr,
     shinytest,
-    covr
+    covr,
+    forcats,
+    pkgdown
 Remotes:
     ropensci/plotly
 Encoding: UTF-8

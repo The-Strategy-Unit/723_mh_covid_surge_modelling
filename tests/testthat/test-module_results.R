@@ -263,3 +263,24 @@ test_that("pcnt_surgedemand_note returns a note if pcnt_surgedemand_denominator 
     expect_equal(output$pcnt_surgedemand_note, "* underlying demand data not available")
   })
 })
+
+test_that("it adds the help correctly", {
+  m <- mock()
+  stub(results_server, "help_popups", m)
+
+  testServer(results_server, args = results_server_args(), {
+    expect_called(m, 1)
+    expect_args(m, 1, "results")
+  })
+})
+
+test_that("it shows the help when buttons are pressed", {
+  m <- mock()
+  stub(results_server, "help_popups", list(help = m))
+
+  testServer(results_server, args = results_server_args(), {
+    expect_called(m, 0)
+    session$setInputs(help = 1)
+    expect_called(m, 1)
+  })
+})

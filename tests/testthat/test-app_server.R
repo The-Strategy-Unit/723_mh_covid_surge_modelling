@@ -2,6 +2,12 @@ library(testthat)
 library(mockery)
 library(shiny)
 
+params <- if (file.exists("../fakes/fake_params.rds")) {
+  readRDS("../fakes/fake_params.rds")
+} else {
+  readRDS(here::here("tests/fakes/fake_params.rds"))
+}
+
 test_that("it returns NULL invisibly", {
   stub(app_server, "params_server", NULL)
   stub(app_server, "home_server", NULL)

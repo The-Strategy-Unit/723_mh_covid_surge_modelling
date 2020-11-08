@@ -6,12 +6,13 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![R build
 status](https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/workflows/R-CMD-check/badge.svg)](https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/actions)
-
 [![Codecov test
 coverage](https://codecov.io/gh/The-Strategy-Unit/723_mh_covid_surge_modelling/branch/master/graph/badge.svg)](https://codecov.io/gh/The-Strategy-Unit/723_mh_covid_surge_modelling?branch=master)
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
 This package is a Shiny application to model the surge in mental health
