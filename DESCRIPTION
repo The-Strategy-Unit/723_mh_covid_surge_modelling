@@ -50,8 +50,7 @@ Suggests:
     knitr,
     shinytest,
     covr,
-    forcats,
-    pkgdown
+    forcats
 Remotes:
     ropensci/plotly
 Encoding: UTF-8
