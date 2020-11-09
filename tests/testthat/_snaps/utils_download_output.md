@@ -3,7 +3,7 @@
     Code
       download_output(model_output, params)
     Output
-      # A tibble: 4,826 x 6
+      # A tibble: 4,706 x 6
          date       type    group                          condition treatment value
          <date>     <chr>   <chr>                          <chr>     <chr>     <dbl>
        1 2020-05-01 at-risk Children & young people        <NA>      <NA>          0
@@ -16,5 +16,5 @@
        8 2020-05-01 at-risk ICU survivors                  <NA>      <NA>          0
        9 2020-05-01 at-risk Learning disabilities & autism <NA>      <NA>          0
       10 2020-05-01 at-risk Newly unemployed               <NA>      <NA>          0
-      # ... with 4,816 more rows
+      # ... with 4,696 more rows
 

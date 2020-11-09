@@ -87,6 +87,11 @@ results_ui <- function(id) {
         height = "600px"
       )
     ),
+    actionLink(
+      NS(id, "combined_help"),
+      "",
+      icon("question")
+    ),
     width = 12
   )
 
@@ -257,5 +262,10 @@ results_server <- function(id, params, model_output) {
     output$results_popgroups <- renderPlotly({
       popgroups_plot(model_output(), input$services)
     })
+
+    help_popups("results") %>%
+      iwalk(function(popup_fn, input_name) {
+        observeEvent(input[[input_name]], popup_fn())
+      })
   })
 }

@@ -15,6 +15,7 @@
 #' @importFrom shinyjs hidden
 #' @importFrom dplyr %>%
 #' @importFrom purrr set_names
+#' @importFrom markdown markdownToHTML
 home_ui <- function(id) {
   files <- app_sys("app/data") %>%
     dir("^params\\_.*\\.xlsx$", full.names = TRUE) %>%
@@ -74,7 +75,8 @@ home_ui <- function(id) {
         ,
         uiOutput(NS(id, "example_param_file_text"))
       )
-    )
+    ),
+    md_to_tags(app_sys("app/data/home_documentation.md"))
   )
 }
 

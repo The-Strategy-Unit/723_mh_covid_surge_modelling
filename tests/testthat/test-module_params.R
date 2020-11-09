@@ -370,73 +370,29 @@ test_that("download_params extracts the params correctly", {
   })
 })
 
-test_that("app help is added correctly", {
+test_that("it adds the help correctly", {
   stub(params_server, "g2c_server", NULL)
   stub(params_server, "c2t_server", NULL)
 
   m <- mock()
-  stub(params_server, "ask_confirmation", m)
-
-  help <- app_sys("app/data/params_help.json") %>%
-    read_json(TRUE)
-
-  help_text <- help %>%
-    purrr::map(function(data) {
-      data$text %>%
-        strsplit(": ") %>%
-        map(~if (length(.x) >= 2) {
-          tags$p(tags$strong(.x[[1]]), paste(.x[-1], collapse = " "))
-        } else {
-          tags$p(.x)
-        })
-    })
-  help_title <- map(help, "title")
+  stub(params_server, "help_popups", m)
 
   testServer(params_server, args = params_server_args(), {
-    session$setInputs(population_group_help = 1,
-                      group_to_cond_params_help = 2,
-                      cond_to_treat_params_help = 3,
-                      treatment_params_help = 4)
-    expect_called(m, 4)
+    expect_called(m, 1)
+    expect_args(m, 1, "params")
+  })
+})
 
-    expect_args(m, 1,
-                "population_group_help_box",
-                help_title[[1]],
-                tagList(help_text[[1]]),
-                "question",
-                "ok",
-                closeOnClickOutside = TRUE,
-                showCloseButton = FALSE,
-                html = TRUE)
+test_that("it shows the help when buttons are pressed", {
+  stub(params_server, "g2c_server", NULL)
+  stub(params_server, "c2t_server", NULL)
 
-    expect_args(m, 2,
-                "group_to_cond_params_help_box",
-                help_title[[2]],
-                tagList(help_text[[2]]),
-                "question",
-                "ok",
-                closeOnClickOutside = TRUE,
-                showCloseButton = FALSE,
-                html = TRUE)
+  m <- mock()
+  stub(params_server, "help_popups", list(help = m))
 
-    expect_args(m, 3,
-                "cond_to_treat_params_help_box",
-                help_title[[3]],
-                tagList(help_text[[3]]),
-                "question",
-                "ok",
-                closeOnClickOutside = TRUE,
-                showCloseButton = FALSE,
-                html = TRUE)
-
-    expect_args(m, 4,
-                "treatment_params_help_box",
-                help_title[[4]],
-                tagList(help_text[[4]]),
-                "question",
-                "ok",
-                closeOnClickOutside = TRUE,
-                showCloseButton = FALSE,
-                html = TRUE)
+  testServer(params_server, args = params_server_args(), {
+    expect_called(m, 0)
+    session$setInputs(help = 1)
+    expect_called(m, 1)
   })
 })

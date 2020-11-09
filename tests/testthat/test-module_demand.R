@@ -22,7 +22,7 @@ test_that("services works correctly", {
   testServer(demand_server, args = demand_args(), {
     session$private$flush()
 
-    expect_length(services(), 37)
+    expect_length(services(), 34)
 
     params$demand <- params$demand[1:2]
     session$private$flush()

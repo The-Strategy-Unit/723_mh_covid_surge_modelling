@@ -67,10 +67,11 @@ test_that("combined_plot_data returns expected data", {
     tribble(
       ~type,        ~value,
       "suppressed",  207970,
-      "surge",       780917,
-      "total",      6056898,
+      "surge",       857992,
+      "total",      6133973,
       "underlying", 5068011
-    )
+    ),
+    tolerance = 1e-6
   )
 })
 

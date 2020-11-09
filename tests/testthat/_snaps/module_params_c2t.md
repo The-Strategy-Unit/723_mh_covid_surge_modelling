@@ -28,7 +28,7 @@
           <td style="padding: 0px 5px 0px 0px;">
             <div class="form-group shiny-input-container" style="width: 75px;">
               <label class="control-label shiny-label-null" for="proxy1-numeric_treat_split_24/7_Crisis_Response_Line"></label>
-              <input id="proxy1-numeric_treat_split_24/7_Crisis_Response_Line" type="number" class="form-control" value="5"/>
+              <input id="proxy1-numeric_treat_split_24/7_Crisis_Response_Line" type="number" class="form-control" value="3"/>
             </div>
           </td>
           <td style="padding: 0px 5px 0px 0px;">
@@ -40,7 +40,7 @@
           <td style="padding: 0px 5px 0px 0px;">
             <div class="form-group shiny-input-container" style="width: 75px;">
               <label class="control-label shiny-label-null" for="proxy1-numeric_treat_split_Child_&amp;_Adolescent_Mental_Health"></label>
-              <input id="proxy1-numeric_treat_split_Child_&amp;_Adolescent_Mental_Health" type="number" class="form-control" value="3"/>
+              <input id="proxy1-numeric_treat_split_Child_&amp;_Adolescent_Mental_Health" type="number" class="form-control" value="5"/>
             </div>
           </td>
           <td style="padding: 0px 5px 0px 0px;">
@@ -88,7 +88,7 @@
           <td style="padding: 0px 5px 0px 0px;">
             <div class="form-group shiny-input-container" style="width: 75px;">
               <label class="control-label shiny-label-null" for="proxy1-numeric_treat_split_IAPT"></label>
-              <input id="proxy1-numeric_treat_split_IAPT" type="number" class="form-control" value="36"/>
+              <input id="proxy1-numeric_treat_split_IAPT" type="number" class="form-control" value="39"/>
             </div>
           </td>
           <td style="padding: 0px 5px 0px 0px;">
@@ -108,11 +108,23 @@
           </td>
         </tr>
         <tr>
+          <td style="padding: 0px 5px 0px 0px;">Psychiatric Liaison Service</td>
+          <td style="padding: 0px 5px 0px 0px;">
+            <div class="form-group shiny-input-container" style="width: 75px;">
+              <label class="control-label shiny-label-null" for="proxy1-numeric_treat_split_Psychiatric_Liaison_Service"></label>
+              <input id="proxy1-numeric_treat_split_Psychiatric_Liaison_Service" type="number" class="form-control" value="2"/>
+            </div>
+          </td>
+          <td style="padding: 0px 5px 0px 0px;">
+            <span id="proxy1-pcnt_treat_split_Psychiatric_Liaison_Service" class="shiny-text-output"></span>
+          </td>
+        </tr>
+        <tr>
           <td style="padding: 0px 5px 0px 0px;">Psychological Therapy Service (non IAPT)</td>
           <td style="padding: 0px 5px 0px 0px;">
             <div class="form-group shiny-input-container" style="width: 75px;">
               <label class="control-label shiny-label-null" for="proxy1-numeric_treat_split_Psychological_Therapy_Service_(non_IAPT)"></label>
-              <input id="proxy1-numeric_treat_split_Psychological_Therapy_Service_(non_IAPT)" type="number" class="form-control" value="10"/>
+              <input id="proxy1-numeric_treat_split_Psychological_Therapy_Service_(non_IAPT)" type="number" class="form-control" value="5"/>
             </div>
           </td>
           <td style="padding: 0px 5px 0px 0px;">

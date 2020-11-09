@@ -1,0 +1,58 @@
+---
+title: "Modelling Assumptions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Modelling Assumptions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This document describes the nature of the open source covid-19 mental health surge model developed by the [Strategy Unit][su]. The model code can be found on [GitHub][gh] and the interactive application can be found [here][app]. 
+
+We welcome contributions and suggestions, but cannot promise to incorporate all in future iterations. You can contact
+us on our [website][su_contact].
+
+## Modelling approach 
+
+![Example of a single pathway](model-pathway.jpg "Model Pathway")
+
+Our whole population simulation model is based on a system dynamics approach. The stocks in our model represent a) population risk groups exposed to covid-19 either directly or indirectly; b) the buckets of conditions/symptoms they may develop; c) the services that they may present to and receive treatment from. You can read more in `vignette("model")`. 
+
+Initial population stocks have been derived from multiple open access, routine datasets or estimated from contemporaneous literature <<host Alex’s metafile on github and link?>>. 
+
+Effect sizes have been determined with reference to early national and international literature on the Covid-19 pandemic and similar previous one-off events or epidemics e.g. SARS, MERS, Boston Marathon lockdown. We accept this has become out-of-date quite quickly. <<host the evidence metafile on github and link?>>  
+
+The flow variables in our model are determined by empirical data extracted from the national Mental Health Services Data Set (MHSDS). 
+
+The mapping of likely flows of conditions to services was initially developed in conjunction with a multi-disciplinary team from Mersey Care Foundation NHS Trust. 
+
+## Flow and pathway variables explained 
+
+In order for our simplification of the mental health pathway to reflect near-reality we have chosen to introduce several variables across our model: 
+
+| Variable | Description | Derivation |
+|----------|-------------|------------|
+| Referrals receiving service | Not all patients referred will receive a treatment, some will not meet thresholds and others may refuse or drop-out before treatment begins. | MHSDS tables MHS101, MHS102 and MHS201 or IAPT V1.5. All completed referrals made during 2018. % of those that had a clinical contact after the date of referral and were not discharged before treatment began. | 
+| Time in treatment | The length of time (in months) that patients in each service stay on caseload. Implemented here as a 50% decay function. | MHSDS tables MHS101, MHS102. All completed referrals made during 2018. Median whole months between referral and discharge dates for each service. |
+| Treatment success | The likelihood that patients will require further treatment after discharged from current service. |  MHSDS tables MHS101, MHS102. All completed referrals made during 2018. % of patients discharged that were referred to any mental health team within 12 months of discharge (or re-admission for inpatient services). |
+| Demand multiplier | The intensity of service provided for patients in each service. Could relate to any aspect of care activity – OP appointments, community contacts, inpatient beddays. | MHSDS tables MHS101, MHS102, MHS201, MHS501 or IAPT v1.5. All completed referrals made during 2018. Count of clinical care contact days (clinical care contact time > 0 or IAPT therapy sessions) between dates of referral and discharge. Calculated as units per patient per month. |
+
+## Additional assumptions explained 
+
+### Demand scenarios 
+
+### Psychiatric co-morbidity
+
+### Population double-counting
+
+[su]: https://www.strategyunitwm.nhs.uk/
+[su_contact]: https://www.strategyunitwm.nhs.uk/contact
+[gh]: https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/ 
+[app]: https://strategyunit.shinyapps.io/MH_Surge_Modelling/

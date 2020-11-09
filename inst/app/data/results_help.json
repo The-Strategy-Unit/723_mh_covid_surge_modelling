@@ -1,0 +1,11 @@
+{
+  "combined_help": {
+    "title": "Combined modelled and projected referrals to service",
+    "text": [
+      "Suppressed: the fall in referral activity between 1st March 2020 and 30th June 2020 compared to the same period in 2019. If the suppressed activity is 0-9% of the previous 12 months the catch-up is profiled evenly over 6 months, 10-19% over 9 months and 20%+ then profiled evenly over 12 months from 1st July.",
+      "Surge: the increase in demand according to the model.",
+      "Underlying: repetition of the 12 months referrals to this service up to end of February 2020 for the rest of the model horizon. This is for context only; local areas may wish to use a mixture of actual referral volumes and more sophisticated trend analysis or projections.",
+      "Total: the combined monthly totals of the three demands detailed above."
+    ]
+  }
+}
