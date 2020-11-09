@@ -15,7 +15,6 @@
 #' @importFrom shinyjs hidden
 #' @importFrom dplyr %>%
 #' @importFrom purrr set_names
-#' @importFrom markdown markdownToHTML
 home_ui <- function(id) {
   files <- app_sys("app/data") %>%
     dir("^params\\_.*\\.xlsx$", full.names = TRUE) %>%
@@ -71,7 +70,8 @@ home_ui <- function(id) {
           accept = ".xlsx",
           placeholder = "Previously downloaded parameters"
         ),
-        uiOutput(NS(id, "user_upload_xlsx_msg"))
+        uiOutput(NS(id, "user_upload_xlsx_msg")),
+        uiOutput(NS(id, "example_param_file_text"))
       )
     ),
     md_to_tags(app_sys("app/data/home_documentation.md"))
@@ -81,15 +81,32 @@ home_ui <- function(id) {
 #' @rdname home_module
 home_server <- function(id, params_file_path, upload_event) {
   moduleServer(id, function(input, output, session) {
+
+    output$example_param_file_text <- renderUI({
+      tags$span(
+        "To view an example of the parameters file for the national model, please click",
+        tags$a(
+          "here",
+          href = paste0("https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/",
+                        "blob/master/inst/app/data/params_England.xlsx?raw=true"),
+          target = "_blank"
+        ),
+        "."
+      )
+    })
+
     observeEvent(input$params_select, {
       ps <- req(input$params_select)
 
       if (ps == "custom") {
         shinyjs::show("user_upload_xlsx")
+        shinyjs::show("example_param_file_text")
         # don't immediately show the upload msg, only show after an upload has occurred
+
       } else {
         shinyjs::hide("user_upload_xlsx")
         shinyjs::hide("user_upload_xlsx_msg")
+        shinyjs::hide("example_param_file_text")
         params_file_path(input$params_select)
       }
     })
