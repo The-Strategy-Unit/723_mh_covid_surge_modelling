@@ -139,7 +139,6 @@ params_ui <- function(id) {
 #' @importFrom purrr walk discard map_dbl map iwalk
 #' @importFrom jsonlite read_json
 #' @importFrom utils write.csv
-#' @importFrom shinyWidgets ask_confirmation
 #' @importFrom plotly renderPlotly
 #'
 #' @return a list of reactives
@@ -315,32 +314,9 @@ params_server <- function(id, params, model_output) {
     # help ====
 
     # load in the params help file
-    app_sys("app/data/params_help.json") %>%
-      read_json(TRUE) %>%
-      iwalk(function(data, input_name) {
-        # extract the text field. each line of text is converted to a paragraph. if that paragraph starts with a ":",
-        # then we put the text before the ":" in bold text, followed by the rest of the text.
-        text <- data$text %>%
-          strsplit(": ") %>%
-          map(~if (length(.x) >= 2) {
-            tags$p(tags$strong(.x[[1]]), paste(.x[-1], collapse = " "))
-          } else {
-            tags$p(.x)
-          })
-
-        # observe the event of the help button being pressed, and show an ask_confirmation
-        observeEvent(input[[input_name]], {
-          ask_confirmation(
-            paste0(input_name, "_box"),
-            data$title,
-            tagList(text),
-            "question",
-            "ok",
-            closeOnClickOutside = TRUE,
-            showCloseButton = FALSE,
-            html = TRUE
-          )
-        })
+    help_popups("params") %>%
+      iwalk(function(popup_fn, input_name) {
+        observeEvent(input[[input_name]], popup_fn())
       })
 
     # return ====

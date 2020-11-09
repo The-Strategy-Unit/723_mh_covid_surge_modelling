@@ -62,3 +62,6 @@ reference:
   - primary_box
   - reactive_changes
   - where
+  - help_popups
+  - reduce_condition_pcnts
+  - replace_bootstrap_cols

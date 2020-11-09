@@ -4,10 +4,19 @@ library(mockery)
 # ui ----
 
 test_that("it generates the UI correctly", {
+  m <- mock("documentation")
+
+  stub(home_ui, "md_to_tags", m)
+  stub(home_ui, "app_sys", identity)
   stub(home_ui, "dir", c("params_a.xlsx", "params_b.xlsx", "params_c.xlsx"))
+
   ui <- home_ui("a")
+
   expect_snapshot(ui)
   expect_s3_class(ui, "shiny.tag.list")
+
+  expect_called(m, 1)
+  expect_args(m, 1, "app/data/home_documentation.md")
 })
 
 # server ----

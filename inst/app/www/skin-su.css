@@ -329,3 +329,7 @@
 #results_value_boxes > div > .small-box.bg-aqua {
   background-color: #f8bf07!important;
 }
+
+.swal2-popup {
+  width: 48em !important;
+}
