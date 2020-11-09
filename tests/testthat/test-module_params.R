@@ -10,7 +10,6 @@ test_that("it creats the UI correctly", {
   stub(params_ui, "c2t_ui", mc2t)
 
   ui <- params_ui("a")
-  expect_snapshot(ui)
   expect_s3_class(ui, "shiny.tag")
 
   expect_called(mg2c, 1)
