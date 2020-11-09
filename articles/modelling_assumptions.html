@@ -105,8 +105,8 @@
 <img src="model-pathway.jpg" title="Model Pathway" alt=""><p class="caption">Example of a single pathway</p>
 </div>
 <p>Our whole population simulation model is based on a system dynamics approach. The stocks in our model represent a) population risk groups exposed to covid-19 either directly or indirectly; b) the buckets of conditions/symptoms they may develop; c) the services that they may present to and receive treatment from. You can read more in <code><a href="../articles/model.html">vignette("model")</a></code>.</p>
-<p>Initial population stocks have been derived from multiple open access, routine datasets or estimated from contemporaneous literature &lt;&lt;host Alex’s metafile on github and link?&gt;&gt;.</p>
-<p>Effect sizes have been determined with reference to early national and international literature on the Covid-19 pandemic and similar previous one-off events or epidemics e.g. SARS, MERS, Boston Marathon lockdown. We accept this has become out-of-date quite quickly. &lt;&lt;host the evidence metafile on github and link?&gt;&gt;</p>
+<p>Initial population stocks have been derived from multiple open access, routine datasets or estimated from contemporaneous literature (<a href="https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/raw/evidence_files/Evidence_summary_MH.xlsx">Evidence_summary_MH.xlsx</a>).</p>
+<p>Effect sizes have been determined with reference to early national and international literature on the Covid-19 pandemic and similar previous one-off events or epidemics e.g. SARS, MERS, Boston Marathon lockdown. We accept this has become out-of-date quite quickly.</p>
 <p>The flow variables in our model are determined by empirical data extracted from the national Mental Health Services Data Set (MHSDS).</p>
 <p>The mapping of likely flows of conditions to services was initially developed in conjunction with a multi-disciplinary team from Mersey Care Foundation NHS Trust.</p>
 </div>
@@ -155,14 +155,63 @@
 <div id="demand-scenarios" class="section level3">
 <h3 class="hasAnchor">
 <a href="#demand-scenarios" class="anchor"></a>Demand scenarios</h3>
+<p>To simulate future demand, our approach requires an assumption about the rates at which the effects from the pandemic, as determined by the literature, might be distributed over time. We developed five scenarios to provide differing views. These will only marginally change the overall effect sizes as a result of the differential flows through the model.</p>
+<table class="table">
+<colgroup>
+<col width="17%">
+<col width="40%">
+<col width="41%">
+</colgroup>
+<thead><tr class="header">
+<th>Scenario</th>
+<th>Description and rationale</th>
+<th>Example distribution curve</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Sudden Shock</td>
+<td>The impacts will materialise soon after the initial wave and lockdown and then drop off quickly afterwards as the economy and society recovers.</td>
+<td><img src="curve%20Sudden%20Shock.png"></td>
+</tr>
+<tr class="even">
+<td>Prolonged Pandemic</td>
+<td>An extended curve that ‘stretches out’ the traditional epidemic curve over 36 months. There will likely be some lag in the effects taking hold and also a lag in the recovery from the impacts.</td>
+<td><img src="curve%20Prolonged%20Pandemic.png"></td>
+</tr>
+<tr class="odd">
+<td>Even Ebb</td>
+<td>A steady rise in needs followed by an equivalent drop as individuals’ and populations adjust and develop coping mechanisms</td>
+<td><img src="curve%20Even%20Ebb.png"></td>
+</tr>
+<tr class="even">
+<td>Incubating impacts</td>
+<td>Short-term rise that then plateaus off as demand for support remains steady and consistent. The 3 year horizon truncates this scenario.</td>
+<td><img src="curve%20Incubating%20Impact.png"></td>
+</tr>
+<tr class="odd">
+<td>Fluctuating Fears</td>
+<td>Broadly consistent with one major peak in each year but reducing in severity over time.</td>
+<td><img src="curve%20Fluctuating%20Fears.png"></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="psychiatric-co-morbidity" class="section level3">
 <h3 class="hasAnchor">
 <a href="#psychiatric-co-morbidity" class="anchor"></a>Psychiatric co-morbidity</h3>
-</div>
-<div id="population-double-counting" class="section level3">
-<h3 class="hasAnchor">
-<a href="#population-double-counting" class="anchor"></a>Population double-counting</h3>
+<p>Many patients will develop co-morbid psychological issues such as anxiety and depression, insomnia and distress, psychosis and substance misuse. Our model is simplified however to single and independent incidence of new conditions, as is virtually all the emerging literature specific to covid-19. Based on the findings in Kessler RC et al [Prevalence, Severity, and Comorbidity of Twelve-month DSM-IV Disorders in the National Comorbidity Survey Replication (NCS-R), 2005] we have assumed an average number of presenting morbidities of 2 and have effectively halved the effects laid out in the impact literature we reviewed.</p>
+<p>The segmented populations that provide the initial inputs for the model are taken from multiple sources and with the potential for significant overlap. Similarly, some studies have very specific case definitions of risk groups, but our population denominators are broad by necessity. In order to mitigate this risk we have made 2 explicit adjustments.</p>
+<ol style="list-style-type: decimal">
+<li>Reduction of the populations with existing physical and mental health conditions. We have pragmatically reduced all these populations by 1/3 as people often have acute co-morbid issues.</li>
+<li>A susceptibility and resilience moderator. This adjustment varies by population group, but is intended to provide a reasonable sense of how vulnerable the populations are likely to be to the effects of change and how likely they are to quickly adapt. The broad categories that we have applied are:
+<ul>
+<li>10% of population sub-group at ‘risk’ - Generic groups, low risk and resilient</li>
+<li>25% of population sub-group at ‘risk’ - Broad groups, some existing health needs</li>
+<li>50% of population sub-group at ‘risk’ - Broad groups with specific existing MH needs</li>
+<li>75% of population sub-group at ‘risk’ - Specific groups with direct links to covid</li>
+</ul>
+</li>
+</ol>
 </div>
 </div>
   </div>
