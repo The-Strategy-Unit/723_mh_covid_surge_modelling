@@ -30,7 +30,8 @@ treatment_split_plot <- function(treatments) {
     layout(
       xaxis = list(tickformat = "%",
                    title = FALSE),
-      yaxis = list(title = FALSE),
+      yaxis = list(title = FALSE,
+                   tickfont = list(size = 10)),
       margin = list(l = 150)
     )  %>%
     config(displayModeBar = FALSE)
