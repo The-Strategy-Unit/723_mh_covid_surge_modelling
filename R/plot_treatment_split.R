@@ -15,7 +15,7 @@ treatment_split_plot <- function(treatments) {
   tibble(treatment = names(treatments),
          split = treatments) %>%
     mutate(across(.data$split, ~ .x / sum(.x)),
-           across(.data$treatment, ~ .x %>% str_wrap(width = 24) %>% str_replace_all("\\n", "<br>")),
+           across(.data$treatment, ~ .x %>% str_wrap(width = 27) %>% str_replace_all("\\n", "<br>")),
            across(.data$treatment, fct_reorder, split)) %>%
     arrange(desc(.data$split)) %>%
     plot_ly(
