@@ -15,7 +15,6 @@
 #' @importFrom shinyjs hidden
 #' @importFrom dplyr %>%
 #' @importFrom purrr set_names
-#' @importFrom markdown markdownToHTML
 home_ui <- function(id) {
   files <- app_sys("app/data") %>%
     dir("^params\\_.*\\.xlsx$", full.names = TRUE) %>%
@@ -71,8 +70,7 @@ home_ui <- function(id) {
           accept = ".xlsx",
           placeholder = "Previously downloaded parameters"
         ),
-        uiOutput(NS(id, "user_upload_xlsx_msg"))
-        ,
+        uiOutput(NS(id, "user_upload_xlsx_msg")),
         uiOutput(NS(id, "example_param_file_text"))
       )
     ),
@@ -85,13 +83,15 @@ home_server <- function(id, params_file_path, upload_event) {
   moduleServer(id, function(input, output, session) {
 
     output$example_param_file_text <- renderUI({
-      HTML(
-        paste0(
-          "To view an example of the parameters file for the national model, please click ",
-          a("here", href = "https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/blob/master/inst/app/data/params_England.xlsx?raw=true", target =
-              "_blank"),
-          "."
-        )
+      tags$span(
+        "To view an example of the parameters file for the national model, please click",
+        tags$a(
+          "here",
+          href = paste0("https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/",
+                        "blob/master/inst/app/data/params_England.xlsx?raw=true"),
+          target = "_blank"
+        ),
+        "."
       )
     })
 

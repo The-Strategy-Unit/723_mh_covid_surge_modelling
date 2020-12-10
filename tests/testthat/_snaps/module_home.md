@@ -54,6 +54,7 @@
               </div>
             </div>
             <div class="shiny-html-output shinyjs-hide" id="a-user_upload_xlsx_msg"></div>
+            <div class="shiny-html-output shinyjs-hide" id="a-example_param_file_text"></div>
           </div>
         </div>
       </div>
