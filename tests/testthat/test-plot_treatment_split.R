@@ -28,7 +28,10 @@ test_that("it calls plotly with correct args", {
   t <- tibble(treatment = names(treatments),
               split = treatments) %>%
     mutate(across(.data$split, ~ .x / sum(.x)),
-           across(.data$treatment, fct_reorder, split)) %>%
+         across(.data$treatment, ~ .x %>%
+                  str_wrap(width = 27) %>%
+                  str_replace_all("\\n", "<br>")),
+         across(.data$treatment, fct_reorder, split)) %>%
     arrange(desc(.data$split))
 
   expect_called(m1, 1)
@@ -46,7 +49,9 @@ test_that("it calls plotly with correct args", {
     "plot_ly",
     xaxis = list(tickformat = "%",
                  title = FALSE),
-    yaxis = list(title = FALSE)
+    yaxis = list(title = FALSE,
+                 tickfont = list(size = 10)),
+    margin = list(l = 150)
   )
 
   expect_called(m3, 1)
