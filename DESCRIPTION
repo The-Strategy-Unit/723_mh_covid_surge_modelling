@@ -32,6 +32,7 @@ Imports:
     shinycssloaders,
     shinydashboard,
     shinyjs,
+    stringr,
     tidyr,
     writexl,
     shinyWidgets
