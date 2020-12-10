@@ -88,8 +88,10 @@ home_server <- function(id, params_file_path, upload_event) {
       HTML(
         paste0(
           "To view an example of the parameters file for the national model, please click ",
-          a("here", href = "https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/blob/master/inst/app/data/params_England.xlsx?raw=true", target =
-              "_blank"),
+          a("here",
+            href = paste0("https://github.com/The-Strategy-Unit/723_mh_covid_surge_modelling/blob/master/",
+                          "inst/app/data/params_England.xlsx?raw=true"),
+            target = "_blank"),
           "."
         )
       )
