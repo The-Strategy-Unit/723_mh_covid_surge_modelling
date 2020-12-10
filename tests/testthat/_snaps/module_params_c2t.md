@@ -130,5 +130,5 @@
           </td>
         </tr>
       </table>
-      <div id="proxy1-treat_split_plot" style="width:100%; height:400px; " class="plotly html-widget html-widget-output shiny-report-size"></div>
+      <div id="proxy1-treat_split_plot" style="width:100%; height:400px; " class="plotly html-widget html-widget-output shiny-report-size shiny-report-theme"></div>
 
