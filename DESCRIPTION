@@ -1,6 +1,6 @@
 Package: mhSurgeModelling
 Title: Mental Health Covid-19 Surge Modelling
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
     person('Tom', 'Jemmett', email = 'thomas.jemmett@nhs.net', role = c('cre', 'aut')),
     person('Victor', 'Yu', email = 'victor.yu@nhs.net', role = 'aut'),
@@ -32,6 +32,7 @@ Imports:
     shinycssloaders,
     shinydashboard,
     shinyjs,
+    stringr,
     tidyr,
     writexl,
     shinyWidgets
