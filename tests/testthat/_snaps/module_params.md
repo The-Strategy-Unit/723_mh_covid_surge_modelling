@@ -34,7 +34,7 @@
                     <script type="application/json" data-for="a-subpopulation_curve" data-nonempty="">{}</script>
                   </div>
                 </div>
-                <div id="a-subpopulation_curve_plot" style="width:100%; height:100px; " class="plotly html-widget html-widget-output shiny-report-size"></div>
+                <div id="a-subpopulation_curve_plot" style="width:100%; height:100px; " class="plotly html-widget html-widget-output shiny-report-size shiny-report-theme"></div>
                 <a id="a-population_group_help" href="#" class="action-button">
                   <i class="fa fa-question"></i>
                   
