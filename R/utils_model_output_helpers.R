@@ -108,7 +108,7 @@ surge_table <- function(model_output, column, column_name) {
   column <- enquo(column)
   df <- model_output %>%
     surge_summary({{column}}) %>%
-    rename({{column_name}} := .data$`group`,
+    rename(!!column_name := .data$`group`,
            "Total symptomatic over period referrals" = .data$`new-referral`,
            "Total receiving services over period" = .data$`new-treatment`)
 

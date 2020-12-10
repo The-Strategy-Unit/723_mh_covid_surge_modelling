@@ -5,6 +5,7 @@
       "Choose Subgroup: The population has been segmented into subgroups who each have their own potential covid-effects (conditions) and treatments",
       "Subpopulation Figure: The total amount of people in the subgroup at a point in time. The sum of all of the subpopulation figures should equal your geographies total population.",
       "Susceptibility and Resilience adjustment: The % of the subgroup figure that we will be modelling. Not everyone in the subgroup will suffer from Mental Health conditions due to COVID-19, this % controls for that - a 'Susceptibility' or 'Resillience' factor.",
+      "This is a pragmatic value included to try and mitigate the risk of double-counting of populations and also accounting for unknown benefits of covid and lockdown on each group. This value is art not science, please exercise your own judgement as we have.",
       "Modelled Population: The subpopulation figure multiplied by the % in subgroup. This is how many people will be available to introduce into the model in month 1.",
       "Choose Scenario: The model runs over a number of months. These scenarios alter how many of the modelled population enter the model each month and should reflect how best you think the pandemic effects will occur over time."
     ]
