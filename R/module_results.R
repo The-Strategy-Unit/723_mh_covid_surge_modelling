@@ -134,9 +134,9 @@ results_server <- function(id, params, model_output) {
   moduleServer(id, function(input, output, session) {
     output$download_report <- downloadHandler(
       filename = if (input$download_choice == "all") {
-        paste0(Sys.Date(), "_", gsub(":", "", format(Sys.time(), "%X")), "_AllServices.pdf")
+        paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), "_AllServices.pdf")
       } else {
-        paste0(Sys.Date(), "_", gsub(":", "", format(Sys.time(), "%X")), "_", gsub(" ", "", input$services, fixed = TRUE), ".pdf")
+        paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), "_", gsub(" ", "", input$services, fixed = TRUE), ".pdf")
       },
       content = function(file) {
         model_output <- model_output()
