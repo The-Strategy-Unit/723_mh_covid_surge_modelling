@@ -120,12 +120,29 @@ home_server <- function(id, params_file_path, upload_event) {
 
     output$user_upload_xlsx_msg <- renderUI({
       if (upload_event$success) {
-        tags$span(upload_event$msg)
+        tags$div(
+          HTML(
+            paste(
+          tags$span("\u2714", " ", tags$strong(upload_event$msg), style = "color:green"),
+          tags$br(),
+          tags$br()
+          )
+        )
+        )
       } else {
-        tags$span(
-          tags$strong("Error: "),
-          upload_event$msg,
-          style = "color: red"
+        tags$div(
+          HTML(
+            paste(
+              tags$span(
+                "\u2718", " ",
+                tags$strong("Error: "),
+                upload_event$msg,
+                style = "color: red"
+              ),
+              tags$br(),
+              tags$br()
+            )
+          )
         )
       }
     })
