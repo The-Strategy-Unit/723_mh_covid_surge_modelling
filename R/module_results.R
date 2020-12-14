@@ -133,7 +133,11 @@ results_server <- function(id, params, model_output) {
 
   moduleServer(id, function(input, output, session) {
     output$download_report <- downloadHandler(
-      filename = "report.pdf",
+      filename = if (input$download_choice == "all") {
+        paste0(Sys.Date(), "_AllServices.pdf")
+      } else {
+        paste0(Sys.Date(), "_", gsub(" ", "", input$services, fixed = TRUE), ".pdf")
+      },
       content = function(file) {
         model_output <- model_output()
         params <- reactiveValuesToList(params)
