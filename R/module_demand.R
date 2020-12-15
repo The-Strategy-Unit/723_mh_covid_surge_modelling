@@ -80,11 +80,11 @@ demand_server <-  function(id, params, upload_event) {
           s_input <- numericInput(NS(id, s_name), NULL, suppressed, min = 0, step = 1)
 
           demand_observables[[u_name]] <<- observeEvent(input[[u_name]], {
-            demand$underlying[[month_ix]] <- input[[u_name]]
+            params$demand[[input$service]]$underlying[[month_ix]] <- input[[u_name]]
           })
 
           demand_observables[[s_name]] <<- observeEvent(input[[s_name]], {
-            demand$suppressed[[month_ix]] <- input[[s_name]]
+            params$demand[[input$service]]$suppressed[[month_ix]] <- input[[s_name]]
           })
 
           tags$tr(
