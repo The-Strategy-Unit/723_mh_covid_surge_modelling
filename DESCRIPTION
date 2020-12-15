@@ -42,7 +42,6 @@ Suggests:
     processx,
     pkgload,
     testthat,
-    usethis,
     ggplot2,
     grid,
     gridExtra,
