@@ -37,6 +37,7 @@ test_that("it set's up download handlers correctly", {
   m <- mock(renderUI("download_report"), renderUI("download_output"))
 
   stub(results_server, "downloadHandler", m)
+  stub(results_server, "tempdir", "tempdir/")
 
   testServer(results_server, args = results_server_args(), {
     session$setInputs(download_choice = "all")
@@ -62,15 +63,17 @@ test_that("it set's up download handlers correctly", {
     expect_called(m1c, 2)
     expect_args(m1c, 1,
                 app_sys("app/data/report.Rmd"),
+                output_dir = "tempdir/",
                 output_file = "file.pdf",
                 envir = "env")
     expect_args(m1c, 2,
                 app_sys("app/data/report.Rmd"),
+                output_dir = "tempdir/",
                 output_file = "file.pdf",
                 envir = "env")
 
     # output$download_output
-    expect_length(ma[[2]], 3) # 3 args
+    expect_length(ma[[2]], 3)
     expect_type(ma[[2]]$filename, "closure")
     expect_type(ma[[2]]$content, "closure")
     expect_equal(ma[[2]]$contentType, "text/csv")
