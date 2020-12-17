@@ -157,6 +157,7 @@ results_server <- function(id, params, model_output) {
 
         rmarkdown::render(
           app_sys("app/data/report.Rmd"),
+          output_dir = tempdir(),
           output_file = file,
           envir = current_env()
         )
