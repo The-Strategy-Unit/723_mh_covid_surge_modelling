@@ -88,8 +88,20 @@ test_that("it renders upload messages correctly", {
     session$private$flush()
 
     h <- output$user_upload_xlsx_msg$html
-    expect_equal(as.character(h),
-                 "<span>Success</span>")
+    expect_equal(
+      as.character(h),
+      as.character(
+        tags$div(
+          tags$span(
+            style = "color: green",
+            "\u2714 ",
+            tags$strong("Success")
+          ),
+          tags$br(),
+          tags$br()
+        )
+      )
+    )
 
     upload_event$counter <- 2
     upload_event$success <- FALSE
@@ -100,10 +112,15 @@ test_that("it renders upload messages correctly", {
     expect_equal(
       as.character(h),
       as.character(
-        tags$span(
-          style = "color: red",
-          tags$strong("Error: "),
-          "message"
+        tags$div(
+          tags$span(
+            style = "color: red",
+            "\u2718 ",
+            tags$strong("Error: "),
+            "message"
+          ),
+          tags$br(),
+          tags$br()
         )
       )
     )

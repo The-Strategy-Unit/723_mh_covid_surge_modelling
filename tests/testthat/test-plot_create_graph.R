@@ -34,26 +34,24 @@ test_that("it calls plotly", {
   expect_args(m3, 1, "layout", displayModeBar = FALSE)
 })
 
-# test is failing: to fix
-# test_that("it filters the data correctly", {
-#   m <- mock()
-#   stub(create_graph, "filter", m)
-#   stub(create_graph, "group_by", tibble())
-#   stub(create_graph, "summarise", tibble())
-#   stub(create_graph, "day", 1)
-#
-#   create_graph(model_output, "a", "b", "c")
-#
-#   expect_called(m, 1)
-#   expect_call(m, 1, filter(
-#     .,
-#     .data$type == "treatment",
-#     .data$group %in% groups,
-#     .data$condition %in% conditions,
-#     .data$treatment %in% treatments,
-#     day(.data$date) == 1
-#   ))
-# })
+test_that("it filters the data correctly", {
+  m <- mock(tibble())
+  stub(create_graph, "filter", m)
+  stub(create_graph, "group_by", function(x, ...) x)
+  stub(create_graph, "summarise", function(x, ...) x)
+  stub(create_graph, "day", 1)
+
+  create_graph(model_output)
+
+  expect_call(m, 1, filter(
+    .,
+    .data$type == "treatment",
+    .data$group %in% groups,
+    .data$condition %in% conditions,
+    .data$treatment %in% treatments,
+    day(.data$date) == 1
+  ))
+})
 
 test_that("it returns NULL if there is no data", {
   stub(create_graph, "filter", tibble())

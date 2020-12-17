@@ -132,8 +132,20 @@ results_server <- function(id, params, model_output) {
             "model_output must be a reactive" = is.reactive(model_output))
 
   moduleServer(id, function(input, output, session) {
+
     output$download_report <- downloadHandler(
-      filename = "report.pdf",
+      filename = function() {
+        paste0(
+          format(Sys.time(), "%Y-%m-%d_%H%M%S"),
+          "_",
+          if(input$download_choice == "all") {
+            "AllServices"
+          } else {
+            gsub(" ", "", input$services, fixed = TRUE)
+          },
+          ".pdf"
+        )
+      },
       content = function(file) {
         model_output <- model_output()
         params <- reactiveValuesToList(params)
@@ -145,6 +157,7 @@ results_server <- function(id, params, model_output) {
 
         rmarkdown::render(
           app_sys("app/data/report.Rmd"),
+          output_dir = tempdir(),
           output_file = file,
           envir = current_env()
         )

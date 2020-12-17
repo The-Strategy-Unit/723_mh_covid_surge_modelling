@@ -24,9 +24,10 @@ if (!(exists("params") && setequal(names(params), c("groups", "treatments", "cur
 # model_output/services should exist in the environment, but recreate them if not
 
 if (!exists("model_output")) {
+  start_month <- min(params$demand[[1]]$month)
   model_output <- params %>%
-    run_model(24, 0.2) %>%
-    get_model_output()
+    run_model(0.2) %>%
+    get_model_output(start_month)
 }
 
 if (!exists("services")) {
