@@ -132,11 +132,19 @@ results_server <- function(id, params, model_output) {
             "model_output must be a reactive" = is.reactive(model_output))
 
   moduleServer(id, function(input, output, session) {
+
     output$download_report <- downloadHandler(
-      filename = if (input$download_choice == "all") {
-        paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), "_AllServices.pdf")
-      } else {
-        paste0(format(Sys.time(), "%Y-%m-%d_%H%M%S"), "_", gsub(" ", "", input$services, fixed = TRUE), ".pdf")
+      filename = function() {
+        paste0(
+          format(Sys.time(), "%Y-%m-%d_%H%M%S"),
+          "_",
+          if(input$download_choice == "all") {
+            "AllServices"
+          } else {
+            gsub(" ", "", input$services, fixed = TRUE)
+          },
+          ".pdf"
+        )
       },
       content = function(file) {
         model_output <- model_output()
