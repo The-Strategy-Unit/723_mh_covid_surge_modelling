@@ -50,7 +50,7 @@ test_that("it set's up download handlers correctly", {
 
     # output$download_report
     expect_length(ma[[1]], 2) # 2 args
-    expect_equal(ma[[1]]$filename, "report.pdf")
+    expect_type(ma[[1]]$filename, "closure")
     expect_type(ma[[1]]$content, "closure")
 
     m1c <- mock("rmarkdown::render", cycle = TRUE)
