@@ -66,6 +66,9 @@ demand_server <-  function(id, params, upload_event) {
       walk(demand_observables, ~.x$destroy())
       demand_observables <<- list()
 
+      # add a timestamp to observable id's - it appears as though the observers aren't properly getting destroyed
+      ix <- as.numeric(Sys.time())
+
       table_rows <- demand %>%
         mutate(month_ix = row_number()) %>%
         pmap(function(month, underlying, suppressed, month_ix) {
@@ -73,18 +76,18 @@ demand_server <-  function(id, params, upload_event) {
 
           m_text <- div(month_fmt)
 
-          u_name <- paste0(month_fmt, "-underlying")
+          u_name <- paste0(month_fmt, "-underlying-", ix)
           u_input <- numericInput(NS(id, u_name), NULL, underlying, min = 0, step = 1)
 
-          s_name <- paste0(month_fmt, "-suppressed")
+          s_name <- paste0(month_fmt, "-suppressed-", ix)
           s_input <- numericInput(NS(id, s_name), NULL, suppressed, min = 0, step = 1)
 
           demand_observables[[u_name]] <<- observeEvent(input[[u_name]], {
-            params$demand[[input$service]]$underlying[[month_ix]] <- input[[u_name]]
+            params$demand[[service]]$underlying[[month_ix]] <- input[[u_name]]
           })
 
           demand_observables[[s_name]] <<- observeEvent(input[[s_name]], {
-            params$demand[[input$service]]$suppressed[[month_ix]] <- input[[s_name]]
+            params$demand[[service]]$suppressed[[month_ix]] <- input[[s_name]]
           })
 
           tags$tr(
