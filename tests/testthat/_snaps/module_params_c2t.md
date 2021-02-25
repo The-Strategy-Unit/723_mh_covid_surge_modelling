@@ -82,15 +82,15 @@
           </td>
         </tr>
         <tr>
-          <td style="padding: 0px 5px 0px 0px;">Primary Care Mental Health Service</td>
+          <td style="padding: 0px 5px 0px 0px;">Primary Care Mental Health Service</td>
           <td style="padding: 0px 5px 0px 0px;">
             <div class="form-group shiny-input-container" style="width:75px;">
-              <label class="control-label shiny-label-null" for="proxy1-numeric_treat_split_Primary_Care Mental_Health_Service" id="proxy1-numeric_treat_split_Primary_Care Mental_Health_Service-label"></label>
-              <input id="proxy1-numeric_treat_split_Primary_Care Mental_Health_Service" type="number" class="form-control" value="5"/>
+              <label class="control-label shiny-label-null" for="proxy1-numeric_treat_split_Primary_Care_Mental_Health_Service" id="proxy1-numeric_treat_split_Primary_Care_Mental_Health_Service-label"></label>
+              <input id="proxy1-numeric_treat_split_Primary_Care_Mental_Health_Service" type="number" class="form-control" value="5"/>
             </div>
           </td>
           <td style="padding: 0px 5px 0px 0px;">
-            <span id="proxy1-pcnt_treat_split_Primary_Care Mental_Health_Service" class="shiny-text-output"></span>
+            <span id="proxy1-pcnt_treat_split_Primary_Care_Mental_Health_Service" class="shiny-text-output"></span>
           </td>
         </tr>
         <tr>
