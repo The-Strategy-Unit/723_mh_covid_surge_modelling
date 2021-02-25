@@ -138,7 +138,7 @@ results_server <- function(id, params, model_output) {
         paste0(
           format(Sys.time(), "%Y-%m-%d_%H%M%S"),
           "_",
-          if(input$download_choice == "all") {
+          if (input$download_choice == "all") {
             "AllServices"
           } else {
             gsub(" ", "", input$services, fixed = TRUE)
