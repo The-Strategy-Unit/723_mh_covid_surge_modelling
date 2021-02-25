@@ -16,10 +16,10 @@
                 uploaded in the 'demand' tab of the whole model parameter file.
               </p>
               <div class="form-group shiny-input-container">
-                <label class="control-label" for="x-service">Service</label>
+                <label class="control-label" id="x-service-label" for="x-service">Service</label>
                 <div>
                   <select id="x-service"></select>
-                  <script type="application/json" data-for="x-service" data-nonempty="">{}</script>
+                  <script type="application/json" data-for="x-service" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
                 </div>
               </div>
               <div id="x-container" class="shiny-html-output"></div>
@@ -45,14 +45,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-May-20-underlying"></label>
-              <input id="proxy1-May-20-underlying" type="number" class="form-control" value="1999" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-May-20-underlying-1" id="proxy1-May-20-underlying-1-label"></label>
+              <input id="proxy1-May-20-underlying-1" type="number" class="form-control" value="1999" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-May-20-suppressed"></label>
-              <input id="proxy1-May-20-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-May-20-suppressed-1" id="proxy1-May-20-suppressed-1-label"></label>
+              <input id="proxy1-May-20-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -62,14 +62,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jun-20-underlying"></label>
-              <input id="proxy1-Jun-20-underlying" type="number" class="form-control" value="1872" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jun-20-underlying-1" id="proxy1-Jun-20-underlying-1-label"></label>
+              <input id="proxy1-Jun-20-underlying-1" type="number" class="form-control" value="1872" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jun-20-suppressed"></label>
-              <input id="proxy1-Jun-20-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jun-20-suppressed-1" id="proxy1-Jun-20-suppressed-1-label"></label>
+              <input id="proxy1-Jun-20-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -79,14 +79,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jul-20-underlying"></label>
-              <input id="proxy1-Jul-20-underlying" type="number" class="form-control" value="1847" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jul-20-underlying-1" id="proxy1-Jul-20-underlying-1-label"></label>
+              <input id="proxy1-Jul-20-underlying-1" type="number" class="form-control" value="1847" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jul-20-suppressed"></label>
-              <input id="proxy1-Jul-20-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jul-20-suppressed-1" id="proxy1-Jul-20-suppressed-1-label"></label>
+              <input id="proxy1-Jul-20-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -96,14 +96,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Aug-20-underlying"></label>
-              <input id="proxy1-Aug-20-underlying" type="number" class="form-control" value="1814" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Aug-20-underlying-1" id="proxy1-Aug-20-underlying-1-label"></label>
+              <input id="proxy1-Aug-20-underlying-1" type="number" class="form-control" value="1814" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Aug-20-suppressed"></label>
-              <input id="proxy1-Aug-20-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Aug-20-suppressed-1" id="proxy1-Aug-20-suppressed-1-label"></label>
+              <input id="proxy1-Aug-20-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -113,14 +113,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Sep-20-underlying"></label>
-              <input id="proxy1-Sep-20-underlying" type="number" class="form-control" value="1933" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Sep-20-underlying-1" id="proxy1-Sep-20-underlying-1-label"></label>
+              <input id="proxy1-Sep-20-underlying-1" type="number" class="form-control" value="1933" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Sep-20-suppressed"></label>
-              <input id="proxy1-Sep-20-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Sep-20-suppressed-1" id="proxy1-Sep-20-suppressed-1-label"></label>
+              <input id="proxy1-Sep-20-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -130,14 +130,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Oct-20-underlying"></label>
-              <input id="proxy1-Oct-20-underlying" type="number" class="form-control" value="2102" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Oct-20-underlying-1" id="proxy1-Oct-20-underlying-1-label"></label>
+              <input id="proxy1-Oct-20-underlying-1" type="number" class="form-control" value="2102" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Oct-20-suppressed"></label>
-              <input id="proxy1-Oct-20-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Oct-20-suppressed-1" id="proxy1-Oct-20-suppressed-1-label"></label>
+              <input id="proxy1-Oct-20-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -147,14 +147,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Nov-20-underlying"></label>
-              <input id="proxy1-Nov-20-underlying" type="number" class="form-control" value="1976" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Nov-20-underlying-1" id="proxy1-Nov-20-underlying-1-label"></label>
+              <input id="proxy1-Nov-20-underlying-1" type="number" class="form-control" value="1976" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Nov-20-suppressed"></label>
-              <input id="proxy1-Nov-20-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Nov-20-suppressed-1" id="proxy1-Nov-20-suppressed-1-label"></label>
+              <input id="proxy1-Nov-20-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -164,14 +164,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Dec-20-underlying"></label>
-              <input id="proxy1-Dec-20-underlying" type="number" class="form-control" value="1735" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Dec-20-underlying-1" id="proxy1-Dec-20-underlying-1-label"></label>
+              <input id="proxy1-Dec-20-underlying-1" type="number" class="form-control" value="1735" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Dec-20-suppressed"></label>
-              <input id="proxy1-Dec-20-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Dec-20-suppressed-1" id="proxy1-Dec-20-suppressed-1-label"></label>
+              <input id="proxy1-Dec-20-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -181,14 +181,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jan-21-underlying"></label>
-              <input id="proxy1-Jan-21-underlying" type="number" class="form-control" value="2075" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jan-21-underlying-1" id="proxy1-Jan-21-underlying-1-label"></label>
+              <input id="proxy1-Jan-21-underlying-1" type="number" class="form-control" value="2075" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jan-21-suppressed"></label>
-              <input id="proxy1-Jan-21-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jan-21-suppressed-1" id="proxy1-Jan-21-suppressed-1-label"></label>
+              <input id="proxy1-Jan-21-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -198,14 +198,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Feb-21-underlying"></label>
-              <input id="proxy1-Feb-21-underlying" type="number" class="form-control" value="2456" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Feb-21-underlying-1" id="proxy1-Feb-21-underlying-1-label"></label>
+              <input id="proxy1-Feb-21-underlying-1" type="number" class="form-control" value="2456" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Feb-21-suppressed"></label>
-              <input id="proxy1-Feb-21-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Feb-21-suppressed-1" id="proxy1-Feb-21-suppressed-1-label"></label>
+              <input id="proxy1-Feb-21-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -215,14 +215,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Mar-21-underlying"></label>
-              <input id="proxy1-Mar-21-underlying" type="number" class="form-control" value="1843" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Mar-21-underlying-1" id="proxy1-Mar-21-underlying-1-label"></label>
+              <input id="proxy1-Mar-21-underlying-1" type="number" class="form-control" value="1843" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Mar-21-suppressed"></label>
-              <input id="proxy1-Mar-21-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Mar-21-suppressed-1" id="proxy1-Mar-21-suppressed-1-label"></label>
+              <input id="proxy1-Mar-21-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -232,14 +232,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Apr-21-underlying"></label>
-              <input id="proxy1-Apr-21-underlying" type="number" class="form-control" value="1892" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Apr-21-underlying-1" id="proxy1-Apr-21-underlying-1-label"></label>
+              <input id="proxy1-Apr-21-underlying-1" type="number" class="form-control" value="1892" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Apr-21-suppressed"></label>
-              <input id="proxy1-Apr-21-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Apr-21-suppressed-1" id="proxy1-Apr-21-suppressed-1-label"></label>
+              <input id="proxy1-Apr-21-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -249,14 +249,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-May-21-underlying"></label>
-              <input id="proxy1-May-21-underlying" type="number" class="form-control" value="1999" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-May-21-underlying-1" id="proxy1-May-21-underlying-1-label"></label>
+              <input id="proxy1-May-21-underlying-1" type="number" class="form-control" value="1999" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-May-21-suppressed"></label>
-              <input id="proxy1-May-21-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-May-21-suppressed-1" id="proxy1-May-21-suppressed-1-label"></label>
+              <input id="proxy1-May-21-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -266,14 +266,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jun-21-underlying"></label>
-              <input id="proxy1-Jun-21-underlying" type="number" class="form-control" value="1872" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jun-21-underlying-1" id="proxy1-Jun-21-underlying-1-label"></label>
+              <input id="proxy1-Jun-21-underlying-1" type="number" class="form-control" value="1872" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jun-21-suppressed"></label>
-              <input id="proxy1-Jun-21-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jun-21-suppressed-1" id="proxy1-Jun-21-suppressed-1-label"></label>
+              <input id="proxy1-Jun-21-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -283,14 +283,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jul-21-underlying"></label>
-              <input id="proxy1-Jul-21-underlying" type="number" class="form-control" value="1847" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jul-21-underlying-1" id="proxy1-Jul-21-underlying-1-label"></label>
+              <input id="proxy1-Jul-21-underlying-1" type="number" class="form-control" value="1847" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jul-21-suppressed"></label>
-              <input id="proxy1-Jul-21-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jul-21-suppressed-1" id="proxy1-Jul-21-suppressed-1-label"></label>
+              <input id="proxy1-Jul-21-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -300,14 +300,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Aug-21-underlying"></label>
-              <input id="proxy1-Aug-21-underlying" type="number" class="form-control" value="1814" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Aug-21-underlying-1" id="proxy1-Aug-21-underlying-1-label"></label>
+              <input id="proxy1-Aug-21-underlying-1" type="number" class="form-control" value="1814" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Aug-21-suppressed"></label>
-              <input id="proxy1-Aug-21-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Aug-21-suppressed-1" id="proxy1-Aug-21-suppressed-1-label"></label>
+              <input id="proxy1-Aug-21-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -317,14 +317,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Sep-21-underlying"></label>
-              <input id="proxy1-Sep-21-underlying" type="number" class="form-control" value="1933" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Sep-21-underlying-1" id="proxy1-Sep-21-underlying-1-label"></label>
+              <input id="proxy1-Sep-21-underlying-1" type="number" class="form-control" value="1933" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Sep-21-suppressed"></label>
-              <input id="proxy1-Sep-21-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Sep-21-suppressed-1" id="proxy1-Sep-21-suppressed-1-label"></label>
+              <input id="proxy1-Sep-21-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -334,14 +334,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Oct-21-underlying"></label>
-              <input id="proxy1-Oct-21-underlying" type="number" class="form-control" value="2102" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Oct-21-underlying-1" id="proxy1-Oct-21-underlying-1-label"></label>
+              <input id="proxy1-Oct-21-underlying-1" type="number" class="form-control" value="2102" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Oct-21-suppressed"></label>
-              <input id="proxy1-Oct-21-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Oct-21-suppressed-1" id="proxy1-Oct-21-suppressed-1-label"></label>
+              <input id="proxy1-Oct-21-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -351,14 +351,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Nov-21-underlying"></label>
-              <input id="proxy1-Nov-21-underlying" type="number" class="form-control" value="1976" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Nov-21-underlying-1" id="proxy1-Nov-21-underlying-1-label"></label>
+              <input id="proxy1-Nov-21-underlying-1" type="number" class="form-control" value="1976" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Nov-21-suppressed"></label>
-              <input id="proxy1-Nov-21-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Nov-21-suppressed-1" id="proxy1-Nov-21-suppressed-1-label"></label>
+              <input id="proxy1-Nov-21-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -368,14 +368,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Dec-21-underlying"></label>
-              <input id="proxy1-Dec-21-underlying" type="number" class="form-control" value="1735" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Dec-21-underlying-1" id="proxy1-Dec-21-underlying-1-label"></label>
+              <input id="proxy1-Dec-21-underlying-1" type="number" class="form-control" value="1735" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Dec-21-suppressed"></label>
-              <input id="proxy1-Dec-21-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Dec-21-suppressed-1" id="proxy1-Dec-21-suppressed-1-label"></label>
+              <input id="proxy1-Dec-21-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -385,14 +385,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jan-22-underlying"></label>
-              <input id="proxy1-Jan-22-underlying" type="number" class="form-control" value="2075" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jan-22-underlying-1" id="proxy1-Jan-22-underlying-1-label"></label>
+              <input id="proxy1-Jan-22-underlying-1" type="number" class="form-control" value="2075" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jan-22-suppressed"></label>
-              <input id="proxy1-Jan-22-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jan-22-suppressed-1" id="proxy1-Jan-22-suppressed-1-label"></label>
+              <input id="proxy1-Jan-22-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -402,14 +402,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Feb-22-underlying"></label>
-              <input id="proxy1-Feb-22-underlying" type="number" class="form-control" value="2456" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Feb-22-underlying-1" id="proxy1-Feb-22-underlying-1-label"></label>
+              <input id="proxy1-Feb-22-underlying-1" type="number" class="form-control" value="2456" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Feb-22-suppressed"></label>
-              <input id="proxy1-Feb-22-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Feb-22-suppressed-1" id="proxy1-Feb-22-suppressed-1-label"></label>
+              <input id="proxy1-Feb-22-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -419,14 +419,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Mar-22-underlying"></label>
-              <input id="proxy1-Mar-22-underlying" type="number" class="form-control" value="1843" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Mar-22-underlying-1" id="proxy1-Mar-22-underlying-1-label"></label>
+              <input id="proxy1-Mar-22-underlying-1" type="number" class="form-control" value="1843" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Mar-22-suppressed"></label>
-              <input id="proxy1-Mar-22-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Mar-22-suppressed-1" id="proxy1-Mar-22-suppressed-1-label"></label>
+              <input id="proxy1-Mar-22-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -436,14 +436,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Apr-22-underlying"></label>
-              <input id="proxy1-Apr-22-underlying" type="number" class="form-control" value="1892" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Apr-22-underlying-1" id="proxy1-Apr-22-underlying-1-label"></label>
+              <input id="proxy1-Apr-22-underlying-1" type="number" class="form-control" value="1892" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Apr-22-suppressed"></label>
-              <input id="proxy1-Apr-22-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Apr-22-suppressed-1" id="proxy1-Apr-22-suppressed-1-label"></label>
+              <input id="proxy1-Apr-22-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -453,14 +453,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-May-22-underlying"></label>
-              <input id="proxy1-May-22-underlying" type="number" class="form-control" value="1999" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-May-22-underlying-1" id="proxy1-May-22-underlying-1-label"></label>
+              <input id="proxy1-May-22-underlying-1" type="number" class="form-control" value="1999" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-May-22-suppressed"></label>
-              <input id="proxy1-May-22-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-May-22-suppressed-1" id="proxy1-May-22-suppressed-1-label"></label>
+              <input id="proxy1-May-22-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -470,14 +470,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jun-22-underlying"></label>
-              <input id="proxy1-Jun-22-underlying" type="number" class="form-control" value="1872" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jun-22-underlying-1" id="proxy1-Jun-22-underlying-1-label"></label>
+              <input id="proxy1-Jun-22-underlying-1" type="number" class="form-control" value="1872" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jun-22-suppressed"></label>
-              <input id="proxy1-Jun-22-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jun-22-suppressed-1" id="proxy1-Jun-22-suppressed-1-label"></label>
+              <input id="proxy1-Jun-22-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -487,14 +487,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jul-22-underlying"></label>
-              <input id="proxy1-Jul-22-underlying" type="number" class="form-control" value="1847" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jul-22-underlying-1" id="proxy1-Jul-22-underlying-1-label"></label>
+              <input id="proxy1-Jul-22-underlying-1" type="number" class="form-control" value="1847" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jul-22-suppressed"></label>
-              <input id="proxy1-Jul-22-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jul-22-suppressed-1" id="proxy1-Jul-22-suppressed-1-label"></label>
+              <input id="proxy1-Jul-22-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -504,14 +504,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Aug-22-underlying"></label>
-              <input id="proxy1-Aug-22-underlying" type="number" class="form-control" value="1814" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Aug-22-underlying-1" id="proxy1-Aug-22-underlying-1-label"></label>
+              <input id="proxy1-Aug-22-underlying-1" type="number" class="form-control" value="1814" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Aug-22-suppressed"></label>
-              <input id="proxy1-Aug-22-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Aug-22-suppressed-1" id="proxy1-Aug-22-suppressed-1-label"></label>
+              <input id="proxy1-Aug-22-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -521,14 +521,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Sep-22-underlying"></label>
-              <input id="proxy1-Sep-22-underlying" type="number" class="form-control" value="1933" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Sep-22-underlying-1" id="proxy1-Sep-22-underlying-1-label"></label>
+              <input id="proxy1-Sep-22-underlying-1" type="number" class="form-control" value="1933" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Sep-22-suppressed"></label>
-              <input id="proxy1-Sep-22-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Sep-22-suppressed-1" id="proxy1-Sep-22-suppressed-1-label"></label>
+              <input id="proxy1-Sep-22-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -538,14 +538,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Oct-22-underlying"></label>
-              <input id="proxy1-Oct-22-underlying" type="number" class="form-control" value="2102" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Oct-22-underlying-1" id="proxy1-Oct-22-underlying-1-label"></label>
+              <input id="proxy1-Oct-22-underlying-1" type="number" class="form-control" value="2102" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Oct-22-suppressed"></label>
-              <input id="proxy1-Oct-22-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Oct-22-suppressed-1" id="proxy1-Oct-22-suppressed-1-label"></label>
+              <input id="proxy1-Oct-22-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -555,14 +555,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Nov-22-underlying"></label>
-              <input id="proxy1-Nov-22-underlying" type="number" class="form-control" value="1976" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Nov-22-underlying-1" id="proxy1-Nov-22-underlying-1-label"></label>
+              <input id="proxy1-Nov-22-underlying-1" type="number" class="form-control" value="1976" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Nov-22-suppressed"></label>
-              <input id="proxy1-Nov-22-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Nov-22-suppressed-1" id="proxy1-Nov-22-suppressed-1-label"></label>
+              <input id="proxy1-Nov-22-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -572,14 +572,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Dec-22-underlying"></label>
-              <input id="proxy1-Dec-22-underlying" type="number" class="form-control" value="1735" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Dec-22-underlying-1" id="proxy1-Dec-22-underlying-1-label"></label>
+              <input id="proxy1-Dec-22-underlying-1" type="number" class="form-control" value="1735" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Dec-22-suppressed"></label>
-              <input id="proxy1-Dec-22-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Dec-22-suppressed-1" id="proxy1-Dec-22-suppressed-1-label"></label>
+              <input id="proxy1-Dec-22-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -589,14 +589,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jan-23-underlying"></label>
-              <input id="proxy1-Jan-23-underlying" type="number" class="form-control" value="2075" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jan-23-underlying-1" id="proxy1-Jan-23-underlying-1-label"></label>
+              <input id="proxy1-Jan-23-underlying-1" type="number" class="form-control" value="2075" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Jan-23-suppressed"></label>
-              <input id="proxy1-Jan-23-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Jan-23-suppressed-1" id="proxy1-Jan-23-suppressed-1-label"></label>
+              <input id="proxy1-Jan-23-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -606,14 +606,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Feb-23-underlying"></label>
-              <input id="proxy1-Feb-23-underlying" type="number" class="form-control" value="2456" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Feb-23-underlying-1" id="proxy1-Feb-23-underlying-1-label"></label>
+              <input id="proxy1-Feb-23-underlying-1" type="number" class="form-control" value="2456" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Feb-23-suppressed"></label>
-              <input id="proxy1-Feb-23-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Feb-23-suppressed-1" id="proxy1-Feb-23-suppressed-1-label"></label>
+              <input id="proxy1-Feb-23-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -623,14 +623,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Mar-23-underlying"></label>
-              <input id="proxy1-Mar-23-underlying" type="number" class="form-control" value="1843" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Mar-23-underlying-1" id="proxy1-Mar-23-underlying-1-label"></label>
+              <input id="proxy1-Mar-23-underlying-1" type="number" class="form-control" value="1843" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Mar-23-suppressed"></label>
-              <input id="proxy1-Mar-23-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Mar-23-suppressed-1" id="proxy1-Mar-23-suppressed-1-label"></label>
+              <input id="proxy1-Mar-23-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>
@@ -640,14 +640,14 @@
           </td>
           <td style="padding: 0px 2px 0px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Apr-23-underlying"></label>
-              <input id="proxy1-Apr-23-underlying" type="number" class="form-control" value="1892" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Apr-23-underlying-1" id="proxy1-Apr-23-underlying-1-label"></label>
+              <input id="proxy1-Apr-23-underlying-1" type="number" class="form-control" value="1892" min="0" step="1"/>
             </div>
           </td>
           <td style="padding: 0px 0px 1px 2px;">
             <div class="form-group shiny-input-container">
-              <label class="control-label shiny-label-null" for="proxy1-Apr-23-suppressed"></label>
-              <input id="proxy1-Apr-23-suppressed" type="number" class="form-control" value="0" min="0" step="1"/>
+              <label class="control-label shiny-label-null" for="proxy1-Apr-23-suppressed-1" id="proxy1-Apr-23-suppressed-1-label"></label>
+              <input id="proxy1-Apr-23-suppressed-1" type="number" class="form-control" value="0" min="0" step="1"/>
             </div>
           </td>
         </tr>

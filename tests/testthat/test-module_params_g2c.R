@@ -85,14 +85,14 @@ test_that("it generates the dynamic ui", {
 
     a <- as.character(output$container$html)
     expect_snapshot(a)
-    expect_equal(nchar(a), 3345)
+    expect_equal(nchar(a), 3829)
 
     popn_subgroup("Domestic abuse victims")
     session$private$flush()
 
     b <- as.character(output$container$html)
     expect_snapshot(b)
-    expect_equal(nchar(b), 2347)
+    expect_equal(nchar(b), 2674)
 
     expect_true(a != b)
   })
