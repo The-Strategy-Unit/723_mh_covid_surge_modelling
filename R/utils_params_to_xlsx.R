@@ -37,6 +37,7 @@ params_to_xlsx <- function(params, file) {
     map_dfr(bind_cols, .id = "treatment")
 
   xl$demand <- params$demand %>%
+    as.list() %>%
     bind_rows(.id = "service")
 
   write_xlsx(xl, file)
