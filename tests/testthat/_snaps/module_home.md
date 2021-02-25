@@ -29,22 +29,22 @@
           </div>
           <div class="box-body">
             <div class="form-group shiny-input-container">
-              <label class="control-label" for="a-params_select">Default Parameters</label>
+              <label class="control-label" id="a-params_select-label" for="a-params_select">Default Parameters</label>
               <div>
                 <select id="a-params_select"><option value="params_a.xlsx" selected>params_a.xlsx</option>
       <option value="params_b.xlsx">params_b.xlsx</option>
       <option value="params_c.xlsx">params_c.xlsx</option>
       <option value="custom">Custom</option></select>
-                <script type="application/json" data-for="a-params_select" data-nonempty="">{}</script>
+                <script type="application/json" data-for="a-params_select" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
               </div>
             </div>
             <div class="form-group shiny-input-container shinyjs-hide">
-              <label class="control-label shiny-label-null" for="a-user_upload_xlsx"></label>
+              <label class="control-label shiny-label-null" for="a-user_upload_xlsx" id="a-user_upload_xlsx-label"></label>
               <div class="input-group">
                 <label class="input-group-btn input-group-prepend">
                   <span class="btn btn-default btn-file">
                     Browse...
-                    <input id="a-user_upload_xlsx" name="a-user_upload_xlsx" type="file" style="display: none;" accept=".xlsx"/>
+                    <input id="a-user_upload_xlsx" name="a-user_upload_xlsx" type="file" style="position: absolute !important; top: -99999px !important; left: -99999px !important;" accept=".xlsx"/>
                   </span>
                 </label>
                 <input type="text" class="form-control" placeholder="Previously downloaded parameters" readonly="readonly"/>

@@ -51,9 +51,11 @@ test_that("it reacts to upload events", {
 })
 
 test_that("it creates a table correctly when input$service is changed", {
+  stub(demand_server, "Sys.time", 1)
+
   testServer(demand_server, args = demand_args(), {
     session$setInputs(service = "24/7 Crisis Response Line")
-    expect_equal(nchar(output$container$html), 26702)
+    expect_equal(nchar(output$container$html), 29726)
     expect_snapshot(output$container$html)
   })
 })
@@ -74,6 +76,8 @@ test_that("it handles the observerables for the table correctly", {
 test_that("it updates params correctly", {
   month <- params$demand$`24/7 Crisis Response Line`$month[[1]]
 
+  stub(demand_server, "Sys.time", 1)
+
   testServer(demand_server, args = demand_args(), {
     session$setInputs(service = "24/7 Crisis Response Line")
 
@@ -82,11 +86,11 @@ test_that("it updates params correctly", {
     expect_equal(d()$underlying[[1]], 1999)
     expect_equal(d()$suppressed[[1]], 0)
 
-    session$setInputs("May-20-underlying" = 123,
-                      "May-20-suppressed" = 456)
+    session$setInputs("May-20-underlying-1" = 789,
+                      "May-20-suppressed-1" = 987)
 
 
-    expect_equal(d()$underlying[[1]], 123)
-    expect_equal(d()$suppressed[[1]], 456)
+    expect_equal(d()$underlying[[1]], 789)
+    expect_equal(d()$suppressed[[1]], 987)
   })
 })
