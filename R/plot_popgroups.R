@@ -39,7 +39,7 @@ popgroups_plot_data <- function(model_output, treatment) {
     summarise_model_output("new-referral", treatment) %>%
     summarise(across(.data$value, ~round(sum(.x), 0)), .groups = "drop") %>%
     filter(.data$value != 0) %>%
-    mutate(across(.data$group, fct_reorder, .data$value)) %>%
+    mutate(across(.data$group, fct_reorder, quo(.data$value))) %>%
     arrange(-.data$value) %>%
     rename(`# Referrals` = .data$value)
 }
