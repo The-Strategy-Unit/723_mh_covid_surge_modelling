@@ -27,11 +27,11 @@ test_that("it calls plotly with correct args", {
 
   t <- tibble(treatment = names(treatments),
               split = treatments) %>%
-    mutate(across(.data$split, ~ .x / sum(.x)),
-           across(.data$treatment, ~ .x %>%
+    mutate(across(.data$split, ~ .x / sum(.x))) %>%
+    mutate(across(.data$treatment, ~ .x %>%
                     str_wrap(width = 27) %>%
-                    str_replace_all("\\n", "<br>")),
-           across(.data$treatment, fct_reorder, quo(.data$split))) %>%
+                    str_replace_all("\\n", "<br>"))) %>%
+    mutate(across(.data$treatment, fct_reorder, quo(.data$split))) %>%
     arrange(desc(.data$split))
 
   expect_called(m1, 1)
