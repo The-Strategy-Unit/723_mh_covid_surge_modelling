@@ -40,7 +40,8 @@ test_that("it set's up download handlers correctly", {
   stub(results_server, "tempdir", "tempdir/")
 
   testServer(results_server, args = results_server_args(), {
-    session$setInputs(download_choice = "all")
+    session$setInputs(download_choice = "all",
+                      services = "service")
 
     expect_equal(as.character(output$download_report$html), "download_report")
     expect_equal(as.character(output$download_output$html), "download_output")
@@ -131,6 +132,7 @@ test_that("plots are created correctly", {
   m <- mock()
 
   stub(results_server, "renderPlotly", m)
+  stub(results_server, "req", identity)
   stub(results_server, "referrals_plot", "referrals_plot")
   stub(results_server, "demand_plot", "demand_plot")
   stub(results_server, "create_graph", "create_graph")
@@ -139,7 +141,6 @@ test_that("plots are created correctly", {
 
   testServer(results_server, args = results_server_args(), {
     session$setInputs(services = "IAPT")
-
     expect_called(m, 5)
     expect_args(m, 1, "referrals_plot")
     expect_args(m, 2, "demand_plot")
@@ -157,7 +158,7 @@ test_that("referrals_plot is called correctly", {
     session$setInputs(services = "IAPT")
 
     expect_called(m, 1)
-    expect_call(m, 1, referrals_plot(model_output(), input$services))
+    expect_call(m, 1, referrals_plot(model_output(), services))
   })
 })
 
@@ -169,7 +170,7 @@ test_that("demand_plot is called correctly", {
     session$setInputs(services = "IAPT")
 
     expect_called(m, 1)
-    expect_call(m, 1, demand_plot(model_output(), appointments(), input$services))
+    expect_call(m, 1, demand_plot(model_output(), appointments(), services))
   })
 })
 
@@ -181,7 +182,7 @@ test_that("create_graph is called correctly", {
     session$setInputs(services = "IAPT")
 
     expect_called(m, 1)
-    expect_call(m, 1, create_graph(model_output(), treatments = input$services))
+    expect_call(m, 1, create_graph(model_output(), treatments = services))
   })
 })
 
@@ -193,7 +194,7 @@ test_that("popgroups_plot is called correctly", {
     session$setInputs(services = "IAPT")
 
     expect_called(m, 1)
-    expect_call(m, 1, popgroups_plot(model_output(), input$services))
+    expect_call(m, 1, popgroups_plot(model_output(), services))
   })
 })
 
