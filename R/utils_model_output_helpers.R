@@ -86,8 +86,8 @@ surge_summary <- function(model_output, column) {
     group_by(.data$type, {{column}}) %>%
     summarise(across(.data$value, sum), .groups = "drop") %>%
     pivot_wider(names_from = .data$type, values_from = .data$value) %>%
-    mutate(across({{column}}, fct_reorder, quo(.data$`new-referral`)),
-           across(starts_with("new-"), compose(as.integer, round))) %>%
+    mutate(across({{column}}, fct_reorder, quo(.data$`new-referral`))) %>%
+    mutate(across(starts_with("new-"), compose(as.integer, round))) %>%
     arrange(desc(.data$`new-referral`)) %>%
     rename(group = {{column}})
 }
