@@ -27,16 +27,20 @@ results_ui <- function(id) {
       c("Selected Service" = "selected", "All Services" = "all"),
       inline = TRUE
     ),
-    downloadButton(
-      NS(id, "download_report"),
-      "Download report (.pdf)"
-    ),
+    disabled({
+      downloadButton(
+        NS(id, "download_report"),
+        "Download report (.pdf)"
+      )
+    }),
     tags$br(),
     tags$br(),
-    downloadButton(
-      NS(id, "download_output"),
-      "Download model output (.csv)"
-    )
+    disabled({
+      downloadButton(
+        NS(id, "download_output"),
+        "Download model output (.csv)"
+      )
+    })
   )
 
   results_value_boxes <- primary_box(
@@ -132,6 +136,24 @@ results_server <- function(id, params, model_output) {
             "model_output must be a reactive" = is.reactive(model_output))
 
   moduleServer(id, function(input, output, session) {
+    # disable buttons whenever the state is changes
+    observeEvent(model_output(), {
+      shinyjs::disable("download_report")
+      shinyjs::disable("download_output")
+
+      model_output()
+    }, priority = 100)
+
+    # renable the buttons only if state is valid
+    observeEvent(model_output(), {
+      req(input$services)
+      req(input$download_choice)
+      o <- req(model_output())
+      req(nrow(o) > 0)
+
+      shinyjs::enable("download_report")
+      shinyjs::enable("download_output")
+    }, priority = -100)
 
     output$download_report <- downloadHandler(
       filename = function() {
@@ -141,18 +163,19 @@ results_server <- function(id, params, model_output) {
           if (input$download_choice == "all") {
             "AllServices"
           } else {
-            gsub(" ", "", input$services, fixed = TRUE)
+            gsub(" ", "", req(input$services), fixed = TRUE)
           },
           ".pdf"
         )
       },
       content = function(file) {
         model_output <- model_output()
+
         params <- reactiveValuesToList(params)
         services <- if (input$download_choice == "all") {
           names(params$treatments)
         } else {
-          input$services
+          req(input$services)
         }
 
         rmarkdown::render(
@@ -188,19 +211,23 @@ results_server <- function(id, params, model_output) {
     })
 
     output$referrals_plot <- renderPlotly({
-      referrals_plot(model_output(), input$services)
+      services <- req(input$services)
+      referrals_plot(model_output(), services)
     })
 
     output$demand_plot <- renderPlotly({
-      demand_plot(model_output(), appointments(), input$services)
+      services <- req(input$services)
+      demand_plot(model_output(), appointments(), services)
     })
 
     output$graph <- renderPlotly({
-      create_graph(model_output(), treatments = input$services)
+      services <- req(input$services)
+      create_graph(model_output(), treatments = services)
     })
 
     output$combined_plot <- renderPlotly({
-      combined_plot(model_output(), input$services, reactiveValuesToList(params))
+      services <- req(input$services)
+      combined_plot(model_output(), services, reactiveValuesToList(params))
     })
 
     # Output boxes
@@ -213,20 +240,24 @@ results_server <- function(id, params, model_output) {
     ) %>%
       pmap(function(output_id, value_type, text) {
         output[[output_id]] <- renderValueBox({
+          services <- req(input$services)
           value <- model_output() %>%
-            model_totals(value_type, input$services)
+            model_totals(value_type, services)
           valueBox(value, text)
         })
       })
 
     pcnt_surgedemand_denominator <- reactive({
-      params$demand[[input$services]] %>%
+      services <- req(input$services)
+
+      params$demand[[services]] %>%
         filter(.data$month < min(.data$month) %m+% months(12)) %>%
         pull("underlying") %>%
         sum()
     })
 
     output$pcnt_surgedemand <- renderValueBox({
+      services <- req(input$services)
       denominator <- pcnt_surgedemand_denominator()
 
       value <- if (denominator == 0) {
@@ -235,7 +266,7 @@ results_server <- function(id, params, model_output) {
         numerator <- model_output() %>%
           filter(day(.data$date) == 1,
                  .data$type == "new-referral",
-                 .data$treatment == input$services) %>%
+                 .data$treatment == services) %>%
           pull(.data$value) %>%
           sum()
 
@@ -245,6 +276,8 @@ results_server <- function(id, params, model_output) {
     })
 
     output$pct_surgedemand_table <- renderTable({
+      services <- req(input$services)
+
       date_to_n_months <- function(d) {
         as.integer(year(d) * 12L + month(d))
       }
@@ -256,7 +289,7 @@ results_server <- function(id, params, model_output) {
         model_output() %>%
           filter(day(.data$date) == 1,
                  .data$type == "new-referral",
-                 .data$treatment == input$services) %>%
+                 .data$treatment == services) %>%
           mutate(d1 = date_to_n_months(.data$date),
                  d2 = date_to_n_months(min(.data$date))) %>%
           group_by(Year = paste("Y", (.data$d1 - .data$d2) %/% 12L + 1)) %>%
@@ -273,7 +306,8 @@ results_server <- function(id, params, model_output) {
     })
 
     output$results_popgroups <- renderPlotly({
-      popgroups_plot(model_output(), input$services)
+      services <- req(input$services)
+      popgroups_plot(model_output(), services)
     })
 
     help_popups("results") %>%
