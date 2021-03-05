@@ -56,7 +56,7 @@ g2c_server <- function(id, params, redraw_g2c, redraw_c2t, counter, popn_subgrou
         # create the no mental health group slider
         nmh_slider <- disabled(
           sliderInput(
-            NS(id, paste0("slider_cond_pcnt_no_mh_needs", "_", ts)),
+            NS(id, paste0("slider_cond_pcnt_no_mh_needs_", ts)),
             "No Mental Health Needs",
             value = 0,
             min = 0, max = 100, step = 0.01, post = "%"
