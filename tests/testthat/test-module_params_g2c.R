@@ -23,12 +23,13 @@ test_that("condition_slider_name() returns correct names", {
   stub(g2c_server,
        "reduce_condition_pcnts",
        function(conditions, ...) conditions)
+  stub(g2c_server, "Sys.time", 1)
 
   testServer(g2c_server, args = params_g2c_args(), {
     expect_equal(condition_slider_name("a"),
-                 "slider_cond_pcnt_a")
+                 "slider_cond_pcnt_a_1")
     expect_equal(condition_slider_name("a b"),
-                 "slider_cond_pcnt_a_b")
+                 "slider_cond_pcnt_a_b_1")
   })
 })
 
@@ -76,6 +77,7 @@ test_that("it generates the dynamic ui", {
   stub(g2c_server,
        "reduce_condition_pcnts",
        function(conditions, ...) conditions)
+  stub(g2c_server, "Sys.time", 1)
 
   testServer(g2c_server, args = params_g2c_args(), {
     cv <- counter$get()
@@ -85,14 +87,14 @@ test_that("it generates the dynamic ui", {
 
     a <- as.character(output$container$html)
     expect_snapshot(a)
-    expect_equal(nchar(a), 3829)
+    expect_equal(nchar(a), 3871)
 
     popn_subgroup("Domestic abuse victims")
     session$private$flush()
 
     b <- as.character(output$container$html)
     expect_snapshot(b)
-    expect_equal(nchar(b), 2674)
+    expect_equal(nchar(b), 2704)
 
     expect_true(a != b)
   })
@@ -125,12 +127,13 @@ test_that("changing popn_subgroup() will cause previous observers to be destroye
 test_that("it calles reduce_condition_pcnts", {
   m <- mock()
   stub(g2c_server, "reduce_condition_pcnts", m)
+  stub(g2c_server, "Sys.time", 1)
 
   testServer(g2c_server, args = params_g2c_args(), {
     cv <- counter$get()
     redraw_g2c(cv)
     popn_subgroup("Children & young people")
-    session$setInputs(slider_cond_pcnt_Anxiety = 1)
+    session$setInputs(slider_cond_pcnt_Anxiety_1 = 1)
 
     expect_called(m, 1)
     expect_call(m, 1, reduce_condition_pcnts(conditions, discard(condition_names, ~.x == i)))
@@ -149,25 +152,26 @@ test_that("changing values in the dynamic ui updates params", {
 
   m <- mock()
   stub(g2c_server, "updateSliderInput", m)
+  stub(g2c_server, "Sys.time", 1)
 
   testServer(g2c_server, args = params_g2c_args(), {
     expect_equal(params$groups$`Children & young people`$conditions$Anxiety$pcnt, 0.12)
     cv <- counter$get()
     redraw_g2c(cv)
     popn_subgroup("Children & young people")
-    session$setInputs(slider_cond_pcnt_Anxiety = 1)
+    session$setInputs(slider_cond_pcnt_Anxiety_1 = 1)
 
     expect_equal(params$groups$`Children & young people`$conditions$Anxiety$pcnt, 0.01)
     expect_true(all(map_dbl(params$groups$`Children & young people`$conditions[-1], "pcnt") == 0))
 
     expect_called(m, 7)
 
-    expect_args(m, 1, session, "slider_cond_pcnt_Anxiety", value = 1)
-    expect_args(m, 2, session, "slider_cond_pcnt_Depression", value = 0)
-    expect_args(m, 3, session, "slider_cond_pcnt_Neurological_symptom_disorder_(ADHD/Aspergers)", value = 0)
-    expect_args(m, 4, session, "slider_cond_pcnt_PTSD", value = 0)
-    expect_args(m, 5, session, "slider_cond_pcnt_Self_harm", value = 0)
-    expect_args(m, 6, session, "slider_cond_pcnt_Stress_and_Distress", value = 0)
+    expect_args(m, 1, session, "slider_cond_pcnt_Anxiety_1", value = 1)
+    expect_args(m, 2, session, "slider_cond_pcnt_Depression_1", value = 0)
+    expect_args(m, 3, session, "slider_cond_pcnt_Neurological_symptom_disorder_(ADHD/Aspergers)_1", value = 0)
+    expect_args(m, 4, session, "slider_cond_pcnt_PTSD_1", value = 0)
+    expect_args(m, 5, session, "slider_cond_pcnt_Self_harm_1", value = 0)
+    expect_args(m, 6, session, "slider_cond_pcnt_Stress_and_Distress_1", value = 0)
     expect_args(m, 7, session, "slider_cond_pcnt_no_mh_needs", value = 99)
   })
 })
