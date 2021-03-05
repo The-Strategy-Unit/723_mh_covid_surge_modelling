@@ -31,7 +31,9 @@ g2c_server <- function(id, params, redraw_g2c, redraw_c2t, counter, popn_subgrou
     observers <- list()
 
     condition_slider_name <- function(condition) {
-      gsub(" ", "_", paste0("slider_cond_pcnt_", condition))
+      # add timestamp to input names
+      ts <- as.numeric(Sys.time())
+      gsub(" ", "_", paste0("slider_cond_pcnt_", condition, "_", ts))
     }
 
     output$container <- renderUI({
@@ -48,10 +50,13 @@ g2c_server <- function(id, params, redraw_g2c, redraw_c2t, counter, popn_subgrou
         # first, remove the previous sliders and observers
         walk(observers, ~.x$destroy())
 
+        # add timestamp to input names
+        ts <- as.numeric(Sys.time())
+
         # create the no mental health group slider
         nmh_slider <- disabled(
           sliderInput(
-            NS(id, "slider_cond_pcnt_no_mh_needs"),
+            NS(id, paste0("slider_cond_pcnt_no_mh_needs", "_", ts)),
             "No Mental Health Needs",
             value = 0,
             min = 0, max = 100, step = 0.01, post = "%"
