@@ -172,6 +172,6 @@ test_that("changing values in the dynamic ui updates params", {
     expect_args(m, 4, session, "slider_cond_pcnt_PTSD_1", value = 0)
     expect_args(m, 5, session, "slider_cond_pcnt_Self_harm_1", value = 0)
     expect_args(m, 6, session, "slider_cond_pcnt_Stress_and_Distress_1", value = 0)
-    expect_args(m, 7, session, "slider_cond_pcnt_no_mh_needs", value = 99)
+    expect_args(m, 7, session, "slider_cond_pcnt_no_mh_needs_1", value = 99)
   })
 })
