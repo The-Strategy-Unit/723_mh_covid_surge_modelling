@@ -53,6 +53,9 @@ c2t_server <- function(id, params, redraw_c2t, counter, popn_subgroup, condition
         # now, add the new sliders
         px <- params$groups[[sg]]$conditions[[ssc]]
 
+        # add timestamp to input names
+        ts <- as.numeric(Sys.time())
+
         table_style <- "padding: 0px 5px 0px 0px;"
         x <- px$treatments %>%
           names() %>%
@@ -61,10 +64,10 @@ c2t_server <- function(id, params, redraw_c2t, counter, popn_subgroup, condition
             # slider names can't have spaces, replace with _
             ix <- gsub(" ", "_", i)
 
-            split_input_name <- paste0("numeric_treat_split_", ix)
+            split_input_name <- paste0("numeric_treat_split_", ix, "_", ts)
             split_input <- numericInput(NS(id, split_input_name), NULL, value = px$treatments[[i]], width = "75px")
 
-            split_pcnt_name <- paste0("pcnt_treat_split_", ix)
+            split_pcnt_name <- paste0("pcnt_treat_split_", ix, "_", ts)
             split_pcnt <- textOutput(NS(id, split_pcnt_name), inline = TRUE)
 
             output[[split_pcnt_name]] <- renderText({

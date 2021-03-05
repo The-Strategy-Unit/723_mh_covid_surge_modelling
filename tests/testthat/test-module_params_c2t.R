@@ -45,6 +45,8 @@ test_that("changing the dropdown triggers redraw c2t", {
 })
 
 test_that("changing the dropdown updates the container", {
+  stub(c2t_server, "Sys.time", 1)
+
   testServer(c2t_server, args = params_c2t_server_args(), {
     popn_subgroup("Children & young people")
     session$setInputs("sliders_select_cond" = "Anxiety")
@@ -73,6 +75,8 @@ test_that("changing the drop down updates the observers correctly", {
 })
 
 test_that("changing the drop down updates the observers correctly", {
+  stub(c2t_server, "Sys.time", 1)
+
   testServer(c2t_server, args = params_c2t_server_args(), {
     sg <- "Children & young people"
     sc <- "Anxiety"
@@ -82,12 +86,14 @@ test_that("changing the drop down updates the observers correctly", {
     session$setInputs("sliders_select_cond" = sc)
 
     expect_equal(params$groups[[sg]]$conditions[[sc]]$treatments[[st]], 3)
-    session$setInputs("numeric_treat_split_24/7_Crisis_Response_Line" = 100)
+    session$setInputs("numeric_treat_split_24/7_Crisis_Response_Line_1" = 100)
     expect_equal(params$groups[[sg]]$conditions[[sc]]$treatments[[st]], 100)
   })
 })
 
 test_that("updating the treat split values updates the text output", {
+  stub(c2t_server, "Sys.time", 1)
+
   testServer(c2t_server, args = params_c2t_server_args(), {
 
     sg <- "Children & young people"
@@ -97,18 +103,19 @@ test_that("updating the treat split values updates the text output", {
     popn_subgroup(sg)
     session$setInputs("sliders_select_cond" = sc)
 
-    expect_equal(session$output[["pcnt_treat_split_24/7_Crisis_Response_Line"]], "3.0%")
-    expect_equal(session$output[["pcnt_treat_split_IAPT"]], "39.0%")
+    expect_equal(session$output[["pcnt_treat_split_24/7_Crisis_Response_Line_1"]], "3.0%")
+    expect_equal(session$output[["pcnt_treat_split_IAPT_1"]], "39.0%")
 
-    session$setInputs("numeric_treat_split_24/7_Crisis_Response_Line" = 10)
-    expect_equal(session$output[["pcnt_treat_split_24/7_Crisis_Response_Line"]], "9.3%")
-    expect_equal(session$output[["pcnt_treat_split_IAPT"]], "36.4%")
+    session$setInputs("numeric_treat_split_24/7_Crisis_Response_Line_1" = 10)
+    expect_equal(session$output[["pcnt_treat_split_24/7_Crisis_Response_Line_1"]], "9.3%")
+    expect_equal(session$output[["pcnt_treat_split_IAPT_1"]], "36.4%")
   })
 })
 
 test_that("updating the treatment parameters re-renders the plot", {
   m <- mock()
   stub(c2t_server, "treatment_split_plot", m)
+  stub(c2t_server, "Sys.time", 1)
 
   testServer(c2t_server, args = params_c2t_server_args(), {
     sg <- "Children & young people"
@@ -119,7 +126,7 @@ test_that("updating the treatment parameters re-renders the plot", {
     session$setInputs("sliders_select_cond" = sc)
 
     # change the value of an input to trigger re-render
-    session$setInputs("numeric_treat_split_24/7_Crisis_Response_Line" = 10)
+    session$setInputs("numeric_treat_split_24/7_Crisis_Response_Line_1" = 10)
   })
 
   # called twice because of calling setInputs

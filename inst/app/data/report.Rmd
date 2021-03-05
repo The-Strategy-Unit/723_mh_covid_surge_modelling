@@ -1,11 +1,9 @@
 ---
 output: 
-  pdf_document:
+  html_document:
     toc: true
-papersize: a4
-classoption: landscape
-geometry: margin=1in
-title: "\\vspace{-3cm} Modelled Results by Service"
+    self_contained: true
+title: "Modelled Results by Service"
 ---
 
 ```{r setup, echo = FALSE, include = FALSE}
