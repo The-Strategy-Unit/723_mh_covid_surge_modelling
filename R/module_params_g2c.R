@@ -79,7 +79,7 @@ g2c_server <- function(id, params, redraw_g2c, redraw_c2t, counter, popn_subgrou
           })
 
           updateSliderInput(session,
-                            "slider_cond_pcnt_no_mh_needs",
+                            paste0("slider_cond_pcnt_no_mh_needs_", ts),
                             value = (1 - sum(map_dbl(conditions, "pcnt"))) * 100)
 
           # update the params object
