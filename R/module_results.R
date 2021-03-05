@@ -30,7 +30,7 @@ results_ui <- function(id) {
     disabled({
       downloadButton(
         NS(id, "download_report"),
-        "Download report (.pdf)"
+        "Download report (.html)"
       )
     }),
     tags$br(),
@@ -165,7 +165,7 @@ results_server <- function(id, params, model_output) {
           } else {
             gsub(" ", "", req(input$services), fixed = TRUE)
           },
-          ".pdf"
+          ".html"
         )
       },
       content = function(file) {
