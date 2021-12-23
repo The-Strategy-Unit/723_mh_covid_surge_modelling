@@ -31,7 +31,7 @@
                 </li>
                 <li>
                   <a href="#shiny-tab-params" data-toggle="tab" data-value="params">
-                    <i class="fa fa-dashboard" role="presentation" aria-label="dashboard icon"></i>
+                    <i class="fa fa-tachometer-alt" role="presentation" aria-label="tachometer-alt icon"></i>
                     <span>Parameters</span>
                   </a>
                 </li>

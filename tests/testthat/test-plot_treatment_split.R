@@ -31,7 +31,7 @@ test_that("it calls plotly with correct args", {
     mutate(across(.data$treatment, ~ .x %>%
                     str_wrap(width = 27) %>%
                     str_replace_all("\\n", "<br>"))) %>%
-    mutate(across(.data$treatment, fct_reorder, quo(.data$split))) %>%
+    mutate(across(.data$treatment, fct_reorder, .data$split)) %>%
     arrange(desc(.data$split))
 
   expect_called(m1, 1)

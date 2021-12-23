@@ -39,7 +39,7 @@ app_ui <- function(request) {
           menuItem(
             "Parameters",
             tabName = "params",
-            icon = icon("dashboard")
+            icon = icon("tachometer-alt")
           ),
           menuItem(
             "Demand",

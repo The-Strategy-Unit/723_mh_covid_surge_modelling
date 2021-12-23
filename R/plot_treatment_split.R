@@ -19,7 +19,7 @@ treatment_split_plot <- function(treatments) {
            across(.data$treatment, ~ .x %>%
                     str_wrap(width = 27) %>%
                     str_replace_all("\\n", "<br>")),
-           across(.data$treatment, fct_reorder, quo(.data$split))) %>%
+           across(.data$treatment, fct_reorder, .data$split)) %>%
     arrange(desc(.data$split)) %>%
     plot_ly(
       x = ~ split,
